@@ -9,3 +9,10 @@ export const createTechnologySchema = z.object({
 export type CreateTechnologyInput = z.infer<
   typeof createTechnologySchema
 >;
+
+export const updateTechnologySchema =
+  createTechnologySchema.partial();
+
+export type UpdateTechnologyInput = z.infer<
+  typeof updateTechnologySchema
+>;

@@ -1,81 +1,46 @@
 import { NextRequest, NextResponse } from "next/server";
-import { UserService } from "@/services/user.service";
-import { updateUserSchema } from "@/validators/user";
+import { ProjectService } from "@/services/project.service";
+import { createProjectSchema } from "@/validators/project";
 
-interface RouteParams {
-  params: Promise<{
-    id: string;
-  }>;
+export async function GET() {
+  try {
+    const projects = await ProjectService.getProjects();
+
+    return NextResponse.json(projects);
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      { error: "Failed to fetch projects." },
+      { status: 500 }
+    );
+  }
 }
 
-export async function GET(
-  request: NextRequest,
-  { params }: RouteParams
-) {
+export async function POST(req: NextRequest) {
   try {
-    const { id } = await params;
+    const body = await req.json();
 
-    const user = await UserService.getUser(id);
+    const data = createProjectSchema.parse(body);
+    const userId = body.userId;
 
-    if (!user) {
+    if (!userId) {
       return NextResponse.json(
-        { error: "User not found." },
-        { status: 404 }
+        { error: "userId is required to create a project." },
+        { status: 400 }
       );
     }
 
-    return NextResponse.json(user);
-  } catch (error) {
-    console.error(error);
+    const project = await ProjectService.createProject(data, userId);
 
-    return NextResponse.json(
-      { error: "Failed to fetch user." },
-      { status: 500 }
-    );
-  }
-}
-
-export async function PATCH(
-  request: NextRequest,
-  { params }: RouteParams
-) {
-  try {
-    const { id } = await params;
-
-    const body = await request.json();
-
-    const data = updateUserSchema.parse(body);
-
-    const updatedUser = await UserService.updateUser(id, data);
-
-    return NextResponse.json(updatedUser);
-  } catch (error) {
-    console.error(error);
-
-    return NextResponse.json(
-      { error: "Failed to update user." },
-      { status: 500 }
-    );
-  }
-}
-
-export async function DELETE(
-  request: NextRequest,
-  { params }: RouteParams
-) {
-  try {
-    const { id } = await params;
-
-    await UserService.deleteUser(id);
-
-    return NextResponse.json({
-      message: "User deleted successfully.",
+    return NextResponse.json(project, {
+      status: 201,
     });
   } catch (error) {
     console.error(error);
 
     return NextResponse.json(
-      { error: "Failed to delete user." },
+      { error: "Failed to create project." },
       { status: 500 }
     );
   }
