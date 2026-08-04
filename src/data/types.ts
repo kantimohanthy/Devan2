@@ -14,8 +14,8 @@ export interface KnowledgeNode {
   summary: string;
   detail: string;
   projects: string[];
-  x: number;
-  y: number;
+  x?: number;
+  y?: number;
 }
 
 export interface KnowledgeEdge {

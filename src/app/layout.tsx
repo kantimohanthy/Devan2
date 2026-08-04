@@ -3,10 +3,9 @@ import "@fontsource-variable/inter";
 import "@fontsource-variable/inter/wght-italic.css";
 import "./globals.css";
 import { CursorField } from "@/components/CursorField";
+import CommandPalette from "@/components/ui/CommandPalette";
 
 // Public product name: DEVAN — "The Eye of UJ".
-// Internally the codebase, repo, and data model remain UJ.OS; that name
-// must never surface in visible copy, metadata, or SEO.
 export const metadata: Metadata = {
   title: "DEVAN — The Eye of UJ",
   description:
@@ -19,6 +18,21 @@ export const metadata: Metadata = {
   },
 };
 
+const personLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Ujwal Shyam Kantimohanthy",
+  alternateName: "UJ",
+  url: "https://kantimohanthy.github.io",
+  sameAs: [
+    "https://github.com/kantimohanthy",
+    "https://linkedin.com/in/ujwalshyam-kantimohanthy",
+  ],
+  jobTitle: "Internet Engineer",
+  description:
+    "Internet engineer working across networking, AI systems, and space infrastructure.",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,9 +40,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }}
+        />
+      </head>
       <body className="antialiased">
         <CursorField />
         <div className="relative z-10">{children}</div>
+        <CommandPalette />
       </body>
     </html>
   );
