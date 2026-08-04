@@ -1,37 +1,82 @@
 import { NextRequest, NextResponse } from "next/server";
 import { UserService } from "@/services/user.service";
-import { createUserSchema } from "@/validators/user";
+import { updateUserSchema } from "@/validators/user";
 
-export async function GET() {
+interface RouteParams {
+  params: Promise<{
+    id: string;
+  }>;
+}
+
+export async function GET(
+  request: NextRequest,
+  { params }: RouteParams
+) {
   try {
-    const users = await UserService.getUsers();
+    const { id } = await params;
 
-    return NextResponse.json(users);
+    const user = await UserService.getUser(id);
+
+    if (!user) {
+      return NextResponse.json(
+        { error: "User not found." },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json(user);
   } catch (error) {
     console.error(error);
 
     return NextResponse.json(
-      { error: "Failed to fetch users." },
+      { error: "Failed to fetch user." },
       { status: 500 }
     );
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function PATCH(
+  request: NextRequest,
+  { params }: RouteParams
+) {
   try {
+    const { id } = await params;
+
     const body = await request.json();
 
-    const data = createUserSchema.parse(body);
+    const data = updateUserSchema.parse(body);
 
-    const user = await UserService.createUser(data);
+    const updatedUser = await UserService.updateUser(id, data);
 
-    return NextResponse.json(user, { status: 201 });
+    return NextResponse.json(updatedUser);
   } catch (error) {
     console.error(error);
 
     return NextResponse.json(
-      { error: "Failed to create user." },
-      { status: 400 }
+      { error: "Failed to update user." },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: RouteParams
+) {
+  try {
+    const { id } = await params;
+
+    await UserService.deleteUser(id);
+
+    return NextResponse.json({
+      message: "User deleted successfully.",
+    });
+  } catch (error) {
+    console.error(error);
+
+    return NextResponse.json(
+      { error: "Failed to delete user." },
+      { status: 500 }
     );
   }
 }

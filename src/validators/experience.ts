@@ -10,10 +10,13 @@ export const createExperienceSchema = z.object({
   startDate: z.coerce.date(),
 
   endDate: z.coerce.date().optional(),
-
-  current: z.boolean().default(false),
 });
 
-export type CreateExperienceInput = z.infer<
-  typeof createExperienceSchema
->;
+export const updateExperienceSchema =
+  createExperienceSchema.partial();
+
+export type CreateExperienceInput =
+  z.infer<typeof createExperienceSchema>;
+
+export type UpdateExperienceInput =
+  z.infer<typeof updateExperienceSchema>;
