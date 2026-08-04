@@ -7,6 +7,7 @@ import { Tag } from "@/components/ui/Tag";
 import { knowledgeNodes, knowledgeEdges } from "@/data/content";
 import type { NodeId } from "@/data/types";
 import { AnimatePresence, motion } from "framer-motion";
+import { usePresence } from "@/hooks/usePresence";
 
 // react-force-graph touches window at import time — must be client-only, no SSR
 const ForceGraph2D = dynamic(() => import("react-force-graph-2d"), {
@@ -18,6 +19,7 @@ const nodeById = Object.fromEntries(knowledgeNodes.map((n) => [n.id, n]));
 export function KnowledgeGraph() {
   const [activeNodeId, setActiveNodeId] = useState<NodeId>("networking");
   const fgRef = useRef<any>(null);
+  const peers = usePresence(activeNodeId);
 
   const activeNode = nodeById[activeNodeId] || knowledgeNodes[0];
 
@@ -65,6 +67,16 @@ export function KnowledgeGraph() {
     >
       <div className="grid gap-6 lg:grid-cols-5">
         <div className="relative h-[500px] w-full overflow-hidden rounded-2xl border border-white/10 bg-black/40 lg:col-span-3">
+          {/* Peer presence indicator */}
+          <div className="absolute top-3 right-3 z-10 flex items-center gap-2 rounded-full border border-white/10 bg-black/60 px-3 py-1 text-xs text-white/70 backdrop-blur">
+            <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>
+              {peers.length > 0
+                ? `${peers.length} peer${peers.length > 1 ? "s" : ""} exploring live`
+                : "Live topology active"}
+            </span>
+          </div>
+
           <ForceGraph2D
             ref={fgRef}
             graphData={graphData}

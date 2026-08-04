@@ -3,6 +3,7 @@ import { Footer } from "@/components/Footer";
 import { Landing } from "@/components/sections/Landing";
 import { Identity } from "@/components/sections/Identity";
 import { KnowledgeGraph } from "@/components/sections/KnowledgeGraph";
+import { LiveDiagnostics } from "@/components/sections/LiveDiagnostics";
 import { Projects } from "@/components/sections/Projects";
 import { Research } from "@/components/sections/Research";
 import { Experiments } from "@/components/sections/Experiments";
@@ -23,6 +24,7 @@ export default function Home() {
         <Landing />
         <Identity />
         <KnowledgeGraph />
+        <LiveDiagnostics />
         <Projects />
         <Research />
         <Experiments />
