@@ -5,9 +5,14 @@ export const createSkillSchema = z.object({
 
   category: z.string().min(2).max(100),
 
-  level: z.number().min(1).max(10),
+  level: z.number().int().min(1).max(10),
 });
 
-export type CreateSkillInput = z.infer<
-  typeof createSkillSchema
->;
+export const updateSkillSchema =
+  createSkillSchema.partial();
+
+export type CreateSkillInput =
+  z.infer<typeof createSkillSchema>;
+
+export type UpdateSkillInput =
+  z.infer<typeof updateSkillSchema>;
