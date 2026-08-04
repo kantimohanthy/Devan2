@@ -1,7 +1,6 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { Landing } from "@/components/sections/Landing";
-import { Identity } from "@/components/sections/Identity";
+import { IdentityReveal } from "@/components/sections/IdentityReveal";
 import { KnowledgeGraph } from "@/components/sections/KnowledgeGraph";
 import { LiveDiagnostics } from "@/components/sections/LiveDiagnostics";
 import { Projects } from "@/components/sections/Projects";
@@ -16,15 +15,21 @@ import { Vision } from "@/components/sections/Vision";
 import { Notebook } from "@/components/sections/Notebook";
 import { Contact } from "@/components/sections/Contact";
 
+export const revalidate = 3600;
+
 export default function Home() {
   return (
     <>
       <Navbar />
-      <main>
-        <Landing />
-        <Identity />
-        <KnowledgeGraph />
-        <LiveDiagnostics />
+      <main className="min-h-screen text-white">
+        {/* Viewport 1: Live Systems First — Zero paragraphs */}
+        <section className="min-h-screen flex flex-col justify-center gap-8 px-6 pt-24 pb-16 max-w-7xl mx-auto">
+          <IdentityReveal />
+          <KnowledgeGraph />
+          <LiveDiagnostics />
+        </section>
+
+        {/* Reached by scroll or direct navigation */}
         <Projects />
         <Research />
         <Experiments />
