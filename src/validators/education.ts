@@ -12,6 +12,11 @@ export const createEducationSchema = z.object({
   endYear: z.number().int().min(1900).optional(),
 });
 
-export type CreateEducationInput = z.infer<
-  typeof createEducationSchema
->;
+export const updateEducationSchema =
+  createEducationSchema.partial();
+
+export type CreateEducationInput =
+  z.infer<typeof createEducationSchema>;
+
+export type UpdateEducationInput =
+  z.infer<typeof updateEducationSchema>;
