@@ -53,6 +53,7 @@ export const identity = {
 export const knowledgeNodes: KnowledgeNode[] = [
   {
     id: "networking",
+    domain: "build",
     label: "Networking",
     summary: "Internet engineering, protocols, rural connectivity",
     detail:
@@ -63,6 +64,7 @@ export const knowledgeNodes: KnowledgeNode[] = [
   },
   {
     id: "ai",
+    domain: "explore",
     label: "AI",
     summary: "Multi-agent systems, applied ML pipelines",
     detail:
@@ -73,6 +75,7 @@ export const knowledgeNodes: KnowledgeNode[] = [
   },
   {
     id: "cloud",
+    domain: "lead",
     label: "Cloud",
     summary: "Inference infrastructure, deployment",
     detail:
@@ -83,6 +86,7 @@ export const knowledgeNodes: KnowledgeNode[] = [
   },
   {
     id: "cybersecurity",
+    domain: "build",
     label: "Cybersecurity",
     summary: "Network hardening, evidence integrity",
     detail:
@@ -93,6 +97,7 @@ export const knowledgeNodes: KnowledgeNode[] = [
   },
   {
     id: "systems",
+    domain: "build",
     label: "Systems",
     summary: "Pipelines, schemas, protocol-level design",
     detail:
@@ -103,6 +108,7 @@ export const knowledgeNodes: KnowledgeNode[] = [
   },
   {
     id: "finance",
+    domain: "understand",
     label: "Finance",
     summary: "Market structure, venture evaluation",
     detail:
@@ -113,6 +119,7 @@ export const knowledgeNodes: KnowledgeNode[] = [
   },
   {
     id: "space",
+    domain: "explore",
     label: "Space",
     summary: "Satellite comms, space-sector intelligence",
     detail:
@@ -123,6 +130,7 @@ export const knowledgeNodes: KnowledgeNode[] = [
   },
   {
     id: "distributed-systems",
+    domain: "build",
     label: "Distributed Systems",
     summary: "Graphs, consensus, multi-agent coordination",
     detail:

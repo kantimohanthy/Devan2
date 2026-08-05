@@ -1,10 +1,7 @@
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { SystemControlHeader } from "@/components/ui/SystemControlHeader";
-import { IdentityReveal } from "@/components/sections/IdentityReveal";
+import { Hero } from "@/components/sections/Hero";
 import { KnowledgeGraph } from "@/components/sections/KnowledgeGraph";
-import { LiveDiagnostics } from "@/components/sections/LiveDiagnostics";
-import { InteractiveTerminal } from "@/components/ui/InteractiveTerminal";
 import { Projects } from "@/components/sections/Projects";
 import { Research } from "@/components/sections/Research";
 import { Experiments } from "@/components/sections/Experiments";
@@ -23,17 +20,12 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="min-h-screen text-white">
-        {/* Viewport 1: Live Systems Control Center — Zero Paragraphs */}
-        <section className="min-h-screen flex flex-col justify-center gap-6 px-4 sm:px-6 pt-24 pb-16 max-w-7xl mx-auto">
-          <SystemControlHeader />
-          <IdentityReveal />
-          <KnowledgeGraph />
-          <LiveDiagnostics />
-          <InteractiveTerminal />
-        </section>
+      <main className="min-h-screen text-[var(--text)] bg-[var(--bg)]">
+        {/* Viewport 1: Elevated Hero with Domain Navigation & Bare Graph */}
+        <Hero />
 
-        {/* Deep Engineering Evidence & Narrative (Below the Fold) */}
+        {/* Narrative & Deep System Evidence (Below the Fold) */}
+        <KnowledgeGraph />
         <Projects />
         <Research />
         <Experiments />

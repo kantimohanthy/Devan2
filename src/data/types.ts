@@ -8,8 +8,11 @@ export type NodeId =
   | "space"
   | "distributed-systems";
 
+export type Domain = "build" | "understand" | "explore" | "lead";
+
 export interface KnowledgeNode {
   id: NodeId;
+  domain: Domain;
   label: string;
   summary: string;
   detail: string;

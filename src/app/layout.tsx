@@ -4,8 +4,8 @@ import "@fontsource-variable/inter/wght-italic.css";
 import "./globals.css";
 import { CursorField } from "@/components/CursorField";
 import CommandPalette from "@/components/ui/CommandPalette";
+import { ToolDock } from "@/components/ui/ToolDock";
 
-// Public product name: DEVAN — "The Eye of UJ".
 export const metadata: Metadata = {
   title: "DEVAN — The Eye of UJ",
   description:
@@ -49,6 +49,7 @@ export default function RootLayout({
       <body className="antialiased">
         <CursorField />
         <div className="relative z-10">{children}</div>
+        <ToolDock />
         <CommandPalette />
       </body>
     </html>
