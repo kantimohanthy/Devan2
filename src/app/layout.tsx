@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: "DEVAN — The Eye of UJ",
   description:
     "DEVAN is the eye of an internet engineer's curiosity — research, projects, experiments and systems thinking from Ujwal Shyam Kantimohanthy, working across networking, AI, and space infrastructure.",
-  metadataBase: new URL("https://kantimohanthy.github.io"),
+  metadataBase: new URL("https://kantimohanthy.dev"),
   openGraph: {
     title: "DEVAN",
     description: "The Eye of UJ.",
@@ -23,7 +23,7 @@ const personLd = {
   "@type": "Person",
   name: "Ujwal Shyam Kantimohanthy",
   alternateName: "UJ",
-  url: "https://kantimohanthy.github.io",
+  url: "https://kantimohanthy.dev",
   sameAs: [
     "https://github.com/kantimohanthy",
     "https://linkedin.com/in/ujwalshyam-kantimohanthy",

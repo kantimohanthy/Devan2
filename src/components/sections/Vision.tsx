@@ -1,53 +1,39 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { vision } from "@/data/content";
+import { useState } from "react";
 import { PrincipleCards } from "@/components/ui/PrincipleCards";
 
 export function Vision() {
+  const [expanded, setExpanded] = useState(false);
+
   return (
-    <section id="vision" className="scroll-mt-24 border-t border-white/10 px-6 py-32 sm:px-10 lg:px-16">
-      <div className="mx-auto max-w-4xl space-y-12">
-        <div>
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.4 }}
-            className="mb-6 text-xs font-medium uppercase tracking-[0.18em] text-blue-400 font-mono"
-          >
-            11 · Vision & Core Principles
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-            className="text-balance text-3xl font-medium leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl"
-          >
-            {vision.statement}
-          </motion.p>
-        </div>
+    <section id="vision" className="px-6 py-24 max-w-3xl mx-auto scroll-mt-24">
+      <p className="text-xs uppercase tracking-wide text-[var(--signal-blue)] font-mono">
+        11 · Vision & Core Principles
+      </p>
+      <h2 className="text-3xl md:text-4xl font-medium mt-3 leading-snug text-white">
+        Speed stopped being the problem. Reach and proof still are.
+      </h2>
 
-        <div className="border-t border-white/10 pt-8">
-          <p className="mb-6 text-xs uppercase tracking-wider text-white/40 font-mono">Principles (Click to Expand Evidence)</p>
-          <PrincipleCards />
-        </div>
+      <button
+        type="button"
+        onClick={() => setExpanded((e) => !e)}
+        className="mt-3 text-sm text-[var(--signal-blue)] hover:underline cursor-pointer font-mono"
+      >
+        {expanded ? "close ↑" : "the longer version →"}
+      </button>
 
-        <motion.ul
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, delay: 0.15 }}
-          className="space-y-4 border-t border-white/10 pt-8"
-        >
-          {vision.direction.map((item) => (
-            <li key={item} className="flex items-baseline gap-4 text-base text-white/70">
-              <span className="h-px w-8 bg-blue-500/40" />
-              {item}
-            </li>
-          ))}
-        </motion.ul>
+      {expanded && (
+        <p className="mt-3 text-[var(--text-dim)] text-sm leading-relaxed border-l-2 border-[var(--signal-blue)]/40 pl-4 py-1">
+          There are still places a signal doesn't get to, and still ways of
+          proving what you know that depend more on how you phrase it than
+          on what you've actually built. Those are the two problems I keep
+          coming back to.
+        </p>
+      )}
+
+      <div className="mt-10 border-t border-[var(--hairline)] pt-8">
+        <PrincipleCards />
       </div>
     </section>
   );

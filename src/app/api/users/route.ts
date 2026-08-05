@@ -1,39 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
 import { UserService } from "@/services/user.service";
 import { createUserSchema } from "@/validators/user";
+import { withApiHandler } from "@/lib/api-handler";
+import { requireRole } from "@/lib/require-role";
+import { hashPassword } from "@/lib/auth";
+import { Errors } from "@/lib/errors";
 
-export async function GET() {
-  try {
-    const users = await UserService.getUsers();
+export const GET = withApiHandler(async () => {
+  const users = await UserService.getUsers();
+  return NextResponse.json(users);
+});
 
-    return NextResponse.json(users);
-  } catch (error) {
-    console.error(error);
+export const POST = withApiHandler(async (req: NextRequest) => {
+  await requireRole(req, "ADMIN");
 
-    return NextResponse.json(
-      { error: "Failed to fetch users." },
-      { status: 500 }
-    );
-  }
-}
+  const body = await req.json();
+  const parsed = createUserSchema.safeParse(body);
+  if (!parsed.success) throw Errors.validation(parsed.error.flatten());
 
-export async function POST(req: NextRequest) {
-  try {
-    const body = await req.json();
+  const passwordHash = await hashPassword(
+    body.password ?? "DefaultUserPassword123!"
+  );
 
-    const data = createUserSchema.parse(body);
+  const user = await UserService.createUser({
+    ...parsed.data,
+    passwordHash,
+  });
 
-    const user = await UserService.createUser(data);
-
-    return NextResponse.json(user, {
-      status: 201,
-    });
-  } catch (error) {
-    console.error(error);
-
-    return NextResponse.json(
-      { error: "Failed to create user." },
-      { status: 500 }
-    );
-  }
-}
+  return NextResponse.json(user, { status: 201 });
+});

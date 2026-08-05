@@ -22,7 +22,7 @@ export const UserRepository = {
     });
   },
 
-  async create(data: CreateUserInput) {
+  async create(data: CreateUserInput & { passwordHash: string }) {
     return prisma.user.create({
       data,
     });

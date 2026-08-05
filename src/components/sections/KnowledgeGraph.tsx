@@ -90,6 +90,12 @@ export function KnowledgeGraph({
         <ForceGraph2D
           ref={fgRef}
           graphData={graphData}
+          enableZoomInteraction
+          enableNodeDrag
+          onNodeDragEnd={(node: any) => {
+            node.fx = node.x;
+            node.fy = node.y;
+          }}
           nodeLabel={(n: any) => `${n.label}\n${n.summary}`}
           nodeColor={(n: any) =>
             n.id === activeNodeId

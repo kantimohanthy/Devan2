@@ -3,25 +3,48 @@
 import { useState } from "react";
 import { Terminal as TerminalIcon, CornerDownLeft, Play } from "lucide-react";
 
-type CommandKey = "sys-info" | "trace-route" | "inspect-cineforge" | "benchmark-ai";
+type CommandKey =
+  | "sys-info"
+  | "dns-query"
+  | "whois-rdap"
+  | "tls-inspect"
+  | "inspect-cineforge"
+  | "benchmark-ai";
 
 const COMMAND_OUTPUTS: Record<CommandKey, string[]> = {
   "sys-info": [
     "$ devan-cli --sys-info",
     "--------------------------------------------------",
     "KERNEL      : UJ.OS v2.4.0 (x86_64-linux-edge)",
-    "NODE POOL   : 8 active discipline topology clusters",
-    "DISCIPLINE  : Networking, AI/ML, Space Infra, Cybersecurity",
-    "COMPRESSION : ONNX feature embeddings cached locally",
-    "STATUS      : 100% Operational",
+    "API MATRIX  : Module 1 (Foundation), Module 2 (Auth/RBAC)",
+    "MONITORING  : Module 3 (Health/Telemetry), Module 5 (Net-Intelligence)",
+    "STATUS      : 100% Operational (PostgreSQL + JWT + DoH + RDAP)",
   ],
-  "trace-route": [
-    "$ traceroute kantimohanthy.dev",
-    "1  local-gateway (192.168.1.1)        0.412 ms",
-    "2  edge-pop-us-east (10.240.0.1)      1.140 ms",
-    "3  devan-backbone-fiber (172.16.0.4)  2.890 ms",
-    "4  origin-node-01 (10.0.0.88)         3.010 ms",
-    "Route complete: 4 hops, 0% packet loss.",
+  "dns-query": [
+    "$ GET /api/net/dns?domain=kantimohanthy.dev&type=A",
+    "--------------------------------------------------",
+    "QUERY METHOD: Cloudflare DoH (DNS-over-HTTPS)",
+    "DOMAIN      : kantimohanthy.dev",
+    "TYPE        : A Record",
+    "STATUS      : NOERROR (TTL 300s)",
+    "ANSWER      : 104.21.72.180, 172.67.195.82",
+  ],
+  "whois-rdap": [
+    "$ GET /api/net/whois?domain=kantimohanthy.dev",
+    "--------------------------------------------------",
+    "PROTOCOL    : RDAP (RESTful Domain Registration Data)",
+    "DOMAIN      : kantimohanthy.dev",
+    "REGISTRAR   : Google Cloud Domains / Squarespace",
+    "STATUS      : clientTransferProhibited",
+    "NAMESERVERS : ns1.dns-parking.com, ns2.dns-parking.com",
+  ],
+  "tls-inspect": [
+    "$ GET /api/net/tls?host=kantimohanthy.dev",
+    "--------------------------------------------------",
+    "PROTOCOL    : TLS 1.3 / X.509 Peer Certificate",
+    "ISSUER      : Let's Encrypt / Cloudflare Inc E6",
+    "SUBJECT     : kantimohanthy.dev",
+    "VALIDATION  : OK (218 days remaining)",
   ],
   "inspect-cineforge": [
     "$ inspect project --slug cineforge-ai",
@@ -46,11 +69,15 @@ export function InteractiveTerminal() {
 
   const handleRunCustom = () => {
     const query = inputVal.trim().toLowerCase();
-    if (query.includes("cineforge") || query.includes("project")) {
+    if (query.includes("dns")) {
+      setActiveCmd("dns-query");
+    } else if (query.includes("whois") || query.includes("rdap")) {
+      setActiveCmd("whois-rdap");
+    } else if (query.includes("tls") || query.includes("cert")) {
+      setActiveCmd("tls-inspect");
+    } else if (query.includes("cineforge") || query.includes("project")) {
       setActiveCmd("inspect-cineforge");
-    } else if (query.includes("trace") || query.includes("route") || query.includes("ping")) {
-      setActiveCmd("trace-route");
-    } else if (query.includes("bench") || query.includes("ai") || query.includes("model")) {
+    } else if (query.includes("bench") || query.includes("ai")) {
       setActiveCmd("benchmark-ai");
     } else {
       setActiveCmd("sys-info");
@@ -63,7 +90,7 @@ export function InteractiveTerminal() {
       <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-3">
         <div className="flex items-center gap-2 text-white/70">
           <TerminalIcon size={14} className="text-blue-400" />
-          <span className="font-semibold text-white">Interactive Engineering CLI</span>
+          <span className="font-semibold text-white">Interactive Engineering CLI (Telemetry & Net-Intel)</span>
         </div>
         <div className="flex gap-1.5">
           <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
@@ -73,12 +100,21 @@ export function InteractiveTerminal() {
       </div>
 
       <div className="flex flex-wrap gap-2 mb-4">
-        {(["sys-info", "trace-route", "inspect-cineforge", "benchmark-ai"] as CommandKey[]).map((cmd) => (
+        {(
+          [
+            "sys-info",
+            "dns-query",
+            "whois-rdap",
+            "tls-inspect",
+            "inspect-cineforge",
+            "benchmark-ai",
+          ] as CommandKey[]
+        ).map((cmd) => (
           <button
             key={cmd}
             type="button"
             onClick={() => setActiveCmd(cmd)}
-            className={`rounded-lg px-3 py-1.5 text-[11px] transition-all cursor-pointer border ${
+            className={`rounded-lg px-2.5 py-1.5 text-[11px] transition-all cursor-pointer border ${
               activeCmd === cmd
                 ? "border-blue-400 bg-blue-500/20 text-white font-semibold"
                 : "border-white/10 bg-white/5 text-white/60 hover:border-white/30 hover:text-white"
@@ -92,7 +128,14 @@ export function InteractiveTerminal() {
 
       <div className="min-h-[140px] rounded-xl bg-black/90 p-4 border border-white/5 space-y-1 overflow-x-auto text-blue-300/90 leading-relaxed">
         {COMMAND_OUTPUTS[activeCmd].map((line, idx) => (
-          <div key={idx} className={line.startsWith("$") ? "text-emerald-400 font-bold" : "text-white/80"}>
+          <div
+            key={idx}
+            className={
+              line.startsWith("$")
+                ? "text-emerald-400 font-bold"
+                : "text-white/80"
+            }
+          >
             {line}
           </div>
         ))}
@@ -105,7 +148,7 @@ export function InteractiveTerminal() {
           value={inputVal}
           onChange={(e) => setInputVal(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleRunCustom()}
-          placeholder="Type command ('trace', 'bench', 'inspect')..."
+          placeholder="Type command ('dns', 'whois', 'tls', 'bench')..."
           className="flex-1 bg-transparent text-white outline-none placeholder:text-white/30 text-xs"
         />
         <button

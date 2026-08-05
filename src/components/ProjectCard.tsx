@@ -9,6 +9,7 @@ import { Tag } from "@/components/ui/Tag";
 import { Button } from "@/components/ui/Button";
 import { Modal } from "@/components/ui/Modal";
 import { DomainMotif } from "@/components/motion/DomainMotif";
+import { ProjectGlyph } from "@/components/ui/ProjectGlyph";
 import type { Project } from "@/data/types";
 
 const statusTone: Record<Project["status"], "success" | "warning" | "accent" | "neutral"> = {
@@ -25,7 +26,7 @@ export function ProjectCard({ project }: { project: Project }) {
   return (
     <>
       <Card
-        className="group flex h-full flex-col overflow-hidden p-0"
+        className="group flex h-full flex-col overflow-hidden p-0 border border-[var(--hairline)] bg-[var(--surface)]"
         style={project.atmosphere ? { borderTopColor: project.atmosphere.tint } : undefined}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -35,8 +36,9 @@ export function ProjectCard({ project }: { project: Project }) {
           style={{ backgroundColor: project.atmosphere?.tint ?? "#4F8CFF" }}
           aria-hidden
         />
-        <div className="relative">
-          <DomainMotif domain={project.domain[0]} className="rounded-none" />
+        <div className="relative border-b border-[var(--hairline)] bg-[var(--surface-quiet)] p-2">
+          <ProjectGlyph slug={project.slug} domainCount={project.domain.length} />
+          <DomainMotif domain={project.domain[0]} className="rounded-none opacity-40" />
           {project.atmosphere && (
             <span
               className="absolute right-3 top-3 rounded-full border border-white/10 bg-background/70 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wide backdrop-blur-sm"
@@ -52,9 +54,9 @@ export function ProjectCard({ project }: { project: Project }) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="absolute inset-0 flex flex-col justify-center bg-background/92 px-5 backdrop-blur-sm"
+                className="absolute inset-0 flex flex-col justify-center bg-[var(--surface)]/95 px-5 backdrop-blur-sm z-10"
               >
-                <p className="mb-2 text-[10px] font-medium uppercase tracking-wide text-text-tertiary">
+                <p className="mb-2 text-[10px] font-mono font-medium uppercase tracking-wide text-[var(--text-dim)]">
                   Architecture
                 </p>
                 <ol className="space-y-1">

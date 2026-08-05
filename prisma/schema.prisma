@@ -7,37 +7,56 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-  id          String   @id @default(cuid())
-  name        String
-  email       String   @unique
-  headline    String?
-  bio         String?
-  location    String?
-  website     String?
-  avatar      String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+enum Role {
+  ADMIN
+  EDITOR
+  VIEWER
+}
 
-  projects    Project[]
-  experiences Experience[]
-  education   Education[]
-  skills      Skill[]
+model User {
+  id            String   @id @default(cuid())
+  name          String?
+  email         String   @unique
+  passwordHash  String
+  role          Role     @default(VIEWER)
+  headline      String?
+  bio           String?
+  location      String?
+  website       String?
+  avatar        String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  refreshTokens RefreshToken[]
+  projects      Project[]
+  experiences   Experience[]
+  education     Education[]
+  skills        Skill[]
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  expiresAt DateTime
+  createdAt DateTime @default(now())
 }
 
 model Project {
-  id          String   @id @default(cuid())
+  id          String    @id @default(cuid())
   title       String
-  slug        String   @unique
+  slug        String    @unique
   summary     String
   description String
-  featured    Boolean  @default(false)
+  featured    Boolean   @default(false)
   github      String?
   liveDemo    String?
-  createdAt   DateTime @default(now())
+  createdAt   DateTime  @default(now())
+  deletedAt   DateTime?
 
   userId      String
-  user        User @relation(fields: [userId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
 
   technologies ProjectTechnology[]
 }

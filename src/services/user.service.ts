@@ -10,7 +10,7 @@ export const UserService = {
     return UserRepository.findById(id);
   },
 
-  async createUser(data: CreateUserInput) {
+  async createUser(data: CreateUserInput & { passwordHash: string }) {
     const existingUser = await UserRepository.findByEmail(data.email);
 
     if (existingUser) {
