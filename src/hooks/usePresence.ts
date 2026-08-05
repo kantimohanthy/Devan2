@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useState, useRef } from "react";
@@ -40,6 +41,11 @@ export function usePresence(activeNode: string | null) {
     PEER_COLORS[Math.floor(Math.random() * PEER_COLORS.length)]
   );
 
+  const activeNodeRef = useRef(activeNode);
+  useEffect(() => {
+    activeNodeRef.current = activeNode;
+  }, [activeNode]);
+
   useEffect(() => {
     let client: any = null;
     let mounted = true;
@@ -57,7 +63,7 @@ export function usePresence(activeNode: string | null) {
         channelRef.current = channel;
 
         await channel.presence.enter({
-          activeNode,
+          activeNode: activeNodeRef.current,
           color: myColorRef.current,
         });
 

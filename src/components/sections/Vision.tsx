@@ -25,9 +25,9 @@ export function Vision() {
 
       {expanded && (
         <p className="mt-3 text-[var(--text-dim)] text-sm leading-relaxed border-l-2 border-[var(--signal-blue)]/40 pl-4 py-1">
-          There are still places a signal doesn't get to, and still ways of
+          There are still places a signal doesn&apos;t get to, and still ways of
           proving what you know that depend more on how you phrase it than
-          on what you've actually built. Those are the two problems I keep
+          on what you&apos;ve actually built. Those are the two problems I keep
           coming back to.
         </p>
       )}

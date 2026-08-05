@@ -18,7 +18,7 @@ export const GET = withApiHandler(async (req: NextRequest) => {
     return NextResponse.json(cached, { headers: { "x-cache": "HIT" } });
   }
 
-  const cert = await new Promise<any>((resolve, reject) => {
+  const cert = await new Promise<tls.PeerCertificate>((resolve, reject) => {
     const socket = tls.connect(
       { host, port: 443, servername: host, timeout: 5000 },
       () => {

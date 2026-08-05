@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import dynamic from "next/dynamic";
@@ -11,7 +12,25 @@ import { usePresence } from "@/hooks/usePresence";
 
 const ForceGraph2D = dynamic(() => import("react-force-graph-2d"), {
   ssr: false,
-});
+}) as any;
+
+type FGNode = {
+  id: NodeId;
+  label: string;
+  summary?: string;
+  dimmed?: boolean;
+  highlighted?: boolean;
+  x?: number;
+  y?: number;
+  fx?: number | null;
+  fy?: number | null;
+};
+
+type FGLink = {
+  source: NodeId;
+  target: NodeId;
+  dimmed?: boolean;
+};
 
 const nodeById = Object.fromEntries(knowledgeNodes.map((n) => [n.id, n]));
 
@@ -68,7 +87,7 @@ export function KnowledgeGraph({
     };
   }, [activeNodeId, filterDomain]);
 
-  const handleNodeClick = useCallback((node: any) => {
+  const handleNodeClick = useCallback((node: FGNode) => {
     if (node && node.id) {
       setActiveNodeId(node.id);
     }
@@ -92,12 +111,12 @@ export function KnowledgeGraph({
           graphData={graphData}
           enableZoomInteraction
           enableNodeDrag
-          onNodeDragEnd={(node: any) => {
+          onNodeDragEnd={(node: FGNode) => {
             node.fx = node.x;
             node.fy = node.y;
           }}
-          nodeLabel={(n: any) => `${n.label}\n${n.summary}`}
-          nodeColor={(n: any) =>
+          nodeLabel={(n: FGNode) => `${n.label}\n${n.summary ?? ""}`}
+          nodeColor={(n: FGNode) =>
             n.id === activeNodeId
               ? "#4C8BF5"
               : n.highlighted
@@ -107,11 +126,11 @@ export function KnowledgeGraph({
               : "#ffffff"
           }
           nodeRelSize={7}
-          linkColor={(l: any) =>
+          linkColor={(l: FGLink) =>
             l.dimmed ? "rgba(255,255,255,0.04)" : "rgba(76,139,245,0.5)"
           }
-          linkWidth={(l: any) => (l.dimmed ? 0.5 : 1.8)}
-          linkDirectionalParticles={(l: any) => (l.dimmed ? 0 : 2)}
+          linkWidth={(l: FGLink) => (l.dimmed ? 0.5 : 1.8)}
+          linkDirectionalParticles={(l: FGLink) => (l.dimmed ? 0 : 2)}
           linkDirectionalParticleSpeed={0.004}
           onNodeClick={handleNodeClick}
           onBackgroundClick={() => {}}
@@ -162,8 +181,9 @@ export function KnowledgeGraph({
                     return (
                       <button
                         key={otherId}
+                        type="button"
                         onClick={() => setActiveNodeId(otherId)}
-                        className="rounded-full border border-[var(--hairline)] px-3 py-1 text-xs text-[var(--text-dim)] hover:border-white/30 hover:text-[var(--text)] transition-colors"
+                        className="rounded-full border border-[var(--hairline)] px-3 py-1 text-xs text-[var(--text-dim)] hover:border-white/30 hover:text-[var(--text)] transition-colors cursor-pointer"
                       >
                         {otherNode?.label}
                         <span className="ml-1 text-[var(--text-faint)]">· {e.label}</span>

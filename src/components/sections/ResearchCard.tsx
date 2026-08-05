@@ -11,7 +11,13 @@ const TYPE_COLOR: Record<ResearchItem["type"], string> = {
   Summary: "#8A63F5",
 };
 
-export function ResearchCard({ item, index }: { item: ResearchItem; index: number }) {
+export function ResearchCard({
+  item,
+  index,
+}: {
+  item: ResearchItem;
+  index: number;
+}) {
   const [open, setOpen] = useState(false);
   const color = TYPE_COLOR[item.type] || "#4C8BF5";
 
@@ -20,11 +26,20 @@ export function ResearchCard({ item, index }: { item: ResearchItem; index: numbe
       className="rounded-xl border border-[var(--hairline)] border-t-2 p-5 bg-white/[0.02] backdrop-blur-sm"
       style={{ borderTopColor: color }}
     >
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-xs text-[var(--text-faint)] font-mono">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <p
+          className="text-xs font-mono font-semibold uppercase tracking-wider"
+          style={{ color }}
+        >
+          {item.type}
+        </p>
+      </div>
+
       <ProjectGlyph slug={item.title} domainCount={item.tags.length} />
-      <p className="text-xs font-mono font-semibold uppercase tracking-wider mt-2" style={{ color }}>
-        {item.type}
-      </p>
-      <h3 className="text-lg font-medium text-white mt-1">{item.title}</h3>
+      <h3 className="text-lg font-medium text-white mt-2">{item.title}</h3>
       <p className="text-sm text-[var(--text-dim)] mt-1">{item.context}</p>
 
       <button

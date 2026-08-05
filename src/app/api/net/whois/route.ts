@@ -4,6 +4,8 @@ import { enforceRateLimit } from "@/lib/rate-limit";
 import { Errors } from "@/lib/errors";
 import { getCached, setCached } from "@/lib/cache";
 
+type RdapNameserver = { ldhName?: string };
+
 export const GET = withApiHandler(async (req: NextRequest) => {
   await enforceRateLimit(req);
   const domain = req.nextUrl.searchParams.get("domain");
@@ -23,7 +25,9 @@ export const GET = withApiHandler(async (req: NextRequest) => {
     domain,
     status: data.status,
     events: data.events,
-    nameservers: data.nameservers?.map((n: any) => n.ldhName),
+    nameservers: (data.nameservers as RdapNameserver[] | undefined)?.map(
+      (n) => n.ldhName
+    ),
   };
 
   setCached(cacheKey, result, 600_000);

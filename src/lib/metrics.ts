@@ -13,7 +13,6 @@ export function recordRequest(path: string, durationMs: number, isError: boolean
 export function renderPrometheus(): string {
   const lines: string[] = [];
   for (const [path, m] of metrics.entries()) {
-    const safePath = path.replace(/[^a-zA-Z0-9_]/g, "_");
     lines.push(`http_requests_total{path="${path}"} ${m.count}`);
     lines.push(`http_request_errors_total{path="${path}"} ${m.errors}`);
     lines.push(

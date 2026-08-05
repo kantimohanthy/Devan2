@@ -4,6 +4,12 @@ import { enforceRateLimit } from "@/lib/rate-limit";
 import { Errors } from "@/lib/errors";
 import { getCached, setCached } from "@/lib/cache";
 
+type DnsAnswer = {
+  name: string;
+  TTL: number;
+  data: string;
+};
+
 export const GET = withApiHandler(async (req: NextRequest) => {
   await enforceRateLimit(req);
   const domain = req.nextUrl.searchParams.get("domain");
@@ -25,7 +31,7 @@ export const GET = withApiHandler(async (req: NextRequest) => {
     domain,
     type,
     answers:
-      data.Answer?.map((a: any) => ({
+      (data.Answer as DnsAnswer[] | undefined)?.map((a) => ({
         name: a.name,
         ttl: a.TTL,
         data: a.data,

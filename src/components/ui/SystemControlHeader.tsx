@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Activity, ShieldCheck, Terminal, Cpu } from "lucide-react";
+import { Activity, ShieldCheck, Cpu } from "lucide-react";
 
 export function SystemControlHeader() {
   const [timeStr, setTimeStr] = useState<string>("");

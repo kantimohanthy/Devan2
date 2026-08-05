@@ -22,11 +22,16 @@ function keywordScore(query: string, text: string): number {
   return qTerms.length ? matches / qTerms.length : 0;
 }
 
+type Extractor = (
+  text: string,
+  options: { pooling: string; normalize: boolean }
+) => Promise<{ data: Float32Array | number[] }>;
+
 export default function AskDevan() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<EmbeddedItem[]>([]);
   const [loading, setLoading] = useState(false);
-  const extractorRef = useRef<any>(null);
+  const extractorRef = useRef<Extractor | null>(null);
   const itemsRef = useRef<EmbeddedItem[] | null>(null);
 
   const runSearch = async () => {
@@ -41,7 +46,10 @@ export default function AskDevan() {
         }
       }
       if (!extractorRef.current) {
-        extractorRef.current = await pipeline("feature-extraction", "Xenova/all-MiniLM-L6-v2");
+        extractorRef.current = (await pipeline(
+          "feature-extraction",
+          "Xenova/all-MiniLM-L6-v2"
+        )) as unknown as Extractor;
       }
 
       if (itemsRef.current && extractorRef.current) {

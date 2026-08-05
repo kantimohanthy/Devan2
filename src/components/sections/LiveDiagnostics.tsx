@@ -26,6 +26,11 @@ async function measureRTT(url: string): Promise<number> {
   return Math.round(performance.now() - start);
 }
 
+interface NetworkInformationLike {
+  effectiveType?: string;
+  downlink?: number;
+}
+
 export function LiveDiagnostics() {
   const [diag, setDiag] = useState<Diagnostics>({
     rttMs: null,
@@ -39,7 +44,11 @@ export function LiveDiagnostics() {
     (async () => {
       const homeRTT = await measureRTT("/api/ping");
 
-      const conn = typeof navigator !== "undefined" ? (navigator as any).connection : null;
+      const conn =
+        typeof navigator !== "undefined"
+          ? (navigator as unknown as { connection?: NetworkInformationLike })
+              .connection
+          : null;
       const effectiveType = conn?.effectiveType ?? null;
       const downlinkMbps = conn?.downlink ?? null;
 
