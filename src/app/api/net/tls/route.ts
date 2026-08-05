@@ -3,6 +3,7 @@ import tls from "tls";
 import { withApiHandler } from "@/lib/api-handler";
 import { enforceRateLimit } from "@/lib/rate-limit";
 import { Errors } from "@/lib/errors";
+import { getCached, setCached } from "@/lib/cache";
 
 export const runtime = "nodejs";
 
@@ -10,6 +11,12 @@ export const GET = withApiHandler(async (req: NextRequest) => {
   await enforceRateLimit(req);
   const host = req.nextUrl.searchParams.get("host");
   if (!host) throw Errors.validation({ host: "required" });
+
+  const cacheKey = `tls:${host}`;
+  const cached = getCached(cacheKey);
+  if (cached) {
+    return NextResponse.json(cached, { headers: { "x-cache": "HIT" } });
+  }
 
   const cert = await new Promise<any>((resolve, reject) => {
     const socket = tls.connect(
@@ -27,7 +34,7 @@ export const GET = withApiHandler(async (req: NextRequest) => {
     });
   });
 
-  return NextResponse.json({
+  const result = {
     host,
     issuer: cert.issuer?.O,
     subject: cert.subject?.CN,
@@ -36,5 +43,8 @@ export const GET = withApiHandler(async (req: NextRequest) => {
     daysRemaining: Math.round(
       (new Date(cert.valid_to).getTime() - Date.now()) / 86400000
     ),
-  });
+  };
+
+  setCached(cacheKey, result, 3600_000);
+  return NextResponse.json(result, { headers: { "x-cache": "MISS" } });
 });

@@ -8,6 +8,7 @@ type CommandKey =
   | "dns-query"
   | "whois-rdap"
   | "tls-inspect"
+  | "asn-lookup"
   | "inspect-cineforge"
   | "benchmark-ai";
 
@@ -17,8 +18,8 @@ const COMMAND_OUTPUTS: Record<CommandKey, string[]> = {
     "--------------------------------------------------",
     "KERNEL      : UJ.OS v2.4.0 (x86_64-linux-edge)",
     "API MATRIX  : Module 1 (Foundation), Module 2 (Auth/RBAC)",
-    "MONITORING  : Module 3 (Health/Telemetry), Module 5 (Net-Intelligence)",
-    "STATUS      : 100% Operational (PostgreSQL + JWT + DoH + RDAP)",
+    "MONITORING  : Module 3 (Telemetry), Module 5 (Net-Intel + Cymru ASN)",
+    "STATUS      : 100% Operational (PostgreSQL + JWT + DoH + RDAP + Vitest)",
   ],
   "dns-query": [
     "$ GET /api/net/dns?domain=kantimohanthy.dev&type=A",
@@ -28,6 +29,7 @@ const COMMAND_OUTPUTS: Record<CommandKey, string[]> = {
     "TYPE        : A Record",
     "STATUS      : NOERROR (TTL 300s)",
     "ANSWER      : 104.21.72.180, 172.67.195.82",
+    "CACHE       : HIT (x-cache: HIT)",
   ],
   "whois-rdap": [
     "$ GET /api/net/whois?domain=kantimohanthy.dev",
@@ -37,6 +39,7 @@ const COMMAND_OUTPUTS: Record<CommandKey, string[]> = {
     "REGISTRAR   : Google Cloud Domains / Squarespace",
     "STATUS      : clientTransferProhibited",
     "NAMESERVERS : ns1.dns-parking.com, ns2.dns-parking.com",
+    "CACHE       : HIT (x-cache: HIT)",
   ],
   "tls-inspect": [
     "$ GET /api/net/tls?host=kantimohanthy.dev",
@@ -45,6 +48,16 @@ const COMMAND_OUTPUTS: Record<CommandKey, string[]> = {
     "ISSUER      : Let's Encrypt / Cloudflare Inc E6",
     "SUBJECT     : kantimohanthy.dev",
     "VALIDATION  : OK (218 days remaining)",
+    "CACHE       : HIT (x-cache: HIT)",
+  ],
+  "asn-lookup": [
+    "$ GET /api/net/asn?ip=104.21.72.180",
+    "--------------------------------------------------",
+    "PROVIDER    : Team Cymru WHOIS-over-DNS Service",
+    "TARGET IP   : 104.21.72.180",
+    "AUTONOMOUS  : AS13335 (Cloudflare Inc.)",
+    "PREFIX      : 104.21.64.0/20",
+    "REGISTRY    : ARIN (US / Allocated 2014-03-28)",
   ],
   "inspect-cineforge": [
     "$ inspect project --slug cineforge-ai",
@@ -69,7 +82,9 @@ export function InteractiveTerminal() {
 
   const handleRunCustom = () => {
     const query = inputVal.trim().toLowerCase();
-    if (query.includes("dns")) {
+    if (query.includes("asn") || query.includes("ip")) {
+      setActiveCmd("asn-lookup");
+    } else if (query.includes("dns")) {
       setActiveCmd("dns-query");
     } else if (query.includes("whois") || query.includes("rdap")) {
       setActiveCmd("whois-rdap");
@@ -106,6 +121,7 @@ export function InteractiveTerminal() {
             "dns-query",
             "whois-rdap",
             "tls-inspect",
+            "asn-lookup",
             "inspect-cineforge",
             "benchmark-ai",
           ] as CommandKey[]
@@ -148,7 +164,7 @@ export function InteractiveTerminal() {
           value={inputVal}
           onChange={(e) => setInputVal(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleRunCustom()}
-          placeholder="Type command ('dns', 'whois', 'tls', 'bench')..."
+          placeholder="Type command ('asn', 'dns', 'whois', 'tls', 'bench')..."
           className="flex-1 bg-transparent text-white outline-none placeholder:text-white/30 text-xs"
         />
         <button
