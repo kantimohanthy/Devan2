@@ -4,13 +4,14 @@ import { logger } from "./logger";
 import { ApiError } from "./errors";
 import { recordRequest } from "./metrics";
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type Handler = (
   req: NextRequest,
-  ctx: { requestId: string; traceId: string }
+  ctx?: any
 ) => Promise<NextResponse>;
 
 export function withApiHandler(handler: Handler) {
-  return async (req: NextRequest) => {
+  return async (req: NextRequest, routeContext?: any) => {
     const incomingTraceId = req.headers.get("x-trace-id");
     const requestId = randomUUID();
     const traceId = incomingTraceId ?? requestId;
@@ -24,7 +25,7 @@ export function withApiHandler(handler: Handler) {
     });
 
     try {
-      const res = await handler(req, { requestId, traceId });
+      const res = await handler(req, { ...routeContext, requestId, traceId });
       const durationMs = Math.round(performance.now() - start);
       res.headers.set("x-request-id", requestId);
       res.headers.set("x-trace-id", traceId);

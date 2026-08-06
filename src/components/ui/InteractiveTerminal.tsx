@@ -5,6 +5,7 @@ import { Terminal as TerminalIcon, CornerDownLeft, Play } from "lucide-react";
 
 type CommandKey =
   | "sys-info"
+  | "protocol-trace"
   | "dns-query"
   | "whois-rdap"
   | "tls-inspect"
@@ -20,6 +21,17 @@ const COMMAND_OUTPUTS: Record<CommandKey, string[]> = {
     "API MATRIX  : Module 1 (Foundation), Module 2 (Auth/RBAC)",
     "MONITORING  : Module 3 (Telemetry), Module 5 (Net-Intel + Cymru ASN)",
     "STATUS      : 100% Operational (PostgreSQL + JWT + DoH + RDAP + Vitest)",
+  ],
+  "protocol-trace": [
+    "$ POST /api/net/protocol-trace { host: 'kantimohanthy.dev' }",
+    "--------------------------------------------------",
+    "TARGET      : kantimohanthy.dev",
+    "DNS (DoH)   : 104.21.72.180 (12ms)",
+    "TCP SYN-ACK : 443 OPEN (18ms)",
+    "TLS 1.3     : Let's Encrypt / E6 Certificate (24ms)",
+    "HTTP TTFB   : 200 OK (52ms)",
+    "ASN ROUTE   : AS13335 (Cloudflare Inc.)",
+    "TOTAL SPAN  : 106ms across 5 execution steps",
   ],
   "dns-query": [
     "$ GET /api/net/dns?domain=kantimohanthy.dev&type=A",
@@ -118,6 +130,7 @@ export function InteractiveTerminal() {
         {(
           [
             "sys-info",
+            "protocol-trace",
             "dns-query",
             "whois-rdap",
             "tls-inspect",

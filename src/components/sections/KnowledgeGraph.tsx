@@ -46,8 +46,17 @@ export function KnowledgeGraph({
   const [activeNodeId, setActiveNodeId] = useState<NodeId>("networking");
   const fgRef = useRef<any>(null);
   const peers = usePresence(activeNodeId);
-
   const activeNode = nodeById[activeNodeId] || knowledgeNodes[0];
+
+  React.useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const nodeParam = params.get("node") as NodeId | null;
+      if (nodeParam && nodeById[nodeParam]) {
+        setActiveNodeId(nodeParam);
+      }
+    }
+  }, []);
 
   const graphData = useMemo(() => {
     const connected = new Set<string>();

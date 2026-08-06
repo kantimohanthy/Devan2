@@ -32,6 +32,7 @@ model User {
   experiences   Experience[]
   education     Education[]
   skills        Skill[]
+  auditLogs     AuditLog[]
 }
 
 model RefreshToken {
@@ -111,4 +112,53 @@ model Education {
 
   userId      String
   user        User @relation(fields: [userId], references: [id])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String
+  target    String?
+  details   String?
+  ipAddress String?
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model ProtocolTrace {
+  id            String   @id @default(cuid())
+  targetHost    String
+  resolvedIp    String?
+  totalDuration Int
+  dnsMs         Int
+  tcpMs         Int
+  tlsMs         Int
+  ttfbMs        Int
+  tlsIssuer     String?
+  asnNumber     String?
+  asnOrg        String?
+  stepDetails   String
+  createdAt     DateTime @default(now())
+}
+
+model Experiment {
+  id                    String   @id @default(cuid())
+  slug                  String   @unique
+  title                 String
+  category              String
+  identityDimension     String
+  objective             String
+  problem               String
+  motivation            String
+  status                String
+  evidenceScore         Int      @default(0)
+  architectureDetails   String
+  telemetrySpans        String
+  benchmarksData        String
+  tradeoffsData         String
+  lessonsLearnedData    String
+  githubRepo            String?
+  relatedKnowledgeNodes String
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
 }

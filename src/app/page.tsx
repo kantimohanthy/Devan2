@@ -2,6 +2,8 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/sections/Hero";
 import { KnowledgeGraph } from "@/components/sections/KnowledgeGraph";
+import { ProtocolTraceDeck } from "@/components/sections/ProtocolTraceDeck";
+import { ExperimentConsole } from "@/components/sections/ExperimentConsole";
 import { Projects } from "@/components/sections/Projects";
 import { Research } from "@/components/sections/Research";
 import { Experiments } from "@/components/sections/Experiments";
@@ -26,6 +28,8 @@ export default function Home() {
 
         {/* Narrative & Deep System Evidence (Below the Fold) */}
         <KnowledgeGraph />
+        <ProtocolTraceDeck />
+        <ExperimentConsole />
         <Projects />
         <Research />
         <Experiments />
