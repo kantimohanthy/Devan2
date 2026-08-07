@@ -7,6 +7,7 @@ import { GraphCanvas, NodeItem } from "./GraphCanvas";
 import { IntelligencePanel } from "./IntelligencePanel";
 import { StatusStrip } from "./StatusStrip";
 import { CommandPalette } from "./CommandPalette";
+import { HIERARCHICAL_KNOWLEDGE_NODES } from "@/data/hierarchical-graph";
 import { knowledgeNodes } from "@/data/content";
 
 export function DevanShell() {
@@ -17,21 +18,40 @@ export function DevanShell() {
 
   const [filters, setFilters] = useState<FilterState>({
     domains: new Set(),
-    minEvidenceDepth: 0,
-    minWeight: 0,
+    showAllNodes: false,
   });
 
   const handleSelectNodeById = (nodeId: string) => {
+    const hNode = HIERARCHICAL_KNOWLEDGE_NODES.find((n) => n.id === nodeId);
+    if (hNode) {
+      setSelectedNode({
+        id: hNode.id,
+        label: hNode.label,
+        kind: hNode.kind,
+        summary: hNode.summary,
+        detail: hNode.detail,
+        domain: hNode.domain,
+        evidenceDepth: hNode.evidenceDepth,
+        density: hNode.density,
+        featured: true,
+        x: 500,
+        y: 350,
+      });
+      return;
+    }
+
     const kn = knowledgeNodes.find((n) => n.id === nodeId);
     if (kn) {
       setSelectedNode({
         id: kn.id,
         label: kn.label,
+        kind: kn.projects.length > 0 ? "repository" : "technology",
         summary: kn.summary,
-        type: kn.projects.length > 0 ? "project" : "concept",
+        detail: kn.detail,
         domain: kn.domain,
         evidenceDepth: 4,
         density: 85,
+        featured: true,
         x: 500,
         y: 350,
       });
@@ -54,7 +74,7 @@ export function DevanShell() {
         {/* Region 2: Filter Rail (240px) */}
         <FilterRail filters={filters} setFilters={setFilters} />
 
-        {/* Region 3: Fluid Knowledge Graph Canvas */}
+        {/* Region 3: Hierarchical Knowledge Map Canvas */}
         <GraphCanvas
           filters={filters}
           searchQuery={searchQuery}
@@ -70,7 +90,7 @@ export function DevanShell() {
       </div>
 
       {/* Region 5: Bottom Status Strip (28px) */}
-      <StatusStrip filteredCount={12} />
+      <StatusStrip filteredCount={HIERARCHICAL_KNOWLEDGE_NODES.length} />
 
       {/* Global Cmd+K Command Palette Modal */}
       <CommandPalette

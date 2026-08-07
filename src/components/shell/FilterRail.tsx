@@ -1,12 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { ChevronDown, ChevronRight, SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal } from "lucide-react";
 
 export interface FilterState {
   domains: Set<string>;
-  minEvidenceDepth: number; // 0..5 (ENCOUNTERED -> DEFENDED)
-  minWeight: number; // 0..100
+  showAllNodes: boolean;
 }
 
 interface FilterRailProps {
@@ -17,27 +15,13 @@ interface FilterRailProps {
 const DOMAINS = [
   { id: "networking", label: "Networking" },
   { id: "cloud", label: "Cloud & K8s" },
-  { id: "ai", label: "AI & MLOps" },
+  { id: "ai", label: "AI Systems" },
   { id: "security", label: "Cybersecurity" },
-  { id: "distributed", label: "Distributed Systems" },
-  { id: "space", label: "Space & Comms" },
-  { id: "research", label: "Research" },
-];
-
-const EVIDENCE_DEPTH_LABELS = [
-  "Encountered",
-  "Studied",
-  "Implemented",
-  "Tested",
-  "Applied",
-  "Defended",
+  { id: "distributed-systems", label: "Distributed Systems" },
+  { id: "space", label: "Space Infrastructure" },
 ];
 
 export function FilterRail({ filters, setFilters }: FilterRailProps) {
-  const [domainsOpen, setDomainsOpen] = useState(true);
-  const [depthOpen, setDepthOpen] = useState(true);
-  const [weightOpen, setWeightOpen] = useState(true);
-
   const toggleDomain = (domainId: string) => {
     setFilters((prev) => {
       const next = new Set(prev.domains);
@@ -73,109 +57,51 @@ export function FilterRail({ filters, setFilters }: FilterRailProps) {
         )}
       </div>
 
-      {/* Group 1: Domains */}
-      <div className="space-y-2">
-        <button
-          type="button"
-          onClick={() => setDomainsOpen((o) => !o)}
-          className="flex w-full items-center justify-between text-[11px] font-mono font-semibold uppercase tracking-wider text-[#8A9098] hover:text-[#F5F5F5]"
-        >
-          <span>Domains</span>
-          {domainsOpen ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
-        </button>
+      {/* Domain Filters */}
+      <div className="space-y-3">
+        <p className="text-[10px] font-mono font-semibold uppercase tracking-wider text-[#8A9098]">
+          Filter by Domain
+        </p>
 
-        {domainsOpen && (
-          <div className="space-y-1.5 pt-1">
-            {DOMAINS.map((d) => {
-              const isChecked = filters.domains.size === 0 || filters.domains.has(d.id);
-              return (
-                <label
-                  key={d.id}
-                  className="flex items-center gap-2.5 px-1 py-1 rounded hover:bg-[#20252B]/40 cursor-pointer text-[#8A9098] hover:text-[#F5F5F5]"
-                >
-                  <input
-                    type="checkbox"
-                    checked={isChecked}
-                    onChange={() => toggleDomain(d.id)}
-                    className="accent-[#4F8CFF] rounded border-[#20252B] bg-[#0A0B0D]"
-                  />
-                  <span className={isChecked ? "text-[#F5F5F5]" : "text-[#8A9098]/50"}>
-                    {d.label}
-                  </span>
-                </label>
-              );
-            })}
-          </div>
-        )}
+        <div className="space-y-1.5">
+          {DOMAINS.map((d) => {
+            const isChecked = filters.domains.size === 0 || filters.domains.has(d.id);
+            return (
+              <label
+                key={d.id}
+                className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-[#20252B]/50 cursor-pointer text-[#8A9098] hover:text-[#F5F5F5] transition-colors"
+              >
+                <input
+                  type="checkbox"
+                  checked={isChecked}
+                  onChange={() => toggleDomain(d.id)}
+                  className="accent-[#4F8CFF] rounded border-[#20252B] bg-[#0A0B0D]"
+                />
+                <span className={isChecked ? "text-[#F5F5F5] font-medium" : "text-[#8A9098]/60"}>
+                  {d.label}
+                </span>
+              </label>
+            );
+          })}
+        </div>
       </div>
 
-      {/* Group 2: Evidence Depth Slider */}
-      <div className="space-y-2 border-t border-[#20252B] pt-4">
+      {/* Density Mode Toggle */}
+      <div className="space-y-2 border-t border-[#20252B] pt-4 font-mono text-[11px]">
+        <p className="text-[10px] uppercase tracking-wider text-[#8A9098]">Graph View Mode</p>
         <button
           type="button"
-          onClick={() => setDepthOpen((o) => !o)}
-          className="flex w-full items-center justify-between text-[11px] font-mono font-semibold uppercase tracking-wider text-[#8A9098] hover:text-[#F5F5F5]"
+          onClick={() =>
+            setFilters((prev) => ({ ...prev, showAllNodes: !prev.showAllNodes }))
+          }
+          className={`w-full flex items-center justify-between rounded-lg border p-2 text-[11px] transition-colors cursor-pointer ${
+            filters.showAllNodes
+              ? "border-[#4F8CFF] bg-[#4F8CFF]/15 text-[#4F8CFF]"
+              : "border-[#20252B] bg-[#0A0B0D] text-[#8A9098] hover:text-[#F5F5F5]"
+          }`}
         >
-          <span>Min Evidence Depth</span>
-          {depthOpen ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
+          <span>{filters.showAllNodes ? "All Nodes View" : "Curated View (Featured)"}</span>
         </button>
-
-        {depthOpen && (
-          <div className="space-y-2 pt-1">
-            <input
-              type="range"
-              min={0}
-              max={5}
-              value={filters.minEvidenceDepth}
-              onChange={(e) =>
-                setFilters((prev) => ({
-                  ...prev,
-                  minEvidenceDepth: parseInt(e.target.value, 10),
-                }))
-              }
-              className="w-full accent-[#4F8CFF] bg-[#20252B] cursor-pointer"
-            />
-            <div className="flex justify-between text-[10px] font-mono text-[#4F8CFF]">
-              <span>{EVIDENCE_DEPTH_LABELS[filters.minEvidenceDepth]}</span>
-              <span className="text-[#8A9098]">{EVIDENCE_DEPTH_LABELS[5]}</span>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Group 3: Derived Weight Filter */}
-      <div className="space-y-2 border-t border-[#20252B] pt-4">
-        <button
-          type="button"
-          onClick={() => setWeightOpen((o) => !o)}
-          className="flex w-full items-center justify-between text-[11px] font-mono font-semibold uppercase tracking-wider text-[#8A9098] hover:text-[#F5F5F5]"
-        >
-          <span>Evidence Density</span>
-          {weightOpen ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
-        </button>
-
-        {weightOpen && (
-          <div className="space-y-2 pt-1">
-            <input
-              type="range"
-              min={0}
-              max={100}
-              step={10}
-              value={filters.minWeight}
-              onChange={(e) =>
-                setFilters((prev) => ({
-                  ...prev,
-                  minWeight: parseInt(e.target.value, 10),
-                }))
-              }
-              className="w-full accent-[#4F8CFF] bg-[#20252B] cursor-pointer"
-            />
-            <div className="flex justify-between text-[10px] font-mono text-[#8A9098]">
-              <span>Min Threshold</span>
-              <span className="text-[#F5F5F5]">{filters.minWeight}</span>
-            </div>
-          </div>
-        )}
       </div>
     </aside>
   );

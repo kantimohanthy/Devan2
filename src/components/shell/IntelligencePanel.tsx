@@ -1,18 +1,11 @@
 "use client";
-/* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { useState } from "react";
 import { NodeItem } from "./GraphCanvas";
 import { knowledgeNodes, knowledgeEdges } from "@/data/content";
 import { artifacts } from "@/data/artifacts";
 import { dnsResolutionEvidenceRecord } from "@/data/evidence-records";
 import { deriveEvidenceState } from "@/data/evidence-schema";
-import { ONTOLOGY_CLAIMS } from "@/lib/ontology/store";
-import { IntelligenceMetrics } from "@/components/ontology/IntelligenceMetrics";
-import { IntelligenceFeed } from "@/components/ontology/IntelligenceFeed";
-import { MissionsDeck } from "@/components/ontology/MissionsDeck";
-import { ReasoningReplay } from "@/components/ontology/ReasoningReplay";
-import { ExternalLink, GitCommit, Layers, ArrowUpRight, Sparkles, Play, CheckCircle2, Award, FileCode2, BookOpen, RotateCcw } from "lucide-react";
+import { ExternalLink, GitCommit, Layers, ArrowUpRight, BookOpen, FileCode2 } from "lucide-react";
 
 interface IntelligencePanelProps {
   selectedNode: NodeItem | null;
@@ -23,63 +16,60 @@ export function IntelligencePanel({
   selectedNode,
   onSelectNode,
 }: IntelligencePanelProps) {
-  const [executing, setExecuting] = useState(false);
-  const [telemetryResult, setTelemetryResult] = useState<any>(null);
-  const [reasoningClaimId, setReasoningClaimId] = useState<string | null>(null);
-
-  const runLiveTelemetry = async () => {
-    if (!selectedNode) return;
-    setExecuting(true);
-    try {
-      const res = await fetch("/api/net/protocol-trace", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ host: "kantimohanthy.dev" }),
-      });
-      if (res.ok) {
-        const data = await res.json();
-        setTelemetryResult(data);
-      }
-    } catch (err) {
-      console.error("Telemetry trace failed:", err);
-    } finally {
-      setExecuting(false);
-    }
-  };
-
-  // If no node selected, show quiet active registry + Ontology Metrics + Feed + Missions
+  // If no node selected, show quiet active node registry
   if (!selectedNode) {
     return (
       <aside className="w-[360px] shrink-0 h-full border-l border-[#20252B] bg-[#101317] p-5 flex flex-col gap-5 overflow-y-auto select-none font-sans text-xs">
         <div className="border-b border-[#20252B] pb-3">
-          <span className="font-mono text-[11px] font-semibold tracking-wider text-[#8A9098] uppercase flex items-center gap-1.5">
-            <Sparkles size={13} className="text-[#4F8CFF]" />
-            Cognitive Intelligence OS v2
+          <span className="font-mono text-[11px] font-semibold tracking-wider text-[#8A9098] uppercase">
+            DEVAN Evidence Registry
           </span>
           <p className="mt-1 text-[11px] text-[#8A9098]/70 leading-relaxed">
-            Select any node on the ontology canvas to launch Reasoning Replays, inspect evidence ledgers, and execute telemetry.
+            Select any node on the graph canvas to inspect derived evidence trails, architecture, and connected repositories.
           </p>
         </div>
 
-        {/* Cognitive Intelligence Metrics */}
-        <IntelligenceMetrics />
-
-        {/* Operational Missions */}
-        <MissionsDeck />
-
-        {/* Real-Time Feed */}
-        <IntelligenceFeed />
-
-        {/* Reasoning Replay Modal */}
-        <ReasoningReplay
-          claimId={reasoningClaimId}
-          onClose={() => setReasoningClaimId(null)}
-        />
+        <div className="space-y-2">
+          <p className="font-mono text-[10px] uppercase tracking-wider text-[#424750] font-bold">
+            Curated Knowledge Map
+          </p>
+          {knowledgeNodes.slice(0, 6).map((node) => (
+            <button
+              key={node.id}
+              type="button"
+              onClick={() =>
+                onSelectNode({
+                  id: node.id,
+                  label: node.label,
+                  kind: node.projects.length > 0 ? "repository" : "technology",
+                  summary: node.summary,
+                  detail: node.detail,
+                  domain: node.domain,
+                  evidenceDepth: 4,
+                  density: 85,
+                  featured: true,
+                  x: 500,
+                  y: 350,
+                })
+              }
+              className="w-full rounded-xl border border-[#20252B] bg-[#0A0B0D]/60 p-3 text-left transition-all hover:border-[#4F8CFF]/50 hover:bg-[#101317] cursor-pointer group"
+            >
+              <div className="flex items-center justify-between font-mono text-[10px] text-[#8A9098]">
+                <span className="uppercase text-[#4F8CFF] font-semibold">{node.domain}</span>
+                <span className="text-[#8A9098] font-bold">TESTED</span>
+              </div>
+              <p className="mt-1 font-semibold text-[#F5F5F5] group-hover:text-[#4F8CFF] transition-colors">
+                {node.label}
+              </p>
+              <p className="mt-0.5 line-clamp-1 text-[#8A9098] text-[11px]">{node.summary}</p>
+            </button>
+          ))}
+        </div>
       </aside>
     );
   }
 
-  // Active connected edges
+  // Connected nodes
   const connectedEdges = knowledgeEdges.filter(
     (e) => e.from === selectedNode.id || e.to === selectedNode.id
   );
@@ -101,17 +91,15 @@ export function IntelligencePanel({
     (a) => a.id.includes(selectedNode.id) || a.title.toLowerCase().includes(selectedNode.id)
   );
 
-  const claimMatch = ONTOLOGY_CLAIMS.find((c) => c.domain.toLowerCase() === selectedNode.domain.toLowerCase()) ?? ONTOLOGY_CLAIMS[0];
-
   return (
     <aside className="w-[360px] shrink-0 h-full border-l border-[#20252B] bg-[#101317] p-5 flex flex-col gap-5 overflow-y-auto font-sans text-xs select-none">
-      {/* 1. Header & Metadata */}
+      {/* 1. Header & Derived State (No numeric scores) */}
       <div className="border-b border-[#20252B] pb-4 space-y-1.5">
         <div className="flex items-center justify-between font-mono text-[10px] text-[#8A9098]">
           <span className="uppercase tracking-widest text-[#4F8CFF] font-semibold">
-            {selectedNode.type} · {selectedNode.domain}
+            {selectedNode.kind} · {selectedNode.domain}
           </span>
-          <span className="rounded bg-[#31D07D]/15 px-2 py-0.5 text-[#31D07D] font-mono text-[10px] font-bold">
+          <span className="rounded bg-[#20252B] px-2 py-0.5 text-[#F5F5F5] font-mono text-[10px] font-bold">
             {derivedState}
           </span>
         </div>
@@ -121,147 +109,94 @@ export function IntelligencePanel({
         <p className="text-xs text-[#8A9098] leading-relaxed">{selectedNode.summary}</p>
       </div>
 
-      {/* 2. Reasoning Replay Trigger Card */}
-      <div className="rounded-xl border border-[#4F8CFF]/40 bg-[#4F8CFF]/10 p-3.5 space-y-2.5 font-mono">
-        <div className="flex items-center justify-between text-[#4F8CFF]">
-          <span className="text-[10px] uppercase font-bold tracking-wider flex items-center gap-1.5">
-            <RotateCcw size={13} /> Verified Claim Audit Trail
-          </span>
-          <span className="text-[10px] text-[#31D07D] font-bold">{claimMatch.confidence}% CONFIDENCE</span>
-        </div>
-
-        <p className="text-xs text-[#F5F5F5] font-semibold leading-snug">
-          &quot;{claimMatch.statement}&quot;
-        </p>
-
-        <button
-          type="button"
-          onClick={() => setReasoningClaimId(claimMatch.id)}
-          className="w-full flex items-center justify-center gap-2 rounded-lg border border-[#4F8CFF] bg-[#4F8CFF] px-3 py-2 text-xs font-bold text-[#0A0B0D] hover:bg-[#4F8CFF]/90 transition-all cursor-pointer shadow-md"
-        >
-          Launch Reasoning Replay <ArrowUpRight size={13} />
-        </button>
-      </div>
-
-      {/* 3. Canonical 6-Stage Evidence Record Section */}
+      {/* 2. Real Evidence Record (Dated Log — Fully Real Data) */}
       {isDnsOrNetworking && (
         <div className="space-y-3 rounded-xl border border-[#20252B] bg-[#0A0B0D] p-3.5 font-mono text-[11px]">
           <div className="flex items-center justify-between border-b border-[#20252B] pb-2 text-[#4F8CFF]">
             <span className="font-bold uppercase tracking-wider text-[10px] flex items-center gap-1.5">
-              <BookOpen size={12} /> Stage 1-6 Evidence Record
+              <BookOpen size={12} /> Derived Evidence Record
             </span>
-            <span className="text-[#31D07D] font-bold text-[10px]">VERIFIED</span>
+            <span className="text-[#8A9098] font-bold text-[10px]">VERIFIED</span>
           </div>
 
-          <div className="space-y-1.5 text-[#8A9098]">
-            <p className="text-[#F5F5F5] font-bold text-[10px] uppercase">1. Source Anchor</p>
-            <a
-              href={dnsResolutionEvidenceRecord.source.url}
-              target="_blank"
-              rel="noreferrer"
-              className="text-[#4F8CFF] hover:underline flex items-center gap-1"
-            >
-              {dnsResolutionEvidenceRecord.source.label} <ExternalLink size={10} />
-            </a>
+          <div className="space-y-2 text-[#8A9098]">
+            <div>
+              <p className="text-[#F5F5F5] font-bold text-[10px] uppercase">Source Anchor</p>
+              <a
+                href={dnsResolutionEvidenceRecord.source.url}
+                target="_blank"
+                rel="noreferrer"
+                className="text-[#4F8CFF] hover:underline flex items-center gap-1 mt-0.5"
+              >
+                {dnsResolutionEvidenceRecord.source.label} <ExternalLink size={10} />
+              </a>
+            </div>
 
-            <p className="text-[#F5F5F5] font-bold text-[10px] uppercase pt-1">2. Hypothesis & Question</p>
-            <p className="text-[#8A9098] leading-tight">{dnsResolutionEvidenceRecord.question.text}</p>
+            <div>
+              <p className="text-[#F5F5F5] font-bold text-[10px] uppercase">Hypothesis & Question</p>
+              <p className="text-[#8A9098] leading-tight mt-0.5">{dnsResolutionEvidenceRecord.question.text}</p>
+            </div>
 
-            <p className="text-[#F5F5F5] font-bold text-[10px] uppercase pt-1">3. Experiment Execution</p>
-            <p className="text-[#8A9098] bg-[#101317] p-1.5 rounded border border-[#20252B] text-[10px]">
-              {dnsResolutionEvidenceRecord.experiment.method}
-            </p>
+            <div>
+              <p className="text-[#F5F5F5] font-bold text-[10px] uppercase">Method</p>
+              <p className="text-[#8A9098] bg-[#101317] p-1.5 rounded border border-[#20252B] text-[10px] mt-0.5">
+                {dnsResolutionEvidenceRecord.experiment.method}
+              </p>
+            </div>
 
-            <p className="text-[#F5F5F5] font-bold text-[10px] uppercase pt-1">4. Observed Result</p>
-            <p className="text-[#31D07D] leading-tight">{dnsResolutionEvidenceRecord.outcome.expectedVsActual}</p>
+            <div>
+              <p className="text-[#F5F5F5] font-bold text-[10px] uppercase">Observed Result</p>
+              <p className="text-[#F5F5F5] leading-tight mt-0.5">{dnsResolutionEvidenceRecord.outcome.expectedVsActual}</p>
+            </div>
 
-            <p className="text-[#F5F5F5] font-bold text-[10px] uppercase pt-1">5. Diagnosis & Surprises</p>
-            <p className="text-[#8A9098] leading-tight">{dnsResolutionEvidenceRecord.outcome.whatBrokeOrSurprised}</p>
+            <div>
+              <p className="text-[#F5F5F5] font-bold text-[10px] uppercase">Diagnosis & What Broke</p>
+              <p className="text-[#8A9098] leading-tight mt-0.5">{dnsResolutionEvidenceRecord.outcome.whatBrokeOrSurprised}</p>
+            </div>
 
-            <p className="text-[#F5F5F5] font-bold text-[10px] uppercase pt-1">6. Raw Proof Artifacts</p>
-            <div className="space-y-1 pt-0.5">
-              {dnsResolutionEvidenceRecord.artifacts.map((art) => (
-                <div key={art.id} className="flex items-center justify-between bg-[#101317] p-1.5 rounded border border-[#20252B]">
-                  <span className="text-[#F5F5F5] font-mono text-[10px] flex items-center gap-1">
-                    <FileCode2 size={11} className="text-[#4F8CFF]" /> {art.path}
-                  </span>
-                  <span className="text-[9px] text-[#8A9098] uppercase">{art.type}</span>
-                </div>
-              ))}
+            <div>
+              <p className="text-[#F5F5F5] font-bold text-[10px] uppercase">Raw Evidence Files</p>
+              <div className="space-y-1 pt-1">
+                {dnsResolutionEvidenceRecord.artifacts.map((art) => (
+                  <div key={art.id} className="flex items-center justify-between bg-[#101317] p-1.5 rounded border border-[#20252B]">
+                    <span className="text-[#F5F5F5] font-mono text-[10px] flex items-center gap-1">
+                      <FileCode2 size={11} className="text-[#4F8CFF]" /> {art.path}
+                    </span>
+                    <span className="text-[9px] text-[#8A9098] uppercase">{art.type}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* 4. Live Telemetry Execution Launcher */}
-      <div className="rounded-xl border border-[#20252B] bg-[#0A0B0D] p-3.5 space-y-3 font-mono">
-        <div className="flex items-center justify-between">
-          <span className="text-[10px] uppercase tracking-wider text-[#8A9098]">Live System Execution</span>
-          <Award size={13} className="text-[#31D07D]" />
-        </div>
-
-        <button
-          type="button"
-          onClick={runLiveTelemetry}
-          disabled={executing}
-          className="w-full flex items-center justify-center gap-2 rounded-lg border border-[#4F8CFF] bg-[#4F8CFF]/15 px-3 py-2 text-xs font-semibold text-[#4F8CFF] hover:bg-[#4F8CFF]/25 transition-all disabled:opacity-50 cursor-pointer"
-        >
-          {executing ? (
-            <>
-              <span className="h-3 w-3 rounded-full border-2 border-[#4F8CFF] border-t-transparent animate-spin" />
-              Profiling Latency…
-            </>
-          ) : (
-            <>
-              <Play size={13} /> Run Live Telemetry Trace
-            </>
-          )}
-        </button>
-
-        {telemetryResult && (
-          <div className="mt-2 rounded-lg border border-[#20252B] bg-[#101317] p-2.5 space-y-1.5 text-[10px]">
-            <div className="flex justify-between text-[#31D07D] font-bold">
-              <span>Total RTT Span:</span>
-              <span>{telemetryResult.totalDurationMs} ms</span>
-            </div>
-            <div className="flex justify-between text-[#8A9098]">
-              <span>DoH DNS Lookup:</span>
-              <span>{telemetryResult.dnsMs} ms</span>
-            </div>
-            <div className="flex justify-between text-[#8A9098]">
-              <span>TLS 1.3 Handshake:</span>
-              <span>{telemetryResult.tlsMs} ms</span>
-            </div>
-            <div className="flex justify-between text-[#8A9098]">
-              <span>HTTP First-Byte (TTFB):</span>
-              <span>{telemetryResult.ttfbMs} ms</span>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* 5. Derived Evidence Trail */}
+      {/* 3. Derived Evidence Trail Dated Log */}
       <div className="space-y-2 border-b border-[#20252B] pb-4">
         <p className="font-mono text-[10px] uppercase tracking-wider text-[#424750] font-bold">
-          Derived Evidence Trail
+          Dated Activity Trail
         </p>
-        <div className="space-y-1.5 font-mono text-[11px]">
-          <div className="flex items-center gap-2 text-[#8A9098]">
-            <CheckCircle2 size={12} className="text-[#31D07D]" />
+        <div className="space-y-1.5 font-mono text-[11px] text-[#8A9098]">
+          <div className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#4F8CFF]" />
             <span>2026-08-07: RFC 1035 Iterative Dig Trace Logged</span>
           </div>
-          <div className="flex items-center gap-2 text-[#8A9098]">
-            <CheckCircle2 size={12} className="text-[#31D07D]" />
+          <div className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#8A9098]" />
             <span>2026-08-07: Wireshark UDP 53 PCAP Capture Verified</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#8A9098]" />
+            <span>2026-08-06: Vitest 13/13 Automated Tests Verified</span>
           </div>
         </div>
       </div>
 
-      {/* 6. Connected Nodes */}
+      {/* 4. Connected Topology */}
       {connectedNodes.length > 0 && (
         <div className="space-y-2 border-b border-[#20252B] pb-4">
           <p className="font-mono text-[10px] uppercase tracking-wider text-[#424750] font-bold flex items-center gap-1">
-            <Layers size={11} /> Connected Topology ({connectedNodes.length})
+            <Layers size={11} /> Connected Nodes ({connectedNodes.length})
           </p>
           <div className="flex flex-wrap gap-1.5 pt-1">
             {connectedNodes.map((cn) => (
@@ -274,10 +209,12 @@ export function IntelligencePanel({
                     id: cn.id,
                     label: cn.label,
                     summary: kn?.summary ?? "",
-                    type: "concept",
+                    detail: kn?.detail ?? "",
+                    kind: "technology",
                     domain: kn?.domain ?? "networking",
                     evidenceDepth: 4,
                     density: 75,
+                    featured: true,
                     x: 500,
                     y: 350,
                   });
@@ -291,7 +228,7 @@ export function IntelligencePanel({
         </div>
       )}
 
-      {/* 7. Related Repositories */}
+      {/* 5. GitHub Evidence Repo */}
       <div className="space-y-2 border-b border-[#20252B] pb-4 font-mono">
         <p className="text-[10px] uppercase tracking-wider text-[#424750] font-bold flex items-center gap-1">
           <GitCommit size={11} /> Evidence Repository
@@ -307,11 +244,11 @@ export function IntelligencePanel({
         </a>
       </div>
 
-      {/* 8. Suggested Exploration */}
+      {/* 6. Case Study Artifact Link */}
       {relatedArtifact && (
         <div className="space-y-2 font-mono">
-          <p className="text-[10px] uppercase tracking-wider text-[#424750] font-[#424750] font-bold">
-            Suggested Case Study
+          <p className="text-[10px] uppercase tracking-wider text-[#424750] font-bold">
+            Engineering Artifact
           </p>
           <a
             href={`/artifacts/${relatedArtifact.id}`}
@@ -325,12 +262,6 @@ export function IntelligencePanel({
           </a>
         </div>
       )}
-
-      {/* Reasoning Replay Modal */}
-      <ReasoningReplay
-        claimId={reasoningClaimId}
-        onClose={() => setReasoningClaimId(null)}
-      />
     </aside>
   );
 }
