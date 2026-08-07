@@ -5,30 +5,18 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Section } from "@/components/ui/Section";
 import { Tag } from "@/components/ui/Tag";
 import { cn } from "@/lib/utils";
-import { timeline } from "@/data/content";
-import type { TimelineEntry } from "@/data/types";
-
-const categories: Array<TimelineEntry["category"] | "All"> = [
-  "All",
-  "Education",
-  "Project",
-  "Research",
-  "Award",
-  "Event",
-];
-
-const categoryTone: Record<TimelineEntry["category"], "accent" | "success" | "warning" | "neutral"> = {
-  Education: "neutral",
-  Project: "accent",
-  Research: "warning",
-  Award: "success",
-  Event: "neutral",
-};
+import { timelineClient } from "@/lib/api-client";
+import type { TimelineEntryViewModel } from "@/services/timeline.service";
 
 export function Timeline() {
-  const [filter, setFilter] = React.useState<(typeof categories)[number]>("All");
+  const [timeline, setTimeline] = React.useState<TimelineEntryViewModel[]>([]);
   const [openIndex, setOpenIndex] = React.useState<number | null>(null);
-  const items = timeline.filter((t) => filter === "All" || t.category === filter);
+
+  React.useEffect(() => {
+    timelineClient.getTimeline().then(setTimeline).catch(console.error);
+  }, []);
+
+  const items = timeline;
   const trackRef = React.useRef<HTMLOListElement>(null);
 
   const { scrollYProgress } = useScroll({
@@ -45,23 +33,6 @@ export function Timeline() {
       title="How this took shape"
       description="Education, projects, research, and the events that changed direction. Hover an entry for the full note."
     >
-      <div className="mb-8 flex flex-wrap gap-2">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setFilter(cat)}
-            className={cn(
-              "rounded-full border px-3.5 py-1.5 text-xs font-medium transition-colors",
-              filter === cat
-                ? "border-accent bg-accent-dim text-accent"
-                : "border-border text-text-tertiary hover:text-text-secondary"
-            )}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
       <ol ref={trackRef} className="relative ml-3 space-y-8 pl-8">
         <span className="absolute left-0 top-0 h-full w-px bg-border" aria-hidden />
         <motion.span
@@ -73,7 +44,7 @@ export function Timeline() {
           const isOpen = openIndex === i;
           return (
             <motion.li
-              key={entry.title}
+              key={entry.title + i}
               initial={{ opacity: 0, x: -8 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-40px" }}
@@ -92,7 +63,7 @@ export function Timeline() {
               />
               <div className="mb-1.5 flex flex-wrap items-center gap-2">
                 <span className="text-xs font-medium text-text-tertiary">{entry.date}</span>
-                <Tag tone={categoryTone[entry.category]}>{entry.category}</Tag>
+                <Tag tone="neutral">{entry.category}</Tag>
               </div>
               <h4
                 className={cn(
@@ -102,16 +73,9 @@ export function Timeline() {
               >
                 {entry.title}
               </h4>
-              <motion.div
-                initial={false}
-                animate={{ height: isOpen ? "auto" : 0, opacity: isOpen ? 1 : 0 }}
-                transition={{ duration: 0.25, ease: "easeOut" }}
-                className="overflow-hidden"
-              >
-                <p className="mt-1.5 max-w-2xl pb-0.5 text-sm leading-relaxed text-text-secondary">
-                  {entry.description}
-                </p>
-              </motion.div>
+              <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-text-secondary">
+                {entry.description}
+              </p>
             </motion.li>
           );
         })}

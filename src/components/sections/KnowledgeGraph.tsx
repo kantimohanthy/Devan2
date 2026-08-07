@@ -2,11 +2,12 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import React, { useMemo, useState, useCallback, useRef } from "react";
+import React, { useMemo, useState, useCallback, useRef, useEffect } from "react";
 import { Section } from "@/components/ui/Section";
 import { Tag } from "@/components/ui/Tag";
-import { knowledgeNodes, knowledgeEdges } from "@/data/content";
-import type { NodeId, Domain } from "@/data/types";
+import { graphClient } from "@/lib/api-client";
+import type { GraphNodeViewModel, GraphEdgeViewModel } from "@/services/graph.service";
+import type { Domain } from "@/data/types";
 import { AnimatePresence, motion } from "framer-motion";
 import { usePresence } from "@/hooks/usePresence";
 
@@ -15,7 +16,7 @@ const ForceGraph2D = dynamic(() => import("react-force-graph-2d"), {
 }) as any;
 
 type FGNode = {
-  id: NodeId;
+  id: string;
   label: string;
   summary?: string;
   dimmed?: boolean;
@@ -27,12 +28,10 @@ type FGNode = {
 };
 
 type FGLink = {
-  source: NodeId;
-  target: NodeId;
+  source: string;
+  target: string;
   dimmed?: boolean;
 };
-
-const nodeById = Object.fromEntries(knowledgeNodes.map((n) => [n.id, n]));
 
 interface KnowledgeGraphProps {
   headless?: boolean;
@@ -43,37 +42,40 @@ export function KnowledgeGraph({
   headless = false,
   filterDomain = null,
 }: KnowledgeGraphProps) {
-  const [activeNodeId, setActiveNodeId] = useState<NodeId>("networking");
+  const [activeNodeId, setActiveNodeId] = useState<string>("networking");
+  const [nodes, setNodes] = useState<GraphNodeViewModel[]>([]);
+  const [edges, setEdges] = useState<GraphEdgeViewModel[]>([]);
   const fgRef = useRef<any>(null);
   const peers = usePresence(activeNodeId);
-  const activeNode = nodeById[activeNodeId] || knowledgeNodes[0];
 
-  React.useEffect(() => {
-    if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      const nodeParam = params.get("node") as NodeId | null;
-      if (nodeParam && nodeById[nodeParam]) {
-        setActiveNodeId(nodeParam);
-      }
-    }
+  useEffect(() => {
+    graphClient.getGraph().then((g) => {
+      setNodes(g.nodes);
+      setEdges(g.edges);
+    }).catch(console.error);
   }, []);
+
+  const activeNode = useMemo(
+    () => nodes.find((n) => n.id === activeNodeId) || nodes[0] || { id: "networking", label: "Networking", summary: "Internet engineering", domain: "build" },
+    [nodes, activeNodeId]
+  );
 
   const graphData = useMemo(() => {
     const connected = new Set<string>();
     if (activeNodeId) {
       connected.add(activeNodeId);
-      knowledgeEdges.forEach((e) => {
+      edges.forEach((e) => {
         if (e.from === activeNodeId) connected.add(e.to);
         if (e.to === activeNodeId) connected.add(e.from);
       });
     }
 
     const filteredNodeIds = filterDomain
-      ? new Set(knowledgeNodes.filter((n) => n.domain === filterDomain).map((n) => n.id))
+      ? new Set(nodes.filter((n) => n.domain === filterDomain).map((n) => n.id))
       : null;
 
     return {
-      nodes: knowledgeNodes.map((n) => {
+      nodes: nodes.map((n) => {
         const matchesFilter = !filteredNodeIds || filteredNodeIds.has(n.id);
         return {
           id: n.id,
@@ -85,16 +87,16 @@ export function KnowledgeGraph({
           highlighted: matchesFilter && filterDomain !== null,
         };
       }),
-      links: knowledgeEdges.map((e) => ({
+      links: edges.map((e) => ({
         source: e.from,
         target: e.to,
-        label: e.label,
+        label: e.relationship,
         dimmed: activeNodeId
           ? !(e.from === activeNodeId || e.to === activeNodeId)
           : false,
       })),
     };
-  }, [activeNodeId, filterDomain]);
+  }, [nodes, edges, activeNodeId, filterDomain]);
 
   const handleNodeClick = useCallback((node: FGNode) => {
     if (node && node.id) {
@@ -105,7 +107,6 @@ export function KnowledgeGraph({
   const content = (
     <div className="grid gap-6 lg:grid-cols-5">
       <div className="relative h-[480px] w-full overflow-hidden rounded-2xl border border-[var(--hairline)] bg-[var(--surface-quiet)] lg:col-span-3">
-        {/* Peer presence indicator */}
         <div className="absolute top-3 right-3 z-10 flex items-center gap-2 rounded-full border border-[var(--hairline)] bg-[var(--surface)]/80 px-3 py-1 text-xs text-[var(--text-dim)] backdrop-blur">
           <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
           <span>
@@ -167,14 +168,10 @@ export function KnowledgeGraph({
               {activeNode.label}
             </h3>
             <p className="mb-5 text-sm leading-relaxed text-[var(--text-dim)]">
-              {activeNode.detail}
+              {activeNode.detail || activeNode.summary}
             </p>
             <div className="flex flex-wrap gap-2">
-              {activeNode.projects.map((p) => (
-                <Tag key={p} tone="accent">
-                  {p}
-                </Tag>
-              ))}
+              <Tag tone="accent">{activeNode.domain}</Tag>
             </div>
 
             <div className="mt-6 border-t border-[var(--hairline)] pt-4">
@@ -182,11 +179,11 @@ export function KnowledgeGraph({
                 Connected to
               </p>
               <div className="flex flex-wrap gap-2">
-                {knowledgeEdges
+                {edges
                   .filter((e) => e.from === activeNodeId || e.to === activeNodeId)
                   .map((e) => {
                     const otherId = e.from === activeNodeId ? e.to : e.from;
-                    const otherNode = nodeById[otherId];
+                    const otherNode = nodes.find((n) => n.id === otherId);
                     return (
                       <button
                         key={otherId}
@@ -194,8 +191,8 @@ export function KnowledgeGraph({
                         onClick={() => setActiveNodeId(otherId)}
                         className="rounded-full border border-[var(--hairline)] px-3 py-1 text-xs text-[var(--text-dim)] hover:border-white/30 hover:text-[var(--text)] transition-colors cursor-pointer"
                       >
-                        {otherNode?.label}
-                        <span className="ml-1 text-[var(--text-faint)]">· {e.label}</span>
+                        {otherNode?.label || otherId}
+                        <span className="ml-1 text-[var(--text-faint)]">· {e.relationship}</span>
                       </button>
                     );
                   })}

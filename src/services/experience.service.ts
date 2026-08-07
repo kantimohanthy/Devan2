@@ -1,4 +1,4 @@
-import { ExperienceRepository } from "@/repositories/experience.repository";
+import { prisma } from "@/lib/prisma";
 import {
   CreateExperienceInput,
   UpdateExperienceInput,
@@ -6,20 +6,34 @@ import {
 
 export const ExperienceService = {
   async getExperiences() {
-    return ExperienceRepository.findAll();
+    try {
+      return await prisma.experience.findMany();
+    } catch {
+      return [];
+    }
   },
 
   async getExperience(id: string) {
-    return ExperienceRepository.findById(id);
+    try {
+      return await prisma.experience.findUnique({ where: { id } });
+    } catch {
+      return null;
+    }
   },
 
   async createExperience(
     data: CreateExperienceInput,
     userId: string
   ) {
-    return ExperienceRepository.create({
-      ...data,
-      userId,
+    return prisma.experience.create({
+      data: {
+        company: data.company,
+        role: data.role,
+        startDate: new Date(data.startDate),
+        endDate: data.endDate ? new Date(data.endDate) : null,
+        description: data.description || "",
+        userId,
+      },
     });
   },
 
@@ -27,10 +41,19 @@ export const ExperienceService = {
     id: string,
     data: UpdateExperienceInput
   ) {
-    return ExperienceRepository.update(id, data);
+    return prisma.experience.update({
+      where: { id },
+      data: {
+        ...(data.company && { company: data.company }),
+        ...(data.role && { role: data.role }),
+        ...(data.startDate && { startDate: new Date(data.startDate) }),
+        ...(data.endDate !== undefined && { endDate: data.endDate ? new Date(data.endDate) : null }),
+        ...(data.description && { description: data.description }),
+      },
+    });
   },
 
   async deleteExperience(id: string) {
-    return ExperienceRepository.delete(id);
+    return prisma.experience.delete({ where: { id } });
   },
 };

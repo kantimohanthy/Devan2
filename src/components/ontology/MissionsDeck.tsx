@@ -11,10 +11,10 @@ export function MissionsDeck() {
     setMissions((prev) =>
       prev.map((m) => {
         if (m.id !== missionId) return m;
-        const nextSubtasks = m.subtasks.map((st) =>
+        const nextSubtasks = m.subtasks.map((st: { id: string; label: string; completed: boolean }) =>
           st.id === subtaskId ? { ...st, completed: !st.completed } : st
         );
-        const completedCount = nextSubtasks.filter((st) => st.completed).length;
+        const completedCount = nextSubtasks.filter((st: { id: string; label: string; completed: boolean }) => st.completed).length;
         const progressPercent = Math.round((completedCount / nextSubtasks.length) * 100);
         return { ...m, subtasks: nextSubtasks, progressPercent };
       })
@@ -46,7 +46,6 @@ export function MissionsDeck() {
 
             <p className="text-[11px] text-[#8A9098]">{mission.objective}</p>
 
-            {/* Progress Bar */}
             <div className="h-1.5 w-full rounded-full bg-[#20252B] overflow-hidden">
               <div
                 className="h-full bg-[#4F8CFF] transition-all duration-300"
@@ -54,9 +53,8 @@ export function MissionsDeck() {
               />
             </div>
 
-            {/* Subtasks Checklist */}
             <div className="space-y-1 pt-1 text-[11px]">
-              {mission.subtasks.map((st) => (
+              {mission.subtasks.map((st: { id: string; label: string; completed: boolean }) => (
                 <button
                   key={st.id}
                   type="button"

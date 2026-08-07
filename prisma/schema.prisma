@@ -13,6 +13,25 @@ enum Role {
   VIEWER
 }
 
+enum EvidenceState {
+  ENCOUNTERED
+  STUDIED
+  IMPLEMENTED
+  TESTED
+  APPLIED
+  DEFENDED
+}
+
+enum LearningStatus {
+  NOT_STARTED
+  INTERESTED
+  LEARNING
+  PRACTICING
+  APPLIED
+  VERIFIED
+  MASTERED
+}
+
 model User {
   id            String   @id @default(cuid())
   name          String?
@@ -33,6 +52,7 @@ model User {
   education     Education[]
   skills        Skill[]
   auditLogs     AuditLog[]
+  competencies  UserConceptCompetency[]
 }
 
 model RefreshToken {
@@ -161,4 +181,99 @@ model Experiment {
   relatedKnowledgeNodes String
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
+}
+
+model Concept {
+  id             String        @id @default(cuid())
+  slug           String        @unique
+  title          String
+  domain         String
+  topic          String?
+  summary        String
+  description    String
+  evidenceState  EvidenceState @default(ENCOUNTERED)
+  sourceRfc      String?
+  observedResult String?
+  whatBroke      String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  relatedDecisions Decision[]
+}
+
+model Decision {
+  id            String   @id @default(cuid())
+  slug          String   @unique
+  title         String
+  context       String
+  decision      String
+  rationale     String
+  tradeoffs     String   // JSON string of alternatives/tradeoffs array
+  consequences   String?
+  status        String   @default("ACCEPTED")
+  conceptId     String?
+  concept       Concept? @relation(fields: [conceptId], references: [id])
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Repository {
+  id               String   @id @default(cuid())
+  slug             String   @unique
+  name             String
+  url              String
+  description      String
+  stars            Int      @default(0)
+  forks            Int      @default(0)
+  language         String
+  ciStatus         String   @default("passing")
+  openIssues       Int      @default(0)
+  architectureNote String?
+  isPrivate        Boolean  @default(false)
+  evidenceCount    Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Mission {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String
+  objective       String
+  domain          String
+  progressPercent Int      @default(0)
+  status          String   @default("IN_PROGRESS")
+  checklistData   String   // JSON string of objectives array [{ label, done }]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model UserConceptCompetency {
+  id              String         @id @default(cuid())
+  userId          String
+  conceptSlug     String
+  learningStatus  LearningStatus @default(INTERESTED)
+  knowledgeScore  Int            @default(0) // 0 - 10
+  experienceScore Int            @default(0) // 0 - 10
+  evidenceScore   Int            @default(0) // 0 - 10
+  confidenceScore Int            @default(0) // 0 - 10
+  lastAssessedAt  DateTime       @default(now())
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([userId, conceptSlug])
+}
+
+model ExperienceEvent {
+  id         String   @id @default(cuid())
+  timestamp  DateTime @default(now())
+  entityId   String   // Refers to an Ontology entity (e.g. concept slug, project slug)
+  action     String   // e.g. "COMPLETED_EXPERIMENT", "UPLOADED_EVIDENCE", "QUESTION_ASKED"
+  metadata   String   // JSON string of event payload
+  reason     String?
+  source     String   @default("SYSTEM") // SYSTEM, USER, REASONER
+  confidence Int      @default(100)      // 0 - 100
+  createdAt  DateTime @default(now())
 }

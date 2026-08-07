@@ -1,23 +1,12 @@
 import { NextResponse } from "next/server";
-import { knowledgeNodes, knowledgeEdges, projects } from "@/data/content";
+import { withApiHandler } from "@/lib/api-handler";
+import { graphService } from "@/services/graph.service";
 
-export async function GET() {
-  return NextResponse.json(
-    {
-      nodes: knowledgeNodes,
-      edges: knowledgeEdges,
-      projects: projects.map((p) => ({
-        slug: p.slug,
-        title: p.title,
-        domain: p.domain,
-        status: p.status,
-        tagline: p.tagline,
-      })),
+export const GET = withApiHandler(async () => {
+  const graph = await graphService.getGraph();
+  return NextResponse.json(graph, {
+    headers: {
+      "Cache-Control": "public, max-age=3600, s-maxage=3600",
     },
-    {
-      headers: {
-        "Cache-Control": "public, max-age=3600, s-maxage=3600",
-      },
-    }
-  );
-}
+  });
+});

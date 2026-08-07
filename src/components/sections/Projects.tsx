@@ -1,6 +1,6 @@
 import { Section } from "@/components/ui/Section";
 import { ProjectCard } from "@/components/ProjectCard";
-import { projects } from "@/data/content";
+import { projects } from "@/lib/data";
 
 export function Projects() {
   return (
@@ -13,7 +13,7 @@ export function Projects() {
     >
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
+          <ProjectCard key={project.slug} project={project as unknown as Parameters<typeof ProjectCard>[0]["project"]} />
         ))}
       </div>
     </Section>

@@ -1,54 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CommandBar } from "./CommandBar";
 import { FilterRail, FilterState } from "./FilterRail";
 import { GraphCanvas, NodeItem } from "./GraphCanvas";
 import { IntelligencePanel } from "./IntelligencePanel";
 import { StatusStrip } from "./StatusStrip";
 import { CommandPalette } from "./CommandPalette";
-import { HIERARCHICAL_KNOWLEDGE_NODES } from "@/data/hierarchical-graph";
-import { knowledgeNodes } from "@/data/content";
+import { graphClient } from "@/lib/api-client";
+import type { GraphViewModel } from "@/services/graph.service";
 
 export function DevanShell() {
   const [searchQuery, setSearchQuery] = useState("");
   const [activeTab, setActiveTab] = useState("Knowledge");
   const [selectedNode, setSelectedNode] = useState<NodeItem | null>(null);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
+  const [graphData, setGraphData] = useState<GraphViewModel | null>(null);
 
   const [filters, setFilters] = useState<FilterState>({
     domains: new Set(),
     showAllNodes: false,
   });
 
-  const handleSelectNodeById = (nodeId: string) => {
-    const hNode = HIERARCHICAL_KNOWLEDGE_NODES.find((n) => n.id === nodeId);
-    if (hNode) {
-      setSelectedNode({
-        id: hNode.id,
-        label: hNode.label,
-        kind: hNode.kind,
-        summary: hNode.summary,
-        detail: hNode.detail,
-        domain: hNode.domain,
-        evidenceDepth: hNode.evidenceDepth,
-        density: hNode.density,
-        featured: true,
-        x: 500,
-        y: 350,
-      });
-      return;
-    }
+  useEffect(() => {
+    graphClient.getGraph().then(setGraphData).catch(console.error);
+  }, []);
 
-    const kn = knowledgeNodes.find((n) => n.id === nodeId);
-    if (kn) {
+  const handleSelectNodeById = (nodeId: string) => {
+    if (!graphData) return;
+    const gNode = graphData.nodes.find((n) => n.id === nodeId);
+    if (gNode) {
       setSelectedNode({
-        id: kn.id,
-        label: kn.label,
-        kind: kn.projects.length > 0 ? "repository" : "technology",
-        summary: kn.summary,
-        detail: kn.detail,
-        domain: kn.domain,
+        id: gNode.id,
+        label: gNode.label,
+        kind: "concept",
+        summary: gNode.summary,
+        detail: gNode.detail || gNode.summary,
+        domain: gNode.domain,
         evidenceDepth: 4,
         density: 85,
         featured: true,
@@ -90,7 +78,7 @@ export function DevanShell() {
       </div>
 
       {/* Region 5: Bottom Status Strip (28px) */}
-      <StatusStrip filteredCount={HIERARCHICAL_KNOWLEDGE_NODES.length} />
+      <StatusStrip filteredCount={graphData?.metrics.totalNodes ?? 0} />
 
       {/* Global Cmd+K Command Palette Modal */}
       <CommandPalette

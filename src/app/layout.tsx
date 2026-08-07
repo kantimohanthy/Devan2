@@ -1,55 +1,25 @@
 import type { Metadata } from "next";
-import "@fontsource-variable/inter";
-import "@fontsource-variable/inter/wght-italic.css";
 import "./globals.css";
-import { CursorField } from "@/components/CursorField";
-import CommandPalette from "@/components/ui/CommandPalette";
-import { ToolDock } from "@/components/ui/ToolDock";
+import { RailNav } from "@/components/RailNav";
+import { TopBar } from "@/components/TopBar";
+import { CommandPalette } from "@/components/CommandPalette";
 
 export const metadata: Metadata = {
   title: "DEVAN — The Eye of UJ",
-  description:
-    "DEVAN is the eye of an internet engineer's curiosity — research, projects, experiments and systems thinking from Ujwal Shyam Kantimohanthy, working across networking, AI, and space infrastructure.",
-  metadataBase: new URL("https://kantimohanthy.dev"),
-  openGraph: {
-    title: "DEVAN",
-    description: "The Eye of UJ.",
-    type: "website",
-  },
+  description: "An inspectable record of how one engineer thinks, learns, builds, and decides.",
 };
 
-const personLd = {
-  "@context": "https://schema.org",
-  "@type": "Person",
-  name: "Ujwal Shyam Kantimohanthy",
-  alternateName: "UJ",
-  url: "https://kantimohanthy.dev",
-  sameAs: [
-    "https://github.com/kantimohanthy",
-    "https://linkedin.com/in/ujwalshyam-kantimohanthy",
-  ],
-  jobTitle: "Internet Engineer",
-  description:
-    "Internet engineer working across networking, AI systems, and space infrastructure.",
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en">
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personLd) }}
-        />
-      </head>
-      <body className="antialiased">
-        <CursorField />
-        <div className="relative z-10">{children}</div>
-        <ToolDock />
+    <html lang="en" className="h-full antialiased">
+      <body className="min-h-full h-full flex bg-bg text-text font-sans text-[14px]">
+        <RailNav />
+        <div className="flex-1 flex flex-col min-w-0 h-screen">
+          <TopBar />
+          <main className="flex-1 overflow-y-auto">
+            <div className="max-w-[900px] mx-auto px-8 py-12 pb-24">{children}</div>
+          </main>
+        </div>
         <CommandPalette />
       </body>
     </html>

@@ -1,32 +1,23 @@
 "use client";
 
 import * as React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Section } from "@/components/ui/Section";
-import { Tag } from "@/components/ui/Tag";
-import { identity, projects, experiments, articles, research, timeline } from "@/data/content";
-
-type RelatedKind = "project" | "experiment" | "article" | "research";
-
-function resolveRelated(kind: RelatedKind, ref: string) {
-  if (kind === "project") {
-    const p = projects.find((p) => p.title === ref);
-    return p ? { title: p.title, detail: p.tagline } : null;
-  }
-  if (kind === "experiment") {
-    const e = experiments.find((e) => e.title === ref);
-    return e ? { title: e.title, detail: e.description } : null;
-  }
-  if (kind === "article") {
-    const a = articles.find((a) => a.title === ref);
-    return a ? { title: a.title, detail: a.dek } : null;
-  }
-  const r = research.find((r) => r.title === ref);
-  return r ? { title: r.title, detail: r.description } : null;
-}
+import { identityClient, timelineClient } from "@/lib/api-client";
+import type { IdentityViewModel } from "@/services/identity.service";
+import type { TimelineEntryViewModel } from "@/services/timeline.service";
 
 export function Identity() {
   const [openIndex, setOpenIndex] = React.useState<number | null>(null);
+  const [profile, setProfile] = React.useState<IdentityViewModel | null>(null);
+  const [timeline, setTimeline] = React.useState<TimelineEntryViewModel[]>([]);
+
+  React.useEffect(() => {
+    identityClient.getProfile().then(setProfile).catch(console.error);
+    timelineClient.getTimeline().then(setTimeline).catch(console.error);
+  }, []);
+
+  if (!profile) return null;
 
   return (
     <Section id="identity" eyebrow="01 · Identity" reveal="rise">
@@ -37,7 +28,7 @@ export function Identity() {
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         className="text-balance text-3xl font-medium leading-[1.3] tracking-tight text-text-primary sm:text-4xl lg:text-5xl"
       >
-        {identity.mission}
+        {profile.mission}
       </motion.p>
 
       <div className="mt-20">
@@ -45,12 +36,8 @@ export function Identity() {
           A few things that hold
         </p>
         <div className="divide-y divide-border border-t border-border">
-          {identity.principles.map((principle, i) => {
+          {profile.principles.map((principle, i) => {
             const isOpen = openIndex === i;
-            const rel = resolveRelated(
-              principle.related.kind as RelatedKind,
-              principle.related.ref
-            );
             return (
               <div
                 key={principle.title}
@@ -78,27 +65,6 @@ export function Identity() {
                 <p className="mt-3 max-w-2xl pl-0 text-sm leading-relaxed text-text-secondary sm:pl-11">
                   {principle.description}
                 </p>
-                <AnimatePresence>
-                  {isOpen && rel && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: "auto" }}
-                      exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.25, ease: "easeOut" }}
-                      className="overflow-hidden pl-0 sm:pl-11"
-                    >
-                      <div className="mt-4 flex items-start gap-3 rounded-xl border border-border bg-surface/50 p-4">
-                        <Tag tone="accent">{principle.related.kind}</Tag>
-                        <div>
-                          <p className="text-sm font-medium text-text-primary">{rel.title}</p>
-                          <p className="mt-1 text-xs leading-relaxed text-text-tertiary">
-                            {rel.detail}
-                          </p>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
             );
           })}

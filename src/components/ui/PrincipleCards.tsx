@@ -1,18 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Gauge, AlertTriangle, Layers, Network } from "lucide-react";
-import { identity } from "@/data/content";
+import { identityClient } from "@/lib/api-client";
+import type { IdentityViewModel } from "@/services/identity.service";
 
 const ICONS = [Gauge, AlertTriangle, Layers, Network];
 
 export function PrincipleCards() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [profile, setProfile] = useState<IdentityViewModel | null>(null);
+
+  useEffect(() => {
+    identityClient.getProfile().then(setProfile).catch(console.error);
+  }, []);
+
+  if (!profile) return null;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {identity.principles.map((p, i) => {
+      {profile.principles.map((p, i) => {
         const open = openIndex === i;
         const Icon = ICONS[i % ICONS.length];
         return (
@@ -40,11 +48,6 @@ export function PrincipleCards() {
                 className="mt-3 text-xs text-white/70 leading-relaxed border-t border-white/10 pt-3"
               >
                 <p>{p.description}</p>
-                {p.related && (
-                  <span className="block mt-2.5 text-[11px] font-mono text-blue-400 font-medium">
-                    → {p.related.kind}: {p.related.ref}
-                  </span>
-                )}
               </motion.div>
             )}
           </motion.button>

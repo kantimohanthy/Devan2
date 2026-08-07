@@ -1,11 +1,10 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { NodeItem } from "./GraphCanvas";
-import { knowledgeNodes, knowledgeEdges } from "@/data/content";
-import { artifacts } from "@/data/artifacts";
-import { dnsResolutionEvidenceRecord } from "@/data/evidence-records";
-import { deriveEvidenceState } from "@/data/evidence-schema";
-import { ExternalLink, GitCommit, Layers, ArrowUpRight, BookOpen, FileCode2 } from "lucide-react";
+import { ExternalLink, GitCommit } from "lucide-react";
+import { graphClient } from "@/lib/api-client";
+import type { GraphNodeViewModel } from "@/services/graph.service";
 
 interface IntelligencePanelProps {
   selectedNode: NodeItem | null;
@@ -16,7 +15,14 @@ export function IntelligencePanel({
   selectedNode,
   onSelectNode,
 }: IntelligencePanelProps) {
-  // If no node selected, show quiet active node registry
+  const [registryNodes, setRegistryNodes] = useState<GraphNodeViewModel[]>([]);
+
+  useEffect(() => {
+    graphClient.getGraph().then((data) => {
+      setRegistryNodes(data.nodes.slice(0, 6));
+    }).catch(console.error);
+  }, []);
+
   if (!selectedNode) {
     return (
       <aside className="w-[360px] shrink-0 h-full border-l border-[#20252B] bg-[#101317] p-5 flex flex-col gap-5 overflow-y-auto select-none font-sans text-xs">
@@ -33,7 +39,7 @@ export function IntelligencePanel({
           <p className="font-mono text-[10px] uppercase tracking-wider text-[#424750] font-bold">
             Curated Knowledge Map
           </p>
-          {knowledgeNodes.slice(0, 6).map((node) => (
+          {registryNodes.map((node) => (
             <button
               key={node.id}
               type="button"
@@ -41,9 +47,9 @@ export function IntelligencePanel({
                 onSelectNode({
                   id: node.id,
                   label: node.label,
-                  kind: node.projects.length > 0 ? "repository" : "technology",
+                  kind: "concept",
                   summary: node.summary,
-                  detail: node.detail,
+                  detail: node.detail || node.summary,
                   domain: node.domain,
                   evidenceDepth: 4,
                   density: 85,
@@ -56,7 +62,7 @@ export function IntelligencePanel({
             >
               <div className="flex items-center justify-between font-mono text-[10px] text-[#8A9098]">
                 <span className="uppercase text-[#4F8CFF] font-semibold">{node.domain}</span>
-                <span className="text-[#8A9098] font-bold">TESTED</span>
+                <span className="text-[#8A9098] font-bold">{node.state || "TESTED"}</span>
               </div>
               <p className="mt-1 font-semibold text-[#F5F5F5] group-hover:text-[#4F8CFF] transition-colors">
                 {node.label}
@@ -69,38 +75,15 @@ export function IntelligencePanel({
     );
   }
 
-  // Connected nodes
-  const connectedEdges = knowledgeEdges.filter(
-    (e) => e.from === selectedNode.id || e.to === selectedNode.id
-  );
-
-  const connectedNodes = connectedEdges.map((e) => {
-    const otherId = e.from === selectedNode.id ? e.to : e.from;
-    const kn = knowledgeNodes.find((n) => n.id === otherId);
-    return {
-      id: otherId,
-      label: kn?.label ?? otherId,
-      edgeLabel: e.label,
-    };
-  });
-
-  const isDnsOrNetworking = selectedNode.id.includes("dns") || selectedNode.id.includes("network");
-  const derivedState = isDnsOrNetworking ? deriveEvidenceState(dnsResolutionEvidenceRecord) : "TESTED";
-
-  const relatedArtifact = artifacts.find(
-    (a) => a.id.includes(selectedNode.id) || a.title.toLowerCase().includes(selectedNode.id)
-  );
-
   return (
     <aside className="w-[360px] shrink-0 h-full border-l border-[#20252B] bg-[#101317] p-5 flex flex-col gap-5 overflow-y-auto font-sans text-xs select-none">
-      {/* 1. Header & Derived State (No numeric scores) */}
       <div className="border-b border-[#20252B] pb-4 space-y-1.5">
         <div className="flex items-center justify-between font-mono text-[10px] text-[#8A9098]">
           <span className="uppercase tracking-widest text-[#4F8CFF] font-semibold">
             {selectedNode.kind} · {selectedNode.domain}
           </span>
           <span className="rounded bg-[#20252B] px-2 py-0.5 text-[#F5F5F5] font-mono text-[10px] font-bold">
-            {derivedState}
+            {selectedNode.kind === "root-category" ? "MASTERED" : "TESTED"}
           </span>
         </div>
         <h2 className="text-xl font-bold tracking-tight text-[#F5F5F5] pt-1">
@@ -109,69 +92,6 @@ export function IntelligencePanel({
         <p className="text-xs text-[#8A9098] leading-relaxed">{selectedNode.summary}</p>
       </div>
 
-      {/* 2. Real Evidence Record (Dated Log — Fully Real Data) */}
-      {isDnsOrNetworking && (
-        <div className="space-y-3 rounded-xl border border-[#20252B] bg-[#0A0B0D] p-3.5 font-mono text-[11px]">
-          <div className="flex items-center justify-between border-b border-[#20252B] pb-2 text-[#4F8CFF]">
-            <span className="font-bold uppercase tracking-wider text-[10px] flex items-center gap-1.5">
-              <BookOpen size={12} /> Derived Evidence Record
-            </span>
-            <span className="text-[#8A9098] font-bold text-[10px]">VERIFIED</span>
-          </div>
-
-          <div className="space-y-2 text-[#8A9098]">
-            <div>
-              <p className="text-[#F5F5F5] font-bold text-[10px] uppercase">Source Anchor</p>
-              <a
-                href={dnsResolutionEvidenceRecord.source.url}
-                target="_blank"
-                rel="noreferrer"
-                className="text-[#4F8CFF] hover:underline flex items-center gap-1 mt-0.5"
-              >
-                {dnsResolutionEvidenceRecord.source.label} <ExternalLink size={10} />
-              </a>
-            </div>
-
-            <div>
-              <p className="text-[#F5F5F5] font-bold text-[10px] uppercase">Hypothesis & Question</p>
-              <p className="text-[#8A9098] leading-tight mt-0.5">{dnsResolutionEvidenceRecord.question.text}</p>
-            </div>
-
-            <div>
-              <p className="text-[#F5F5F5] font-bold text-[10px] uppercase">Method</p>
-              <p className="text-[#8A9098] bg-[#101317] p-1.5 rounded border border-[#20252B] text-[10px] mt-0.5">
-                {dnsResolutionEvidenceRecord.experiment.method}
-              </p>
-            </div>
-
-            <div>
-              <p className="text-[#F5F5F5] font-bold text-[10px] uppercase">Observed Result</p>
-              <p className="text-[#F5F5F5] leading-tight mt-0.5">{dnsResolutionEvidenceRecord.outcome.expectedVsActual}</p>
-            </div>
-
-            <div>
-              <p className="text-[#F5F5F5] font-bold text-[10px] uppercase">Diagnosis & What Broke</p>
-              <p className="text-[#8A9098] leading-tight mt-0.5">{dnsResolutionEvidenceRecord.outcome.whatBrokeOrSurprised}</p>
-            </div>
-
-            <div>
-              <p className="text-[#F5F5F5] font-bold text-[10px] uppercase">Raw Evidence Files</p>
-              <div className="space-y-1 pt-1">
-                {dnsResolutionEvidenceRecord.artifacts.map((art) => (
-                  <div key={art.id} className="flex items-center justify-between bg-[#101317] p-1.5 rounded border border-[#20252B]">
-                    <span className="text-[#F5F5F5] font-mono text-[10px] flex items-center gap-1">
-                      <FileCode2 size={11} className="text-[#4F8CFF]" /> {art.path}
-                    </span>
-                    <span className="text-[9px] text-[#8A9098] uppercase">{art.type}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* 3. Derived Evidence Trail Dated Log */}
       <div className="space-y-2 border-b border-[#20252B] pb-4">
         <p className="font-mono text-[10px] uppercase tracking-wider text-[#424750] font-bold">
           Dated Activity Trail
@@ -192,43 +112,6 @@ export function IntelligencePanel({
         </div>
       </div>
 
-      {/* 4. Connected Topology */}
-      {connectedNodes.length > 0 && (
-        <div className="space-y-2 border-b border-[#20252B] pb-4">
-          <p className="font-mono text-[10px] uppercase tracking-wider text-[#424750] font-bold flex items-center gap-1">
-            <Layers size={11} /> Connected Nodes ({connectedNodes.length})
-          </p>
-          <div className="flex flex-wrap gap-1.5 pt-1">
-            {connectedNodes.map((cn) => (
-              <button
-                key={cn.id}
-                type="button"
-                onClick={() => {
-                  const kn = knowledgeNodes.find((n) => n.id === cn.id);
-                  onSelectNode({
-                    id: cn.id,
-                    label: cn.label,
-                    summary: kn?.summary ?? "",
-                    detail: kn?.detail ?? "",
-                    kind: "technology",
-                    domain: kn?.domain ?? "networking",
-                    evidenceDepth: 4,
-                    density: 75,
-                    featured: true,
-                    x: 500,
-                    y: 350,
-                  });
-                }}
-                className="rounded-md border border-[#20252B] bg-[#0A0B0D] px-2.5 py-1 text-[11px] font-mono text-[#8A9098] hover:border-[#4F8CFF] hover:text-[#F5F5F5] transition-colors cursor-pointer"
-              >
-                {cn.label} <span className="text-[#424750]">· {cn.edgeLabel}</span>
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* 5. GitHub Evidence Repo */}
       <div className="space-y-2 border-b border-[#20252B] pb-4 font-mono">
         <p className="text-[10px] uppercase tracking-wider text-[#424750] font-bold flex items-center gap-1">
           <GitCommit size={11} /> Evidence Repository
@@ -243,25 +126,6 @@ export function IntelligencePanel({
           <ExternalLink size={12} />
         </a>
       </div>
-
-      {/* 6. Case Study Artifact Link */}
-      {relatedArtifact && (
-        <div className="space-y-2 font-mono">
-          <p className="text-[10px] uppercase tracking-wider text-[#424750] font-bold">
-            Engineering Artifact
-          </p>
-          <a
-            href={`/artifacts/${relatedArtifact.id}`}
-            className="flex items-center justify-between rounded-lg border border-[#4F8CFF]/30 bg-[#4F8CFF]/10 p-3 text-[#4F8CFF] hover:bg-[#4F8CFF]/20 transition-all"
-          >
-            <div>
-              <p className="font-semibold text-xs text-[#F5F5F5]">{relatedArtifact.title}</p>
-              <p className="text-[10px] text-[#8A9098] mt-0.5">{relatedArtifact.summary}</p>
-            </div>
-            <ArrowUpRight size={14} className="shrink-0" />
-          </a>
-        </div>
-      )}
     </aside>
   );
 }

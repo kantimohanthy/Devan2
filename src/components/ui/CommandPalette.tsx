@@ -3,10 +3,13 @@
 import { Command } from "cmdk";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { knowledgeNodes, projects, articles } from "@/data/content";
+import { searchClient } from "@/lib/api-client";
+import type { SearchResultItem } from "@/services/search.service";
 
 export default function CommandPalette() {
   const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<SearchResultItem[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -20,6 +23,11 @@ export default function CommandPalette() {
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
   }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    searchClient.search(query).then(setResults).catch(console.error);
+  }, [query, open]);
 
   const go = (href: string) => {
     setOpen(false);
@@ -39,6 +47,8 @@ export default function CommandPalette() {
       >
         <Command.Input
           autoFocus
+          value={query}
+          onValueChange={setQuery}
           placeholder="Search projects, knowledge nodes, writing..."
           className="w-full bg-transparent px-4 py-3 text-white outline-none border-b border-white/10 placeholder:text-white/40"
         />
@@ -47,43 +57,17 @@ export default function CommandPalette() {
             No matching items found.
           </Command.Empty>
 
-          <Command.Group heading="Knowledge Graph" className="text-xs font-semibold text-white/40 px-2 py-1 uppercase tracking-wider">
-            {knowledgeNodes.map((n) => (
+          <Command.Group heading="DEVAN Search Results" className="text-xs font-semibold text-white/40 px-2 py-1 uppercase tracking-wider">
+            {results.map((r) => (
               <Command.Item
-                key={n.id}
-                onSelect={() => go(`/#knowledge-graph?node=${n.id}`)}
+                key={r.id + r.route}
+                onSelect={() => go(r.route)}
                 className="px-3 py-2 rounded-lg text-white/90 aria-selected:bg-white/10 cursor-pointer transition-colors"
               >
-                <span className="font-medium">{n.label}</span> — <span className="text-white/50">{n.summary}</span>
+                <span className="font-medium">{r.title}</span> — <span className="text-white/50">{r.subtitle}</span>
               </Command.Item>
             ))}
           </Command.Group>
-
-          <Command.Group heading="Projects" className="text-xs font-semibold text-white/40 px-2 py-1 uppercase tracking-wider mt-2">
-            {projects.map((p) => (
-              <Command.Item
-                key={p.slug}
-                onSelect={() => go(`/#projects`)}
-                className="px-3 py-2 rounded-lg text-white/90 aria-selected:bg-white/10 cursor-pointer transition-colors"
-              >
-                <span className="font-medium">{p.title}</span> — <span className="text-white/50">{p.tagline}</span>
-              </Command.Item>
-            ))}
-          </Command.Group>
-
-          {articles && articles.length > 0 && (
-            <Command.Group heading="Writing" className="text-xs font-semibold text-white/40 px-2 py-1 uppercase tracking-wider mt-2">
-              {articles.map((a) => (
-                <Command.Item
-                  key={a.title}
-                  onSelect={() => go(`/#writing`)}
-                  className="px-3 py-2 rounded-lg text-white/90 aria-selected:bg-white/10 cursor-pointer transition-colors"
-                >
-                  <span className="font-medium">{a.title}</span>
-                </Command.Item>
-              ))}
-            </Command.Group>
-          )}
         </Command.List>
       </Command>
     </div>

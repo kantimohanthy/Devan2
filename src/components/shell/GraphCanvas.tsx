@@ -1,13 +1,10 @@
 "use client";
 
-import { useMemo, useState, useRef } from "react";
-import {
-  HIERARCHICAL_KNOWLEDGE_NODES,
-  HIERARCHICAL_KNOWLEDGE_EDGES,
-  KnowledgeNodeKind,
-} from "@/data/hierarchical-graph";
+import { useMemo, useState, useRef, useEffect } from "react";
 import { getDefaultVisibleNodeIds } from "@/lib/graph/default-view";
 import type { FilterState } from "./FilterRail";
+import { graphClient } from "@/lib/api-client";
+import type { GraphEdgeViewModel } from "@/services/graph.service";
 import {
   Network,
   Zap,
@@ -25,6 +22,19 @@ import {
   BookOpen,
 } from "lucide-react";
 
+export type KnowledgeNodeKind =
+  | "root-category"
+  | "rfc"
+  | "paper"
+  | "protocol"
+  | "experiment"
+  | "artifact"
+  | "repository"
+  | "benchmark"
+  | "pattern"
+  | "technology"
+  | "concept";
+
 export interface NodeItem {
   id: string;
   label: string;
@@ -41,48 +51,6 @@ export interface NodeItem {
   y: number;
 }
 
-// Initial position calculations for Root Categories and Children
-function calculateInitialPositions(): NodeItem[] {
-  const rootCategoryPositions: Record<string, { x: number; y: number }> = {
-    "cat-networking": { x: 300, y: 220 },
-    "cat-ai": { x: 750, y: 220 },
-    "cat-[#distributed]": { x: 300, y: 520 },
-    "cat-security": { x: 750, y: 520 },
-    "cat-space": { x: 525, y: 370 },
-  };
-
-  const featuredIds = new Set([
-    "cat-networking",
-    "node-rfc1035",
-    "node-dns-wire-format",
-    "node-exp-dig-trace",
-    "cat-ai",
-    "node-pattern-adversarial",
-    "node-repo-sentinel",
-    "cat-[#distributed]",
-  ]);
-
-  return HIERARCHICAL_KNOWLEDGE_NODES.map((n) => {
-    const featured = featuredIds.has(n.id);
-    if (n.kind === "root-category") {
-      const pos = rootCategoryPositions[n.id] ?? { x: 500, y: 350 };
-      return { ...n, featured, lastActivity: "2026-08-07", x: pos.x, y: pos.y };
-    }
-
-    const parent = HIERARCHICAL_KNOWLEDGE_NODES.find((p) => p.id === n.parentId);
-    const parentPos = parent ? (rootCategoryPositions[parent.id] ?? { x: 500, y: 350 }) : { x: 500, y: 350 };
-
-    const offsetAngle = Math.random() * 2 * Math.PI;
-    const offsetDist = 120 + Math.random() * 60;
-    const x = Math.round(parentPos.x + offsetDist * Math.cos(offsetAngle));
-    const y = Math.round(parentPos.y + offsetDist * Math.sin(offsetAngle));
-
-    return { ...n, featured, lastActivity: "2026-08-07", x, y };
-  });
-}
-
-const INITIAL_NODES = calculateInitialPositions();
-
 interface GraphCanvasProps {
   filters: FilterState;
   searchQuery: string;
@@ -96,7 +64,8 @@ export function GraphCanvas({
   selectedNodeId,
   onSelectNode,
 }: GraphCanvasProps) {
-  const [nodes, setNodes] = useState<NodeItem[]>(INITIAL_NODES);
+  const [nodes, setNodes] = useState<NodeItem[]>([]);
+  const [edges, setEdges] = useState<GraphEdgeViewModel[]>([]);
   const [expandedCategoryIds, setExpandedCategoryIds] = useState<Set<string>>(
     new Set(["cat-networking", "cat-ai"])
   );
@@ -106,9 +75,40 @@ export function GraphCanvas({
   const [isPanning, setIsPanning] = useState(false);
   const dragStartRef = useRef({ x: 0, y: 0 });
 
+  useEffect(() => {
+    graphClient.getGraph().then((data) => {
+      setEdges(data.edges);
+      const rootCategoryPositions: Record<string, { x: number; y: number }> = {
+        "cat-networking": { x: 300, y: 220 },
+        "cat-ai": { x: 750, y: 220 },
+        "cat-[#distributed]": { x: 300, y: 520 },
+        "cat-security": { x: 750, y: 520 },
+        "cat-space": { x: 525, y: 370 },
+      };
+
+      const items: NodeItem[] = data.nodes.map((n) => {
+        const isRoot = n.id.startsWith("cat-");
+        const pos = isRoot ? (rootCategoryPositions[n.id] ?? { x: 500, y: 350 }) : { x: 500 + (Math.random() * 200 - 100), y: 350 + (Math.random() * 200 - 100) };
+        return {
+          id: n.id,
+          label: n.label,
+          kind: isRoot ? "root-category" : "concept",
+          summary: n.summary,
+          detail: n.detail || n.summary,
+          domain: n.domain,
+          evidenceDepth: 4,
+          density: 85,
+          featured: isRoot || n.featured,
+          x: pos.x,
+          y: pos.y,
+        };
+      });
+      setNodes(items);
+    }).catch(console.error);
+  }, []);
+
   const queryLower = searchQuery.toLowerCase().trim();
 
-  // Curated 8-node visible set vs all nodes
   const defaultVisibleSet = useMemo(
     () => getDefaultVisibleNodeIds(nodes),
     [nodes]
@@ -126,31 +126,17 @@ export function GraphCanvas({
     });
   };
 
-  // Determine visibility of children based on curated view + expandable roots
   const visibleNodes = useMemo(() => {
     return nodes.filter((n) => {
-      // If not showing all nodes and no search query, filter by curated default visible set
       if (!filters.showAllNodes && !queryLower && !defaultVisibleSet.has(n.id)) {
         return false;
       }
-
       if (n.kind === "root-category") return true;
       if (!n.parentId) return true;
-
-      // Find root ancestor
-      let currParentId: string | undefined = n.parentId;
-      while (currParentId) {
-        if (currParentId.startsWith("cat-")) {
-          return expandedCategoryIds.has(currParentId);
-        }
-        const parentNode = nodes.find((p) => p.id === currParentId);
-        currParentId = parentNode?.parentId;
-      }
       return true;
     });
-  }, [nodes, expandedCategoryIds, filters.showAllNodes, queryLower, defaultVisibleSet]);
+  }, [nodes, filters.showAllNodes, queryLower, defaultVisibleSet]);
 
-  // Evaluate matching status per node
   const nodeMatches = useMemo(() => {
     const map = new Map<string, boolean>();
     nodes.forEach((n) => {
@@ -165,20 +151,18 @@ export function GraphCanvas({
     return map;
   }, [filters, queryLower, nodes]);
 
-  // Active connected node IDs
   const connectedNodeIds = useMemo(() => {
     const set = new Set<string>();
     if (selectedNodeId) {
       set.add(selectedNodeId);
-      HIERARCHICAL_KNOWLEDGE_EDGES.forEach((e) => {
-        if (e.fromId === selectedNodeId) set.add(e.toId);
-        if (e.toId === selectedNodeId) set.add(e.fromId);
+      edges.forEach((e) => {
+        if (e.from === selectedNodeId) set.add(e.to);
+        if (e.to === selectedNodeId) set.add(e.from);
       });
     }
     return set;
-  }, [selectedNodeId]);
+  }, [selectedNodeId, edges]);
 
-  // Handle Dragging Nodes
   const handleMouseDownNode = (e: React.MouseEvent, nodeId: string) => {
     e.stopPropagation();
     setDraggingNodeId(nodeId);
@@ -219,7 +203,6 @@ export function GraphCanvas({
   const resetView = () => {
     setZoom(1);
     setPan({ x: 0, y: 0 });
-    setNodes(calculateInitialPositions());
   };
 
   const renderKindIcon = (kind: KnowledgeNodeKind) => {
@@ -253,7 +236,6 @@ export function GraphCanvas({
       onMouseDown={handleMouseDownCanvas}
       className="relative flex-1 h-full w-full bg-[#0A0B0D] overflow-hidden select-none cursor-grab active:cursor-grabbing"
     >
-      {/* Zoom / Pan Controls HUD */}
       <div className="absolute bottom-4 left-4 z-20 flex items-center gap-1.5 rounded-xl border border-[#20252B] bg-[#101317]/90 px-3 py-1.5 backdrop-blur-md text-xs font-mono text-[#8A9098]">
         <button
           type="button"
@@ -286,7 +268,6 @@ export function GraphCanvas({
         </span>
       </div>
 
-      {/* Main Canvas Container with Pan & Zoom Transform */}
       <div
         style={{
           transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoom})`,
@@ -295,15 +276,14 @@ export function GraphCanvas({
         }}
         className="absolute inset-0 h-full w-full"
       >
-        {/* Hierarchical Relationship Edge Layer */}
         <svg className="absolute inset-0 h-full w-full pointer-events-none stroke-[#20252B]">
-          {HIERARCHICAL_KNOWLEDGE_EDGES.map((edge, idx) => {
-            const source = visibleNodes.find((n) => n.id === edge.fromId);
-            const target = visibleNodes.find((n) => n.id === edge.toId);
+          {edges.map((edge, idx) => {
+            const source = visibleNodes.find((n) => n.id === edge.from);
+            const target = visibleNodes.find((n) => n.id === edge.to);
             if (!source || !target) return null;
 
             const isConnectedToSelected =
-              selectedNodeId && (edge.fromId === selectedNodeId || edge.toId === selectedNodeId);
+              selectedNodeId && (edge.from === selectedNodeId || edge.to === selectedNodeId);
             const isBothMatching = nodeMatches.get(source.id) && nodeMatches.get(target.id);
 
             const midX = (source.x + target.x) / 2;
@@ -328,7 +308,6 @@ export function GraphCanvas({
                   className="transition-all duration-300"
                 />
 
-                {/* Edge Semantic Text Label */}
                 <text
                   x={midX}
                   y={midY}
@@ -339,14 +318,13 @@ export function GraphCanvas({
                   dy="-3"
                   className="pointer-events-none font-bold select-none opacity-80"
                 >
-                  {edge.label}
+                  {edge.relationship}
                 </text>
               </g>
             );
           })}
         </svg>
 
-        {/* Nodes Layer */}
         {visibleNodes.map((node) => {
           const isRoot = node.kind === "root-category";
           const isExpanded = expandedCategoryIds.has(node.id);
@@ -354,15 +332,10 @@ export function GraphCanvas({
           const isConnected = connectedNodeIds.has(node.id);
           const isMatching = nodeMatches.get(node.id) ?? true;
 
-          // Shape encoding
           let shapeClasses = "rounded-lg";
           if (isRoot) shapeClasses = "rounded-2xl border-2 shadow-[0_0_25px_rgba(79,140,255,0.3)]";
-          else if (node.kind === "artifact") shapeClasses = "rotate-45 rounded-sm";
-          else if (node.kind === "repository") shapeClasses = "rounded-md";
-          else if (node.kind === "rfc" || node.kind === "paper") shapeClasses = "rounded-full";
 
-          // Sizing: Roots are larger
-          const sizePx = isRoot ? 64 : 42 + Math.round((node.density / 100) * 16);
+          const sizePx = isRoot ? 64 : 48;
 
           const handleClickNode = (e: React.MouseEvent) => {
             e.stopPropagation();
@@ -389,7 +362,6 @@ export function GraphCanvas({
                 isMatching ? "opacity-100" : "opacity-15 pointer-events-none"
               }`}
             >
-              {/* Node Body */}
               <div
                 className={`w-full h-full flex flex-col items-center justify-center border backdrop-blur-md transition-all duration-200 ${shapeClasses} ${
                   isRoot
@@ -401,7 +373,7 @@ export function GraphCanvas({
                     : "border-[#20252B] bg-[#101317]/90 hover:border-[#8A9098]"
                 }`}
               >
-                <div className={node.kind === "artifact" ? "-rotate-45 flex items-center gap-1" : "flex flex-col items-center gap-0.5"}>
+                <div className="flex flex-col items-center gap-0.5">
                   <div className="flex items-center gap-1">
                     {renderKindIcon(node.kind)}
                     {isRoot && (
@@ -416,7 +388,6 @@ export function GraphCanvas({
                 </div>
               </div>
 
-              {/* Node Label Below */}
               <div className="absolute top-[105%] mt-1 whitespace-nowrap pointer-events-none text-center">
                 <p
                   className={`font-mono text-[11px] tracking-tight transition-colors ${

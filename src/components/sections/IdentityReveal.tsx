@@ -1,18 +1,26 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Info, X } from "lucide-react";
-import { identity } from "@/data/content";
+import { identityClient } from "@/lib/api-client";
+import type { IdentityViewModel } from "@/services/identity.service";
 
 export function IdentityReveal() {
   const [expanded, setExpanded] = useState(false);
+  const [profile, setProfile] = useState<IdentityViewModel | null>(null);
+
+  useEffect(() => {
+    identityClient.getProfile().then(setProfile).catch(console.error);
+  }, []);
+
+  if (!profile) return null;
 
   return (
     <div className="max-w-2xl">
       <div className="flex items-center gap-3">
         <h1 className="text-4xl md:text-5xl font-medium tracking-tight text-white">
-          {identity.name}
+          {profile.name}
         </h1>
         <button
           type="button"
@@ -26,7 +34,7 @@ export function IdentityReveal() {
       </div>
 
       <p className="mt-2 text-white/50 font-mono text-sm">
-        {identity.role}
+        {profile.role}
       </p>
 
       <AnimatePresence>
@@ -39,7 +47,7 @@ export function IdentityReveal() {
             transition={{ duration: 0.25, ease: "easeOut" }}
             className="mt-3 text-white/80 leading-relaxed text-sm overflow-hidden border-l-2 border-blue-500/40 pl-4 py-1"
           >
-            {identity.mission}
+            {profile.mission}
           </motion.p>
         )}
       </AnimatePresence>

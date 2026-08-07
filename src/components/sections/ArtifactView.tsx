@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import type { Artifact } from "@/data/artifact-schema";
-import { knowledgeNodes } from "@/data/content";
 import { ProjectGlyph } from "@/components/ui/ProjectGlyph";
 
 const STATUS_COLOR: Record<Artifact["status"], string> = {
@@ -39,9 +38,6 @@ function Section({
 export function ArtifactView({ artifact }: { artifact: Artifact }) {
   const [expandedLesson, setExpandedLesson] = useState<number | null>(null);
   const statusColor = STATUS_COLOR[artifact.status];
-  const linkedNodes = knowledgeNodes.filter((n) =>
-    artifact.relatedConcepts.includes(n.id)
-  );
 
   return (
     <motion.article
@@ -49,7 +45,6 @@ export function ArtifactView({ artifact }: { artifact: Artifact }) {
       animate={{ opacity: 1, y: 0 }}
       className="max-w-3xl mx-auto py-16 px-6"
     >
-      {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-2">
@@ -103,7 +98,6 @@ export function ArtifactView({ artifact }: { artifact: Artifact }) {
         ))}
       </div>
 
-      {/* Motivation & Problem */}
       <Section title="Why">
         <p className="text-[var(--text)]/90 text-sm leading-relaxed">
           {artifact.motivation}
@@ -116,7 +110,6 @@ export function ArtifactView({ artifact }: { artifact: Artifact }) {
         </p>
       </Section>
 
-      {/* Architecture — only if populated */}
       {artifact.architecture.length > 0 && (
         <Section title="Architecture">
           <div className="space-y-3">
@@ -134,7 +127,6 @@ export function ArtifactView({ artifact }: { artifact: Artifact }) {
         </Section>
       )}
 
-      {/* Benchmarks — only real numbers */}
       {artifact.benchmarks.length > 0 && (
         <Section title="Measured">
           <div className="grid grid-cols-2 gap-4">
@@ -152,7 +144,6 @@ export function ArtifactView({ artifact }: { artifact: Artifact }) {
         </Section>
       )}
 
-      {/* Lessons — collapsed per-item */}
       {artifact.lessonsLearned.length > 0 && (
         <Section title="What broke, what I'd change">
           <div className="space-y-2">
@@ -170,24 +161,22 @@ export function ArtifactView({ artifact }: { artifact: Artifact }) {
         </Section>
       )}
 
-      {/* Knowledge graph tie-in */}
-      {linkedNodes.length > 0 && (
+      {artifact.relatedConcepts.length > 0 && (
         <Section title="Connects to">
           <div className="flex gap-2 flex-wrap">
-            {linkedNodes.map((n) => (
+            {artifact.relatedConcepts.map((conceptId) => (
               <a
-                key={n.id}
-                href={`/#knowledge-graph?node=${n.id}`}
-                className="text-xs font-mono px-3 py-1.5 rounded-full border border-[var(--signal-blue)]/30 text-[var(--signal-blue)] hover:bg-[var(--signal-blue)]/10 transition-colors"
+                key={conceptId}
+                href={`/knowledge/${conceptId}`}
+                className="text-xs font-mono px-3 py-1.5 rounded-full border border-[var(--signal-blue)]/30 text-[var(--signal-blue)] hover:bg-[var(--signal-blue)]/10 transition-colors uppercase"
               >
-                {n.label}
+                {conceptId}
               </a>
             ))}
           </div>
         </Section>
       )}
 
-      {/* Links */}
       <Section title="Links">
         <div className="flex gap-4 flex-wrap text-sm font-mono">
           {artifact.repository && (
@@ -210,17 +199,6 @@ export function ArtifactView({ artifact }: { artifact: Artifact }) {
               Live demo →
             </a>
           )}
-          {artifact.references.map((r) => (
-            <a
-              key={r.title}
-              href={r.url || "#"}
-              target="_blank"
-              rel="noreferrer"
-              className="text-[var(--text-dim)] hover:text-[var(--text)]"
-            >
-              {r.title} →
-            </a>
-          ))}
         </div>
       </Section>
     </motion.article>
