@@ -32,6 +32,17 @@ export type MaturityTier = "ACADEMIC" | "INDUSTRY" | "EMERGING" | "LEGACY" | "RE
 export type InterviewDepth = "BASIC" | "INTERMEDIATE" | "DEEP_DIVE" | "PRINCIPAL";
 export type EngineeringCapability = "OBSERVE" | "REMEMBER" | "REASON" | "RECOMMEND" | "EVOLVE";
 
+export type OSILayer =
+  | "Layer 1 - Physical"
+  | "Layer 2 - Data Link"
+  | "Layer 3 - Network"
+  | "Layer 4 - Transport"
+  | "Layer 5 - Session"
+  | "Layer 6 - Presentation"
+  | "Layer 7 - Application";
+
+export type TCPIPLayer = "Link" | "Internet" | "Transport" | "Application";
+
 export interface ConceptLifecycle {
   introducedDate?: string;
   lastReviewedDate?: string;
@@ -45,6 +56,62 @@ export interface ProfessionalMapping {
   certifications: string[];
   interviewDepth: InterviewDepth;
   industrySectors: string[];
+}
+
+export interface EngineeringDecisionRecord {
+  engineeringProblem: string;
+  whyProtocolExists: string;
+  designDecisions: string[];
+  alternativesConsidered: string[];
+  tradeOffs: string[];
+  failureModes: string[];
+  realWorldSystems: string[];
+}
+
+export interface BuildProgression {
+  beginnerBuild: string;
+  intermediateBuild: string;
+  advancedBuild: string;
+  productionScaleProject: string;
+}
+
+export interface ConceptComparison {
+  conceptAId: string;
+  conceptBId: string;
+  comparisonDomain: string;
+  keyDifferences: Array<{ dimension: string; conceptAValue: string; conceptBValue: string }>;
+  whenToUseA: string;
+  whenToUseB: string;
+  tradeOffSummary: string;
+}
+
+export interface EngineeringDecisionGraph {
+  id: string;
+  engineeringProblem: string;
+  context: string;
+  constraints: string[];
+  candidateSolutions: string[];
+  decisionCriteria: string[];
+  tradeOffs: string[];
+  finalRecommendation: string;
+  whyAlternativesRejected: string[];
+  realWorldImplementations: string[];
+  failurePropagation: string[];
+  operationalChecklist: string[];
+  buildRecommendations: string[];
+}
+
+export interface FailurePropagationChain {
+  rootConceptId: string;
+  trigger: string;
+  propagationSteps: string[];
+  ultimateImpact: string;
+}
+
+export interface ArchitecturePatternMapping {
+  patternName: string;
+  coreConcepts: string[];
+  realWorldUseCases: string[];
 }
 
 export interface OntologyConceptDetail {
@@ -85,6 +152,25 @@ export interface OntologyConceptDetail {
   evidenceStrengthWeight?: number; // 0.0 to 1.0
   lifecycle?: ConceptLifecycle;
   professionalMapping?: ProfessionalMapping;
+
+  // Phase III Networking Extensions
+  osiLayer?: OSILayer;
+  tcpIpLayer?: TCPIPLayer;
+  packetFlow?: string[];
+  headerStructure?: string[];
+  typicalPorts?: string[];
+  commonFailures?: string[];
+  interviewQuestions?: string[];
+
+  // EDR & Build Progression
+  decisionRecord?: EngineeringDecisionRecord;
+  buildProgression?: BuildProgression;
+
+  // Phase IV Decision Intelligence Layer
+  historicalContext?: string;
+  futureEvolution?: string;
+  comparisonTargets?: string[];
+  reasoningChains?: string[];
 }
 
 export interface OntologyEntity {

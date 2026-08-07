@@ -5,18 +5,18 @@ describe("OntologyEngine (Cognitive Core Single Source of Truth)", () => {
   it("retrieves canonical entities by ID", () => {
     const dns = ontologyEngine.getEntity("dns-iterative-resolution");
     expect(dns).toBeDefined();
-    expect(dns?.title).toBe("DNS Iterative Resolution & Protocol Mechanics");
+    expect(dns?.title).toBe("DNS Iterative Resolution & Wire Mechanics");
     expect(dns?.domain).toBe("Networking");
   });
 
   it("finds related concepts correctly", () => {
     const related = ontologyEngine.findRelatedConcepts("dns-iterative-resolution");
-    expect(related.some((e) => e.id === "tcp-ip-stack")).toBe(true);
+    expect(related.some((e) => e.id === "tcp-protocol")).toBe(true);
   });
 
   it("finds prerequisites for dependent concepts", () => {
     const prereqs = ontologyEngine.findPrerequisites("dns-iterative-resolution");
-    expect(prereqs.some((p) => p.id === "tcp-ip-stack")).toBe(true);
+    expect(prereqs.some((p) => p.id === "tcp-protocol")).toBe(true);
   });
 
   it("expands knowledge graph neighborhoods", () => {
@@ -27,7 +27,7 @@ describe("OntologyEngine (Cognitive Core Single Source of Truth)", () => {
   });
 
   it("infers direct or indirect relationships", () => {
-    const rel = ontologyEngine.inferRelationships("dns-iterative-resolution", "tcp-ip-stack");
+    const rel = ontologyEngine.inferRelationships("dns-iterative-resolution", "tcp-protocol");
     expect(rel).toBeDefined();
     expect(rel?.type).toBe("DEPENDS_ON");
   });
