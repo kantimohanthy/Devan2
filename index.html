@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ujwal Shyam Kantimohanthy — DEVAN / UJ.OS</title>
+  <meta name="description" content="Personal engineering site of Ujwal Shyam Kantimohanthy. Evidence, not claims." />
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* DEVAN Design Tokens */
+    :root {
+      --bg: #0A0B0D;
+      --panel: #101317;
+      --border: #20252B;
+      --text: #F5F5F5;
+      --text-muted: #8A9098;
+      --accent: #4F8CFF;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Layout */
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header Bar */
+    header {
+      border-bottom: 1px solid var(--border);
+      background-color: var(--panel);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.1em;
+      color: var(--text);
+    }
+
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      color: var(--accent);
+      background: rgba(79, 140, 255, 0.1);
+    }
+
+    .utc-clock {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 64px 0 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-title {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .hero-subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 680px;
+    }
+
+    .hero-tagline {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 24px;
+      display: inline-block;
+    }
+
+    /* Grid Section */
+    .section-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin: 48px 0 20px;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background-color: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+      display: flex;
+      flex-col: column;
+      justify-content: space-between;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .status-tag {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+
+    .status-tag.shipped {
+      border-color: rgba(79, 140, 255, 0.4);
+      color: var(--accent);
+    }
+
+    .card-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .card-footer {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Evidence Log Section */
+    .evidence-box {
+      background-color: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 16px;
+      font-family: var(--font-mono);
+    }
+
+    .evidence-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+
+    .evidence-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .evidence-item {
+      margin-bottom: 12px;
+      font-size: 12px;
+    }
+
+    .evidence-label {
+      color: var(--text);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 10px;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .evidence-value {
+      color: var(--text-muted);
+    }
+
+    .file-pill {
+      display: inline-block;
+      background-color: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 10px;
+      color: var(--accent);
+      margin-right: 6px;
+      margin-top: 4px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 64px;
+      padding: 24px 0;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Bar -->
+  <header>
+    <div class="container header-inner">
+      <div class="brand">
+        <span class="logo">DEVAN</span>
+        <span class="badge">UJ.OS v2</span>
+      </div>
+      <div class="utc-clock" id="utc-clock">UTC 00:00:00</div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+    
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1 class="hero-title">Ujwal Shyam Kantimohanthy</h1>
+      <p class="hero-subtitle">
+        Software Architect & Systems Engineer. Building distributed network infrastructure, AI assistants, and space technology platforms.
+      </p>
+      <span class="hero-tagline">Evidence, not claims.</span>
+    </section>
+
+    <!-- Real Projects Section -->
+    <section>
+      <h2 class="section-title">Shipped & Active Engineering Projects</h2>
+      <div class="project-grid">
+        
+        <!-- Project 1: STATION F -->
+        <div class="card">
+          <div>
+            <div class="card-header">
+              <h3 class="card-title">STATION F</h3>
+              <span class="status-tag shipped">Shipped</span>
+            </div>
+            <p class="card-desc">
+              Next-generation startup ecosystem platform powering innovation hubs, investor pipelines, and founder networks.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span>Explore Architecture &rarr;</span>
+          </div>
+        </div>
+
+        <!-- Project 2: CineForge AI Pro -->
+        <div class="card">
+          <div>
+            <div class="card-header">
+              <h3 class="card-title">CineForge AI Pro</h3>
+              <span class="status-tag shipped">Shipped</span>
+            </div>
+            <p class="card-desc">
+              Bilingual Arabic/English AI pre-production assistant built with Hugging Face and IBM watsonx orchestrating scene breakdowns.
+            </p>
+          </div>
+          <div class="card-footer">
+            <a href="https://github.com/kantimohanthy/Devan2" target="_blank" rel="noreferrer">View Repository &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Project 3: CosmoHub -->
+        <div class="card">
+          <div>
+            <div class="card-header">
+              <h3 class="card-title">CosmoHub</h3>
+              <span class="status-tag">In Progress</span>
+            </div>
+            <p class="card-desc">
+              Ontology-driven intelligence layer for the space economy, unifying satellite launch data, institutional research, and market entities.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span>View Data Model &rarr;</span>
+          </div>
+        </div>
+
+        <!-- Project 4: Kaggle CZ Biohub -->
+        <div class="card">
+          <div>
+            <div class="card-header">
+              <h3 class="card-title">Kaggle CZ Biohub</h3>
+              <span class="status-tag shipped">Completed</span>
+            </div>
+            <p class="card-desc">
+              3D Cellpose volumetric lineage tracking algorithm for temporal microscopy datasets, featuring anisotropic z-scaling correction.
+            </p>
+          </div>
+          <div class="card-footer">
+            <span>View Competition Writeup &rarr;</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Real Evidence Record Section -->
+    <section>
+      <h2 class="section-title">Derived Evidence Record</h2>
+      <div class="evidence-box">
+        <div class="evidence-header">
+          <span class="evidence-title">RFC 1035 Iterative DNS Referral Analysis</span>
+          <span style="color: var(--text-muted); font-size: 10px;">DERIVED STATE: TESTED</span>
+        </div>
+
+        <div class="evidence-item">
+          <span class="evidence-label">Source Anchor</span>
+          <span class="evidence-value"><a href="https://www.rfc-editor.org/rfc/rfc1035" target="_blank" rel="noreferrer">RFC 1035 — Domain Names: Implementation and Specification</a></span>
+        </div>
+
+        <div class="evidence-item">
+          <span class="evidence-label">Hypothesis & Question</span>
+          <span class="evidence-value">How many referral hops does dig +trace execute from root to authoritative server, and is RD=0 sent on iterative queries?</span>
+        </div>
+
+        <div class="evidence-item">
+          <span class="evidence-label">Method</span>
+          <span class="evidence-value">dig +trace example.com captured simultaneously with tshark -i eth0 -f "port 53" -w dns-trace.pcap</span>
+        </div>
+
+        <div class="evidence-item">
+          <span class="evidence-label">Observed Result</span>
+          <span class="evidence-value">Confirmed hypothesis. Verified 4 distinct iterative referral hops (Root -> TLD -> Authoritative -> Final IN A record 93.184.215.14) with RD=0 header flag.</span>
+        </div>
+
+        <div class="evidence-item">
+          <span class="evidence-label">Diagnosis & What Surprised</span>
+          <span class="evidence-value">Initial capture missed Hop 1 due to systemd-resolved loopback cache on 127.0.0.53:53; resolved via -i any interface flag.</span>
+        </div>
+
+        <div class="evidence-item" style="margin-bottom: 0;">
+          <span class="evidence-label">Raw Proof Artifacts</span>
+          <div>
+            <span class="file-pill">/evidence/dns/dig-trace-001.log</span>
+            <span class="file-pill">/evidence/dns/dns-trace-001.pcap</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-inner">
+      <span>&copy; 2026 Ujwal Shyam Kantimohanthy. Built on DEVAN Architecture.</span>
+      <a href="https://github.com/kantimohanthy/Devan2" target="_blank" rel="noreferrer">github.com/kantimohanthy/Devan2</a>
+    </div>
+  </footer>
+
+  <!-- Live Clock Script -->
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getUTCHours()).padStart(2, '0');
+      const minutes = String(now.getUTCMinutes()).padStart(2, '0');
+      const seconds = String(now.getUTCSeconds()).padStart(2, '0');
+      document.getElementById('utc-clock').textContent = `UTC ${hours}:${minutes}:${seconds}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>
