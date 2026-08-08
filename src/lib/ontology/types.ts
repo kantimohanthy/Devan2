@@ -1,7 +1,7 @@
 /**
- * @file Ontology Types & Data Contracts
- * @purpose Defines the central domain model types for DEVAN. The Ontology Engine is the single source of truth.
- * @principle Designed to scale seamlessly to 3,000 - 5,000 canonical engineering concepts.
+ * @file Universal Ontology Types & Data Contracts (UJ.OS v2.1 Gold Standard)
+ * @purpose Central domain model contracts for DEVAN's Universal Engineering Canon.
+ * @principle Designed to scale to 30,000+ canonical concepts with high-intelligence quality gates, labs, and Bloom's taxonomy.
  */
 
 export type OntologyEntityType =
@@ -13,28 +13,42 @@ export type OntologyEntityType =
   | "rfc"
   | "standard"
   | "paper"
-  | "tool";
+  | "tool"
+  | "lab";
 
 export type RelationshipType =
-  | "PREREQUISITE_FOR"
   | "DEPENDS_ON"
-  | "RELATED_TO"
-  | "IMPLEMENTED_BY"
-  | "EVIDENCE_FOR"
-  | "PART_OF_MISSION"
-  | "USES"
-  | "VALIDATES"
   | "IMPLEMENTS"
-  | "INSPIRED_BY";
+  | "USES"
+  | "PART_OF"
+  | "DERIVES_FROM"
+  | "PREREQUISITE_FOR"
+  | "RELATED_TO"
+  | "PROVES"
+  | "VALIDATES"
+  | "GENERATES"
+  | "OBSERVES"
+  | "MEASURES"
+  | "DEBUGS"
+  | "SECURES"
+  | "SCALES"
+  | "COMPARES_WITH"
+  | "SUPERSEDES"
+  | "REPLACES"
+  | "INSPIRED_BY"
+  | "EVIDENCE_FOR";
 
 export type ImportanceTier = "CORE" | "ADVANCED" | "SPECIALIZED" | "RESEARCH";
 export type MaturityTier = "ACADEMIC" | "INDUSTRY" | "EMERGING" | "LEGACY" | "RESEARCH";
+export type DifficultyTier = "BEGINNER" | "INTERMEDIATE" | "ADVANCED" | "RESEARCH";
 export type InterviewDepth = "BASIC" | "INTERMEDIATE" | "DEEP_DIVE" | "PRINCIPAL";
-export type EngineeringCapability = "OBSERVE" | "REMEMBER" | "REASON" | "RECOMMEND" | "EVOLVE";
+export type EngineeringCapability = "OBSERVE" | "REMEMBER" | "REASON" | "RECOMMEND" | "EVOLVE" | "SCALES";
+export type BloomTaxonomyLevel = "REMEMBER" | "UNDERSTAND" | "APPLY" | "ANALYZE" | "EVALUATE" | "CREATE";
 
 export type OSILayer =
   | "Layer 1 - Physical"
   | "Layer 2 - Data Link"
+  | "Layer 2.5"
   | "Layer 3 - Network"
   | "Layer 4 - Transport"
   | "Layer 5 - Session"
@@ -42,6 +56,33 @@ export type OSILayer =
   | "Layer 7 - Application";
 
 export type TCPIPLayer = "Link" | "Internet" | "Transport" | "Application";
+
+export type TruthSourceType =
+  | "RFC"
+  | "RESEARCH_PAPER"
+  | "IEEE"
+  | "UNIVERSITY_COURSE"
+  | "BOOK"
+  | "PRODUCTION_DOCS"
+  | "MAN_PAGE";
+
+export type ExternalReferenceType =
+  | "RFC"
+  | "IEEE"
+  | "ISO"
+  | "MAN_PAGE"
+  | "WIKIPEDIA"
+  | "GITHUB"
+  | "PAPER_DOI"
+  | "BOOK"
+  | "COURSE";
+
+export interface ExternalReference {
+  type: ExternalReferenceType;
+  title: string;
+  url?: string;
+  identifier?: string;
+}
 
 export interface ConceptLifecycle {
   introducedDate?: string;
@@ -75,6 +116,16 @@ export interface BuildProgression {
   productionScaleProject: string;
 }
 
+export interface CanonicalLab {
+  labId: string;
+  sequenceNumber: number;
+  title: string;
+  objective: string;
+  commandToRun?: string;
+  expectedOutput?: string;
+  toolingRequired: string[];
+}
+
 export interface ConceptComparison {
   conceptAId: string;
   conceptBId: string;
@@ -83,6 +134,11 @@ export interface ConceptComparison {
   whenToUseA: string;
   whenToUseB: string;
   tradeOffSummary: string;
+  history?: string;
+  architecture?: string;
+  operationalComplexity?: string;
+  productionUsage?: string;
+  recommendation?: string;
 }
 
 export interface EngineeringDecisionGraph {
@@ -112,6 +168,36 @@ export interface ArchitecturePatternMapping {
   patternName: string;
   coreConcepts: string[];
   realWorldUseCases: string[];
+}
+
+export interface TimeEstimates {
+  estimatedHours: number;
+  estimatedProjects: number;
+  estimatedLabs: number;
+  estimatedEvidence: number;
+}
+
+export interface ObjectiveMasteryRequirement {
+  action: "READ_RFC" | "BUILD_PROJECT" | "COMPLETE_EXPERIMENT" | "DEBUG_FAILURE" | "EXPLAIN_TO_SOMEONE" | "COLLECT_EVIDENCE";
+  description: string;
+  completed: boolean;
+}
+
+export interface EngineeringPath {
+  pathId: string;
+  title: string;
+  description: string;
+  recommendedConceptOrder: string[];
+}
+
+export interface LearningMetadata {
+  difficulty: DifficultyTier;
+  estimatedStudyHours: number;
+  estimatedLabHours: number;
+  estimatedProjects: number;
+  interviewDepth: InterviewDepth;
+  bloomTaxonomyLevel: BloomTaxonomyLevel;
+  recommendedLearningOrder: number;
 }
 
 export interface OntologyConceptDetail {
@@ -171,10 +257,25 @@ export interface OntologyConceptDetail {
   futureEvolution?: string;
   comparisonTargets?: string[];
   reasoningChains?: string[];
+
+  // Phase VI Universal Ingestion-Ready Extensions
+  children?: string[];
+  parents?: string[];
+  related?: string[];
+  aliases?: string[];
+  externalReferences?: ExternalReference[];
+  truthSources?: TruthSourceType[];
+  difficulty?: DifficultyTier;
+  timeEstimates?: TimeEstimates;
+  masteryRequirements?: ObjectiveMasteryRequirement[];
+
+  // Phase IX Intelligence Gold Standard Additions
+  learningMetadata?: LearningMetadata;
+  labProgression?: CanonicalLab[];
 }
 
 export interface OntologyEntity {
-  id: string; // Unique slug identifier
+  id: string; // Unique namespaced identifier (e.g. networking.dns.iterative-resolution)
   type: OntologyEntityType;
   title?: string;
   name?: string;
@@ -203,6 +304,19 @@ export interface OntologyRelationship {
   type: RelationshipType;
   weight?: number; // 0.0 to 1.0
   note?: string;
+}
+
+export interface DomainQualityDashboard {
+  domainName: string;
+  totalConcepts: number;
+  totalRelationships: number;
+  conceptCoveragePercent: number;
+  rfcCoveragePercent: number;
+  evidenceCoveragePercent: number;
+  missingLabsCount: number;
+  missingExperimentsCount: number;
+  missingInterviewQuestionsCount: number;
+  overallReadinessPercent: number;
 }
 
 export interface DependencyChain {

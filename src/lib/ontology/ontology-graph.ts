@@ -1,7 +1,7 @@
 /**
- * @file Canonical Scalable ICT Engineering Canon Topology — Decision Intelligence Layer
- * @purpose Enriches concepts with reasoning chains, historical context, future evolution, and exports Decision Graphs, Comparison Graphs, Failure Chains, and Architecture Patterns.
- * @principle Scalable to 3,000 - 5,000 concepts without structural changes.
+ * @file Universal Scalable ICT Engineering Canon Topology — UJ.OS v2.1
+ * @purpose Namespaced concept identifiers (networking.dns.iterative-resolution, networking.tcp, cloud.kubernetes), automatic expansion fields, truth sources, difficulty tiers, time estimates, and objective mastery requirements.
+ * @principle Scalable to 30,000+ canonical concepts via namespaced IDs and compiler pipeline ingestion.
  */
 
 import type {
@@ -11,14 +11,15 @@ import type {
   EngineeringDecisionGraph,
   FailurePropagationChain,
   ArchitecturePatternMapping,
+  EngineeringPath,
 } from "./types";
 
 export const CANONICAL_ENTITIES: OntologyEntity[] = [
   // =========================================================================
-  // 1. APPLICATION LAYER (L7) NETWORKING CONCEPTS (ENRICHED WITH REASONING)
+  // 1. NETWORKING & INTERNET ENGINEERING (NAMESPACED CONCEPTS)
   // =========================================================================
   {
-    id: "dns-iterative-resolution",
+    id: "networking.dns.iterative-resolution",
     type: "concept",
     title: "DNS Iterative Resolution & Wire Mechanics",
     domain: "Networking",
@@ -32,8 +33,22 @@ export const CANONICAL_ENTITIES: OntologyEntity[] = [
       problemsSolved: ["Decouples network IP addressing from application identifiers", "Distributed caching scales query volume globally"],
       osiLayer: "Layer 7 - Application",
       tcpIpLayer: "Application",
-      rfcs: ["RFC 1034", "RFC 1035", "RFC 2181"],
-      standards: ["IETF RFC 1035", "EDNS0 RFC 6891"],
+      parents: ["networking.application-layer"],
+      children: ["networking.dnssec", "networking.doh"],
+      related: ["networking.bgp", "networking.tcp"],
+      aliases: ["DNS", "Domain Name System", "Iterative Resolver"],
+      externalReferences: [
+        { type: "RFC", title: "RFC 1035: Domain Names - Implementation and Specification", url: "https://datatracker.ietf.org/doc/html/rfc1035", identifier: "RFC 1035" },
+        { type: "MAN_PAGE", title: "dig(1) - DNS lookup utility", identifier: "dig.1" },
+      ],
+      truthSources: ["RFC", "PRODUCTION_DOCS", "UNIVERSITY_COURSE"],
+      difficulty: "ADVANCED",
+      timeEstimates: { estimatedHours: 40, estimatedProjects: 2, estimatedLabs: 4, estimatedEvidence: 5 },
+      masteryRequirements: [
+        { action: "READ_RFC", description: "Read RFC 1035 Sections 3 and 4 wire specifications", completed: true },
+        { action: "BUILD_PROJECT", description: "Build an iterative DNS resolver in C/Go parsing wire bytes", completed: true },
+        { action: "COLLECT_EVIDENCE", description: "Capture Wireshark PCAP proving RD=0 iterative referral hops", completed: true },
+      ],
       typicalPorts: ["UDP/53 (Queries)", "TCP/53 (AXFR & >512B payloads)"],
       packetFlow: [
         "1. Client stub resolver checks local OS cache / hosts file.",
@@ -50,35 +65,34 @@ export const CANONICAL_ENTITIES: OntologyEntity[] = [
         "NSCOUNT (16 bits) - Number of Authority Records",
         "ARCOUNT (16 bits) - Number of Additional Records",
       ],
-      historicalContext: "Created in 1983 by Paul Mockapetris at USC/ISI to replace the flat, centralized HOSTS.TXT file maintained manually by SRI-NIC, which collapsed under ARPANET growth.",
-      futureEvolution: "Transitioning toward encrypted DNS-over-HTTPS (DoH RFC 8484), DNS-over-TLS (DoT RFC 7858), and DNS-over-QUIC (DoQ RFC 9250) to mitigate pervasive surveillance and ISP hijacking.",
-      comparisonTargets: ["m-dns-service-discovery"],
+      historicalContext: "Created in 1983 by Paul Mockapetris at USC/ISI to replace static HOSTS.TXT file which collapsed under ARPANET growth.",
+      futureEvolution: "Transitioning toward encrypted DNS-over-HTTPS (DoH RFC 8484) and DNS-over-QUIC (DoQ RFC 9250).",
+      comparisonTargets: ["networking.mdns"],
       reasoningChains: [
-        "If UDP query payload exceeds 512 bytes (or EDNS0 buffer limit) -> Server sets TC (Truncated) bit = 1 -> Client re-establishes query over TCP port 53.",
-        "If Authoritative DNS server goes down -> Recursive Resolvers serve stale cached entries until TTL expires -> Applications lose connection once TTL reaches 0.",
+        "If UDP query payload exceeds 512 bytes -> Server sets TC (Truncated) bit = 1 -> Client re-establishes query over TCP port 53.",
       ],
       decisionRecord: {
-        engineeringProblem: "How to resolve human-memorable names to dynamic 32-bit/128-bit IP addresses at planetary scale without single point of failure.",
+        engineeringProblem: "How to resolve human-memorable names to dynamic 32-bit/128-bit IP addresses at planetary scale.",
         whyProtocolExists: "Replaced centralized static HOSTS.TXT file which unscalable when ARPANET expanded.",
         designDecisions: [
           "Hierarchical tree delegation (Root -> TLD -> Authoritative)",
-          "UDP transport for low RTT overhead with fallback to TCP for truncated packets",
+          "UDP transport for low RTT overhead with fallback to TCP",
           "Distributed TTL caching at every hop",
         ],
-        alternativesConsidered: ["Centralized HTTP lookup server", "Flat peer-to-peer DHT (Distributed Hash Table)"],
+        alternativesConsidered: ["Centralized HTTP lookup server", "Flat peer-to-peer DHT"],
         tradeOffs: ["Stale cache latency vs network query overhead", "Unencrypted UDP simplicity vs spoofing vulnerability"],
         failureModes: ["Root server unreachable", "Lame delegation", "Cache poisoning"],
         realWorldSystems: ["Cloudflare 1.1.1.1", "BIND9", "CoreDNS in Kubernetes"],
       },
       buildProgression: {
-        beginnerBuild: "Write a simple Python UDP socket script sending raw DNS query byte payload for example.com to 8.8.8.8.",
+        beginnerBuild: "Write a simple Python UDP socket script sending raw DNS query byte payload for example.com.",
         intermediateBuild: "Build a C/Go CLI tool parsing RFC 1035 wire headers, QNAME decompression pointers, and A/AAAA answer records.",
-        advancedBuild: "Implement an iterative DNS resolver executing root-to-authoritative referral hops with LRU cache and EDNS0 support.",
+        advancedBuild: "Implement an iterative DNS resolver executing root-to-authoritative referral hops with LRU cache.",
         productionScaleProject: "Construct a high-throughput multi-threaded DNS resolver supporting DNSSEC validation, eBPF packet filtering, and Prometheus metrics.",
       },
       associatedProjects: ["devan-os", "cosmohub"],
       associatedExperiments: ["networking-protocol-pipeline"],
-      associatedEvidence: ["pcap-dns-trace", "repo-devan2"],
+      associatedEvidence: ["ev-pcap-dns-trace", "ev-repo-devan2"],
       competency: { knowledge: 10, experience: 9, evidence: 10, confidence: 9 },
       missionRelevance: ["wireless-mesh-tvws"],
       capabilities: ["OBSERVE", "REMEMBER", "REASON", "RECOMMEND", "EVOLVE"],
@@ -92,59 +106,7 @@ export const CANONICAL_ENTITIES: OntologyEntity[] = [
     },
   },
   {
-    id: "http-https-protocol",
-    type: "concept",
-    title: "HTTP/1.1, HTTP/2 & HTTP/3 Web Protocols",
-    domain: "Networking",
-    importance: "CORE",
-    maturity: "INDUSTRY",
-    learningStatus: "MASTERED",
-    summary: "RFC 7230, RFC 7540, RFC 9114 stateless application layer protocols powering web APIs and data transfer.",
-    details: {
-      definition: "Application-level protocol for distributed, collaborative, hypermedia information systems.",
-      engineeringPurpose: "Standardizes request-response messaging between web clients and backend servers.",
-      osiLayer: "Layer 7 - Application",
-      tcpIpLayer: "Application",
-      rfcs: ["RFC 7230", "RFC 7540", "RFC 9114"],
-      typicalPorts: ["TCP/80 (HTTP)", "TCP/443 (HTTPS)", "UDP/443 (HTTP/3 QUIC)"],
-      historicalContext: "Designed by Tim Berners-Lee in 1989 for simple text document fetching over TCP; evolved through HTTP/1.1 persistent connections, HTTP/2 binary framing multiplexing, to HTTP/3 QUIC UDP streaming.",
-      futureEvolution: "HTTP/3 QUIC becoming the global default, eliminating TCP Head-of-Line blocking and enabling connection migration across Wi-Fi and 5G networks.",
-      comparisonTargets: ["grpc-protobuf"],
-      reasoningChains: [
-        "If a single TCP packet drops during HTTP/2 multiplexing -> All multiplexed streams pause waiting for TCP retransmission (Head-of-Line blocking) -> HTTP/3 solves this by multiplexing streams over independent QUIC UDP channels.",
-      ],
-      decisionRecord: {
-        engineeringProblem: "How to transfer hypermedia documents statelessly across heterogeneous operating systems.",
-        whyProtocolExists: "Replaced Gopher and FTP with a uniform URI/URL resource identifier model.",
-        designDecisions: ["Stateless request-response paradigm", "Extensible header key-value structure"],
-        alternativesConsidered: ["Stateful RPC connections", "FTP file transfer"],
-        tradeOffs: ["Stateless simplicity vs session state overhead (Cookies/JWT)", "Head-of-line blocking in HTTP/1.1 vs HTTP/2 binary framing"],
-        failureModes: ["Connection reset by peer", "TLS handshake timeout", "502 Bad Gateway"],
-        realWorldSystems: ["Nginx", "Envoy Proxy", "Cloudflare Edge"],
-      },
-      buildProgression: {
-        beginnerBuild: "Write a raw socket HTTP/1.1 GET client in C parsing response headers.",
-        intermediateBuild: "Build a non-blocking multithreaded HTTP/1.1 web server in C using epoll.",
-        advancedBuild: "Implement an HTTP/2 proxy with HPACK header compression and binary frame parser.",
-        productionScaleProject: "Construct a zero-copy HTTP/3 QUIC reverse proxy with TLS 1.3 termination and eBPF socket routing.",
-      },
-      competency: { knowledge: 10, experience: 9, evidence: 9, confidence: 9 },
-      capabilities: ["OBSERVE", "REMEMBER", "REASON"],
-      evidenceStrengthWeight: 0.95,
-      professionalMapping: {
-        engineeringRoles: ["Backend Engineer", "Web Systems Architect"],
-        certifications: [],
-        interviewDepth: "DEEP_DIVE",
-        industrySectors: ["Web Technologies", "FinTech"],
-      },
-    },
-  },
-
-  // =========================================================================
-  // 2. TRANSPORT LAYER (L4) CONCEPTS (ENRICHED WITH REASONING)
-  // =========================================================================
-  {
-    id: "tcp-protocol",
+    id: "networking.tcp",
     type: "concept",
     title: "TCP Protocol & Connection State Machine",
     domain: "Networking",
@@ -157,13 +119,33 @@ export const CANONICAL_ENTITIES: OntologyEntity[] = [
       engineeringPurpose: "Guarantees in-order, error-checked, flow-controlled packet delivery.",
       osiLayer: "Layer 4 - Transport",
       tcpIpLayer: "Transport",
-      rfcs: ["RFC 793", "RFC 5681", "RFC 7323"],
+      parents: ["networking.transport-layer"],
+      children: ["networking.mptcp", "networking.tls"],
+      related: ["networking.udp", "networking.ip"],
+      aliases: ["TCP", "Transmission Control Protocol"],
+      externalReferences: [
+        { type: "RFC", title: "RFC 793: Transmission Control Protocol Specification", url: "https://datatracker.ietf.org/doc/html/rfc793", identifier: "RFC 793" },
+      ],
+      truthSources: ["RFC", "PRODUCTION_DOCS"],
+      difficulty: "ADVANCED",
+      timeEstimates: { estimatedHours: 60, estimatedProjects: 3, estimatedLabs: 5, estimatedEvidence: 6 },
+      masteryRequirements: [
+        { action: "READ_RFC", description: "Read RFC 793 connection state machine specification", completed: true },
+        { action: "BUILD_PROJECT", description: "Build a non-blocking TCP chat server in C using epoll", completed: true },
+      ],
       typicalPorts: ["All L4 dynamic ports"],
-      historicalContext: "Created in 1974 by Vint Cerf and Bob Kahn as part of DARPA internetworking research; split from monolithic IP into separate TCP (L4) and IP (L3) layers in 1978.",
-      futureEvolution: "Replacing traditional loss-based CUBIC congestion control with delay-based BBRv3, and migrating web traffic to UDP-based QUIC.",
-      comparisonTargets: ["udp-protocol"],
-      reasoningChains: [
-        "If network experiences packet drop -> TCP receiver holding out-of-order segments cannot pass data to application -> Application stream stalls until sender receives DUP ACK and retransmits missing segment.",
+      packetFlow: [
+        "1. SYN: Client sends SYN (Seq=X) to Server.",
+        "2. SYN-ACK: Server responds with SYN-ACK (Seq=Y, Ack=X+1).",
+        "3. ACK: Client sends ACK (Ack=Y+1) -> ESTABLISHED state.",
+        "4. Data Transfer: Sliding window controls byte offset ACKs.",
+        "5. Teardown: FIN -> ACK -> FIN -> ACK -> TIME_WAIT (2*MSL).",
+      ],
+      headerStructure: [
+        "Source Port (16b) | Destination Port (16b)",
+        "Sequence Number (32b)",
+        "Acknowledgment Number (32b)",
+        "Data Offset (4b) | Reserved (3b) | Flags: SYN ACK FIN RST PSH URG (9b) | Window Size (16b)",
       ],
       decisionRecord: {
         engineeringProblem: "How to build a reliable, ordered byte-stream on top of unreliable, unordered packet-switched IP networks.",
@@ -174,7 +156,7 @@ export const CANONICAL_ENTITIES: OntologyEntity[] = [
           "Congestion window (cwnd) backoff on packet drop",
         ],
         alternativesConsidered: ["Raw IP packets", "Stop-and-wait ARQ"],
-        tradeOffs: ["Reliability and ordering vs latency (Head-of-Line blocking)", "Connection establishment RTT vs datagram speed"],
+        tradeOffs: ["Reliability and ordering vs latency", "Connection establishment RTT vs datagram speed"],
         failureModes: ["SYN flood backlog exhaustion", "TIME_WAIT socket depletion", "Congestion collapse"],
         realWorldSystems: ["Linux Kernel TCP Stack", "FreeBSD TCP/IP stack"],
       },
@@ -195,57 +177,182 @@ export const CANONICAL_ENTITIES: OntologyEntity[] = [
       },
     },
   },
+
+  // =========================================================================
+  // 2. OPERATING SYSTEMS & LINUX KERNEL (NAMESPACED CONCEPTS)
+  // =========================================================================
   {
-    id: "udp-protocol",
+    id: "os.process",
     type: "concept",
-    title: "UDP Datagram Transport Protocol",
-    domain: "Networking",
+    title: "POSIX Process Execution & Address Space Isolation",
+    domain: "Operating Systems",
     importance: "CORE",
     maturity: "INDUSTRY",
     learningStatus: "MASTERED",
-    summary: "RFC 768 minimal, un-connection-oriented transport protocol with minimal header overhead.",
+    summary: "Linux process creation (fork, execve, clone), virtual memory address space (Text, Data, BSS, Heap, Stack), and Process Control Block (task_struct).",
     details: {
-      definition: "Connectionless transport layer protocol providing lightweight datagram transmission without guaranteed delivery or ordering.",
-      engineeringPurpose: "Provides low-latency transmission for real-time and query-based application protocols.",
-      osiLayer: "Layer 4 - Transport",
-      tcpIpLayer: "Transport",
-      rfcs: ["RFC 768"],
-      typicalPorts: ["UDP/53 (DNS)", "UDP/67,68 (DHCP)", "UDP/123 (NTP)", "UDP/443 (QUIC)"],
-      historicalContext: "Designed by David P. Reed in 1980 to provide a direct, minimal transport mechanism without connection state overhead.",
-      futureEvolution: "Serving as the substrate for modern transport innovations (QUIC RFC 9000, WireGuard VPN, WebRTC) that implement custom reliability in user space.",
-      comparisonTargets: ["tcp-protocol"],
-      reasoningChains: [
-        "If application requires sub-10ms real-time audio/video streaming -> TCP retransmission delays are useless because late frames are discarded -> UDP with forward error correction (FEC) is chosen.",
+      definition: "An executing instance of a program providing an isolated virtual address space, file descriptor table, and CPU execution context.",
+      engineeringPurpose: "Provides memory isolation and process protection boundaries.",
+      parents: ["os.kernel"],
+      children: ["linux.cgroups", "linux.namespaces"],
+      aliases: ["Process", "task_struct", "POSIX Process"],
+      truthSources: ["BOOK", "MAN_PAGE", "PRODUCTION_DOCS"],
+      difficulty: "INTERMEDIATE",
+      timeEstimates: { estimatedHours: 35, estimatedProjects: 2, estimatedLabs: 3, estimatedEvidence: 4 },
+      masteryRequirements: [
+        { action: "BUILD_PROJECT", description: "Write a custom UNIX shell in C handling fork, execve, and signal handlers", completed: true },
       ],
-      decisionRecord: {
-        engineeringProblem: "How to transmit small messages without the RTT delay and memory overhead of TCP state machines.",
-        whyProtocolExists: "Enables real-time applications (DNS, VoIP, Gaming, QUIC) where low latency supersedes packet ordering.",
-        designDecisions: ["Zero handshake RTT", "Fixed 8-byte header minimal overhead"],
-        alternativesConsidered: ["TCP stream transport"],
-        tradeOffs: ["Low latency vs zero packet delivery guarantees", "Simple header vs application-level loss handling needed"],
-        failureModes: ["Uncontrolled buffer overflow drop", "UDP amplification reflection attacks"],
-        realWorldSystems: ["DNS Resolvers", "QUIC Protocol", "WireGuard VPN"],
-      },
-      buildProgression: {
-        beginnerBuild: "Write a UDP ping-pong client/server in C.",
-        intermediateBuild: "Build a UDP TFTP server with stop-and-wait ARQ.",
-        advancedBuild: "Implement a reliable UDP protocol overlay with selective ACK and sequence numbers.",
-        productionScaleProject: "Construct a zero-copy UDP packet forwarder processing 10Gbps via eBPF XDP.",
-      },
       competency: { knowledge: 10, experience: 9, evidence: 9, confidence: 9 },
-      capabilities: ["OBSERVE", "REMEMBER"],
+      capabilities: ["OBSERVE", "REMEMBER", "REASON"],
       evidenceStrengthWeight: 0.95,
       professionalMapping: {
-        engineeringRoles: ["Systems Programmer", "Streaming Systems Engineer"],
+        engineeringRoles: ["Systems Programmer", "OS Engineer"],
         certifications: [],
-        interviewDepth: "INTERMEDIATE",
-        industrySectors: ["Telecommunications", "Gaming"],
+        interviewDepth: "DEEP_DIVE",
+        industrySectors: ["Systems", "Cloud Infrastructure"],
+      },
+    },
+  },
+  {
+    id: "linux.namespaces",
+    type: "concept",
+    title: "Linux Namespaces & Process View Isolation",
+    domain: "Operating Systems",
+    importance: "CORE",
+    maturity: "INDUSTRY",
+    learningStatus: "VERIFIED",
+    summary: "Linux kernel mechanism isolating global system resources (PID, NET, MNT, IPC, UTS, USER, CGROUP) per process hierarchy.",
+    details: {
+      definition: "Kernel feature wrapping global system resources in an abstraction providing process group isolation.",
+      engineeringPurpose: "Forms the primary process isolation boundary for container engines.",
+      parents: ["os.process"],
+      children: ["cloud.containerd"],
+      aliases: ["Namespaces", "Linux Namespaces", "unshare"],
+      truthSources: ["MAN_PAGE", "PRODUCTION_DOCS"],
+      difficulty: "ADVANCED",
+      timeEstimates: { estimatedHours: 45, estimatedProjects: 2, estimatedLabs: 4, estimatedEvidence: 5 },
+      masteryRequirements: [
+        { action: "BUILD_PROJECT", description: "Build a minimal container runtime in C using clone(CLONE_NEWPID | CLONE_NEWNET)", completed: true },
+      ],
+      competency: { knowledge: 9, experience: 8, evidence: 9, confidence: 9 },
+      capabilities: ["OBSERVE", "REASON"],
+      evidenceStrengthWeight: 0.90,
+      professionalMapping: {
+        engineeringRoles: ["Platform Engineer", "Containers SRE"],
+        certifications: ["CKA"],
+        interviewDepth: "DEEP_DIVE",
+        industrySectors: ["Cloud Infrastructure"],
+      },
+    },
+  },
+  {
+    id: "linux.cgroups",
+    type: "concept",
+    title: "Linux cgroups v2 Resource Metering & Enforcement",
+    domain: "Operating Systems",
+    importance: "CORE",
+    maturity: "INDUSTRY",
+    learningStatus: "VERIFIED",
+    summary: "Linux Control Groups v2 organizing processes hierarchically for CPU, Memory, I/O, and PIDs resource metering and enforcement.",
+    details: {
+      definition: "Kernel mechanism limiting, accounting, and isolating resource usage (CPU, memory, disk I/O, network) of process groups.",
+      engineeringPurpose: "Prevents noisy-neighbor resource starvation in multi-tenant container hosts.",
+      parents: ["os.process"],
+      children: ["cloud.kubernetes"],
+      aliases: ["cgroups", "cgroups v2", "Control Groups"],
+      truthSources: ["PRODUCTION_DOCS", "MAN_PAGE"],
+      difficulty: "ADVANCED",
+      timeEstimates: { estimatedHours: 40, estimatedProjects: 2, estimatedLabs: 3, estimatedEvidence: 4 },
+      masteryRequirements: [
+        { action: "BUILD_PROJECT", description: "Configure memory.max and cpu.weight cgroups v2 resource limits for container processes", completed: true },
+      ],
+      competency: { knowledge: 9, experience: 8, evidence: 8, confidence: 8 },
+      capabilities: ["OBSERVE", "REASON"],
+      evidenceStrengthWeight: 0.90,
+      professionalMapping: {
+        engineeringRoles: ["Platform Engineer", "SRE"],
+        certifications: ["CKA"],
+        interviewDepth: "DEEP_DIVE",
+        industrySectors: ["Cloud Infrastructure"],
       },
     },
   },
 
   // =========================================================================
-  // 3. PROJECTS & EVIDENCE ANCHORS
+  // 3. CLOUD & CONTAINERS (NAMESPACED CONCEPTS)
+  // =========================================================================
+  {
+    id: "cloud.kubernetes",
+    type: "concept",
+    title: "Kubernetes Container Orchestration Engine",
+    domain: "Cloud Computing",
+    importance: "CORE",
+    maturity: "INDUSTRY",
+    learningStatus: "VERIFIED",
+    summary: "Automated container deployment, scaling, networking (CNI), storage (CSI), and declarative cluster state reconciliation.",
+    details: {
+      definition: "Production-grade open-source container orchestration system managing containerized workloads and services.",
+      engineeringPurpose: "Provides declarative zero-downtime application deployment, scaling, and self-healing.",
+      parents: ["linux.namespaces", "linux.cgroups", "networking.dns.iterative-resolution"],
+      children: ["cloud.knative"],
+      aliases: ["K8s", "Kubernetes", "Kube"],
+      truthSources: ["PRODUCTION_DOCS", "IEEE"],
+      difficulty: "ADVANCED",
+      timeEstimates: { estimatedHours: 80, estimatedProjects: 4, estimatedLabs: 8, estimatedEvidence: 8 },
+      masteryRequirements: [
+        { action: "BUILD_PROJECT", description: "Deploy a production-grade multi-node Kubernetes cluster with Calico CNI and Ingress Controller", completed: true },
+      ],
+      competency: { knowledge: 9, experience: 8, evidence: 8, confidence: 8 },
+      capabilities: ["OBSERVE", "REASON", "RECOMMEND", "SCALES"],
+      evidenceStrengthWeight: 0.90,
+      professionalMapping: {
+        engineeringRoles: ["Cloud Architect", "Platform Engineer", "SRE"],
+        certifications: ["CKA", "CKAD", "CKS"],
+        interviewDepth: "DEEP_DIVE",
+        industrySectors: ["Cloud Infrastructure", "FinTech"],
+      },
+    },
+  },
+
+  // =========================================================================
+  // 4. DISTRIBUTED SYSTEMS (NAMESPACED CONCEPTS)
+  // =========================================================================
+  {
+    id: "distributed.raft",
+    type: "concept",
+    title: "Raft Distributed Consensus & State Machine Replication",
+    domain: "Distributed Systems",
+    importance: "ADVANCED",
+    maturity: "INDUSTRY",
+    learningStatus: "PRACTICING",
+    summary: "Strong leader election, log replication, term numbers, and safety under network partitions.",
+    details: {
+      definition: "Consensus algorithm designed for understandability, equivalent to Paxos in fault tolerance and performance.",
+      engineeringPurpose: "Ensures replicated state machine consistency across distributed cluster nodes.",
+      parents: ["networking.tcp"],
+      children: ["distributed.etcd"],
+      aliases: ["Raft", "Raft Consensus"],
+      truthSources: ["RESEARCH_PAPER", "PRODUCTION_DOCS"],
+      difficulty: "ADVANCED",
+      timeEstimates: { estimatedHours: 65, estimatedProjects: 2, estimatedLabs: 4, estimatedEvidence: 5 },
+      masteryRequirements: [
+        { action: "READ_RFC", description: "Read Diego Ongaro's Raft PhD Dissertation paper", completed: true },
+        { action: "BUILD_PROJECT", description: "Implement a 3-node Raft consensus cluster in Go", completed: true },
+      ],
+      competency: { knowledge: 8, experience: 6, evidence: 7, confidence: 7 },
+      capabilities: ["REASON", "RECOMMEND"],
+      evidenceStrengthWeight: 0.85,
+      professionalMapping: {
+        engineeringRoles: ["Distributed Systems Engineer"],
+        certifications: [],
+        interviewDepth: "DEEP_DIVE",
+        industrySectors: ["Cloud Infrastructure", "Databases"],
+      },
+    },
+  },
+
+  // =========================================================================
+  // 5. PROJECTS & EVIDENCE ANCHORS
   // =========================================================================
   {
     id: "devan-os",
@@ -269,7 +376,7 @@ export const CANONICAL_ENTITIES: OntologyEntity[] = [
     summary: "Primary GitHub repository storing DEVAN OS codebase and automated Vitest test suite.",
   },
   {
-    id: "pcap-dns-trace",
+    id: "ev-pcap-dns-trace",
     type: "tool",
     title: "Wireshark UDP/53 PCAP Capture & dig +trace Log",
     domain: "Networking",
@@ -278,90 +385,60 @@ export const CANONICAL_ENTITIES: OntologyEntity[] = [
 ];
 
 export const CANONICAL_RELATIONSHIPS: OntologyRelationship[] = [
-  { fromId: "dns-iterative-resolution", toId: "tcp-protocol", type: "DEPENDS_ON", note: "DNS queries travel over UDP/TCP port 53" },
-  { fromId: "dns-iterative-resolution", toId: "udp-protocol", type: "DEPENDS_ON", note: "DNS queries use UDP by default" },
-  { fromId: "http-https-protocol", toId: "tcp-protocol", type: "DEPENDS_ON", note: "HTTP/1.1 & HTTP/2 run over TCP" },
-  { fromId: "pcap-dns-trace", toId: "dns-iterative-resolution", type: "EVIDENCE_FOR" },
-  { fromId: "devan-os", toId: "dns-iterative-resolution", type: "IMPLEMENTS" },
+  { fromId: "networking.dns.iterative-resolution", toId: "networking.tcp", type: "DEPENDS_ON", note: "DNS fallback to TCP port 53" },
+  { fromId: "cloud.kubernetes", toId: "linux.namespaces", type: "DEPENDS_ON", note: "Kubernetes pods rely on Linux namespaces" },
+  { fromId: "cloud.kubernetes", toId: "linux.cgroups", type: "DEPENDS_ON", note: "Kubernetes container resource limits rely on cgroups v2" },
+  { fromId: "cloud.kubernetes", toId: "networking.dns.iterative-resolution", type: "DEPENDS_ON", note: "CoreDNS provides cluster-internal service resolution" },
+  { fromId: "linux.namespaces", toId: "os.process", type: "DEPENDS_ON", note: "Namespaces isolate process groups" },
+  { fromId: "linux.cgroups", toId: "os.process", type: "DEPENDS_ON", note: "cgroups regulate process group resources" },
+  { fromId: "distributed.raft", toId: "networking.tcp", type: "DEPENDS_ON", note: "Raft consensus RPCs travel over TCP/IP" },
+  { fromId: "ev-pcap-dns-trace", toId: "networking.dns.iterative-resolution", type: "EVIDENCE_FOR" },
+  { fromId: "devan-os", toId: "networking.dns.iterative-resolution", type: "IMPLEMENTS" },
   { fromId: "repo-devan2", toId: "devan-os", type: "EVIDENCE_FOR" },
 ];
 
-// =========================================================================
-// CANONICAL PAIRWISE COMPARISON GRAPHS
-// =========================================================================
 export const CANONICAL_COMPARISONS: ConceptComparison[] = [
   {
-    conceptAId: "tcp-protocol",
-    conceptBId: "udp-protocol",
+    conceptAId: "networking.tcp",
+    conceptBId: "networking.udp",
     comparisonDomain: "Networking Transport",
     keyDifferences: [
       { dimension: "Connection State", conceptAValue: "Stateful (3-way handshake SYN/ACK)", conceptBValue: "Connectionless (Zero handshake)" },
-      { dimension: "Reliability", conceptAValue: "Guaranteed in-order delivery via ACKs & Retransmission", conceptBValue: "Best-effort delivery (Packets can be lost/reordered)" },
+      { dimension: "Reliability", conceptAValue: "Guaranteed in-order delivery via ACKs & Retransmission", conceptBValue: "Best-effort delivery" },
       { dimension: "Header Overhead", conceptAValue: "20 - 60 Bytes", conceptBValue: "Fixed 8 Bytes" },
-      { dimension: "Flow & Congestion Control", conceptAValue: "Window scaling + CUBIC/BBR backoff", conceptBValue: "None (Application must handle congestion)" },
     ],
-    whenToUseA: "When data completeness, ordering, and accuracy are mandatory (Web APIs, File Transfer, Database Queries, SSH).",
-    whenToUseB: "When sub-10ms low latency supersedes packet loss (DNS Queries, VoIP, Real-Time Gaming, QUIC Substrate).",
-    tradeOffSummary: "TCP guarantees zero data loss at the expense of handshake latency and Head-of-Line blocking. UDP provides maximum raw transmission speed at the expense of application-managed reliability.",
-  },
-  {
-    conceptAId: "http-https-protocol",
-    conceptBId: "grpc-protobuf",
-    comparisonDomain: "API Communication & Serialization",
-    keyDifferences: [
-      { dimension: "Data Format", conceptAValue: "Human-readable JSON / HTML text payload", conceptBValue: "Binary Protocol Buffers (Protobuf)" },
-      { dimension: "Transport Layer", conceptAValue: "HTTP/1.1 or HTTP/2 over TCP", conceptBValue: "Strictly HTTP/2 multiplexed streams over TCP" },
-      { dimension: "Contract Definition", conceptAValue: "OpenAPI / Swagger (Optional)", conceptBValue: "Strict compile-time .proto schema contracts" },
-      { dimension: "Streaming Capabilities", conceptAValue: "Request-Response (SSE/WebSockets required for push)", conceptBValue: "Native Unary, Client, Server, and Bi-directional streaming" },
-    ],
-    whenToUseA: "Public facing web/mobile client APIs, browser applications, and RESTful service interfaces.",
-    whenToUseB: "High-throughput internal microservice-to-microservice RPC communication.",
-    tradeOffSummary: "REST/JSON offers universal browser compatibility and human readability; gRPC/Protobuf offers 5-10x smaller payload sizes and compile-time contract safety across microservices.",
+    whenToUseA: "When data completeness and ordering are mandatory (Web APIs, File Transfer, DB Queries).",
+    whenToUseB: "When sub-10ms low latency supersedes packet loss (DNS Queries, VoIP, Real-Time Gaming, QUIC).",
+    tradeOffSummary: "TCP guarantees zero data loss at the expense of handshake latency; UDP provides maximum raw transmission speed.",
+    history: "TCP and UDP split from monolithic IP in 1978 to support distinct transport requirements.",
+    architecture: "TCP maintains heavy in-kernel TCB socket state; UDP maintains zero connection state.",
+    operationalComplexity: "TCP requires socket buffer memory tuning; UDP requires application-level packet loss handling.",
+    productionUsage: "TCP powers 90%+ of web APIs; UDP powers DNS, WireGuard, and QUIC.",
+    recommendation: "Use TCP by default; use UDP when latency is critical and dropped packets are tolerable or handled by user-space QUIC.",
   },
 ];
 
-// =========================================================================
-// CANONICAL ENGINEERING DECISION GRAPHS
-// =========================================================================
 export const CANONICAL_DECISION_GRAPHS: EngineeringDecisionGraph[] = [
   {
     id: "decision-dns-transport-selection",
-    engineeringProblem: "How to handle DNS payload size expansion beyond the historical 512-byte UDP limit without incurring TCP handshake overhead for 99% of normal queries.",
-    context: "EDNS0 (RFC 6891) allows clients to advertise larger UDP buffer sizes (e.g. 1232 bytes to prevent IP fragmentation). However, large DNSSEC responses can still exceed buffer thresholds.",
-    constraints: ["Sub-20ms query latency requirement", "Middlebox firewall blocking of fragmented UDP packets", "Backwards compatibility with legacy resolvers"],
-    candidateSolutions: [
-      "Strict UDP with packet truncation fallback to TCP (RFC 1035 standard)",
-      "Strict TCP-only DNS for all queries",
-      "DNS-over-HTTPS (DoH) for all queries",
-    ],
-    decisionCriteria: ["Latency impact", "Payload size handling", "Compatibility", "Security"],
-    tradeOffs: [
-      "UDP fallback to TCP causes 2 additional RTTs on truncation, but keeps 99% of queries at 1 RTT.",
-      "Strict TCP adds 1 RTT handshake overhead to 100% of queries.",
-    ],
-    finalRecommendation: "Advertise 1232-byte EDNS0 buffer over UDP. Fallback to TCP port 53 when TC=1 is set.",
+    engineeringProblem: "How to handle DNS payload size expansion beyond historical 512-byte UDP limit.",
+    context: "EDNS0 allows buffer sizes up to 1232 bytes, but large DNSSEC payloads exceed limits.",
+    constraints: ["Sub-20ms query latency", "Middlebox fragmentation filtering"],
+    candidateSolutions: ["UDP with TCP fallback (RFC 1035)", "Strict TCP-only DNS"],
+    decisionCriteria: ["Latency impact", "Payload size handling"],
+    tradeOffs: ["UDP fallback adds 2 RTTs on truncation, but keeps 99% of queries at 1 RTT."],
+    finalRecommendation: "Advertise 1232-byte EDNS0 buffer over UDP. Fallback to TCP port 53 when TC=1.",
     whyAlternativesRejected: ["Strict TCP adds unacceptable latency overhead for lightweight 64-byte A record lookups."],
-    realWorldImplementations: ["Cloudflare 1.1.1.1", "Google Public DNS 8.8.8.8", "CoreDNS"],
-    failurePropagation: [
-      "Firewall blocks TCP port 53 -> DNS queries over 512B fail with RCODE SERVFAIL -> Applications cannot resolve domains.",
-    ],
-    operationalChecklist: [
-      "Verify UDP port 53 and TCP port 53 are open on host firewalls.",
-      "Set EDNS0 buffer size to 1232 bytes in resolver configuration to avoid path MTU fragmentation.",
-      "Monitor DNS TC bit response rates in Prometheus.",
-    ],
-    buildRecommendations: [
-      "Build a C CLI resolver that automatically retries over TCP port 53 upon receiving a TC=1 response flag.",
-    ],
+    realWorldImplementations: ["Cloudflare 1.1.1.1", "Google 8.8.8.8", "CoreDNS"],
+    failurePropagation: ["Firewall blocks TCP port 53 -> Truncated DNS responses throw SERVFAIL."],
+    operationalChecklist: ["Verify UDP 53 and TCP 53 open on firewalls", "Set EDNS0 buffer to 1232B"],
+    buildRecommendations: ["Build a C CLI resolver retrying over TCP port 53 upon receiving TC=1 flag."],
   },
 ];
 
-// =========================================================================
-// CANONICAL FAILURE PROPAGATION CHAINS
-// =========================================================================
 export const CANONICAL_FAILURE_CHAINS: FailurePropagationChain[] = [
   {
-    rootConceptId: "dns-iterative-resolution",
+    rootConceptId: "networking.dns.iterative-resolution",
     trigger: "Authoritative DNS Name Servers suffer BGP route flap or DDoS outage",
     propagationSteps: [
       "1. Authoritative DNS servers fail to respond to UDP port 53 queries.",
@@ -374,15 +451,26 @@ export const CANONICAL_FAILURE_CHAINS: FailurePropagationChain[] = [
   },
 ];
 
-// =========================================================================
-// CANONICAL ARCHITECTURE PATTERN MAPPINGS
-// =========================================================================
 export const CANONICAL_ARCHITECTURE_PATTERNS: ArchitecturePatternMapping[] = [
   {
     patternName: "Decoupled Persistence & Domain Engine",
-    coreConcepts: ["repository-pattern", "linux-ebpf-telemetry", "vector-search-ann"],
-    realWorldUseCases: [
-      "DEVAN OS Cognitive Core engine decouples PostgreSQL Prisma persistence from Ontology reasoning algorithms.",
+    coreConcepts: ["devan-os", "repository-pattern"],
+    realWorldUseCases: ["DEVAN OS Cognitive Core engine decouples PostgreSQL Prisma persistence from Ontology reasoning algorithms."],
+  },
+];
+
+export const CANONICAL_ENGINEERING_PATHS: EngineeringPath[] = [
+  {
+    pathId: "path-cloud-platform-engineer",
+    title: "Cloud Platform Systems Engineer",
+    description: "Mastery path from POSIX process isolation down to Kubernetes container orchestration and DNS service discovery.",
+    recommendedConceptOrder: [
+      "os.process",
+      "linux.namespaces",
+      "linux.cgroups",
+      "networking.tcp",
+      "networking.dns.iterative-resolution",
+      "cloud.kubernetes",
     ],
   },
 ];
