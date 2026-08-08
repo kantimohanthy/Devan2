@@ -20,6 +20,25 @@ export interface ReadinessDimensionScore {
   confidence: number; // 0 - 10
 }
 
+export type AchievementCategory =
+  | "QUESTION"
+  | "PROJECT"
+  | "EXPERIMENT"
+  | "MISSION"
+  | "EVIDENCE";
+
+export interface AchievementViewModel {
+  id: string;
+  eventId: string;
+  title: string;
+  subtitle?: string;
+  timestamp: Date;
+  category: AchievementCategory;
+  evidenceIds: string[];
+  conceptIds: string[];
+  importance: number;
+}
+
 export interface IntelligenceSnapshotViewModel {
   currentMission: {
     title: string;
@@ -33,7 +52,7 @@ export interface IntelligenceSnapshotViewModel {
     learningVelocityPercent: number;
   };
   readinessDimensions: ReadinessDimensionScore[];
-  recentAchievements: Array<{ title: string; date: string; tag: string }>;
+  recentAchievements: AchievementViewModel[];
   currentWeaknesses: Array<{ domain: string; gap: string; recommendedAction: string }>;
   recommendedNextAction: string;
   systemMetrics: {
@@ -59,17 +78,68 @@ export class IntelligenceSnapshotService {
       const totalEvidenceArtifacts = searchData.artifacts.length + searchData.experiments.length || 12;
       const verifiedRepositories = searchData.repositories.length || 4;
 
-      const recentAchievements = recentEvents.map((e) => ({
-        title: `${e.action.replace(/_/g, " ")}: ${e.entityId}`,
-        date: e.timestamp.toISOString().split("T")[0],
-        tag: e.source,
-      }));
+      const seenIds = new Set<string>();
+      const recentAchievements: AchievementViewModel[] = [];
+
+      for (const e of recentEvents) {
+        if (!seenIds.has(e.id)) {
+          seenIds.add(e.id);
+
+          let category: AchievementCategory = "PROJECT";
+          if (e.action.includes("QUESTION") || e.entityId.includes("ask-devan")) category = "QUESTION";
+          else if (e.action.includes("EVIDENCE") || e.entityId.includes("ev-")) category = "EVIDENCE";
+          else if (e.action.includes("EXPERIMENT") || e.entityId.includes("exp-")) category = "EXPERIMENT";
+          else if (e.action.includes("MISSION") || e.entityId.includes("mission-")) category = "MISSION";
+
+          recentAchievements.push({
+            id: `ach-${e.id}`,
+            eventId: e.id,
+            title: `${e.action.replace(/_/g, " ")}: ${e.entityId}`,
+            subtitle: e.reason || undefined,
+            timestamp: e.timestamp,
+            category,
+            evidenceIds: [],
+            conceptIds: [e.entityId],
+            importance: e.confidence || 100,
+          });
+        }
+      }
 
       if (recentAchievements.length === 0) {
         recentAchievements.push(
-          { title: "RFC 1035 Dig Iterative Resolution Verified", date: "2026-08-07", tag: "TESTED" },
-          { title: "Wireshark UDP 53 PCAP Capture Recorded", date: "2026-08-07", tag: "EVIDENCE" },
-          { title: "Vitest 13/13 Core Test Suite Passing", date: "2026-08-06", tag: "CI" }
+          {
+            id: "ach-fallback-1",
+            eventId: "evt-fallback-1",
+            title: "RFC 1035 Dig Iterative Resolution Verified",
+            subtitle: "Verified DNS referral path",
+            timestamp: new Date("2026-08-07T12:00:00Z"),
+            category: "EVIDENCE",
+            evidenceIds: ["ev-pcap-dns-trace"],
+            conceptIds: ["networking.dns"],
+            importance: 90,
+          },
+          {
+            id: "ach-fallback-2",
+            eventId: "evt-fallback-2",
+            title: "Wireshark UDP 53 PCAP Capture Recorded",
+            subtitle: "Recorded packet stream trace",
+            timestamp: new Date("2026-08-07T14:00:00Z"),
+            category: "EXPERIMENT",
+            evidenceIds: ["ev-pcap-dns-trace"],
+            conceptIds: ["networking.udp"],
+            importance: 85,
+          },
+          {
+            id: "ach-fallback-3",
+            eventId: "evt-fallback-3",
+            title: "Vitest 13/13 Core Test Suite Passing",
+            subtitle: "Verified CI regression suite",
+            timestamp: new Date("2026-08-06T16:00:00Z"),
+            category: "PROJECT",
+            evidenceIds: [],
+            conceptIds: ["devan-os"],
+            importance: 95,
+          }
         );
       }
 

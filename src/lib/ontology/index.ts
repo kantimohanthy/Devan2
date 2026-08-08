@@ -61,6 +61,13 @@ export class OntologyEngine {
   }
 
   /**
+   * Returns all registered relationships in the ontology graph.
+   */
+  getAllRelationships(): OntologyRelationship[] {
+    return [...this.relationshipsList];
+  }
+
+  /**
    * Finds concepts directly related to the target entity.
    */
   findRelatedConcepts(entityId: string): OntologyEntity[] {
