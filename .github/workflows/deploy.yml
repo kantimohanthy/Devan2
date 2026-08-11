@@ -36,6 +36,9 @@ jobs:
       - name: Generate Prisma Client
         run: npx prisma generate
 
+      - name: Clean build directories
+        run: rm -rf .next out
+
       - name: Build Next.js Static Export
         run: npm run build
 
