@@ -11,7 +11,7 @@ export function GitHistoryTimeline() {
   useEffect(() => {
     const loadTimeline = async () => {
       const res = await queryEngine.queryTimeline(10);
-      setEvents(res.data.events);
+      setEvents(res?.data?.events || []);
     };
 
     loadTimeline();
@@ -24,7 +24,7 @@ export function GitHistoryTimeline() {
       </span>
 
       <div className="relative border-l border-[#20252B] ml-3 pl-4 space-y-4">
-        {events.map((ev) => (
+        {(events || []).map((ev) => (
           <div key={ev.id} className="relative group">
             {/* Commit Dot */}
             <div className="absolute -left-[21px] top-1 h-2.5 w-2.5 rounded-full border border-[#4F8CFF] bg-[#0A0B0D] group-hover:bg-[#4F8CFF] transition-colors" />

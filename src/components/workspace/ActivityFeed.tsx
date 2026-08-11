@@ -11,7 +11,7 @@ export function ActivityFeed() {
   useEffect(() => {
     const loadEvents = async () => {
       const res = await queryEngine.queryTimeline(5);
-      setEvents(res.data.events);
+      setEvents(res?.data?.events || []);
     };
 
     loadEvents();
@@ -29,7 +29,7 @@ export function ActivityFeed() {
       </div>
 
       <div className="space-y-2">
-        {events.map((ev) => (
+        {(events || []).map((ev) => (
           <div key={ev.id} className="rounded-xl border border-[#20252B]/60 bg-[#121418] p-2.5 space-y-1">
             <div className="flex items-center justify-between text-[10px]">
               <span className="font-semibold text-[#F5F5F5]">{ev.action}</span>
