@@ -2,6 +2,13 @@ import { notFound } from "next/navigation";
 import { getRepository } from "@/lib/data";
 import { IdStrip, ConnectedLabel, ChipRail, DeepRegion, Narrative, ProvFooter } from "@/components/EntityShell";
 
+export async function generateStaticParams() {
+  return [
+    { slug: "devan-os" },
+    { slug: "cosmos-hub" },
+  ];
+}
+
 export default async function RepositoryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const repo = await getRepository(slug);

@@ -1,3 +1,4 @@
+export const dynamic = "force-static";
 export async function HEAD() {
   return new Response(null, {
     status: 204,

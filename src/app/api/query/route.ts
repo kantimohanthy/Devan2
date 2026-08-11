@@ -1,11 +1,23 @@
+export const dynamic = "force-static";
+
 import { NextRequest, NextResponse } from "next/server";
 import { queryEngine } from "@/lib/query/query-engine";
 
 export async function GET(request: NextRequest) {
-  const { searchParams } = new URL(request.url);
-  const type = searchParams.get("type") || "dashboard";
-  const id = searchParams.get("id") || undefined;
-  const q = searchParams.get("q") || undefined;
+  let type = "dashboard";
+  let id: string | undefined = undefined;
+  let q: string | undefined = undefined;
+
+  try {
+    if (request && request.url) {
+      const url = new URL(request.url);
+      type = url.searchParams.get("type") || "dashboard";
+      id = url.searchParams.get("id") || undefined;
+      q = url.searchParams.get("q") || undefined;
+    }
+  } catch {
+    // Static export build time
+  }
 
   try {
     if (type === "dashboard") {

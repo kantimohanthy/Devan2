@@ -1,3 +1,8 @@
+export const dynamic = "force-static";
+
+export async function generateStaticParams() {
+  return [{ id: "user-1" }];
+}
 import { NextRequest, NextResponse } from "next/server";
 import { UserService } from "@/services/user.service";
 

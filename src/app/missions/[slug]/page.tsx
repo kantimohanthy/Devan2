@@ -2,6 +2,13 @@ import { notFound } from "next/navigation";
 import { getMission } from "@/lib/data";
 import { IdStrip, ConnectedLabel, ChipRail, DeepRegion, Narrative } from "@/components/EntityShell";
 
+export async function generateStaticParams() {
+  return [
+    { slug: "wireless-mesh-tvws" },
+    { slug: "kernel-bpf-tracer" },
+  ];
+}
+
 export default async function MissionPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const mission = await getMission(slug);

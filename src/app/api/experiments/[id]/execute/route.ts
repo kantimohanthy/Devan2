@@ -1,3 +1,8 @@
+export const dynamic = "force-static";
+
+export async function generateStaticParams() {
+  return [{ id: "exp-1" }];
+}
 import { NextRequest, NextResponse } from "next/server";
 import { withApiHandler } from "@/lib/api-handler";
 import { enforceRateLimit } from "@/lib/rate-limit";

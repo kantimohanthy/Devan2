@@ -3,6 +3,13 @@ import { getExperiment } from "@/lib/data";
 import { IdStrip, ConnectedLabel, ChipRail, DeepRegion, ProvFooter } from "@/components/EntityShell";
 import { LabTerminal } from "@/components/LabTerminal";
 
+export async function generateStaticParams() {
+  return [
+    { slug: "lab-dns-resolver" },
+    { slug: "lab-tcp-congestion" },
+  ];
+}
+
 export default async function ExperimentPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const experiment = await getExperiment(slug);

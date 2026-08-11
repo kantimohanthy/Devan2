@@ -2,6 +2,13 @@ import { notFound } from "next/navigation";
 import { getProject } from "@/lib/data";
 import { IdStrip, ConnectedLabel, ChipRail, DeepRegion, Narrative } from "@/components/EntityShell";
 
+export async function generateStaticParams() {
+  return [
+    { slug: "cineforge-ai" },
+    { slug: "sentinel-ai" },
+  ];
+}
+
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = await getProject(slug);

@@ -1,15 +1,21 @@
-"use client";
-
 import React from "react";
-import { useParams } from "next/navigation";
 import { DomainWorkspace } from "@/components/workspace/DomainWorkspace";
 import { ContextInspector } from "@/components/workspace/ContextInspector";
 import { KnowledgeBreadcrumbs } from "@/components/workspace/KnowledgeBreadcrumbs";
 import { DensityToggle } from "@/components/workspace/DensityToggle";
 
-export default function KnowledgeSlugPage() {
-  const params = useParams();
-  const slug = (params?.slug as string) || "networking.dns";
+export async function generateStaticParams() {
+  return [
+    { slug: "networking.dns" },
+    { slug: "networking.tcp" },
+    { slug: "linux.kernel" },
+    { slug: "container.kubernetes" },
+    { slug: "networking.tls" },
+  ];
+}
+
+export default async function KnowledgeSlugPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
 
   return (
     <div className="space-y-6">

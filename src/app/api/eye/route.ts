@@ -1,3 +1,4 @@
+export const dynamic = "force-static";
 import { NextResponse } from "next/server";
 import { withApiHandler } from "@/lib/api-handler";
 import { intelligenceSnapshotService } from "@/services/intelligence-snapshot.service";

@@ -3,6 +3,13 @@ import { getDecision } from "@/lib/data";
 import { IdStrip, DeepRegion, ProvFooter } from "@/components/EntityShell";
 import { ReasoningReplay } from "@/components/ReasoningReplay";
 
+export async function generateStaticParams() {
+  return [
+    { slug: "oracle-reasoner" },
+    { slug: "evidence-verifier" },
+  ];
+}
+
 export default async function DecisionPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const decision = await getDecision(slug);
