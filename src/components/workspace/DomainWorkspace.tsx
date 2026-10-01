@@ -95,13 +95,13 @@ export function DomainWorkspace({ slug = "networking.dns" }: { slug?: string }) 
               <TelemetryPulse />
             </div>
             <p className="text-xs text-[#8A9098]">
-              Live Jaeger distributed trace engine, multi-perspective packet telemetry, Wireshark wire spec, and failure diagnostics.
+              A recorded DNS trace replayed step by step, with packet, application and kernel perspectives. Values come from the recorded run, not live traffic.
             </p>
           </div>
 
           <div className="flex items-center gap-4">
-            <ReadinessRing percent={100} />
-            <EvidenceSealedBadge confidence={100} />
+            <ReadinessRing state="TESTED" />
+            <EvidenceSealedBadge />
           </div>
         </div>
 
@@ -164,8 +164,8 @@ export function DomainWorkspace({ slug = "networking.dns" }: { slug?: string }) 
             <span className="text-purple-400 font-bold">MISS (0x01)</span>
           </div>
           <div>
-            <span className="text-[9px] text-[#8A9098] uppercase block">Confidence</span>
-            <span className="text-emerald-400 font-bold">100% Sealed</span>
+            <span className="text-[9px] text-[#8A9098] uppercase block">Source</span>
+            <span className="text-[#8A9098] font-bold">Recorded trace</span>
           </div>
         </div>
       </div>

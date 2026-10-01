@@ -14,13 +14,14 @@ export const identity = {
   name: "Ujwal Shyam Kantimohanthy",
   handle: "UJ",
   role: "Internet engineer — networking, AI systems, space infrastructure",
-  location: "Currently in Rome, relocating to Paris (STATION F Landing Zone)",
+  location: "Rome · Paris (STATION F Landing Zone)",
   mission:
     "Most of what I work on comes down to the same question: what's actually holding this up, and can I trust it? I studied internet engineering because networks are one of the few systems you can watch fail in real time. I still think in that shape — trace the problem down to the layer underneath, then build there.",
   currentFocus: [
-    "Preparing to relocate to Paris for STATION F's Landing Zone (Aug 10 – Sep 10)",
-    "A vertical slice through Computer Networking — one topic, DNS or HTTP, taken from source to real experiment to artifact",
-    "3D cell tracking for the Kaggle × ChanZuckerberg Biohub competition, due late September",
+    "Project LOOP — full-stack work during my web development internship at Zidio Development",
+    "Wireless Mesh + TV White Space thesis research — simulation phase",
+    "CosmoHub through STATION F's Landing Zone programme",
+    "Extending the networking evidence graph beyond the first DNS record",
   ],
   principles: [
     {
@@ -423,14 +424,14 @@ export const timeline: TimelineEntry[] = [
     category: "Award",
     title: "Selected for STATION F Landing Zone",
     description:
-      "Selected for STATION F's Landing Zone program in Paris — relocating from Rome for a 30-day stint, August 10 to September 10.",
+      "Selected for STATION F's Landing Zone programme in Paris to build CosmoHub.",
   },
   {
     date: "Sep 2026",
     category: "Research",
     title: "Kaggle × ChanZuckerberg Biohub competition",
     description:
-      "3D microscopy cell-tracking submission for zebrafish embryo development data due late September.",
+      "3D microscopy cell-tracking competition entry on zebrafish embryo development data.",
   },
 ];
 
@@ -453,17 +454,17 @@ export const network: NetworkNode[] = [
   {
     name: "STATION F Landing Zone",
     role: "Paris program cohort",
-    context: "Starting August 2026",
+    context: "Since August 2026",
   },
 ];
 
 export const now = {
-  updated: "August 2026",
+  updated: "October 2026",
   items: [
-    "Packing for Paris — STATION F's Landing Zone runs August 10 to September 10, and the Italian residence permit expires shortly after, on September 19.",
-    "Working through DNS or HTTP as the first real vertical slice of the networking knowledge graph — source, concept, experiment, artifact, in that order.",
-    "Segmenting and tracking cells through 3D zebrafish microscopy data for the Kaggle × ChanZuckerberg Biohub competition, due late September.",
-    "CineForge AI Pro's next phase — frontend and further pipeline work — has been handed off to an agentic coding tool while attention moves to the above.",
+    "Building Project LOOP during my web development internship at Zidio Development.",
+    "Thesis research on Wireless Mesh + TV White Space — moving from the propagation model into simulation.",
+    "CosmoHub at STATION F's Landing Zone — early stage, no user-facing prototype yet.",
+    "Extending the networking evidence graph beyond the first DNS record.",
   ],
 };
 
@@ -488,15 +489,11 @@ export const notebook = {
     {
       label: "Stuck on",
       value:
-        "Getting the anisotropic voxel correction right in the zebrafish tracking pipeline without breaking lineage continuity.",
+        "Turning the thesis propagation model into a simulation of the hybrid mesh + TVWS topology.",
     },
     {
       label: "Rewriting",
       value: "The CosmoHub pitch, again, this time for INFERENCE Lab — trying to get the problem statement down to one sentence.",
-    },
-    {
-      label: "Watching the clock on",
-      value: "The Italian residence permit — expires September 19, shortly after the Paris program ends.",
     },
   ],
 };
@@ -505,7 +502,7 @@ export const vision = {
   statement:
     "Most of the internet's remaining problems aren't about speed anymore — they're about reach. There are still places a signal doesn't get to, and still ways of proving what you know that depend more on how you phrase it than on what you've actually built. Those are the two problems I keep coming back to.",
   direction: [
-    "Paris next, then wherever the infrastructure problems are least solved",
+    "Wherever the infrastructure problems are least solved",
     "Keeping my own work documented as a knowledge graph instead of a résumé",
     "CosmoHub, built out slowly, as real infrastructure rather than a pitch",
   ],

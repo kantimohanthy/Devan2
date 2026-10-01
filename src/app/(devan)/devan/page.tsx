@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { queryEngine } from "@/lib/query/client-query-engine";
 import { DashboardViewModel } from "@/lib/query/projections/dashboard.projection";
 import { ContextInspector } from "@/components/workspace/ContextInspector";
@@ -29,7 +30,7 @@ export default function HomePage() {
   if (!data) {
     return (
       <div className="flex h-64 items-center justify-center font-mono text-xs text-[#8A9098]">
-        Initializing DEVAN Cognitive Control Center...
+        Loading DEVAN overview…
       </div>
     );
   }
@@ -44,7 +45,6 @@ export default function HomePage() {
   const currentMission = data.currentMission || {
     title: "Wireless Mesh + TV White Space propagation modeling",
     objective: "Thesis research extending mesh coverage into challenging terrain",
-    progressPercent: 75,
     objectives: [],
   };
 
@@ -54,18 +54,18 @@ export default function HomePage() {
       <div className="flex-1 space-y-5">
         <KnowledgeBreadcrumbs
           items={[
-            { label: "DEVAN OS" },
-            { label: "Cognitive Control Center" },
+            { label: "DEVAN" },
+            { label: "Overview" },
           ]}
         />
 
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-[#F5F5F5] font-mono flex items-center gap-2">
-              <Activity className="h-6 w-6 text-[#4F8CFF]" /> Cognitive Control Center
+              <Activity className="h-6 w-6 text-[#4F8CFF]" /> DEVAN overview
             </h1>
             <p className="text-xs text-[#8A9098] font-mono">
-              Live situational awareness backing protocol engineering, ground proof evidence, and mission readiness.
+              The concepts, experiments and evidence behind Ujwal&apos;s work. On static hosting these counts come from the seeded graph, not a live database.
             </p>
           </div>
           <DensityToggle />
@@ -75,7 +75,7 @@ export default function HomePage() {
         <HeroVisualization />
 
         {/* Operational Metrics Cards */}
-        <div className="grid grid-cols-4 gap-4 font-mono text-xs">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 font-mono text-xs">
           <div className="rounded-xl border border-[#20252B] bg-[#0A0B0D] p-4 space-y-1">
             <span className="text-[10px] text-[#8A9098] uppercase">Concepts Tracked</span>
             <div className="text-xl font-bold text-[#F5F5F5]">{systemMetrics.totalConceptsTracked}</div>
@@ -97,7 +97,7 @@ export default function HomePage() {
         {/* Current Mission Deck */}
         <div className="rounded-2xl border border-[#20252B] bg-[#0A0B0D] p-5 font-mono text-xs space-y-3">
           <span className="font-semibold text-[#8A9098] uppercase tracking-wider text-[10px] flex items-center gap-1.5">
-            <Target className="h-3.5 w-3.5 text-cyan-400" /> Active Mission Control
+            <Target className="h-3.5 w-3.5 text-cyan-400" /> Current research
           </span>
           <div className="flex items-center justify-between border-t border-[#20252B] pt-3">
             <div>
@@ -105,22 +105,21 @@ export default function HomePage() {
               <p className="text-[11px] text-[#8A9098]">{currentMission.objective}</p>
             </div>
             <div className="text-right">
-              <span className="text-xl font-bold text-emerald-400">{currentMission.progressPercent}%</span>
-              <span className="block text-[10px] text-[#8A9098]">COMPLETED</span>
+              <span className="rounded-full border border-[#4F8CFF]/40 px-2 py-0.5 text-[11px] font-bold text-[#4F8CFF]">ONGOING</span>
+              <Link href="/work/wireless-mesh-tvws/" className="block mt-2 text-[11px] text-[#8A9098] hover:text-[#F5F5F5]">Case study →</Link>
             </div>
           </div>
         </div>
 
         {/* Universal Object Cards Grid */}
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-4">
           <UniversalObjectCard
             data={{
               id: "networking.dns",
               type: "CONCEPT",
               title: "DNS (Domain Name System)",
               subtitle: "Iterative resolution, RFC 1035 wire specs, and UDP datagram flow",
-              status: "GOLD STANDARD",
-              confidence: 99,
+              status: "TESTED",
               evidenceCount: 4,
               tags: ["Networking", "RFC 1035", "UDP/53"],
               href: "/knowledge/networking.dns",
@@ -132,8 +131,7 @@ export default function HomePage() {
               type: "CONCEPT",
               title: "TCP (Transmission Control Protocol)",
               subtitle: "3-way handshake, congestion control, seq/ack windowing",
-              status: "GOLD STANDARD",
-              confidence: 98,
+              status: "STUDIED",
               evidenceCount: 3,
               tags: ["Networking", "RFC 793", "POSIX Sockets"],
               href: "/knowledge/networking.tcp",

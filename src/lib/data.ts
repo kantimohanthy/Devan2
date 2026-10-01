@@ -141,6 +141,28 @@ export const repositories: Repository[] = [
 
 export const projects: Project[] = [
   {
+    slug: "project-loop",
+    name: "Project LOOP",
+    description:
+      "Full-stack product built during the Zidio Development internship: ingestion, role-aware UX, analytics and grounded Q&A. Evaluator demo uses seeded data.",
+    repositories: [],
+    concepts: [],
+    experiments: [],
+    decisions: [],
+    openQuestions: ["Full case study in progress — see /work/project-loop"],
+  },
+  {
+    slug: "wireless-mesh-tvws",
+    name: "Wireless Mesh + TV White Space (thesis)",
+    description:
+      "Ongoing thesis research: mesh networking over TV White Space spectrum for connectivity in challenging terrain. MATLAB experiments.",
+    repositories: [],
+    concepts: [],
+    experiments: [],
+    decisions: [],
+    openQuestions: ["Simulation of the hybrid mesh + TVWS topology", "Bench test and write-up"],
+  },
+  {
     slug: "cineforge-ai-pro",
     name: "CineForge AI Pro",
     description:
@@ -155,7 +177,7 @@ export const projects: Project[] = [
     slug: "cosmohub",
     name: "CosmoHub",
     description:
-      "Ed-tech platform concept for space tech and satellite comms, part of the Universeh Student Fellowship portfolio.",
+      "Early-stage learning platform for space technology, started in the Universeh Student Fellowship and now built through STATION F Landing Zone. No user-facing prototype yet.",
     repositories: [],
     concepts: [],
     experiments: [],
@@ -164,7 +186,7 @@ export const projects: Project[] = [
   },
   {
     slug: "devan",
-    name: "DEVAN / ujwal-portfolio",
+    name: "DEVAN",
     description: "This system — the evidence graph and its interface.",
     repositories: [{ type: "Repository", title: "ujwal-portfolio", meta: "CI passing", href: "/repositories/ujwal-portfolio" }],
     concepts: [{ type: "Concept", title: "DNS", meta: "TESTED", href: "/knowledge/dns" }],
@@ -185,7 +207,9 @@ export const searchIndex: IndexEntry[] = [
   { type: "Repository", title: "ujwal-portfolio", meta: "CI passing", href: "/repositories/ujwal-portfolio" },
   { type: "Project", title: "CineForge AI Pro", meta: "Bilingual pre-production assistant", href: "/projects/cineforge-ai-pro" },
   { type: "Project", title: "CosmoHub", meta: "Ed-tech · space tech", href: "/projects/cosmohub" },
-  { type: "Project", title: "DEVAN / ujwal-portfolio", meta: "This system", href: "/projects/devan" },
+  { type: "Project", title: "DEVAN", meta: "This system", href: "/projects/devan" },
+  { type: "Project", title: "Project LOOP", meta: "Zidio Development", href: "/projects/project-loop" },
+  { type: "Project", title: "Wireless Mesh + TVWS", meta: "Thesis · ongoing", href: "/projects/wireless-mesh-tvws" },
   { type: "Mission", title: "Wireless Mesh + TV White Space", meta: "3 / 8 objectives", href: "/missions/wireless-mesh-tvws" },
 ];
 

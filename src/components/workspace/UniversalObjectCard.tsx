@@ -93,7 +93,7 @@ export function UniversalObjectCard({ data }: { data: UniversalObjectData }) {
             {data.status}
           </span>
         )}
-        {data.confidence !== undefined && <span className="text-amber-400">{data.confidence}% Confidence</span>}
+        
         {data.evidenceCount !== undefined && <span>{data.evidenceCount} Ground Proofs</span>}
       </div>
     </div>

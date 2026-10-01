@@ -1,77 +1,51 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
-import { RailNav } from "@/components/RailNav";
-import { TopBar } from "@/components/TopBar";
-import { CommandPalette } from "@/components/workspace/CommandPalette";
-import { WorkspaceTabs } from "@/components/workspace/WorkspaceTabs";
-import { BottomDock } from "@/components/workspace/BottomDock";
-import { OnboardingTour } from "@/components/workspace/OnboardingTour";
+
+const title = "Ujwal Kantimohanthy — Network & Systems Engineer";
+const description =
+  "ICT engineer building dependable systems and making their behaviour verifiable — across networking, web products and AI research.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kantimohanthy.dev"),
   title: {
-    default: "DEVAN — Cognitive Operating System for Engineering Intelligence",
-    template: "%s | DEVAN OS",
+    default: title,
+    template: "%s | Ujwal Kantimohanthy",
   },
-  description: "A living, queryable cognitive workspace backing protocol engineering, systems knowledge, kernel internals, and ground proof evidence.",
-  keywords: ["Engineering Intelligence", "Protocol Engineering", "Linux Kernel", "DNS", "TCP/IP", "Kubernetes", "Systems Architecture"],
-  authors: [{ name: "Kanti Mohanthy", url: "https://kantimohanthy.dev" }],
-  creator: "Kanti Mohanthy",
-  publisher: "DEVAN Intelligence Platform",
-  alternates: {
-    canonical: "https://kantimohanthy.dev",
-  },
+  description,
+  keywords: [
+    "Ujwal Kantimohanthy",
+    "Network engineering",
+    "Wireless mesh networks",
+    "TV White Space",
+    "Full-stack development",
+    "University of Rome Tor Vergata",
+  ],
+  authors: [{ name: "Ujwal Shyam Kantimohanthy", url: "https://kantimohanthy.dev" }],
+  creator: "Ujwal Shyam Kantimohanthy",
+  alternates: { canonical: "https://kantimohanthy.dev" },
   openGraph: {
-    title: "DEVAN — Cognitive Operating System for Engineering Intelligence",
-    description: "A living, queryable cognitive workspace backing protocol engineering, systems knowledge, and ground proof evidence.",
+    title,
+    description,
     url: "https://kantimohanthy.dev",
-    siteName: "DEVAN OS",
+    siteName: "Ujwal Kantimohanthy",
     locale: "en_US",
     type: "website",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "DEVAN — Cognitive Operating System for Engineering Intelligence",
-    description: "A living, queryable cognitive workspace backing protocol engineering, systems knowledge, and ground proof evidence.",
-    creator: "@kantimohanthy",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  icons: {
-    icon: "/favicon.ico",
-  },
+  twitter: { card: "summary_large_image", title, description },
+  robots: { index: true, follow: true },
+  icons: { icon: "/favicon.ico" },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export const viewport: Viewport = {
+  themeColor: "#0a0b0d",
+  colorScheme: "dark",
+};
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="h-full antialiased">
-      <body className="min-h-full h-full flex bg-bg text-text font-sans text-[14px]">
-        <OnboardingTour />
-        <RailNav />
-        <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
-          <TopBar />
-          <WorkspaceTabs />
-          <main className="flex-1 overflow-y-auto">
-            <div className="w-[92vw] max-w-[1800px] mx-auto px-6 py-6 pb-20">{children}</div>
-          </main>
-          <BottomDock />
-        </div>
-        <CommandPalette />
-      </body>
+    <html lang="en" className="antialiased">
+      <body className="min-h-screen bg-bg text-text font-sans">{children}</body>
     </html>
   );
 }

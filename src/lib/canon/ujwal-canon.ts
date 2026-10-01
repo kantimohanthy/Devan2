@@ -72,24 +72,25 @@ export interface UjwalCanonStructure {
 export const UJWAL_CANON: UjwalCanonStructure = {
   identity: {
     name: "Ujwal Kantimohanthy",
-    role: "Network Systems Architect & Distributed Systems Engineer",
-    location: "Global",
+    role: "ICT engineer — network infrastructure",
+    location: "Rome · Paris",
     focusDomains: ["Networking", "Operating Systems", "Distributed Systems", "AI Systems"],
   },
   mission: "Wireless Mesh Networks + TV White Space for Rural Connectivity",
   academicJourney: {
-    degree: "Bachelor of Science",
-    institution: "University ICT Program",
-    major: "Information & Communication Technology (ICT)",
+    degree: "BSc",
+    institution: "University of Rome Tor Vergata",
+    major: "Engineering Sciences",
     courses: [
-      { code: "ICT-401", title: "Computer Networking & Internet Engineering", conceptIds: ["dns-iterative-resolution", "tcp-protocol", "bgp-routing"] },
-      { code: "ICT-402", title: "Wireless Communications & Mobile Networks", conceptIds: ["tvws-rf-propagation", "longley-rice-itm", "olsr-mesh-routing"] },
-      { code: "ICT-403", title: "Operating Systems & System Programming", conceptIds: ["posix-sockets", "linux-ebpf-telemetry"] },
+      { code: "", title: "Computer Networking & Internet Engineering", conceptIds: ["dns-iterative-resolution", "tcp-protocol", "bgp-routing"] },
+      { code: "", title: "Wireless Communications & Mobile Networks", conceptIds: ["tvws-rf-propagation", "longley-rice-itm", "olsr-mesh-routing"] },
+      { code: "", title: "Operating Systems & System Programming", conceptIds: ["posix-sockets", "linux-ebpf-telemetry"] },
     ],
   },
   professionalJourney: [
-    "Lead Software Architect & Developer — DEVAN OS Platform",
-    "Distributed Systems Researcher — Rural Broadband Wireless Mesh",
+    "Web Development Intern — Zidio Development (Aug 2026 –)",
+    "Thesis research — Wireless Mesh + TV White Space (ongoing)",
+    "Events Lead — EuroTech Federation",
   ],
   research: [
     {
@@ -102,8 +103,8 @@ export const UJWAL_CANON: UjwalCanonStructure = {
   projects: [
     {
       slug: "devan-os",
-      title: "DEVAN Engineering Intelligence OS",
-      description: "Cognitive operating system modeling engineering intelligence.",
+      title: "DEVAN",
+      description: "Evidence graph and engineering workspace behind kantimohanthy.dev.",
       conceptIds: ["repository-pattern", "linux-ebpf-telemetry", "vector-search-ann"],
       repositoryUrl: "https://github.com/kantimohanthy/Devan2",
     },
@@ -112,21 +113,21 @@ export const UJWAL_CANON: UjwalCanonStructure = {
       title: "CineForge AI Pro",
       description: "Bilingual AI pre-production video generation suite.",
       conceptIds: ["vector-search-ann", "onnx-wasm-runtime"],
-      repositoryUrl: "https://github.com/kantimohanthy/cineforge",
+      repositoryUrl: "https://github.com/kantimohanthy/ClineForge-Pro",
     },
     {
       slug: "cosmohub",
       title: "CosmoHub",
-      description: "Space economy telemetry aggregation platform.",
+      description: "Learning platform for space technology — early stage, built through STATION F Landing Zone.",
       conceptIds: ["raft-consensus", "tcp-protocol"],
-      repositoryUrl: "https://github.com/kantimohanthy/cosmohub",
+      repositoryUrl: "https://github.com/kantimohanthy/Cosmohub",
     },
   ],
   leadership: [
     {
-      role: "Lead Software Architect",
-      organization: "DEVAN OS Core Team",
-      impact: "Architected and delivered the Cognitive Core kernel and Decision Intelligence layer.",
+      role: "Events Lead",
+      organization: "EuroTech Federation",
+      impact: "First point of contact for inbound event requests; designing the team's intake process.",
     },
   ],
   engineeringPhilosophy: {
@@ -142,7 +143,6 @@ export const UJWAL_CANON: UjwalCanonStructure = {
     approach: "Learn by implementing wire-level protocols, RFC parsers, and zero-copy packet engines.",
   },
   evidenceTimeline: [
-    { timestamp: "2025-06-15", title: "Wireless Mesh TVWS Thesis Defense", evidenceId: "ev-thesis-wmn-tvws" },
     { timestamp: "2026-08-07", title: "DNS PCAP Datagram Verification", evidenceId: "ev-pcap-dns-trace" },
     { timestamp: "2026-08-08", title: "DEVAN OS Platform Engine Release", evidenceId: "ev-repo-devan2" },
   ],

@@ -14,7 +14,7 @@ export default function VisualizationPage() {
       <div className="flex-1 space-y-4">
         <KnowledgeBreadcrumbs
           items={[
-            { label: "Home", href: "/" },
+            { label: "DEVAN", href: "/devan" },
             { label: "Atlas", href: "/visualization" },
             { label: "Interactive Knowledge Graph" },
           ]}

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { queryEngine } from "@/lib/query/client-query-engine";
 import { ExperienceEventRecord } from "@/repositories/experience.repository";
-import { Activity, Radio } from "lucide-react";
+import { Activity } from "lucide-react";
 
 export function ActivityFeed() {
   const [events, setEvents] = useState<ExperienceEventRecord[]>([]);
@@ -21,11 +21,9 @@ export function ActivityFeed() {
     <div className="space-y-3 rounded-2xl border border-[#20252B] bg-[#0A0B0D]/80 p-4 font-mono text-xs">
       <div className="flex items-center justify-between border-b border-[#20252B] pb-2">
         <span className="font-semibold text-[#8A9098] uppercase tracking-wider text-[10px] flex items-center gap-1.5">
-          <Activity className="h-3.5 w-3.5 text-emerald-400" /> Global Live Intelligence Feed
+          <Activity className="h-3.5 w-3.5 text-emerald-400" /> Recent activity
         </span>
-        <span className="flex items-center gap-1 text-[10px] text-emerald-400">
-          <Radio className="h-3 w-3 animate-pulse" /> LIVE
-        </span>
+        <span className="text-[10px] text-[#8A9098]">Seeded sample</span>
       </div>
 
       <div className="space-y-2">

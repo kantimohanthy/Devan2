@@ -62,7 +62,7 @@ export default function KnowledgePage() {
       <div className="flex-1 space-y-4">
         <KnowledgeBreadcrumbs
           items={[
-            { label: "Home", href: "/" },
+            { label: "DEVAN", href: "/devan" },
             { label: "Knowledge Workspace", href: "/knowledge" },
             { label: selectedConcept?.title || "Concept" },
           ]}

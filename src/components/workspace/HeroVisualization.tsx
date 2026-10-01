@@ -104,7 +104,7 @@ export function HeroVisualization() {
               <Terminal className="h-4 w-4 text-[#4F8CFF]" />
               <span className="font-bold text-[#F5F5F5]">{currentItem.title}</span>
             </div>
-            <EvidenceSealedBadge confidence={99} />
+            <EvidenceSealedBadge />
           </div>
 
           <div className="grid grid-cols-3 gap-3 text-[11px]">
