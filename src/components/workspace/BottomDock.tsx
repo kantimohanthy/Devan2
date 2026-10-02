@@ -89,7 +89,7 @@ export function BottomDock() {
                   Explain Concept
                 </button>
                 <button
-                  onClick={() => handleRunOracle("Analyze failure modes and production trade-offs")}
+                  onClick={() => handleRunOracle("Analyze failure modes and production tradeoffs")}
                   className="rounded bg-[#121418] px-2 py-0.5 text-[10px] text-amber-400 border border-[#20252B] hover:bg-[#20252B]"
                 >
                   Failure Modes

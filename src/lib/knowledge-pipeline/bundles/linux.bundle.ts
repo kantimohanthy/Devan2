@@ -16,7 +16,7 @@ const LINUX_RAW_CONCEPTS: OntologyEntity[] = [
     domain: "Linux",
     importance: "CORE",
     maturity: "INDUSTRY",
-    summary: "System startup sequence: Firmware (BIOS/UEFI) -> Bootloader (GRUB2) -> Kernel Initialization -> systemd PID 1.",
+    summary: "System startup sequence: Firmware (BIOS/UEFI) → Bootloader (GRUB2) → Kernel Initialization → systemd PID 1.",
     details: {
       definition: "Multi-stage initialization sequence transitioning hardware from power-on state to fully operational user-space systemd PID 1.",
       engineeringPurpose: "Initializes CPU microcode, page tables, hardware drivers, and system daemons.",

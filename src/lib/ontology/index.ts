@@ -118,7 +118,7 @@ export class OntologyEngine {
 
   /**
    * Automatically computes the complete ordered prerequisite traversal path to master a target concept.
-   * E.g. Kubernetes -> Containers -> Namespaces -> cgroups -> Processes -> POSIX Sockets -> TCP/IP -> DNS.
+   * E.g. Kubernetes → Containers → Namespaces → cgroups → Processes → POSIX Sockets → TCP/IP → DNS.
    */
   getPrerequisiteTraversalPath(targetEntityId: string): OntologyEntity[] {
     const visited = new Set<string>();

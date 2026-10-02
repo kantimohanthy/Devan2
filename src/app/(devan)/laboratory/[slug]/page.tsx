@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/utils";
 import { notFound } from "next/navigation";
 import { getExperiment } from "@/lib/data";
 import { IdStrip, ConnectedLabel, ChipRail, DeepRegion, ProvFooter } from "@/components/EntityShell";
@@ -34,7 +35,7 @@ export default async function ExperimentPage({ params }: { params: Promise<{ slu
         <LabTerminal experiment={experiment} />
       </DeepRegion>
 
-      <ProvFooter items={[`created ${experiment.createdAt}`, experiment.lastRun ? `last run ${experiment.lastRun}` : "never run"]} />
+      <ProvFooter items={[`created ${formatDate(experiment.createdAt)}`, experiment.lastRun ? `last run ${formatDate(experiment.lastRun)}` : "never run"]} />
     </div>
   );
 }

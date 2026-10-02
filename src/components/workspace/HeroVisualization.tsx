@@ -65,7 +65,7 @@ export function HeroVisualization() {
       <div className="relative rounded-xl border border-[#20252B] bg-[#07080A] p-5 space-y-4">
         <div className="flex items-center justify-between">
           <span className="text-[10px] text-[#8A9098] uppercase tracking-wider">
-            Step {step + 1} of 5 — Click any node to inspect deep execution telemetry
+            Step {step + 1} of 5, Click any node to inspect deep execution telemetry
           </span>
           <div className="flex items-center gap-2">
             <button onClick={() => setIsPlaying(!isPlaying)} className="rounded bg-[#20252B] p-1.5 text-[#F5F5F5] hover:text-[#4F8CFF]">

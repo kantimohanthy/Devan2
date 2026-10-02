@@ -10,7 +10,7 @@ export default function EvidenceIndexPage() {
         <h1 className="text-[30px] font-semibold tracking-tight mb-2">Claim → Verification</h1>
         <p className="text-[14px] text-text-2 leading-relaxed max-w-[600px]">
           Every engineering claim traces to an artifact. No confidence score renders here without a
-          real scoring function behind it — see a claim&rsquo;s evidence state instead.
+          real scoring function behind it, see a claim&rsquo;s evidence state instead.
         </p>
       </div>
 

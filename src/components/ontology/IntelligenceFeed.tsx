@@ -53,7 +53,7 @@ export function IntelligenceFeed() {
     <div className="rounded-xl border border-[#20252B] bg-[#0A0B0D] p-4 space-y-3 font-mono text-xs">
       <div className="flex items-center justify-between border-b border-[#20252B] pb-2 text-[#8A9098]">
         <span className="font-semibold uppercase tracking-wider text-[10px] text-[#4F8CFF] flex items-center gap-1.5">
-          <Activity size={12} /> Real-Time Cognitive Feed
+          <Activity size={12} /> Real Time Cognitive Feed
         </span>
         <span className="h-2 w-2 rounded-full bg-[#31D07D]" title="Streaming Live Events" />
       </div>

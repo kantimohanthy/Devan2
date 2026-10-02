@@ -64,7 +64,7 @@ export default function UsersPage() {
                   <td className="p-4">{user.name}</td>
                   <td className="p-4">{user.email}</td>
                   <td className="p-4">
-                    {user.headline || "-"}
+                    {user.headline || "none"}
                   </td>
                   <td className="p-4 text-right">
                     Edit | Delete

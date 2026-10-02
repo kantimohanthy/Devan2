@@ -214,7 +214,7 @@ export function KnowledgeGraph({
       eyebrow="02 · Knowledge Graph"
       reveal="focus"
       title="One connected map, not eight separate résumés"
-      description="These disciplines don't sit in isolation — every edge here is a real project that pulled two of them together. Click a node to explore connections."
+      description="These disciplines don't sit in isolation, every edge here is a real project that pulled two of them together. Click a node to explore connections."
     >
       {content}
     </Section>

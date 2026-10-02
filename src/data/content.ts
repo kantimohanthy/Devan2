@@ -13,13 +13,13 @@ import {
 export const identity = {
   name: "Ujwal Shyam Kantimohanthy",
   handle: "UJ",
-  role: "Internet engineer — networking, AI systems, space infrastructure",
+  role: "Internet engineer: networking, AI systems, space infrastructure",
   location: "Rome · Paris (STATION F Landing Zone)",
   mission:
-    "Most of what I work on comes down to the same question: what's actually holding this up, and can I trust it? I studied internet engineering because networks are one of the few systems you can watch fail in real time. I still think in that shape — trace the problem down to the layer underneath, then build there.",
+    "Most of what I work on comes down to the same question: what's actually holding this up, and can I trust it? I studied internet engineering because networks are one of the few systems you can watch fail in real time. I still think in that shape: trace the problem down to the layer underneath, then build there.",
   currentFocus: [
-    "Project LOOP — full-stack work during my web development internship at Zidio Development",
-    "Wireless Mesh + TV White Space thesis research — simulation phase",
+    "Project LOOP, full stack work during my web development internship at Zidio Development",
+    "Wireless Mesh + TV White Space thesis research, simulation phase",
     "CosmoHub through STATION F's Landing Zone programme",
     "Extending the networking evidence graph beyond the first DNS record",
   ],
@@ -27,25 +27,25 @@ export const identity = {
     {
       title: "Evidence over percentages",
       description:
-        "I don't put skill bars or proficiency scores on anything here. If I can't point to the artifact — code, a config, a diagram, a number someone else can check — I don't claim it.",
+        "I don't put skill bars or proficiency scores on anything here. If I can't point to the artifact (code, a config, a diagram, a number someone else can check), I don't claim it.",
       related: { kind: "experiment", ref: "Evidence Integrity Validator" },
     },
     {
       title: "Show what broke",
       description:
-        "Most write-ups skip the part where the plan didn't work. I try not to. The middle of a project is usually more useful than the pitch.",
+        "Most write ups skip the part where the plan didn't work. I try not to. The middle of a project is usually more useful than the pitch.",
       related: { kind: "article", ref: "What Broke in the CineForge Provider Layer" },
     },
     {
       title: "Build the layer underneath",
       description:
-        "Given a choice between the visible feature and the thing it depends on, I'll usually pick the dependency. Networks, ontologies, validators — unglamorous, but everything else stands on them.",
+        "Given a choice between the visible feature and the thing it depends on, I'll usually pick the dependency. Networks, ontologies, validators: unglamorous, but everything else stands on them.",
       related: { kind: "project", ref: "CosmoHub" },
     },
     {
       title: "One connected map",
       description:
-        "Math, electronics, networks, distributed systems, AI — I stopped treating these as separate subjects a while ago. They're one map at different zoom levels.",
+        "Math, electronics, networks, distributed systems, AI: I stopped treating these as separate subjects a while ago. They're one map at different zoom levels.",
       related: { kind: "research", ref: "Wireless Mesh Networks + TV White Space for Rural Connectivity" },
     },
   ],
@@ -67,9 +67,9 @@ export const knowledgeNodes: KnowledgeNode[] = [
     id: "ai",
     domain: "explore",
     label: "AI",
-    summary: "Multi-agent systems, applied ML pipelines",
+    summary: "Multiagent systems, applied ML pipelines",
     detail:
-      "Building production pipelines around foundation models — scene reasoning and generation for CineForge AI Pro, adversarial multi-agent verification for Sentinel AI.",
+      "Building production pipelines around foundation models: scene reasoning and generation for CineForge AI Pro, adversarial multiagent verification for Sentinel AI.",
     projects: ["CineForge AI Pro", "Sentinel AI"],
     x: 534,
     y: 126,
@@ -80,7 +80,7 @@ export const knowledgeNodes: KnowledgeNode[] = [
     label: "Cloud",
     summary: "Inference infrastructure, deployment",
     detail:
-      "Provider architecture and deployment for AI pipelines — Hugging Face and IBM watsonx/Granite as interchangeable inference backends, containerized services.",
+      "Provider architecture and deployment for AI pipelines: Hugging Face and IBM watsonx/Granite as interchangeable inference backends, containerized services.",
     projects: ["CineForge AI Pro"],
     x: 590,
     y: 260,
@@ -91,7 +91,7 @@ export const knowledgeNodes: KnowledgeNode[] = [
     label: "Cybersecurity",
     summary: "Network hardening, evidence integrity",
     detail:
-      "TLS/DNSSEC posture on infrastructure I run, and CI-enforced schema validators that keep a knowledge graph honest before content goes anywhere near a frontend.",
+      "TLS/DNSSEC posture on infrastructure I run, and CI enforced schema validators that keep a knowledge graph honest before content goes anywhere near a frontend.",
     projects: ["Evidence Integrity Validator"],
     x: 534,
     y: 394,
@@ -100,9 +100,9 @@ export const knowledgeNodes: KnowledgeNode[] = [
     id: "systems",
     domain: "build",
     label: "Systems",
-    summary: "Pipelines, schemas, protocol-level design",
+    summary: "Pipelines, schemas, protocol level design",
     detail:
-      "The connective tissue between disciplines — FastAPI pipelines, Ajv-backed JSON Schema as a single structural authority, graph validators for reference resolution.",
+      "The connective tissue between disciplines: FastAPI pipelines, Ajv backed JSON Schema as a single structural authority, graph validators for reference resolution.",
     projects: ["Evidence Integrity Validator", "CineForge AI Pro"],
     x: 400,
     y: 450,
@@ -113,7 +113,7 @@ export const knowledgeNodes: KnowledgeNode[] = [
     label: "Finance",
     summary: "Market structure, venture evaluation",
     detail:
-      "Personal investing and a habit of stress-testing financial claims — including flagging inflated ROI/IRR assumptions in a bio-energy investment framework.",
+      "Personal investing and a habit of stress testing financial claims, including flagging inflated ROI/IRR assumptions in a bioenergy investment framework.",
     projects: ["Independent venture evaluation"],
     x: 266,
     y: 394,
@@ -122,9 +122,9 @@ export const knowledgeNodes: KnowledgeNode[] = [
     id: "space",
     domain: "explore",
     label: "Space",
-    summary: "Satellite comms, space-sector intelligence",
+    summary: "Satellite comms, space sector intelligence",
     detail:
-      "CosmoHub grew out of a simple observation: there's no clear path into space-tech careers. Now it's an ontology-driven intelligence layer for the space economy.",
+      "CosmoHub grew out of a simple observation: there's no clear path into space tech careers. Now it's an ontology driven intelligence layer for the space economy.",
     projects: ["CosmoHub", "AgriSat"],
     x: 210,
     y: 260,
@@ -133,7 +133,7 @@ export const knowledgeNodes: KnowledgeNode[] = [
     id: "distributed-systems",
     domain: "build",
     label: "Distributed Systems",
-    summary: "Graphs, consensus, multi-agent coordination",
+    summary: "Graphs, consensus, multiagent coordination",
     detail:
       "Event Relationship Graphs for incident intelligence, a knowledge graph for how I document my own work, coordination logic across agent pipelines.",
     projects: ["Sentinel AI", "Evidence Integrity Validator"],
@@ -145,24 +145,24 @@ export const knowledgeNodes: KnowledgeNode[] = [
 export const knowledgeEdges: KnowledgeEdge[] = [
   { from: "networking", to: "space", label: "Satellite communications" },
   { from: "networking", to: "cybersecurity", label: "Network hardening" },
-  { from: "networking", to: "systems", label: "Protocol-level design" },
+  { from: "networking", to: "systems", label: "Protocol level design" },
   { from: "ai", to: "cloud", label: "Inference infrastructure" },
-  { from: "ai", to: "systems", label: "Multi-agent orchestration" },
+  { from: "ai", to: "systems", label: "Multiagent orchestration" },
   { from: "ai", to: "distributed-systems", label: "Agent coordination" },
   { from: "cybersecurity", to: "distributed-systems", label: "Evidence integrity" },
-  { from: "space", to: "finance", label: "Space-economy intelligence" },
+  { from: "space", to: "finance", label: "Space economy intelligence" },
 ];
 
 export const projects: Project[] = [
   {
     slug: "cineforge-ai-pro",
     title: "CineForge AI Pro",
-    tagline: "A bilingual AI pre-production assistant for filmmakers",
+    tagline: "A bilingual AI preproduction assistant for filmmakers",
     status: "Shipped",
     problem:
-      "Independent film pre-production is fragmented across script breakdown, storyboarding, budgeting, and — for Arabic/English productions — translation overhead on top of all of it.",
+      "Independent film preproduction is fragmented across script breakdown, storyboarding, budgeting, and, for Arabic/English productions, translation overhead on top of all of it.",
     solution:
-      "An end-to-end pipeline that takes a raw script and produces scene breakdowns, cinematic prompts, storyboard frames, a rough soundscape, an animatic, and a budget estimate, in both Arabic and English.",
+      "An end to end pipeline that takes a raw script and produces scene breakdowns, cinematic prompts, storyboard frames, a rough soundscape, an animatic, and a budget estimate, in both Arabic and English.",
     architecture: [
       "Script upload → parsing → scene extraction",
       "AI scene reasoning → cinematic prompt generation",
@@ -171,7 +171,7 @@ export const projects: Project[] = [
     ],
     stack: ["FastAPI", "Python", "Hugging Face Inference", "IBM Granite / watsonx (secondary provider)"],
     lessons:
-      "Built the provider layer so Hugging Face and watsonx are interchangeable — when watsonx access became a blocker mid-build, the pipeline kept running on Hugging Face alone. Built with a team for the IBM SkillsBuild AI Builders Challenge; the submission was completed and delivered by the July 31 deadline.",
+      "Built the provider layer so Hugging Face and watsonx are interchangeable, when watsonx access became a blocker mid build, the pipeline kept running on Hugging Face alone. Built with a team for the IBM SkillsBuild AI Builders Challenge; the submission was completed and delivered by the July 31 deadline.",
     domain: ["ai", "cloud", "systems"],
     atmosphere: { tint: "#F5B942", label: "Cinematic" },
   },
@@ -181,11 +181,11 @@ export const projects: Project[] = [
     tagline: "Explainable incident intelligence for creative industries",
     status: "Submitted",
     problem:
-      "Incident response tools tend to produce a verdict without a legible trail — you get an answer, not a reason to trust it.",
+      "Incident response tools tend to produce a verdict without a legible trail, you get an answer, not a reason to trust it.",
     solution:
-      "A multi-agent architecture built on IBM Granite where agents cross-verify each other adversarially, backed by an Event Relationship Graph that stores evidence rather than conclusions, plus a structured model for expressing uncertainty explicitly.",
+      "A multiagent architecture built on IBM Granite where agents cross verify each other adversarially, backed by an Event Relationship Graph that stores evidence rather than conclusions, plus a structured model for expressing uncertainty explicitly.",
     architecture: [
-      "Multi-agent Granite pipeline with adversarial verification",
+      "Multiagent Granite pipeline with adversarial verification",
       "Event Relationship Graph as the evidence store",
       "Structured Uncertainty Model surfaced alongside every output",
     ],
@@ -201,9 +201,9 @@ export const projects: Project[] = [
     tagline: "An intelligence and discovery layer for the space economy",
     status: "In build",
     problem:
-      "Space research, missions, companies, universities, and opportunities are fragmented across sources — and there's no clear on-ramp into space-tech careers the way there is for, say, software.",
+      "Space research, missions, companies, universities, and opportunities are fragmented across sources, and there's no clear onramp into space tech careers the way there is for, say, software.",
     solution:
-      "An ontology-driven platform — objects, properties, and links, in the spirit of Palantir Gotham's data model — that unifies space-sector data and lets applications be built on top of it, rather than a course marketplace.",
+      "An ontology driven platform, objects, properties, and links, in the spirit of Palantir Gotham's data model, that unifies space sector data and lets applications be built on top of it, rather than a course marketplace.",
     architecture: [
       "Ontology layer: objects / properties / links",
       "Applications built on top of the shared ontology",
@@ -211,28 +211,28 @@ export const projects: Project[] = [
     ],
     stack: ["Ontology modeling", "Knowledge graphs", "Applied AI"],
     lessons:
-      "Started inside the Universeh Student Fellowship (an 8-university consortium) as AgriSat's sibling project. Rewriting the pitch for INFERENCE Lab forced the framing down to one sentence: the news and the venture capital layer, for space.",
+      "Started inside the Universeh Student Fellowship (an eight university consortium) as AgriSat's sibling project. Rewriting the pitch for INFERENCE Lab forced the framing down to one sentence: the news and the venture capital layer, for space.",
     domain: ["space", "distributed-systems", "finance"],
     atmosphere: { tint: "#4F8CFF", label: "Orbital" },
   },
   {
-    slug: "zebrafish-cell-tracking",
+    slug: "zebrafish-cell tracking",
     title: "3D Zebrafish Cell Tracking",
     tagline: "Kaggle × ChanZuckerberg Biohub competition entry",
     status: "In build",
     problem:
       "Tracking individual cells through 3D microscopy volumes of developing zebrafish embryos, where voxel spacing is anisotropic and cells divide, move, and disappear from view.",
     solution:
-      "A tracking pipeline that segments cells per volume and links them across time into consistent lineages, correcting for the non-uniform voxel scale along the depth axis.",
+      "A tracking pipeline that segments cells per volume and links them across time into consistent lineages, correcting for the nonuniform voxel scale along the depth axis.",
     architecture: [
-      "Cellpose for per-frame 3D segmentation",
+      "Cellpose for per frame 3D segmentation",
       "btrack for cell tracking across timepoints",
       "zarr for chunked volumetric data access",
       "NetworkX for lineage graph construction",
     ],
     stack: ["Python", "Cellpose", "btrack", "zarr", "NetworkX"],
     lessons:
-      "Anisotropic voxel scaling turned out to matter far more than expected — treating z-spacing the same as x/y silently breaks tracking quality. Deadline is late September 2026.",
+      "Anisotropic voxel scaling turned out to matter far more than expected, treating z spacing the same as x/y silently breaks tracking quality. Deadline is late September 2026.",
     domain: ["ai", "distributed-systems"],
     atmosphere: { tint: "#31C48D", label: "Biological" },
   },
@@ -242,17 +242,17 @@ export const projects: Project[] = [
     tagline: "A ₹999 networking bootcamp, built and shipped solo",
     status: "Live",
     problem:
-      "Networking fundamentals are usually taught either too academically or too certification-focused, with no course positioned for someone starting from zero at an accessible price.",
+      "Networking fundamentals are usually taught either too academically or too certification focused, with no course positioned for someone starting from zero at an accessible price.",
     solution:
-      "A course website with a real curriculum, transformation stories, and a working checkout flow — built to actually sell a ₹999 bootcamp, not just describe one.",
+      "A course website with a real curriculum, transformation stories, and a working checkout flow, built to actually sell a ₹999 bootcamp, not just describe one.",
     architecture: [
       "Marketing site with curriculum display",
-      "Transformation-story section",
+      "Transformation story section",
       "Checkout modal wired to a real payment flow",
     ],
     stack: ["Web frontend", "Payment integration"],
     lessons:
-      "Shipping the checkout modal — not just the curriculum page — was the part that made this a real product instead of a landing page.",
+      "Shipping the checkout modal, not just the curriculum page, was the part that made this a real product instead of a landing page.",
     domain: ["systems", "networking"],
     atmosphere: { tint: "#B8B8B8", label: "Practical" },
   },
@@ -264,7 +264,7 @@ export const research: ResearchItem[] = [
     title: "Wireless Mesh Networks + TV White Space for Rural Connectivity",
     context: "Internet Engineering thesis, University of Rome Tor Vergata",
     description:
-      "Examines combining wireless mesh topologies with TV white space spectrum to extend connectivity into difficult terrain and underserved rural areas, where conventional infrastructure deployment is cost-prohibitive.",
+      "Examines combining wireless mesh topologies with TV white space spectrum to extend connectivity into difficult terrain and underserved rural areas, where conventional infrastructure deployment is cost prohibitive.",
     tags: ["Wireless Mesh", "TV White Space", "Rural Connectivity", "Thesis"],
   },
   {
@@ -272,7 +272,7 @@ export const research: ResearchItem[] = [
     title: "CosmoHub: Ontology and Workflow Specification",
     context: "Internal strategy document, written for prospective collaborators",
     description:
-      "Defines CosmoHub's ontology model — objects, properties, and links — and the workflows needed to build it, aimed at developers and insiders rather than a general audience.",
+      "Defines CosmoHub's ontology model, objects, properties, and links, and the workflows needed to build it, aimed at developers and insiders rather than a general audience.",
     tags: ["Ontology", "Knowledge Graphs", "Space Economy"],
   },
   {
@@ -280,16 +280,16 @@ export const research: ResearchItem[] = [
     title: "Evidence States for a Portfolio Graph",
     context: "Personal engineering log",
     description:
-      "Working notes on deriving evidence states — ENCOUNTERED, STUDIED, IMPLEMENTED, TESTED, and eventually APPLIED, DEFENDED — from real artifacts rather than assigning them by hand, plus the case for keeping structural validation (Ajv/JSON Schema) separate from graph-level checks like ID uniqueness and reference resolution.",
+      "Working notes on deriving evidence states, ENCOUNTERED, STUDIED, IMPLEMENTED, TESTED, and eventually APPLIED, DEFENDED, from real artifacts rather than assigning them by hand, plus the case for keeping structural validation (Ajv/JSON Schema) separate from graph level checks like ID uniqueness and reference resolution.",
     tags: ["Knowledge Graphs", "JSON Schema", "CI"],
   },
   {
     type: "Field notes",
-    title: "Adversarial Verification in Multi-Agent Pipelines",
+    title: "Adversarial Verification in Multiagent Pipelines",
     context: "Notes from building Sentinel AI",
     description:
-      "How having Granite-based agents check each other adversarially — rather than trusting a single pass — surfaces disagreements worth flagging instead of silently averaging them away.",
-    tags: ["Multi-agent", "IBM Granite", "Explainability"],
+      "How having Granite based agents check each other adversarially, rather than trusting a single pass, surfaces disagreements worth flagging instead of silently averaging them away.",
+    tags: ["Multiagent", "IBM Granite", "Explainability"],
   },
 ];
 
@@ -299,23 +299,23 @@ export const experiments: Experiment[] = [
     status: "In progress",
     progress: 35,
     description:
-      "A CI-enforced validator, built before any real content goes into the underlying knowledge graph — Ajv/JSON Schema as the single structural authority, a separate graph validator for ID uniqueness, reference resolution, and derived evidence states. First checkpoint committed with 22 passing tests.",
+      "A CI enforced validator, built before any real content goes into the underlying knowledge graph, Ajv/JSON Schema as the single structural authority, a separate graph validator for ID uniqueness, reference resolution, and derived evidence states. First checkpoint committed with 22 passing tests.",
     tags: ["TypeScript", "Ajv", "JSON Schema", "CI"],
   },
   {
-    title: "3D Cell Tracking — Anisotropic Voxel Correction",
+    title: "3D Cell Tracking: Anisotropic Voxel Correction",
     status: "In progress",
     progress: 40,
     description:
-      "Refining the Cellpose → btrack → NetworkX pipeline for the Kaggle ChanZuckerberg Biohub competition ahead of the late-September deadline.",
+      "Refining the Cellpose → btrack → NetworkX pipeline for the Kaggle ChanZuckerberg Biohub competition ahead of the late September deadline.",
     tags: ["Computer Vision", "Cellpose", "3D Microscopy"],
   },
   {
-    title: "CineForge — Agentic Handoff",
+    title: "CineForge: Agentic Handoff",
     status: "Paused",
     progress: 60,
     description:
-      "Phase 1 monorepo and both AI pipeline stages (scene reasoning, image generation) are merged to main. Next phase — frontend and further pipeline work — is being handed to an agentic coding tool for iteration.",
+      "Phase 1 monorepo and both AI pipeline stages (scene reasoning, image generation) are merged to main. Next phase, frontend and further pipeline work, is being handed to an agentic coding tool for iteration.",
     tags: ["FastAPI", "Hugging Face", "Agentic coding"],
   },
   {
@@ -323,7 +323,7 @@ export const experiments: Experiment[] = [
     status: "In progress",
     progress: 20,
     description:
-      "Running one real topic — DNS or HTTP, from Kurose & Ross's Computer Networking — through the full evidence pipeline: source → concept → question → real experiment → outcome → artifact, before any frontend work begins on the knowledge map.",
+      "Running one real topic, DNS or HTTP, from Kurose & Ross's Computer Networking, through the full evidence pipeline: source → concept → question → real experiment → outcome → artifact, before any frontend work begins on the knowledge map.",
     tags: ["Networking", "Evidence Graph"],
   },
 ];
@@ -333,24 +333,24 @@ export const ventures: Venture[] = [
     name: "CosmoHub",
     tagline: "The Bloomberg of space tech",
     problem:
-      "There is no clear path from curiosity about space technology to a career or research fellowship in it — information about missions, institutions, and opportunities is scattered across a hundred disconnected sources.",
+      "There is no clear path from curiosity about space technology to a career or research fellowship in it, information about missions, institutions, and opportunities is scattered across a hundred disconnected sources.",
     market:
       "Space enthusiasts, students, professionals, universities, and the research institutions and companies trying to reach them.",
-    stage: "Early build — ontology and strategy defined, pitching to potential collaborators",
+    stage: "Early build, ontology and strategy defined, pitching to potential collaborators",
     notes:
-      "Originated inside the Universeh Student Fellowship, an 8-university consortium. Currently in conversation with INFERENCE Lab about overlap and collaboration.",
+      "Originated inside the Universeh Student Fellowship, an eight university consortium. Currently in conversation with INFERENCE Lab about overlap and collaboration.",
     vision:
-      "A 10-year build toward becoming the connective layer for the global space ecosystem — the news outlet and the venture capital layer that finance already has, but for space.",
+      "A 10-year build toward becoming the connective layer for the global space ecosystem, the news outlet and the venture capital layer that finance already has, but for space.",
   },
   {
     name: "NetLaunch",
     tagline: "A ₹999 networking bootcamp for absolute beginners",
     problem:
-      "Networking education sits at two extremes — dense academic theory or narrow certification cram — with nothing accessible for someone starting from zero.",
-    market: "First-time networking learners priced out of traditional bootcamps and certification tracks.",
-    stage: "Live — site, curriculum, and checkout shipped",
-    notes: "Built solo end-to-end, including the payment flow, not just the marketing page.",
-    vision: "A low-cost, high-clarity on-ramp into networking as a first technical discipline.",
+      "Networking education sits at two extremes, dense academic theory or narrow certification cram, with nothing accessible for someone starting from zero.",
+    market: "First time networking learners priced out of traditional bootcamps and certification tracks.",
+    stage: "Live, site, curriculum, and checkout shipped",
+    notes: "Built solo end to end, including the payment flow, not just the marketing page.",
+    vision: "A low cost, high clarity onramp into networking as a first technical discipline.",
   },
 ];
 
@@ -367,7 +367,7 @@ export const articles: Article[] = [
   {
     title: "What Broke in the CineForge Provider Layer",
     dek:
-      "When watsonx access became a blocker mid-build, the pipeline needed to keep running on Hugging Face alone. Notes on designing for a provider to disappear.",
+      "When watsonx access became a blocker mid build, the pipeline needed to keep running on Hugging Face alone. Notes on designing for a provider to disappear.",
     date: "2026",
     readTime: "4 min",
     category: "Build log",
@@ -375,7 +375,7 @@ export const articles: Article[] = [
   {
     title: "Voxel Anisotropy Will Quietly Ruin Your Cell Tracking",
     dek:
-      "Treating z-spacing the same as x/y in 3D microscopy data breaks tracking in ways that are easy to miss until the lineages stop making sense.",
+      "Treating z spacing the same as x/y in 3D microscopy data breaks tracking in ways that are easy to miss until the lineages stop making sense.",
     date: "2026",
     readTime: "5 min",
     category: "Field notes",
@@ -383,7 +383,7 @@ export const articles: Article[] = [
   {
     title: "Adversarial Agents, Not Averaging Agents",
     dek:
-      "Building Sentinel AI's verification layer meant designing agents to disagree productively instead of quietly converging on a smoothed-over answer.",
+      "Building Sentinel AI's verification layer meant designing agents to disagree productively instead of quietly converging on a smoothed over answer.",
     date: "2026",
     readTime: "5 min",
     category: "Field notes",
@@ -392,7 +392,7 @@ export const articles: Article[] = [
 
 export const timeline: TimelineEntry[] = [
   {
-    date: "2021 – 2026",
+    date: "2021 to 2026",
     category: "Education",
     title: "Internet Engineering, University of Rome Tor Vergata",
     description:
@@ -403,21 +403,21 @@ export const timeline: TimelineEntry[] = [
     category: "Project",
     title: "Universeh Student Fellowship",
     description:
-      "Built CosmoHub and AgriSat as part of an 8-university consortium fellowship focused on space technology.",
+      "Built CosmoHub and AgriSat as part of an eight university consortium fellowship focused on space technology.",
   },
   {
     date: "Jul 2026",
     category: "Project",
     title: "CineForge AI Pro submitted",
     description:
-      "Bilingual Arabic/English AI pre-production assistant for filmmakers, submitted to the IBM SkillsBuild AI Builders Challenge.",
+      "Bilingual Arabic/English AI preproduction assistant for filmmakers, submitted to the IBM SkillsBuild AI Builders Challenge.",
   },
   {
     date: "2026",
     category: "Project",
-    title: "Sentinel AI — IBM watsonx Challenge",
+    title: "Sentinel AI: IBM watsonx Challenge",
     description:
-      "Served as Integration Lead on an explainable incident-intelligence platform for the Creative Industries track.",
+      "Served as Integration Lead on an explainable incident intelligence platform for the Creative Industries track.",
   },
   {
     date: "Aug 2026",
@@ -431,7 +431,7 @@ export const timeline: TimelineEntry[] = [
     category: "Research",
     title: "Kaggle × ChanZuckerberg Biohub competition",
     description:
-      "3D microscopy cell-tracking competition entry on zebrafish embryo development data.",
+      "3D microscopy cell tracking competition entry on zebrafish embryo development data.",
   },
 ];
 
@@ -448,7 +448,7 @@ export const network: NetworkNode[] = [
   },
   {
     name: "Universeh Student Fellowship",
-    role: "8-university consortium",
+    role: "eight university consortium",
     context: "Origin of CosmoHub and AgriSat",
   },
   {
@@ -462,8 +462,8 @@ export const now = {
   updated: "October 2026",
   items: [
     "Building Project LOOP during my web development internship at Zidio Development.",
-    "Thesis research on Wireless Mesh + TV White Space — moving from the propagation model into simulation.",
-    "CosmoHub at STATION F's Landing Zone — early stage, no user-facing prototype yet.",
+    "Thesis research on Wireless Mesh + TV White Space, moving from the propagation model into simulation.",
+    "CosmoHub at STATION F's Landing Zone, early stage, no user facing prototype yet.",
     "Extending the networking evidence graph beyond the first DNS record.",
   ],
 };
@@ -471,11 +471,11 @@ export const now = {
 export const contact = {
   heading: "Let's build something together",
   body:
-    "If you're working on networking, AI infrastructure, or space-sector tooling and think there's an overlap, reach out. I read everything that comes in.",
+    "If you're working on networking, AI infrastructure, or space sector tooling and think there's an overlap, reach out. I read everything that comes in.",
   email: "hello@kantimohanthy.dev",
   linkedin: "https://linkedin.com/in/ujwalshyam-kantimohanthy",
   github: "https://github.com/kantimohanthy",
-  schedulingNote: "Scheduling link coming soon — email works in the meantime.",
+  schedulingNote: "Scheduling link coming soon, email works in the meantime.",
 };
 
 export const notebook = {
@@ -484,7 +484,7 @@ export const notebook = {
   entries: [
     {
       label: "Reading through",
-      value: "Kurose & Ross, Computer Networking — the source text for the current DNS/HTTP vertical slice.",
+      value: "Kurose & Ross, Computer Networking, the source text for the current DNS/HTTP vertical slice.",
     },
     {
       label: "Stuck on",
@@ -493,14 +493,14 @@ export const notebook = {
     },
     {
       label: "Rewriting",
-      value: "The CosmoHub pitch, again, this time for INFERENCE Lab — trying to get the problem statement down to one sentence.",
+      value: "The CosmoHub pitch, again, this time for INFERENCE Lab, trying to get the problem statement down to one sentence.",
     },
   ],
 };
 
 export const vision = {
   statement:
-    "Most of the internet's remaining problems aren't about speed anymore — they're about reach. There are still places a signal doesn't get to, and still ways of proving what you know that depend more on how you phrase it than on what you've actually built. Those are the two problems I keep coming back to.",
+    "Most of the internet's remaining problems aren't about speed anymore, they're about reach. There are still places a signal doesn't get to, and still ways of proving what you know that depend more on how you phrase it than on what you've actually built. Those are the two problems I keep coming back to.",
   direction: [
     "Wherever the infrastructure problems are least solved",
     "Keeping my own work documented as a knowledge graph instead of a résumé",

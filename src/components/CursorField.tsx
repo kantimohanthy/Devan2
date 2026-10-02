@@ -20,7 +20,7 @@ const CURSOR_RADIUS = 170;
 /**
  * CursorField renders a single fixed canvas behind all page content.
  * It draws a sparse field of drifting nodes with faint constellation
- * links, gently distorted by cursor proximity — the "signal" motif
+ * links, gently distorted by cursor proximity, the "signal" motif
  * that ties the whole site's ambient layer together.
  *
  * Perf notes: capped particle count, single rAF loop, pauses on tab

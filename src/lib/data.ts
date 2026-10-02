@@ -18,13 +18,13 @@ export const missions: Mission[] = [
     slug: "wireless-mesh-tvws",
     name: "Wireless Mesh + TV White Space for rural connectivity",
     objective:
-      "Thesis research — extending mesh coverage into challenging terrain using unused broadcast spectrum",
+      "Thesis research, extending mesh coverage into challenging terrain using unused broadcast spectrum",
     objectives: [
       { label: "Literature review: WMN topologies", done: true },
       { label: "Literature review: TVWS regulatory landscape", done: true },
       { label: "Build propagation model for occluded terrain", done: true },
       { label: "Simulate mesh + TVWS hybrid topology", done: false },
-      { label: "Field-equivalent bench test", done: false },
+      { label: "Field equivalent bench test", done: false },
       { label: "Write up findings", done: false },
       { label: "Peer review pass", done: false },
       { label: "Thesis defense", done: false },
@@ -125,12 +125,12 @@ export const repositories: Repository[] = [
   {
     slug: "ujwal-portfolio",
     name: "ujwal-portfolio",
-    description: "Last commit 3 days ago · CI passing · 0 open issues — stated plainly, not scored.",
+    description: "Last commit 3 days ago · CI passing · 0 open issues, stated plainly, not scored.",
     lastCommit: "3 days ago",
     ciStatus: "passing",
     openIssues: 0,
     architectureNote:
-      "Ajv-backed JSON Schema is the single structural authority. The TypeScript/JS graph validator handles ID uniqueness, reference resolution, provenance, and derived evidence states only.",
+      "Ajv backed JSON Schema is the single structural authority. The TypeScript/JS graph validator handles ID uniqueness, reference resolution, provenance, and derived evidence states only.",
     concepts: [{ type: "Concept", title: "DNS", meta: "1 experiment", href: "/knowledge/dns" }],
     decisions: [
       { type: "Decision", title: "Why PostgreSQL?", meta: "5 stages logged", href: "/reasoning/why-postgresql" },
@@ -144,12 +144,12 @@ export const projects: Project[] = [
     slug: "project-loop",
     name: "Project LOOP",
     description:
-      "Full-stack product built during the Zidio Development internship: ingestion, role-aware UX, analytics and grounded Q&A. Evaluator demo uses seeded data.",
+      "Full stack product built during the Zidio Development internship: ingestion, role aware UX, analytics and grounded Q&A. Evaluator demo uses seeded data.",
     repositories: [],
     concepts: [],
     experiments: [],
     decisions: [],
-    openQuestions: ["Full case study in progress — see /work/project-loop"],
+    openQuestions: ["Full case study in progress on the homepage Work section"],
   },
   {
     slug: "wireless-mesh-tvws",
@@ -160,13 +160,13 @@ export const projects: Project[] = [
     concepts: [],
     experiments: [],
     decisions: [],
-    openQuestions: ["Simulation of the hybrid mesh + TVWS topology", "Bench test and write-up"],
+    openQuestions: ["Simulation of the hybrid mesh + TVWS topology", "Bench test and write up"],
   },
   {
     slug: "cineforge-ai-pro",
     name: "CineForge AI Pro",
     description:
-      "Bilingual AI pre-production assistant for filmmakers, built for the IBM SkillsBuild AI Builders Challenge.",
+      "Bilingual AI preproduction assistant for filmmakers, built for the IBM SkillsBuild AI Builders Challenge.",
     repositories: [],
     concepts: [],
     experiments: [],
@@ -177,7 +177,7 @@ export const projects: Project[] = [
     slug: "cosmohub",
     name: "CosmoHub",
     description:
-      "Early-stage learning platform for space technology, started in the Universeh Student Fellowship and now built through STATION F Landing Zone. No user-facing prototype yet.",
+      "Early stage learning platform for space technology, started in the Universeh Student Fellowship and now built through STATION F Landing Zone. No user facing prototype yet.",
     repositories: [],
     concepts: [],
     experiments: [],
@@ -187,7 +187,7 @@ export const projects: Project[] = [
   {
     slug: "devan",
     name: "DEVAN",
-    description: "This system — the evidence graph and its interface.",
+    description: "This system, the evidence graph and its interface.",
     repositories: [{ type: "Repository", title: "ujwal-portfolio", meta: "CI passing", href: "/repositories/ujwal-portfolio" }],
     concepts: [{ type: "Concept", title: "DNS", meta: "TESTED", href: "/knowledge/dns" }],
     experiments: [{ type: "Experiment", title: "DNS iterative resolution trace", meta: "TESTED", href: "/laboratory/dns-iterative-resolution" }],
@@ -205,7 +205,7 @@ export const searchIndex: IndexEntry[] = [
   { type: "Concept", title: "DNS", meta: "TESTED", href: "/knowledge/dns", state: "TESTED" },
   { type: "Experiment", title: "DNS iterative resolution trace", meta: "TESTED", href: "/laboratory/dns-iterative-resolution", state: "TESTED" },
   { type: "Repository", title: "ujwal-portfolio", meta: "CI passing", href: "/repositories/ujwal-portfolio" },
-  { type: "Project", title: "CineForge AI Pro", meta: "Bilingual pre-production assistant", href: "/projects/cineforge-ai-pro" },
+  { type: "Project", title: "CineForge AI Pro", meta: "Bilingual preproduction assistant", href: "/projects/cineforge-ai-pro" },
   { type: "Project", title: "CosmoHub", meta: "Ed-tech · space tech", href: "/projects/cosmohub" },
   { type: "Project", title: "DEVAN", meta: "This system", href: "/projects/devan" },
   { type: "Project", title: "Project LOOP", meta: "Zidio Development", href: "/projects/project-loop" },

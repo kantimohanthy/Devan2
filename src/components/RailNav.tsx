@@ -33,7 +33,7 @@ const mainItems = [
 
 const pinnedItems = [
   { href: "/knowledge/networking.dns", label: "DNS Iterative Trace" },
-  { href: "/knowledge/networking.tcp", label: "TCP 3-Way Handshake" },
+  { href: "/knowledge/networking.tcp", label: "TCP Three Way Handshake" },
 ];
 
 export function RailNav() {

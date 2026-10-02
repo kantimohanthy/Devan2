@@ -8,7 +8,7 @@ export default function RepositoriesIndexPage() {
         <div className="text-[11px] uppercase tracking-wide text-text-3 mb-2">Repositories</div>
         <h1 className="text-[30px] font-semibold tracking-tight mb-2">Repository Intelligence</h1>
         <p className="text-[14px] text-text-2 leading-relaxed max-w-[600px]">
-          Health, architecture, and connected knowledge — stated plainly, never scored.
+          Health, architecture, and connected knowledge, stated plainly, never scored.
         </p>
       </div>
 

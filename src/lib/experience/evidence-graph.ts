@@ -1,7 +1,7 @@
 /**
  * @file Immutable Append-Only Evidence Graph
  * @purpose Implements Evidence Intelligence for DEVAN. Evidence is immutable, append-only, stores provenance & reproducibility metadata, and participates in ontology relationships.
- * @principle Evidence -> ExperienceEvent -> Evolved Competencies -> Mission Progress. Everything is derived dynamically.
+ * @principle Evidence → ExperienceEvent → Evolved Competencies → Mission Progress. Everything is derived dynamically.
  */
 
 import { EngineeringCapability } from "@/lib/ontology/types";

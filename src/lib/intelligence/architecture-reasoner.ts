@@ -1,6 +1,6 @@
 /**
- * @file ArchitectureReasoner (Specialized Architectural Trade-off Engine)
- * @purpose Compares system designs, explains architectural trade-offs, evaluates candidate alternatives, and recommends production patterns.
+ * @file ArchitectureReasoner (Specialized Architectural Tradeoff Engine)
+ * @purpose Compares system designs, explains architectural tradeoffs, evaluates candidate alternatives, and recommends production patterns.
  */
 
 import { CANONICAL_COMPARISONS, CANONICAL_DECISION_GRAPHS } from "@/lib/ontology/ontology-graph";
@@ -17,7 +17,7 @@ export interface ArchitectureAnalysisResult {
 
 export class ArchitectureReasoner {
   /**
-   * Evaluates architectural trade-offs and recommendations for a concept or pairwise comparison.
+   * Evaluates architectural tradeoffs and recommendations for a concept or pairwise comparison.
    */
   evaluateArchitecture(conceptAId: string, conceptBId?: string): ArchitectureAnalysisResult {
     const comparison = conceptBId
@@ -37,8 +37,8 @@ export class ArchitectureReasoner {
       recommendedArchitecture: comparison.recommendation || decisionGraph.finalRecommendation,
       keyTradeOffs: decisionGraph.tradeOffs,
       risksAndMitigations: [
-        "Risk: Latency spike on fallback -> Mitigation: Configure aggressive socket timeouts and circuit breakers",
-        "Risk: Cache invalidation desync -> Mitigation: Enforce strict TTL policies",
+        "Risk: Latency spike on fallback → Mitigation: Configure aggressive socket timeouts and circuit breakers",
+        "Risk: Cache invalidation desync → Mitigation: Enforce strict TTL policies",
       ],
     };
   }

@@ -1,7 +1,7 @@
 /**
  * @file Ujwal Canon (Engineering Evolution)
- * @purpose Contains verified evidence-backed structure of Ujwal Kantimohanthy's engineering journey.
- * @principle Identity -> Mission -> Academic Journey -> Professional Journey -> Research -> Projects -> Leadership -> Engineering Philosophy -> Learning Philosophy -> Evidence Timeline -> Future Missions.
+ * @purpose Contains verified evidence backed structure of Ujwal Kantimohanthy's engineering journey.
+ * @principle Identity → Mission → Academic Journey → Professional Journey → Research → Projects → Leadership → Engineering Philosophy → Learning Philosophy → Evidence Timeline → Future Missions.
  */
 
 export interface UjwalIdentity {
@@ -72,7 +72,7 @@ export interface UjwalCanonStructure {
 export const UJWAL_CANON: UjwalCanonStructure = {
   identity: {
     name: "Ujwal Kantimohanthy",
-    role: "ICT engineer — network infrastructure",
+    role: "ICT engineer: network infrastructure",
     location: "Rome · Paris",
     focusDomains: ["Networking", "Operating Systems", "Distributed Systems", "AI Systems"],
   },
@@ -88,9 +88,9 @@ export const UJWAL_CANON: UjwalCanonStructure = {
     ],
   },
   professionalJourney: [
-    "Web Development Intern — Zidio Development (Aug 2026 –)",
-    "Thesis research — Wireless Mesh + TV White Space (ongoing)",
-    "Events Lead — EuroTech Federation",
+    "Web Development Intern, Zidio Development (Aug 2026 –)",
+    "Thesis research, Wireless Mesh + TV White Space (ongoing)",
+    "Events Lead, EuroTech Federation",
   ],
   research: [
     {
@@ -111,14 +111,14 @@ export const UJWAL_CANON: UjwalCanonStructure = {
     {
       slug: "cineforge-ai-pro",
       title: "CineForge AI Pro",
-      description: "Bilingual AI pre-production video generation suite.",
+      description: "Bilingual AI preproduction video generation suite.",
       conceptIds: ["vector-search-ann", "onnx-wasm-runtime"],
       repositoryUrl: "https://github.com/kantimohanthy/ClineForge-Pro",
     },
     {
       slug: "cosmohub",
       title: "CosmoHub",
-      description: "Learning platform for space technology — early stage, built through STATION F Landing Zone.",
+      description: "Learning platform for space technology, early stage, built through STATION F Landing Zone.",
       conceptIds: ["raft-consensus", "tcp-protocol"],
       repositoryUrl: "https://github.com/kantimohanthy/Cosmohub",
     },
@@ -135,12 +135,12 @@ export const UJWAL_CANON: UjwalCanonStructure = {
     principles: [
       "Never claim mastery without raw verification (passing CI tests, PCAP datagrams, benchmark traces).",
       "Decouple domain logic from persistence mechanisms via clean repository contracts.",
-      "Prefer low-level wire specifications and Standards RFCs over framework abstractions.",
+      "Prefer low level wire specifications and Standards RFCs over framework abstractions.",
     ],
   },
   learningPhilosophy: {
     method: "Compiler Paradigm & Constructive Building",
-    approach: "Learn by implementing wire-level protocols, RFC parsers, and zero-copy packet engines.",
+    approach: "Learn by implementing wire level protocols, RFC parsers, and zero-copy packet engines.",
   },
   evidenceTimeline: [
     { timestamp: "2026-08-07", title: "DNS PCAP Datagram Verification", evidenceId: "ev-pcap-dns-trace" },

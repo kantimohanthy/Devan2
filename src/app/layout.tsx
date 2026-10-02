@@ -2,9 +2,9 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
 
-const title = "Ujwal Kantimohanthy — Network & Systems Engineer";
+const title = "Ujwal Kantimohanthy · Network & Systems Engineer";
 const description =
-  "ICT engineer building dependable systems and making their behaviour verifiable — across networking, web products and AI research.";
+  "ICT engineer building dependable systems and making their behaviour verifiable, across networking, web products and AI research.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kantimohanthy.dev"),
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     "Network engineering",
     "Wireless mesh networks",
     "TV White Space",
-    "Full-stack development",
+    "Full stack development",
     "University of Rome Tor Vergata",
   ],
   authors: [{ name: "Ujwal Shyam Kantimohanthy", url: "https://kantimohanthy.dev" }],

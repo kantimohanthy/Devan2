@@ -24,7 +24,7 @@ export class TimelineService {
           events.push({
             date: d.createdAt.toISOString().split("T")[0],
             title: `Decision: ${d.title}`,
-            description: `${d.context} — ${d.decision}`,
+            description: `${d.context}, ${d.decision}`,
             category: "Architecture",
             links: [{ label: "Reasoning Replay", url: `/reasoning/${d.slug}` }],
           });
@@ -34,7 +34,7 @@ export class TimelineService {
           events.push({
             date: e.createdAt.toISOString().split("T")[0],
             title: `Experiment: ${e.title}`,
-            description: `${e.identityDimension} · ${e.category} — ${e.objective}`,
+            description: `${e.identityDimension} · ${e.category}, ${e.objective}`,
             category: "Experiment",
             links: [{ label: "Lab Terminal", url: `/laboratory/${e.slug}` }],
           });

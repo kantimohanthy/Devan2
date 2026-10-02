@@ -53,7 +53,7 @@ export function Landing() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="mb-6 text-xs font-medium uppercase tracking-[0.2em] text-accent"
         >
-          Ujwal Shyam Kantimohanthy — Internet Engineer
+          Ujwal Shyam Kantimohanthy, Internet Engineer
         </motion.p>
 
         <motion.h1

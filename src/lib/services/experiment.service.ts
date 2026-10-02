@@ -7,7 +7,7 @@ import { logger } from "@/lib/logger";
 const SEED_EXPERIMENTS: Array<Partial<ExperimentRecord> & { slug: string; title: string }> = [
   {
     slug: "networking-protocol-pipeline",
-    title: "Hop-by-Hop Multi-Layer Telemetry Profiler",
+    title: "Hop by Hop Multilayer Telemetry Profiler",
     category: "networking",
     identityDimension: "BUILD",
     objective: "Profile multi-span latency breakdown from DoH resolution to TLS 1.3 handshake and HTTP TTFB.",
@@ -33,11 +33,11 @@ const SEED_EXPERIMENTS: Array<Partial<ExperimentRecord> & { slug: string; title:
   },
   {
     slug: "vector-search-benchmark",
-    title: "In-Browser Vector Cosine Similarity Benchmarking",
+    title: "In Browser Vector Cosine Similarity Benchmarking",
     category: "ai",
     identityDimension: "EXPLORE",
     objective: "Benchmark 384-dimensional ONNX vector extraction and normalized dot product loop latency.",
-    problem: "Executing client-side RAG search requires high precision without blocking main looper threads.",
+    problem: "Executing client side RAG search requires high precision without blocking main looper threads.",
     motivation: "Proving browser-based semantic search can achieve sub-20ms precision without backend dependencies.",
     status: "completed",
     evidenceScore: 90,
@@ -46,7 +46,7 @@ const SEED_EXPERIMENTS: Array<Partial<ExperimentRecord> & { slug: string; title:
       { component: "Normalized Cosine Comparator", description: "Executes SIMD-optimized dot product loop." },
     ],
     tradeoffs: [
-      "In-browser embedding download (~24MB) is cached locally via LRU to prevent repetitive network fetches.",
+      "In browser embedding download (~24MB) is cached locally via LRU to prevent repetitive network fetches.",
     ],
     lessonsLearned: [
       "Hybrid search blending keyword scoring (0.3) with semantic vector similarity (0.7) eliminates false positives.",

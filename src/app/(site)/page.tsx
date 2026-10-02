@@ -152,7 +152,7 @@ export default function HomePage() {
 
         <Section id="contact" label="Contact">
           <p className="max-w-[640px] text-[21px] leading-snug">
-            Working on networking, infrastructure, web products or space-sector tooling? I&apos;d like to hear
+            Working on networking, infrastructure, web products or space sector tooling? I&apos;d like to hear
             about it.
           </p>
           <dl className="mt-6 grid max-w-[640px] gap-3 text-[15px] sm:grid-cols-[100px_1fr]">
@@ -165,7 +165,7 @@ export default function HomePage() {
             <dt className="text-text-2">LinkedIn</dt>
             <dd>
               <a href={person.linkedin} rel="noopener noreferrer" className="text-blue underline-offset-4 hover:underline">
-                ujwalshyam-kantimohanthy
+                Ujwal Shyam Kantimohanthy
               </a>
             </dd>
             <dt className="text-text-2">GitHub</dt>

@@ -35,21 +35,21 @@ export function DomainWorkspace({ slug = "networking.dns" }: { slug?: string }) 
   ]);
 
   const traceEvents = [
-    { ms: "09.000 ms", layer: "App", title: "Browser invokes getaddrinfo('example.com')", desc: "Checks POSIX VFS /etc/hosts & nscd memory cache", packetSize: "64B", proto: "POSIX", ttl: "-" },
-    { ms: "09.031 ms", layer: "Kernel", title: "OS Resolver cache miss -> socket(AF_INET, SOCK_DGRAM, 0)", desc: "Allocates file descriptor fd=4 and binds to ephemerally assigned UDP port 54321", packetSize: "64B", proto: "UDP", ttl: "-" },
-    { ms: "09.052 ms", layer: "NIC", title: "sendto() emits UDP datagram to Recursive Resolver 1.1.1.1:53", desc: "Sets RD=1 (Recursion Desired), ID=0x1A2B, QNAME=example.com, QTYPE=A", packetSize: "45B", proto: "DNS/UDP", ttl: "-" },
-    { ms: "09.101 ms", layer: "Recurse", title: "Cloudflare 1.1.1.1 receives query -> Cache Miss", desc: "Initiates iterative traversal starting from ICANN Root Server hint file", packetSize: "45B", proto: "DNS/UDP", ttl: "-" },
+    { ms: "09.000 ms", layer: "App", title: "Browser invokes getaddrinfo('example.com')", desc: "Checks POSIX VFS /etc/hosts & nscd memory cache", packetSize: "64B", proto: "POSIX", ttl: "n/a" },
+    { ms: "09.031 ms", layer: "Kernel", title: "OS Resolver cache miss → socket(AF_INET, SOCK_DGRAM, 0)", desc: "Allocates file descriptor fd=4 and binds to ephemerally assigned UDP port 54321", packetSize: "64B", proto: "UDP", ttl: "n/a" },
+    { ms: "09.052 ms", layer: "NIC", title: "sendto() emits UDP datagram to Recursive Resolver 1.1.1.1:53", desc: "Sets RD=1 (Recursion Desired), ID=0x1A2B, QNAME=example.com, QTYPE=A", packetSize: "45B", proto: "DNS/UDP", ttl: "n/a" },
+    { ms: "09.101 ms", layer: "Recurse", title: "Cloudflare 1.1.1.1 receives query → Cache Miss", desc: "Initiates iterative traversal starting from ICANN Root Server hint file", packetSize: "45B", proto: "DNS/UDP", ttl: "n/a" },
     { ms: "09.440 ms", layer: "Root", title: "Root Server (.) 198.41.0.4 returns TLD referral", desc: "Delegates to .com TLD servers (a.gtld-servers.net) with NS records", packetSize: "482B", proto: "DNS/UDP", ttl: "172800s" },
-    { ms: "10.004 ms", layer: "TLD", title: "TLD Server (.com) 192.5.6.30 returns Glue A record", desc: "Returns authoritative NS delegation ns1.example.com -> 93.184.216.34", packetSize: "240B", proto: "DNS/UDP", ttl: "86400s" },
+    { ms: "10.004 ms", layer: "TLD", title: "TLD Server (.com) 192.5.6.30 returns Glue A record", desc: "Returns authoritative NS delegation ns1.example.com → 93.184.216.34", packetSize: "240B", proto: "DNS/UDP", ttl: "86400s" },
     { ms: "10.773 ms", layer: "Auth", title: "Authoritative Server ns1.example.com replies AA=1", desc: "Returns final A record 93.184.216.34 with RRSIG DNSSEC signature", packetSize: "128B", proto: "DNS/UDP", ttl: "300s" },
     { ms: "11.050 ms", layer: "App", title: "Application receives IP 93.184.216.34", desc: "Sockets initiates TCP 3-way handshake to 93.184.216.34:443", packetSize: "128B", proto: "POSIX", ttl: "300s" },
   ];
 
   const failureScenarios = [
-    { title: "NXDOMAIN (Non-Existent Domain)", cause: "Domain name missing in TLD registry", symptom: "HTTP 502 / getaddrinfo failed", cmd: "dig +trace invalid-name.xyz", expected: "RCODE 3 (NXDOMAIN)", fix: "Verify TLD registration and CNAME targets" },
+    { title: "NXDOMAIN (Nonexistent Domain)", cause: "Domain name missing in TLD registry", symptom: "HTTP 502 / getaddrinfo failed", cmd: "dig +trace invalid-name.xyz", expected: "RCODE 3 (NXDOMAIN)", fix: "Verify TLD registration and CNAME targets" },
     { title: "SERVFAIL (Server Failure)", cause: "Authoritative server down or DNSSEC failure", symptom: "Resolution hangs or fails deterministically", cmd: "dig +dnssec domain.com +cd", expected: "RCODE 2 (SERVFAIL)", fix: "Audit RRSIG expiration & ZSK/KSK keys" },
     { title: "UDP Packet Truncation (TC=1)", cause: "Payload exceeds 512B EDNS0 limit", symptom: "TC bit set, forcing TCP fallback", cmd: "dig +ignore +tcp domain.com", expected: "TC=1 in response flags", fix: "Enable TCP port 53 in firewall" },
-    { title: "DNSSEC Validation Failure", cause: "RRSIG signature does not match DNSKEY", symptom: "BOGUS resolution state", cmd: "delv @1.1.1.1 example.com", expected: "validation failure", fix: "Re-sign zone with active ZSK key" },
+    { title: "DNSSEC Validation Failure", cause: "RRSIG signature does not match DNSKEY", symptom: "BOGUS resolution state", cmd: "delv @1.1.1.1 example.com", expected: "validation failure", fix: "Resign zone with active ZSK key" },
   ];
 
   useEffect(() => {

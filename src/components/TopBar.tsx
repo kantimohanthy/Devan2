@@ -61,7 +61,7 @@ export function TopBar() {
         onClick={open}
         className="w-[420px] max-w-[50vw] h-[34px] rounded-lg border border-border bg-surface flex items-center gap-2 px-3 text-[13px] text-text-3 hover:border-[#2c323a] transition-colors"
       >
-        <span className="truncate">Ask DEVAN — try &ldquo;why postgresql?&rdquo;</span>
+        <span className="truncate">Ask DEVAN, try &ldquo;why postgresql?&rdquo;</span>
         <span className="ml-auto text-[10px] border border-border rounded px-1.5 py-0.5 shrink-0">
           ⌘K
         </span>

@@ -5,7 +5,7 @@ import { motion, type Variants } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 // Each section gets its own small reveal signature instead of one shared
-// fade — still fast (<=0.3s), just a different shape of motion so a
+// fade, still fast (<=0.3s), just a different shape of motion so a
 // section feels like it belongs to a distinct part of the site.
 const REVEALS = {
   rise: {

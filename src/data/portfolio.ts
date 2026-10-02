@@ -3,7 +3,7 @@
  *
  * Rules for this file:
  *  - Every status is stated in words (Ongoing, Early stage, Shipped), never as a percentage.
- *  - Only claim what can be pointed to. If a write-up isn't ready, say so in `writeUpStatus`
+ *  - Only claim what can be pointed to. If a write up isn't ready, say so in `writeUpStatus`
  *    instead of padding the section.
  *  - Keep demo / seeded data clearly labelled.
  */
@@ -41,9 +41,9 @@ export const person = {
   handle: "UJ",
   headline: "Network & systems engineer",
   thread:
-    "I build dependable systems and make their behaviour verifiable — across networking, web products and AI research.",
+    "I build dependable systems and make their behaviour verifiable, across networking, web products and AI research.",
   intro: [
-    "ICT engineer with a focus on network administration and infrastructure, studying Engineering Sciences at the University of Rome Tor Vergata. My thesis looks at wireless mesh networks over TV White Space spectrum for connectivity in hard-to-reach terrain.",
+    "ICT engineer with a focus on network administration and infrastructure, studying Engineering Sciences at the University of Rome Tor Vergata. My thesis looks at wireless mesh networks over TV White Space spectrum for connectivity in hard to reach terrain.",
     "Right now I'm a web development intern at Zidio Development, a research collaborator training models for text, speech and emotion recognition, and building CosmoHub through STATION F's Landing Zone programme in Paris.",
   ],
   location: "Rome · Paris",
@@ -61,16 +61,16 @@ export const caseStudies: CaseStudy[] = [
     period: "2026",
     status: "Ongoing",
     summary:
-      "A full-stack product covering data ingestion, role-aware interfaces, analytics and question-answering grounded in the ingested data.",
-    tags: ["Full-stack", "Role-based UX", "Analytics", "Grounded Q&A"],
+      "A full stack product covering data ingestion, role aware interfaces, analytics and question answering grounded in the ingested data.",
+    tags: ["Full stack", "Role based UX", "Analytics", "Grounded Q&A"],
     sections: [
       {
         heading: "What I'm building",
         points: [
-          "Ingestion — getting source data into a shape the rest of the product can rely on.",
-          "Role-aware UX — different users see the views and actions that match their role.",
-          "Analytics — summaries over the ingested data.",
-          "Grounded Q&A — answers are drawn from the ingested material, not free-form generation.",
+          "Ingestion: getting source data into a shape the rest of the product can rely on.",
+          "Role aware UX: different users see the views and actions that match their role.",
+          "Analytics: summaries over the ingested data.",
+          "Grounded Q&A: answers are drawn from the ingested material, not free form generation.",
         ],
       },
       {
@@ -81,13 +81,13 @@ export const caseStudies: CaseStudy[] = [
     ],
     links: [],
     writeUpStatus:
-      "Full case study — architecture diagram, key decisions and what broke — is being written up.",
+      "A full case study with the architecture diagram, key decisions and what broke is being written up.",
   },
   {
     slug: "wireless-mesh-tvws",
     title: "Wireless Mesh + TV White Space",
     context: "Thesis research · University of Rome Tor Vergata",
-    period: "2026 –",
+    period: "Since 2026",
     status: "Ongoing",
     summary:
       "Can a wireless mesh running over unused broadcast spectrum reach places conventional links don't? Modelling and simulation in MATLAB.",
@@ -96,7 +96,7 @@ export const caseStudies: CaseStudy[] = [
       {
         heading: "Problem",
         body:
-          "Rural and mountainous areas are expensive to connect: line-of-sight links get blocked by terrain and fibre doesn't pay back. TV White Space — unused spectrum in the broadcast bands — propagates further and through obstacles better than typical Wi-Fi frequencies. The question is whether a mesh topology on top of it can extend coverage into challenging terrain.",
+          "Rural and mountainous areas are expensive to connect: line of sight links get blocked by terrain and fibre doesn't pay back. TV White Space, the unused spectrum in the broadcast bands, propagates further and through obstacles better than typical WiFi frequencies. The question is whether a mesh topology on top of it can extend coverage into challenging terrain.",
       },
       {
         heading: "Approach",
@@ -109,11 +109,11 @@ export const caseStudies: CaseStudy[] = [
       {
         heading: "Progress",
         points: [
-          "Done — literature review: mesh topologies",
-          "Done — literature review: TVWS regulation",
-          "Done — propagation model for occluded terrain",
-          "Next — simulate the hybrid mesh + TVWS topology",
-          "Next — bench test, write-up, review and defence",
+          "Done: literature review: mesh topologies",
+          "Done: literature review: TVWS regulation",
+          "Done: propagation model for occluded terrain",
+          "Next: simulate the hybrid mesh + TVWS topology",
+          "Next: bench test, write up, review and defence",
         ],
       },
     ],
@@ -124,7 +124,7 @@ export const caseStudies: CaseStudy[] = [
     slug: "devan",
     title: "DEVAN",
     context: "Personal engineering workspace · this site",
-    period: "2026 –",
+    period: "Since 2026",
     status: "Ongoing",
     summary:
       "An evidence graph behind this portfolio: concepts, experiments and artifacts linked so that a claim like “tested” is derived from evidence, not typed in.",
@@ -140,7 +140,7 @@ export const caseStudies: CaseStudy[] = [
         points: [
           "A schema for sources, concepts, questions, experiments, outcomes and artifacts, with JSON Schema (Ajv) as the single structural authority.",
           "A graph validator that runs in CI and checks ID uniqueness, reference resolution and provenance before anything is published.",
-          "Evidence states — Encountered, Studied, Implemented, Tested — derived by code from the attached records rather than set by hand.",
+          "Evidence states (Encountered, Studied, Implemented, Tested) derived by code from the attached records rather than set by hand.",
           "A Next.js + TypeScript interface over the graph, with Prisma for the data layer.",
         ],
       },
@@ -152,8 +152,8 @@ export const caseStudies: CaseStudy[] = [
       {
         heading: "What broke",
         points: [
-          "My first capture missed the opening hop: systemd-resolved answered on the loopback interface, so capturing on eth0 saw nothing. Capturing on all interfaces fixed it.",
-          "An early version of the interface showed confidence badges and hard-coded “live” numbers that no evidence supported. I pulled them out — the site now states status in words and links to the record.",
+          "My first capture missed the opening hop: the local systemd resolver answered on the loopback interface, so capturing on eth0 saw nothing. Capturing on all interfaces fixed it.",
+          "An early version of the interface showed confidence badges and hardcoded “live” numbers that no evidence supported. I pulled them out; the site now states status in words and links to the record.",
           "The site is a static export on GitHub Pages, so API routes don't run in production. The client falls back to seeded records, and those are labelled as such.",
         ],
       },
@@ -161,7 +161,7 @@ export const caseStudies: CaseStudy[] = [
         heading: "Still open",
         points: [
           "Publishing the raw dig log and packet capture as downloadable files.",
-          "More records beyond DNS before adding any question-answering layer on top.",
+          "More records beyond DNS before adding any question answering layer on top.",
         ],
       },
     ],
@@ -202,9 +202,9 @@ export const ventures: ListItem[] = [
   {
     title: "CosmoHub",
     context: "STATION F · Landing Zone",
-    period: "Jul 2026 –",
+    period: "Since Jul 2026",
     status: "Early stage",
-    body: "A learning platform for anyone who wants to get into space technology, from first principles onward. Started in the Universeh Student Fellowship. There is no user-facing prototype yet; earlier backend experiments are on GitHub.",
+    body: "A learning platform for anyone who wants to get into space technology, from first principles onward. Started in the Universeh Student Fellowship. There is no user facing prototype yet; earlier backend experiments are on GitHub.",
     links: [{ label: "Earlier experiments", href: "https://github.com/kantimohanthy/Cosmohub", external: true }],
   },
 ];
@@ -213,8 +213,8 @@ export const experience: ListItem[] = [
   {
     title: "Web Development Intern",
     context: "Zidio Development · Bengaluru (hybrid)",
-    period: "Aug 2026 –",
-    body: "Full-stack work on Project LOOP.",
+    period: "Since Aug 2026",
+    body: "Full stack work on Project LOOP.",
     links: [{ label: "Project LOOP", href: "/work/project-loop/" }],
   },
   {
@@ -226,14 +226,14 @@ export const experience: ListItem[] = [
   {
     title: "Events Lead",
     context: "EuroTech Federation",
-    period: "2026 –",
+    period: "Since 2026",
     body: "First point of contact for inbound event requests; designing the submission and intake process for the team.",
   },
   {
     title: "Website diagnostic audit",
     context: "ZiShop",
     period: "Sep 2026",
-    body: "Diagnosed the public web platform — reliability, performance, accessibility and SEO issues — and delivered a written audit to the founders.",
+    body: "Diagnosed reliability, performance, accessibility and SEO issues on the public web platform and delivered a written audit to the founders.",
   },
 ];
 
@@ -243,7 +243,7 @@ export const otherWork: ListItem[] = [
     context: "IBM SkillsBuild AI Builders Challenge",
     period: "Jul 2026",
     status: "Submitted",
-    body: "Bilingual Arabic/English pre-production assistant for filmmakers. FastAPI pipeline from script upload through scene reasoning to storyboard generation, with Hugging Face as the primary model provider.",
+    body: "Bilingual Arabic/English preproduction assistant for filmmakers. FastAPI pipeline from script upload through scene reasoning to storyboard generation, with Hugging Face as the primary model provider.",
     links: [{ label: "Repository", href: "https://github.com/kantimohanthy/ClineForge-Pro", external: true }],
   },
 ];
@@ -253,7 +253,7 @@ export const talks: ListItem[] = [
     title: "Building a Sustainable Space Economy",
     context: "Sustainable Space Conference · Tor Vergata, with Universeh",
     period: "Sep 2026",
-    body: "Balancing commercial growth, orbital responsibility and innovation — student talk in the “Next generation in space” block.",
+    body: "Balancing commercial growth, orbital responsibility and innovation. Student talk in the “Next generation in space” block.",
   },
 ];
 

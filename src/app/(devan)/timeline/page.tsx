@@ -9,7 +9,7 @@ export default async function TimelinePage() {
         <div className="text-[11px] uppercase tracking-wide text-text-3 mb-2">Timeline</div>
         <h1 className="text-[30px] font-semibold tracking-tight mb-2">Engineering Evolution</h1>
         <p className="text-[14px] text-text-2 leading-relaxed max-w-[600px]">
-          Not a dated blog — the sequence of real steps that got the system here.
+          Not a dated blog, the sequence of real steps that got the system here.
         </p>
       </div>
       <div className="pl-4 border-l border-border space-y-6">

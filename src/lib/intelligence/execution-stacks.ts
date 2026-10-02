@@ -48,7 +48,7 @@ export const CANONICAL_EXECUTION_STACKS: ExecutionStack[] = [
   {
     stackId: "stack-http-lifecycle",
     title: "HTTP Request Lifecycle (Browser to Database)",
-    purpose: "Traces complete end-to-end execution path when a user submits an HTTP request.",
+    purpose: "Traces complete end to end execution path when a user submits an HTTP request.",
     conceptIds: ["networking.dns", "networking.tcp", "networking.tls", "networking.socket-api", "linux.kernel", "networking.ethernet", "networking.routing", "networking.http"],
     overallFailurePoints: ["DNS timeout", "TCP SYN dropped", "TLS certificate expired", "502 Bad Gateway", "Database connection pool exhausted"],
     observabilityTools: ["dig", "Wireshark", "tshark", "strace", "bpftrace", "curl"],
@@ -82,7 +82,7 @@ export const CANONICAL_EXECUTION_STACKS: ExecutionStack[] = [
       },
       {
         stepNumber: 2,
-        title: "TCP 3-Way Handshake Connection Establishment",
+        title: "TCP Three Way Handshake Connection Establishment",
         conceptId: "networking.tcp",
         purpose: "Establish stateful, reliable L4 byte-stream socket over TCP port 443.",
         input: "Target IP address + Port 443",
@@ -90,7 +90,7 @@ export const CANONICAL_EXECUTION_STACKS: ExecutionStack[] = [
         dependencies: ["networking.ipv4", "networking.socket-api"],
         observableSignals: {
           metrics: "tcp_active_opens_total, tcp_retrans_segs",
-          logs: "Kernel dmesg / netstat: ESTABLISHED 192.168.1.50:54321 -> 93.184.216.34:443",
+          logs: "Kernel dmesg / netstat: ESTABLISHED 192.168.1.50:54321 → 93.184.216.34:443",
           traces: "OpenTelemetry span: tcp.connect",
           packetCaptures: "tshark -i eth0 'tcp.flags.syn==1'",
           systemCalls: "connect(fd, &sockaddr, sizeof(sockaddr))",
@@ -242,7 +242,7 @@ export const CANONICAL_EXECUTION_STACKS: ExecutionStack[] = [
     title: "Kubernetes Request Path (Ingress to Pod Container)",
     purpose: "Traces ingress HTTP traffic routing through Nginx Ingress, kube-proxy iptables rules, to target Pod veth interface.",
     conceptIds: ["cloud.kubernetes", "networking.iptables", "cloud.containerd", "linux.kernel", "networking.tcp"],
-    overallFailurePoints: ["503 Service Unavailable", "Kube-proxy IPTables rule desync", "Endpoints empty", "Pod CrashLoop"],
+    overallFailurePoints: ["503 Service Unavailable", "Kube proxy IPTables rule desync", "Endpoints empty", "Pod CrashLoop"],
     observabilityTools: ["kubectl", "crictl", "iptables-save", "tshark", "tcpdump"],
     careerRelevance: ["K8s Platform Engineer", "Cloud SRE", "Infrastructure Architect"],
     steps: [
@@ -257,7 +257,7 @@ export const CANONICAL_EXECUTION_STACKS: ExecutionStack[] = [
         observableSignals: {
           metrics: "nginx_ingress_controller_requests, nginx_ingress_controller_connect_duration_seconds",
           logs: "Ingress log: 192.168.1.1 - GET /api HTTP/1.1 200 - upstream: 10.244.1.45:8080",
-          traces: "Jaeger trace: ingress-nginx -> backend-service",
+          traces: "Jaeger trace: ingress-nginx → backend-service",
         },
         failureModes: {
           symptom: "503 Service Temporarily Unavailable",
@@ -285,7 +285,7 @@ export const CANONICAL_EXECUTION_STACKS: ExecutionStack[] = [
     steps: [
       {
         stepNumber: 1,
-        title: "SQL AST Parsing & Cost-Based Query Planning",
+        title: "SQL AST Parsing & Cost Based Query Planning",
         conceptId: "linux.processes",
         purpose: "Parse SQL text string, build Abstract Syntax Tree (AST), and generate cheapest execution plan.",
         input: "SQL string: SELECT * FROM users WHERE email = 'test@example.com'",

@@ -64,7 +64,7 @@ export default function CommandPalette() {
                 onSelect={() => go(r.route)}
                 className="px-3 py-2 rounded-lg text-white/90 aria-selected:bg-white/10 cursor-pointer transition-colors"
               >
-                <span className="font-medium">{r.title}</span> — <span className="text-white/50">{r.subtitle}</span>
+                <span className="font-medium">{r.title}</span>, <span className="text-white/50">{r.subtitle}</span>
               </Command.Item>
             ))}
           </Command.Group>

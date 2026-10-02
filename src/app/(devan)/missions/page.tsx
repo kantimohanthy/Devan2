@@ -16,7 +16,7 @@ export default function MissionsIndexPage() {
         <div className="text-[11px] uppercase tracking-wide text-text-3 mb-2">Missions</div>
         <h1 className="text-[30px] font-semibold tracking-tight mb-2">Objectives in progress</h1>
         <p className="text-[14px] text-text-2 leading-relaxed max-w-[600px]">
-          Every activity belongs to a mission — objectives, experiments, evidence, and knowledge, in
+          Every activity belongs to a mission, objectives, experiments, evidence, and knowledge, in
           one thread.
         </p>
       </div>

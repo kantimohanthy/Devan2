@@ -116,7 +116,7 @@ export class IntelligenceService {
       `Expanded ontology neighborhood for [${targetEntityId}] (${neighborhood.connectedEntities.length} connections); Mission completion: ${missionEval.completionPercentage}%`
     );
 
-    // Stage 6: Multi-Reasoner Execution
+    // Stage 6: Multi Reasoner Execution
     const t6 = Date.now();
     const context: ReasonerInputContext = {
       prompt: q,
@@ -135,7 +135,7 @@ export class IntelligenceService {
       experimentReasoner.evaluate(context),
       careerReasoner.evaluate(context),
     ]);
-    logStage("Stage 6: Multi-Reasoner Execution", Date.now() - t6, `Executed 5 specialized reasoners concurrently`);
+    logStage("Stage 6: Multi Reasoner Execution", Date.now() - t6, `Executed 5 specialized reasoners concurrently`);
 
     // Stage 7: Response Synthesis & Recommendation
     const t7 = Date.now();

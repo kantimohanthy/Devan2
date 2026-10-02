@@ -66,13 +66,13 @@ export function CommandPalette() {
         <div className="flex items-center gap-2.5 px-[18px] py-4 border-b border-border">
           <Search size={16} className="text-text-3 shrink-0" />
           <Command.Input
-            placeholder='Ask DEVAN — "why postgresql?", "show dns", "cineforge"'
+            placeholder='Ask DEVAN, "why postgresql?", "show dns", "cineforge"'
             className="flex-1 bg-transparent outline-none text-[15px] text-text placeholder:text-text-3"
           />
         </div>
         <Command.List className="max-h-[320px] overflow-y-auto p-2">
           <Command.Empty className="px-2.5 py-4 text-[13px] text-text-3">
-            Nothing directly matches — here&rsquo;s what&rsquo;s adjacent. Try a broader term.
+            Nothing directly matches, here&rsquo;s what&rsquo;s adjacent. Try a broader term.
           </Command.Empty>
           {Object.entries(grouped).map(([type, items]) => (
             <Command.Group

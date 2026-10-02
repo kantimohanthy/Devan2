@@ -18,7 +18,7 @@ export class ExperimentReasoner implements IReasoner {
 
     const insights = [
       `Laboratory Execution Ratio: ${executed} / ${totalExperiments} experiments fully executed and verified.`,
-      `Protocol Engine: Multi-span socket tracer (DNS/TCP/TLS/TTFB) operational.`,
+      `Protocol Engine: Multispan socket tracer (DNS/TCP/TLS/TTFB) operational.`,
       `Automated Test Suite: 13 / 13 Vitest assertions passing cleanly.`,
     ];
 

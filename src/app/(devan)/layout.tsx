@@ -9,7 +9,7 @@ import { OnboardingTour } from "@/components/workspace/OnboardingTour";
 
 export const metadata: Metadata = {
   title: {
-    default: "DEVAN — engineering workspace",
+    default: "DEVAN · engineering workspace",
     template: "%s | DEVAN",
   },
   description:

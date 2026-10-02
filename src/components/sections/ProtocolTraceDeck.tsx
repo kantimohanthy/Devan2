@@ -43,8 +43,8 @@ export function ProtocolTraceDeck() {
       id="protocol-lab"
       eyebrow="04 · Distributed Systems & Protocol Execution Engine"
       reveal="focus"
-      title="Live Hop-by-Hop Multi-Layer Telemetry Profiler"
-      description="Executes a real-time protocol execution trace across DNS (DoH), TCP/SYN-ACK, TLS 1.3 Handshakes, HTTP/TTFB, and BGP ASN routing topologies."
+      title="Live Hop by Hop Multilayer Telemetry Profiler"
+      description="Executes a real time protocol execution trace across DNS (DoH), TCP/SYN-ACK, TLS 1.3 Handshakes, HTTP/TTFB, and BGP ASN routing topologies."
     >
       <div className="rounded-2xl border border-[var(--hairline)] bg-[var(--surface-quiet)] p-6 font-mono text-sm backdrop-blur-md">
         {/* Top Control Rail */}

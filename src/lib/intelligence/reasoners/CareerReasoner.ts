@@ -34,7 +34,7 @@ export class CareerReasoner implements IReasoner {
     return {
       reasonerName: this.name,
       score: 87,
-      summary: `High readiness alignment for ${targetRole} role profile with clear, evidence-backed proofs.`,
+      summary: `High readiness alignment for ${targetRole} role profile with clear, evidence backed proofs.`,
       insights,
       evidenceRefs: [
         { type: "Project", title: "CineForge AI Pro", href: "/projects/cineforge-ai-pro" },

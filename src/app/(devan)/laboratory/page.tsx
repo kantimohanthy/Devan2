@@ -1,3 +1,4 @@
+import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 import { experiments } from "@/lib/data";
 import { StateDot, UnverifiedTag } from "@/components/EntityShell";
@@ -29,7 +30,7 @@ export default function LaboratoryIndexPage() {
               {!exp.executable && <UnverifiedTag />}
             </div>
             <span className="text-[12px] text-text-3">
-              {exp.executable ? `last run ${exp.lastRun}` : "not yet executable"}
+              {exp.executable ? `last run ${formatDate(exp.lastRun)}` : "not yet executable"}
             </span>
           </Link>
         ))}
