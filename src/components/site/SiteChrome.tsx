@@ -11,13 +11,13 @@ const navLinks = [
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-30 border-b border-border/70 bg-bg/85 backdrop-blur">
-      <div className="mx-auto flex h-14 max-w-[1080px] items-center justify-between px-4 sm:px-6">
+    <header className="sticky top-0 z-40 border-b border-white/[0.06] bg-[#0a0b0d]/60 backdrop-blur-xl backdrop-saturate-150">
+      <div className="mx-auto flex h-14 max-w-[1240px] items-center justify-between px-4 sm:px-8">
         <Link href="/" className="flex items-center gap-2.5 rounded focus-visible:outline-2 focus-visible:outline-blue">
-          <span className="flex h-7 w-7 items-center justify-center rounded-md border border-blue/40 bg-blue/10 font-mono text-[11px] font-bold text-blue">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-cyan-300/40 bg-gradient-to-br from-cyan-300/20 to-violet-400/20 font-mono text-[11px] font-bold text-cyan-200">
             {person.handle}
           </span>
-          <span className="text-[15px] font-semibold tracking-tight">{person.name}</span>
+          <span className="font-display text-[16px] font-semibold tracking-tight">{person.name}</span>
         </Link>
         <nav aria-label="Primary" className="flex items-center gap-1 text-[14px]">
           {navLinks.map((l) => (
@@ -31,7 +31,7 @@ export function SiteHeader() {
           ))}
           <Link
             href="/devan/"
-            className="ml-1 rounded-md border border-border px-3 py-1.5 text-text-2 hover:border-blue/50 hover:text-text"
+            className="ml-1 rounded-full border border-white/15 px-4 py-1.5 text-text-2 transition hover:border-cyan-300/60 hover:text-cyan-100"
           >
             Explore DEVAN
           </Link>
@@ -43,8 +43,8 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border">
-      <div className="mx-auto flex max-w-[1080px] flex-col gap-3 px-4 py-8 text-[13px] text-text-2 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+    <footer className="border-t border-white/[0.07]">
+      <div className="mx-auto flex max-w-[1240px] flex-col gap-3 px-4 py-8 text-[13px] text-text-2 sm:flex-row sm:items-center sm:justify-between sm:px-8">
         <p>
           © {new Date().getFullYear()} {person.fullName} · Content updated {person.updated}
         </p>
