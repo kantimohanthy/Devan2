@@ -7,12 +7,15 @@ export function OnboardingTour() {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(0);
 
+  // The tour never opens on its own. It is offered from the DEVAN overview
+  // ("Take the tour") and can be dismissed at any step.
   useEffect(() => {
-    try {
-      if (!localStorage.getItem("devan_onboarding_seen")) setIsOpen(true);
-    } catch {
-      /* storage unavailable: skip the tour */
-    }
+    const open = () => {
+      setStep(0);
+      setIsOpen(true);
+    };
+    window.addEventListener("devan:tour", open);
+    return () => window.removeEventListener("devan:tour", open);
   }, []);
 
   if (!isOpen) return null;

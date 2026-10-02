@@ -1,19 +1,20 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "@fontsource-variable/inter";
-import "@fontsource-variable/space-grotesk";
+import "@fontsource-variable/fraunces/opsz.css";
+import "@fontsource-variable/fraunces/opsz-italic.css";
 import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
 
-const title = "Ujwal Kantimohanthy · Network & Systems Engineer";
+const title = "Ujwal Shyam Kantimohanthy · ICT engineering student";
 const description =
-  "ICT engineer building dependable systems and making their behaviour verifiable, across networking, web products and AI research.";
+  "ICT engineering student building reliable web systems, evidence grounded AI tools and network experiments.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kantimohanthy.dev"),
   title: {
     default: title,
-    template: "%s | Ujwal Kantimohanthy",
+    template: "%s · Ujwal Shyam Kantimohanthy",
   },
   description,
   keywords: [
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
     title,
     description,
     url: "https://kantimohanthy.dev",
-    siteName: "Ujwal Kantimohanthy",
+    siteName: "Ujwal Shyam Kantimohanthy",
     locale: "en_US",
     type: "website",
   },
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0b0d",
+  themeColor: "#12110f",
   colorScheme: "dark",
 };
 

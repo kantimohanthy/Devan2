@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { caseStudies } from "@/data/portfolio";
+import { projects } from "@/data/portfolio";
 
 export const dynamic = "force-static";
 
@@ -8,7 +8,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const routes = [
     "",
-    ...caseStudies.map((c) => `/work/${c.slug}`),
+    ...projects.map((c) => `/work/${c.slug}`),
+    "/map",
     "/devan",
     "/knowledge",
     "/knowledge/networking.dns",
@@ -29,7 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return routes.map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified: new Date(),
+    lastModified: new Date("2026-10-03"),
     changeFrequency: "daily",
     priority: route === "" ? 1.0 : route.startsWith("/work") ? 0.9 : 0.6,
   }));

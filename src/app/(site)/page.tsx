@@ -1,423 +1,339 @@
 import Link from "next/link";
 import {
   person,
-  caseStudies,
-  research,
-  ventures,
-  experience,
-  otherWork,
-  talks,
+  featuredProjects,
+  decisions,
+  getProject,
+  getDecision,
+  projects,
+  timeline,
+  now,
+  formatMonth,
+  LAST_REVIEWED,
 } from "@/data/portfolio";
-import { experiments } from "@/lib/data";
-import { SiteHeader, SiteFooter, StatusPill, TextLink } from "@/components/site/SiteChrome";
-import { MeshField } from "@/components/site/MeshField";
 import {
-  Reveal,
-  SplitHeading,
-  WordRotator,
-  SpotlightCard,
-  ScrollProgress,
-  Magnetic,
-  TraceReplay,
-} from "@/components/site/Motion";
-import { WorkVisual } from "@/components/site/WorkVisual";
-import type { ListItem } from "@/data/portfolio";
+  SiteHeader,
+  SiteFooter,
+  SkipLink,
+  Stamp,
+  SectionHead,
+  Figure,
+} from "@/components/site/SiteChrome";
+import { FieldMapMini, ProjectFigure } from "@/components/site/Figures";
 
-const stack = [
-  "Wireless mesh",
-  "TV White Space",
-  "RF propagation",
-  "DNS",
-  "TCP/IP",
-  "Packet capture",
-  "MATLAB",
-  "Next.js",
-  "TypeScript",
-  "React",
-  "Prisma",
-  "PostgreSQL",
-  "FastAPI",
-  "Python",
-  "Hugging Face",
-  "Speech & emotion models",
-  "CI validation",
-];
-
-const now = [
-  { label: "Building", value: "Project LOOP at Zidio", color: "text-cyan-300" },
-  { label: "Researching", value: "Mesh over TV White Space", color: "text-blue" },
-  { label: "Founding", value: "CosmoHub at STATION F", color: "text-amber" },
-];
-
-function Eyebrow({ index, children }: { index: string; children: React.ReactNode }) {
-  return (
-    <div className="flex items-center gap-3 font-mono text-[12px] uppercase tracking-[0.2em] text-text-2">
-      <span className="text-cyan-300">{index}</span>
-      <span className="h-px w-10 bg-gradient-to-r from-cyan-300/60 to-transparent" />
-      {children}
-    </div>
-  );
-}
-
-function Rows({ items }: { items: ListItem[] }) {
-  return (
-    <ul className="divide-y divide-white/[0.07] border-y border-white/[0.07]">
-      {items.map((item, i) => (
-        <li key={item.title + item.context}>
-          <Reveal delay={i * 0.05} y={16}>
-            <div className="group grid gap-2 py-6 transition-colors sm:grid-cols-[1fr_auto] sm:gap-8 sm:py-7">
-              <div className="min-w-0">
-                <h3 className="font-display text-[22px] font-medium tracking-tight transition-colors group-hover:text-cyan-200 sm:text-[26px]">
-                  {item.title}
-                </h3>
-                <p className="mt-1 text-[14px] text-text-2">{item.context}</p>
-                <p className="mt-3 max-w-[640px] text-[15.5px] leading-relaxed text-text/85">{item.body}</p>
-                {item.links && item.links.length > 0 && (
-                  <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1">
-                    {item.links.map((l) => (
-                      <TextLink key={l.href} link={l} />
-                    ))}
-                  </div>
-                )}
-              </div>
-              <div className="flex items-start gap-2 font-mono text-[12.5px] text-text-2 sm:flex-col sm:items-end">
-                {item.period && <span>{item.period}</span>}
-                {item.status && <StatusPill status={item.status} />}
-              </div>
-            </div>
-          </Reveal>
-        </li>
-      ))}
-    </ul>
-  );
-}
+const featuredDecision = getDecision("aodv-over-olsr")!;
+const otherDecisions = decisions.filter((d) => d.id !== featuredDecision.id);
+const researchSlugs = ["daser-net", "wireless-mesh-tvws", "cosmohub"];
+const cap = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
 
 export default function HomePage() {
-  const dns = experiments.find((e) => e.slug === "dns-iterative-resolution");
-  const traceLines = dns?.outputLines ?? [];
-
   return (
-    <div className="grain">
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-[70] focus:rounded focus:bg-surface focus:px-3 focus:py-2"
-      >
-        Skip to content
-      </a>
-      <ScrollProgress />
+    <div className="journal min-h-screen">
+      <SkipLink />
       <SiteHeader />
 
       <main id="main">
-        {/* ───────────── Hero ───────────── */}
-        <section className="relative isolate flex min-h-[calc(100svh-56px)] flex-col overflow-hidden">
-          <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-            <div className="absolute left-1/2 top-[-20%] h-[70vh] w-[90vw] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(79,140,255,0.22),transparent)] blur-2xl" />
-            <div className="absolute right-[-10%] top-[30%] h-[50vh] w-[50vw] rounded-full bg-[radial-gradient(closest-side,rgba(167,139,250,0.12),transparent)] blur-2xl" />
-          </div>
-          <MeshField className="absolute inset-0 -z-10 h-full w-full" />
-
-          <div className="mx-auto flex w-full max-w-[1240px] flex-1 flex-col justify-center px-4 pb-10 pt-16 sm:px-8">
-            <Reveal y={10}>
-              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-3 py-1.5 font-mono text-[12px] text-text-2 backdrop-blur">
-                <span className="live-dot h-1.5 w-1.5 rounded-full bg-green text-green" />
-                {person.headline} · {person.location}
-              </div>
-            </Reveal>
-
-            <h1 className="mt-7 font-display font-semibold leading-[0.88] tracking-[-0.045em]">
-              <SplitHeading text="Ujwal" className="block text-[clamp(64px,13vw,190px)]" />
-              <SplitHeading text="Kantimohanthy" delay={0.15} className="sheen block text-[clamp(44px,10.4vw,168px)]" />
-            </h1>
-
-            <Reveal delay={0.55} y={16}>
-              <p className="mt-8 max-w-[880px] font-display text-[clamp(22px,3vw,38px)] leading-[1.15] tracking-tight text-text">
-                I build dependable <br className="sm:hidden" />
-                <WordRotator words={["networks", "web products", "AI pipelines", "evidence systems"]} />
-                <br /> and make their behaviour verifiable.
+        {/* ── Opening ── */}
+        <section aria-labelledby="intro-title" className="paper border-b border-ivory/10">
+          <div className="mx-auto grid max-w-[1200px] gap-12 px-5 pb-14 pt-14 sm:px-8 sm:pt-20 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-14 lg:pb-20">
+            <div>
+              <p className="note">Field journal · {person.location} · reviewed {formatMonth(LAST_REVIEWED)}</p>
+              <h1 id="intro-title" className="display mt-6 text-[clamp(50px,8.4vw,108px)] font-light leading-[0.94]">
+                Ujwal <em className="font-normal italic text-ochre-2">Shyam</em>
+                <br />
+                Kantimohanthy
+              </h1>
+              <p className="pretty mt-7 max-w-[560px] text-[clamp(19px,2vw,23px)] leading-snug text-ivory">
+                {person.positioning}
               </p>
-            </Reveal>
-
-            <Reveal delay={0.75} y={16}>
-              <div className="mt-10 flex flex-wrap items-center gap-3">
-                <Magnetic>
-                  <a
-                    href="#work"
-                    className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-text px-6 py-3.5 text-[15px] font-semibold text-bg"
-                  >
-                    <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-cyan-300 via-blue to-violet-400 transition-transform duration-500 ease-out group-hover:translate-x-0" />
-                    <span className="relative">See the work</span>
-                    <span className="relative transition-transform group-hover:translate-y-0.5">↓</span>
-                  </a>
-                </Magnetic>
-                <Magnetic>
-                  <a
-                    href={`mailto:${person.email}`}
-                    className="inline-flex items-center rounded-full border border-white/15 bg-black/30 px-6 py-3.5 text-[15px] backdrop-blur transition hover:border-cyan-300/60 hover:text-cyan-100"
-                  >
-                    Say hello
-                  </a>
-                </Magnetic>
-                <div className="flex items-center gap-1 pl-1">
-                  <a href={person.github} rel="noopener noreferrer" className="rounded-full px-3 py-2 text-[14px] text-text-2 transition hover:text-text">
-                    GitHub ↗
-                  </a>
-                  <a href={person.linkedin} rel="noopener noreferrer" className="rounded-full px-3 py-2 text-[14px] text-text-2 transition hover:text-text">
-                    LinkedIn ↗
-                  </a>
-                </div>
-              </div>
-            </Reveal>
-          </div>
-
-          {/* Now strip */}
-          <Reveal delay={0.95} y={10}>
-            <div className="mx-auto w-full max-w-[1240px] px-4 pb-8 sm:px-8">
-              <div className="grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 backdrop-blur sm:grid-cols-3">
-                {now.map((n) => (
-                  <div key={n.label} className="flex items-center gap-3 bg-[#0a0b0d]/80 px-5 py-4">
-                    <span className={`live-dot h-2 w-2 shrink-0 rounded-full bg-current ${n.color}`} />
-                    <div className="min-w-0">
-                      <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-text-2">{n.label}</div>
-                      <div className="truncate text-[15px] text-text">{n.value}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-              <p className="mt-3 hidden text-right font-mono text-[11px] text-text-2/70 sm:block">
-                Move your cursor over the mesh: you&apos;re the gateway.
+              <p className="display pretty mt-6 max-w-[540px] border-l-2 border-ochre pl-4 text-[18px] italic leading-relaxed text-ivory-2">
+                {person.approach}
               </p>
+              <div className="mt-9 flex flex-wrap gap-3">
+                <a href="#work" className="inline-flex min-h-12 items-center gap-2 rounded-full bg-ivory px-6 text-[15px] font-medium text-ink transition-colors hover:bg-ochre-2">
+                  View work <span aria-hidden>↓</span>
+                </a>
+                <a href="#contact" className="inline-flex min-h-12 items-center rounded-full border border-ivory/25 px-6 text-[15px] text-ivory transition-colors hover:border-ochre">
+                  Contact
+                </a>
+              </div>
             </div>
-          </Reveal>
+
+            <Link href="/map/" className="group block">
+              <Figure n="0" caption="Five missions I'm working through. Lines join missions that share a project. Open the full map →">
+                <FieldMapMini />
+              </Figure>
+            </Link>
+          </div>
+
+          <div className="mx-auto max-w-[1200px] px-5 pb-10 sm:px-8">
+            <ul className="grid divide-y divide-ivory/10 border-y border-ivory/10 sm:grid-cols-3 sm:divide-x sm:divide-y-0" aria-label="Now">
+              {now.map((n) => (
+                <li key={n.label}>
+                  <Link href={n.href} className="group block px-1 py-4 sm:px-5">
+                    <span className="note">Now · {n.label}</span>
+                    <span className="mt-1 block text-[15.5px] text-ivory group-hover:text-ochre-2">{n.value}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
 
-        {/* ───────────── Marquee ───────────── */}
-        <div className="marquee overflow-hidden border-y border-white/[0.07] py-5" aria-label="Tools and topics">
-          <div className="marquee-track flex w-max gap-10 whitespace-nowrap font-display text-[22px] tracking-tight text-text-2 sm:text-[28px]">
-            {[...stack, ...stack].map((s, i) => (
-              <span key={i} className="flex items-center gap-10" aria-hidden={i >= stack.length}>
-                {s}
-                <span className="text-cyan-300/60">✦</span>
-              </span>
+        {/* ── § 1 Selected work ── */}
+        <section id="work" aria-labelledby="work-label" className="scroll-mt-16 mx-auto max-w-[1200px] px-5 py-20 sm:px-8 sm:py-28">
+          <SectionHead id="work" n="1" label="Selected work" title={<>Three things I built, <em className="italic text-ivory-2">and what they still lack.</em></>} />
+
+          <div className="mt-14 divide-y divide-ivory/10 border-t border-ivory/10">
+            {featuredProjects.map((p, i) => (
+              <article key={p.slug} aria-labelledby={`${p.slug}-t`} className="grid gap-8 py-12 lg:grid-cols-[160px_1fr_1.1fr] lg:gap-10">
+                <dl className="grid grid-cols-2 gap-x-6 gap-y-3 text-[13.5px] lg:block lg:space-y-4">
+                  <div>
+                    <dt className="note">Entry</dt>
+                    <dd className="display mt-1 text-[28px] text-ochre-2">1.{i + 1}</dd>
+                  </div>
+                  <div>
+                    <dt className="note">Status</dt>
+                    <dd className="mt-1.5"><Stamp status={p.status} /></dd>
+                  </div>
+                  <div>
+                    <dt className="note">Role</dt>
+                    <dd className="mt-1 text-ivory-2">{p.role}</dd>
+                  </div>
+                  <div>
+                    <dt className="note">Since</dt>
+                    <dd className="mt-1 text-ivory-2">{formatMonth(p.start)}</dd>
+                  </div>
+                </dl>
+
+                <div className="min-w-0">
+                  <p className="note">{p.kicker}</p>
+                  <h3 id={`${p.slug}-t`} className="display mt-2 text-[clamp(32px,4vw,48px)] leading-[1.02]">
+                    <Link href={`/work/${p.slug}/`} className="hover:text-ochre-2">{p.title}</Link>
+                  </h3>
+                  <p className="mt-2 text-[14px] text-ivory-3">{p.organization}</p>
+                  <p className="pretty mt-5 text-[17px] leading-relaxed text-ivory">{p.summary}</p>
+                  <h4 className="note mt-7">My part</h4>
+                  <ul className="mt-2 space-y-2 text-[15.5px] leading-relaxed text-ivory-2">
+                    {p.contributions.slice(0, 3).map((c) => (
+                      <li key={c} className="relative pl-5">
+                        <span aria-hidden className="absolute left-0 top-[0.05em] text-[12px] text-ochre">◆</span>
+                        {c}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
+                    <Link href={`/work/${p.slug}/`} className="ink-link text-[15.5px] font-medium text-ivory">
+                      Read the case study
+                    </Link>
+                    {p.artifacts.filter((a) => a.href && a.href.startsWith("http")).slice(0, 1).map((a) => (
+                      <a key={a.href} href={a.href} rel="noopener noreferrer" className="ink-link text-[15.5px] text-ivory-2">
+                        {a.label} ↗
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                <Figure n={`1.${i + 1}`} caption={p.figureCaption} className="self-start">
+                  <ProjectFigure kind={p.figure} />
+                </Figure>
+              </article>
             ))}
           </div>
-        </div>
+        </section>
 
-        {/* ───────────── About ───────────── */}
-        <section className="mx-auto max-w-[1240px] px-4 py-24 sm:px-8 sm:py-32">
-          <Reveal>
-            <Eyebrow index="00">About</Eyebrow>
-          </Reveal>
-          <div className="mt-8 grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:gap-16">
-            <Reveal delay={0.05}>
-              <p className="font-display text-[clamp(26px,3.4vw,46px)] leading-[1.12] tracking-tight">
-                Networks are one of the few systems you can{" "}
-                <span className="text-cyan-300">watch fail in real time.</span> I trace problems down to the layer
-                underneath, then build there.
-              </p>
-            </Reveal>
-            <Reveal delay={0.15}>
-              <div className="space-y-5 text-[16.5px] leading-relaxed text-text-2">
-                {person.intro.map((p) => (
-                  <p key={p}>{p}</p>
-                ))}
+        {/* ── § 2 How I think ── */}
+        <section id="thinking" aria-labelledby="thinking-label" className="scroll-mt-16 border-y border-ivory/10 bg-ink-2/50">
+          <div className="mx-auto max-w-[1200px] px-5 py-20 sm:px-8 sm:py-28">
+            <SectionHead id="thinking" n="2" label="How I think" title={<>A decision is a constraint, <em className="italic text-ivory-2">a tradeoff and a cost.</em></>}>
+              I keep a decision log. Here is one entry in full, from my thesis, and two shorter ones from other projects.
+            </SectionHead>
+
+            <article aria-labelledby="dec-main" className="mt-14 grid gap-10 rounded-md border border-ivory/10 bg-ink p-6 sm:p-10 lg:grid-cols-[1fr_1.1fr]">
+              <div>
+                <p className="note">Decision · {getProject(featuredDecision.project)?.title}</p>
+                <h3 id="dec-main" className="display mt-3 text-[clamp(28px,3.4vw,40px)] leading-[1.08]">{featuredDecision.title}</h3>
+                <p className="pretty mt-5 text-[16.5px] leading-relaxed text-ivory-2">{featuredDecision.context}</p>
+                <p className="note mt-8">Source</p>
+                <p className="mt-1 text-[14px] text-ivory-3">{featuredDecision.source}</p>
               </div>
-            </Reveal>
+              <div className="space-y-6">
+                <div>
+                  <p className="note">Options considered</p>
+                  <ul className="mt-3 grid gap-3 sm:grid-cols-2">
+                    {featuredDecision.options.map((o) => (
+                      <li key={o.name} className="rounded border border-ivory/10 p-4">
+                        <span className="block text-[15px] font-medium text-ivory">{o.name}</span>
+                        <span className="mt-1.5 block text-[14.5px] leading-relaxed text-ivory-2">{o.tradeoff}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="border-l-2 border-ochre pl-4">
+                  <p className="note text-ochre-2">Chose</p>
+                  <p className="mt-1 text-[17px] text-ivory">{featuredDecision.choice}</p>
+                  <p className="pretty mt-2 text-[15.5px] leading-relaxed text-ivory-2">{featuredDecision.why}</p>
+                </div>
+                <div>
+                  <p className="note">What it costs</p>
+                  <p className="pretty mt-1 text-[15.5px] leading-relaxed text-ivory-2">{featuredDecision.cost}</p>
+                </div>
+              </div>
+            </article>
+
+            <ul className="mt-6 grid gap-6 md:grid-cols-2">
+              {otherDecisions.map((d) => {
+                const p = getProject(d.project);
+                return (
+                  <li key={d.id} className="rounded-md border border-ivory/10 p-6">
+                    <p className="note">Decision · {p?.title}</p>
+                    <h3 className="display mt-2 text-[24px] leading-snug">{d.title}</h3>
+                    <p className="pretty mt-3 text-[15px] leading-relaxed text-ivory-2">
+                      <span className="text-ivory">Chose:</span> {d.choice}
+                    </p>
+                    <p className="pretty mt-2 text-[15px] leading-relaxed text-ivory-2">
+                      <span className="text-ivory">Cost:</span> {d.cost}
+                    </p>
+                    {p && (
+                      <Link href={`/work/${p.slug}/`} className="ink-link mt-4 inline-block text-[14.5px] text-ivory">
+                        In context: {p.title}
+                      </Link>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         </section>
 
-        {/* ───────────── Selected work ───────────── */}
-        <section id="work" className="scroll-mt-16 mx-auto max-w-[1240px] px-4 pb-24 sm:px-8 sm:pb-32">
-          <Reveal>
-            <Eyebrow index="01">Selected work</Eyebrow>
-            <h2 className="mt-6 max-w-[900px] font-display text-[clamp(36px,5.6vw,80px)] font-semibold leading-[0.98] tracking-[-0.03em]">
-              Three systems. <span className="text-text-2">What I built, and what&apos;s still open.</span>
-            </h2>
-          </Reveal>
+        {/* ── § 3 Research and current questions ── */}
+        <section id="research" aria-labelledby="research-label" className="scroll-mt-16 mx-auto max-w-[1200px] px-5 py-20 sm:px-8 sm:py-28">
+          <SectionHead id="research" n="3" label="Research" title={<>Open questions, <em className="italic text-ivory-2">kept separate from answers.</em></>}>
+            What exists today is listed apart from what is planned. Nothing below is a published result.
+          </SectionHead>
 
           <div className="mt-14 space-y-6">
-            {caseStudies.map((cs, i) => (
-              <Reveal key={cs.slug} delay={0.05}>
-                <Link href={`/work/${cs.slug}/`} className="block rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300">
-                  <SpotlightCard>
-                    <div className={`grid items-stretch lg:grid-cols-2 ${i % 2 ? "lg:[&>*:first-child]:order-2" : ""}`}>
-                      <div className="flex flex-col p-7 sm:p-10">
-                        <div className="flex items-center justify-between gap-3">
-                          <span className="font-mono text-[13px] text-cyan-300">0{i + 1}</span>
-                          <StatusPill status={cs.status} />
-                        </div>
-                        <h3 className="mt-8 font-display text-[clamp(32px,4vw,52px)] font-semibold leading-none tracking-[-0.03em]">
-                          {cs.title}
-                        </h3>
-                        <p className="mt-3 text-[15px] text-text-2">{cs.context}</p>
-                        <p className="mt-6 max-w-[520px] text-[17px] leading-relaxed text-text/90">{cs.summary}</p>
-                        <ul className="mt-6 flex flex-wrap gap-2">
-                          {cs.tags.slice(0, 4).map((t) => (
-                            <li key={t} className="rounded-full border border-white/10 px-3 py-1 text-[12.5px] text-text-2">
-                              {t}
-                            </li>
-                          ))}
-                        </ul>
-                        <span className="mt-auto inline-flex items-center gap-2 pt-10 text-[15px] font-medium text-cyan-200">
-                          Read the case study
-                          <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-1.5">→</span>
-                        </span>
-                      </div>
-                      <div className="relative min-h-[260px] border-t border-white/[0.06] bg-[radial-gradient(ellipse_at_center,rgba(79,140,255,0.10),transparent_70%)] p-6 lg:border-l lg:border-t-0">
-                        <WorkVisual slug={cs.slug} />
-                      </div>
+            {researchSlugs.map((slug) => {
+              const p = projects.find((x) => x.slug === slug)!;
+              const done = p.contributions.filter((c) => c.startsWith("Done:")).map((c) => cap(c.replace(/^Done:\s*/, "")));
+              const current = p.contributions.filter((c) => c.startsWith("Current:")).map((c) => cap(c.replace(/^Current:\s*/, "")));
+              const exists = done.length ? done : p.contributions.slice(0, 2);
+              return (
+                <article key={slug} aria-labelledby={`r-${slug}`} className="rounded-md border border-ivory/10 p-6 sm:p-8">
+                  <div className="flex flex-wrap items-start justify-between gap-4">
+                    <div className="min-w-0">
+                      <p className="note">{p.organization}</p>
+                      <h3 id={`r-${slug}`} className="display mt-2 text-[clamp(26px,3.2vw,38px)] leading-[1.05]">
+                        <Link href={`/work/${slug}/`} className="hover:text-ochre-2">{p.title}</Link>
+                      </h3>
                     </div>
-                  </SpotlightCard>
-                </Link>
-              </Reveal>
-            ))}
+                    <Stamp status={p.status} />
+                  </div>
+                  <p className="pretty mt-4 max-w-[760px] text-[17px] leading-relaxed text-ivory">{p.problem.split(". ").slice(0, 2).join(". ").replace(/\.?$/, ".")}</p>
+
+                  <div className="mt-7 grid gap-6 md:grid-cols-3">
+                    <div>
+                      <p className="note"><span aria-hidden className="text-moss">●</span> Exists now</p>
+                      <ul className="mt-2 space-y-2 text-[14.5px] leading-relaxed text-ivory-2">
+                        {exists.map((c) => <li key={c}>{c}</li>)}
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="note"><span aria-hidden className="text-ochre">◐</span> Working on</p>
+                      <ul className="mt-2 space-y-2 text-[14.5px] leading-relaxed text-ivory-2">
+                        {(current.length ? current : [p.limitations?.[0] ?? ""]).filter(Boolean).map((c) => <li key={c}>{c}</li>)}
+                      </ul>
+                    </div>
+                    <div>
+                      <p className="note"><span aria-hidden>○</span> Next, planned</p>
+                      <p className="mt-2 text-[14.5px] leading-relaxed text-ivory-2">{cap(p.next?.replace(/^Planned:\s*/, "") ?? "")}</p>
+                    </div>
+                  </div>
+                  <Link href={`/work/${slug}/`} className="ink-link mt-6 inline-block text-[15px] text-ivory">
+                    Details, limits and artifacts
+                  </Link>
+                </article>
+              );
+            })}
           </div>
         </section>
 
-        {/* ───────────── Proof ───────────── */}
-        <section className="relative overflow-hidden border-y border-white/[0.07] py-24 sm:py-32">
-          <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_70%_50%,rgba(103,232,249,0.08),transparent_60%)]" />
-          <div className="relative mx-auto grid max-w-[1240px] gap-12 px-4 sm:px-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-            <Reveal>
-              <Eyebrow index="02">Proof, not percentages</Eyebrow>
-              <h2 className="mt-6 font-display text-[clamp(34px,4.6vw,64px)] font-semibold leading-[1] tracking-[-0.03em]">
-                Every claim points at something you can check.
-              </h2>
-              <p className="mt-6 max-w-[480px] text-[16.5px] leading-relaxed text-text-2">
-                No skill bars here. This is a real iterative DNS resolution I traced with dig and tshark: root, then
-                TLD, then authoritative, four hops in total. My first capture missed a hop, and finding out why was
-                the useful part.
-              </p>
-              <div className="mt-8 grid max-w-[460px] grid-cols-4 gap-2 font-mono text-[11px]">
-                {[
-                  { k: "local", ms: 12 },
-                  { k: "root", ms: 34 },
-                  { k: ".com", ms: 28 },
-                  { k: "auth", ms: 18 },
-                ].map((h) => (
-                  <div key={h.k} className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
-                    <div className="text-text-2">{h.k}</div>
-                    <div className="mt-1 text-[18px] text-cyan-200">{h.ms}<span className="text-[11px] text-text-2"> ms</span></div>
-                    <div className="mt-2 h-1 rounded-full bg-white/5">
-                      <div className="h-full rounded-full bg-gradient-to-r from-cyan-300 to-blue" style={{ width: `${(h.ms / 34) * 100}%` }} />
-                    </div>
+        {/* ── § 4 Experience ── */}
+        <section id="experience" aria-labelledby="experience-label" className="scroll-mt-16 border-t border-ivory/10">
+          <div className="mx-auto max-w-[1200px] px-5 py-20 sm:px-8 sm:py-28">
+            <SectionHead id="experience" n="4" label="Experience" title={<>The route so far.</>} />
+            <ol className="mt-12 border-t border-ivory/10">
+              {[...timeline].sort((a, b) => b.sort.localeCompare(a.sort)).map((t) => (
+                <li key={t.title + t.org} className="grid gap-1 border-b border-ivory/10 py-6 md:grid-cols-[180px_1fr_120px] md:gap-10">
+                  <p className="font-mono text-[13px] text-ivory-3 md:pt-1">{t.date}</p>
+                  <div className="min-w-0">
+                    <h3 className="text-[18.5px] font-medium text-ivory">
+                      {t.href ? (
+                        t.href.startsWith("http") ? (
+                          <a href={t.href} rel="noopener noreferrer" className="hover:text-ochre-2">{t.title} <span aria-hidden className="text-ochre">↗</span></a>
+                        ) : (
+                          <Link href={t.href} className="hover:text-ochre-2">{t.title} <span aria-hidden className="text-ochre">→</span></Link>
+                        )
+                      ) : (
+                        t.title
+                      )}
+                    </h3>
+                    <p className="mt-0.5 text-[14.5px] text-ivory-3">{t.org}</p>
+                    <p className="pretty mt-2 max-w-[640px] text-[15.5px] leading-relaxed text-ivory-2">{t.body}</p>
                   </div>
+                  <p className="note md:pt-1.5 md:text-right">{t.kind}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* ── § 5 About and contact ── */}
+        <section id="about" aria-labelledby="about-label" className="scroll-mt-16 border-t border-ivory/10 bg-ink-2/50">
+          <div className="mx-auto grid max-w-[1200px] gap-12 px-5 py-20 sm:px-8 sm:py-28 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
+            <div>
+              <p className="note" id="about-label">§ 5 · About</p>
+              <div className="pretty mt-6 space-y-5 text-[17.5px] leading-relaxed text-ivory-2 [&>p:first-child]:text-ivory">
+                {person.about.map((p) => <p key={p}>{p}</p>)}
+              </div>
+              <p className="note mt-10">Interested in</p>
+              <ul className="mt-3 flex flex-wrap gap-2">
+                {person.interests.map((i) => (
+                  <li key={i} className="rounded-full border border-ivory/15 px-3.5 py-1.5 text-[14px] text-ivory-2">{i}</li>
                 ))}
-              </div>
-              <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
-                <TextLink link={{ label: "Open the evidence record", href: "/evidence/" }} />
-                <TextLink link={{ label: "How DEVAN works", href: "/work/devan/" }} />
-              </div>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <TraceReplay command="dig +trace example.com" lines={traceLines} />
-              <p className="mt-3 font-mono text-[11px] text-text-2/70">Replayed from the recorded run of 7 Aug 2026.</p>
-            </Reveal>
-          </div>
-        </section>
+              </ul>
+            </div>
 
-        {/* ───────────── Research & venture ───────────── */}
-        <section id="research" className="scroll-mt-16 mx-auto max-w-[1240px] px-4 py-24 sm:px-8 sm:py-32">
-          <div className="grid gap-14 lg:grid-cols-[320px_1fr]">
-            <Reveal>
-              <Eyebrow index="03">Research</Eyebrow>
-              <h2 className="mt-6 font-display text-[40px] font-semibold leading-none tracking-[-0.03em]">Open questions I&apos;m working on.</h2>
-            </Reveal>
-            <Rows items={research} />
-          </div>
-          <div className="mt-24 grid gap-14 lg:grid-cols-[320px_1fr]">
-            <Reveal>
-              <Eyebrow index="04">Venture</Eyebrow>
-              <h2 className="mt-6 font-display text-[40px] font-semibold leading-none tracking-[-0.03em]">Building from zero.</h2>
-            </Reveal>
-            <Rows items={ventures} />
-          </div>
-        </section>
-
-        {/* ───────────── Experience ───────────── */}
-        <section id="experience" className="scroll-mt-16 mx-auto max-w-[1240px] px-4 pb-24 sm:px-8 sm:pb-32">
-          <div className="grid gap-14 lg:grid-cols-[320px_1fr]">
-            <Reveal>
-              <Eyebrow index="05">Experience</Eyebrow>
-              <h2 className="mt-6 font-display text-[40px] font-semibold leading-none tracking-[-0.03em]">Where I&apos;m putting the hours.</h2>
-            </Reveal>
-            <Rows items={experience} />
-          </div>
-          <div className="mt-24 grid gap-14 lg:grid-cols-[320px_1fr]">
-            <Reveal>
-              <Eyebrow index="06">More</Eyebrow>
-              <h2 className="mt-6 font-display text-[40px] font-semibold leading-none tracking-[-0.03em]">Shipped, submitted, spoken.</h2>
-            </Reveal>
-            <Rows items={[...otherWork, ...talks]} />
-          </div>
-        </section>
-
-        {/* ───────────── DEVAN portal ───────────── */}
-        <section className="mx-auto max-w-[1240px] px-4 pb-24 sm:px-8 sm:pb-32">
-          <Reveal>
-            <Link href="/devan/" className="group block rounded-[28px] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300">
-              <SpotlightCard className="rounded-[28px]">
-                <div className="relative grid gap-8 overflow-hidden p-8 sm:p-14 lg:grid-cols-[1fr_auto] lg:items-end">
-                  <div aria-hidden className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-[conic-gradient(from_180deg,rgba(103,232,249,0.25),rgba(167,139,250,0.2),rgba(79,140,255,0.25),rgba(103,232,249,0.25))] blur-3xl transition-transform duration-700 group-hover:scale-125" />
-                  <div className="relative">
-                    <Eyebrow index="07">Go deeper</Eyebrow>
-                    <h2 className="mt-6 font-display text-[clamp(40px,6vw,88px)] font-semibold leading-[0.95] tracking-[-0.04em]">
-                      Enter <span className="sheen">DEVAN</span>
-                    </h2>
-                    <p className="mt-5 max-w-[560px] text-[16.5px] leading-relaxed text-text-2">
-                      My engineering workspace underneath this site: concepts I&apos;ve studied, experiments I&apos;ve run
-                      and the raw evidence behind them, linked as a graph.
-                    </p>
-                  </div>
-                  <span className="relative inline-flex h-20 w-20 items-center justify-center rounded-full border border-white/15 text-[28px] transition-all duration-500 group-hover:rotate-[-45deg] group-hover:border-cyan-300 group-hover:bg-cyan-300 group-hover:text-bg">
-                    →
-                  </span>
-                </div>
-              </SpotlightCard>
-            </Link>
-          </Reveal>
-        </section>
-
-        {/* ───────────── Contact ───────────── */}
-        <section id="contact" className="scroll-mt-16 relative overflow-hidden border-t border-white/[0.07]">
-          <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-[60%] bg-[radial-gradient(ellipse_at_bottom,rgba(79,140,255,0.18),transparent_70%)]" />
-          <div className="relative mx-auto max-w-[1240px] px-4 py-28 sm:px-8 sm:py-40">
-            <Reveal>
-              <Eyebrow index="08">Contact</Eyebrow>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <h2 className="mt-8 font-display text-[clamp(44px,8vw,128px)] font-semibold leading-[0.92] tracking-[-0.045em]">
-                Let&apos;s build something
-                <br />
-                <span className="sheen">that holds up.</span>
-              </h2>
-            </Reveal>
-            <Reveal delay={0.15}>
-              <p className="mt-8 max-w-[560px] text-[17px] leading-relaxed text-text-2">
-                Networking, infrastructure, web products or space sector tooling: if there&apos;s an overlap, write to me.
-              </p>
-              <a
-                href={`mailto:${person.email}`}
-                className="link-underline mt-10 inline-block break-all font-display text-[clamp(26px,4.4vw,60px)] font-medium tracking-tight text-cyan-200"
-              >
+            <div id="contact" className="scroll-mt-20 lg:border-l lg:border-ivory/10 lg:pl-12">
+              <p className="note">§ 6 · Contact</p>
+              <h2 className="display mt-5 text-[clamp(34px,4.4vw,52px)] leading-[1.04]">Working on something that should hold up? <em className="italic text-ochre-2">Write to me.</em></h2>
+              <a href={`mailto:${person.email}`} className="ink-link mt-8 inline-block break-all text-[clamp(20px,2.4vw,26px)] text-ivory">
                 {person.email}
               </a>
-              <div className="mt-10 flex flex-wrap gap-3">
+              <ul className="mt-8 divide-y divide-ivory/10 border-y border-ivory/10">
                 {[
-                  { label: "LinkedIn", href: person.linkedin },
-                  { label: "GitHub", href: person.github },
+                  { l: "LinkedIn", h: person.linkedin, d: "ujwalshyam kantimohanthy" },
+                  { l: "GitHub", h: person.github, d: "kantimohanthy" },
                 ].map((s) => (
-                  <Magnetic key={s.label}>
-                    <a
-                      href={s.href}
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-[15px] transition hover:border-cyan-300/60 hover:text-cyan-100"
-                    >
-                      {s.label} <span aria-hidden>↗</span>
+                  <li key={s.l}>
+                    <a href={s.h} rel="noopener noreferrer" className="group flex min-h-12 items-center justify-between py-3 text-[15.5px]">
+                      <span className="text-ivory group-hover:text-ochre-2">{s.l}</span>
+                      <span className="text-ivory-3">{s.d} ↗</span>
                     </a>
-                  </Magnetic>
+                  </li>
                 ))}
+              </ul>
+              <div className="mt-10 rounded-md border border-ivory/10 p-5">
+                <p className="note">Another way in</p>
+                <p className="pretty mt-2 text-[15px] leading-relaxed text-ivory-2">
+                  The same work, arranged as missions on a map. Or open DEVAN, the evidence graph behind this site.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+                  <Link href="/map/" className="ink-link text-[15px] text-ivory">Explore the map</Link>
+                  <Link href="/devan/" className="ink-link text-[15px] text-ivory">Open DEVAN</Link>
+                </div>
               </div>
-            </Reveal>
+            </div>
           </div>
         </section>
       </main>

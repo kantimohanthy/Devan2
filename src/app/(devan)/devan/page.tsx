@@ -68,7 +68,16 @@ export default function HomePage() {
               The concepts, experiments and evidence behind Ujwal&apos;s work. On static hosting these counts come from the seeded graph, not a live database.
             </p>
           </div>
-          <DensityToggle />
+          <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new Event("devan:tour"))}
+              className="rounded-md border border-[#20252B] px-3 py-1.5 font-mono text-[11px] text-[#8A9098] hover:text-[#F5F5F5]"
+            >
+              Take the tour
+            </button>
+            <DensityToggle />
+          </div>
         </div>
 
         {/* Hero Flagship Visualization */}

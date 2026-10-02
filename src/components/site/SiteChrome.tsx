@@ -1,41 +1,51 @@
 import Link from "next/link";
+import { MobileMenu } from "./MobileMenu";
 import type { ReactNode } from "react";
-import { person, type LinkRef, type Status, type ListItem } from "@/data/portfolio";
+import { person, LAST_REVIEWED, formatMonth, type Artifact, type Status } from "@/data/portfolio";
 
-const navLinks = [
+const nav = [
   { label: "Work", href: "/#work" },
   { label: "Research", href: "/#research" },
-  { label: "Experience", href: "/#experience" },
+  { label: "About", href: "/#about" },
   { label: "Contact", href: "/#contact" },
 ];
 
+export function SkipLink() {
+  return (
+    <a
+      href="#main"
+      className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-3 focus:z-[70] focus:rounded focus:bg-ink-3 focus:px-3 focus:py-2 focus:text-ivory"
+    >
+      Skip to content
+    </a>
+  );
+}
+
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-40 border-b border-white/[0.06] bg-[#0a0b0d]/60 backdrop-blur-xl backdrop-saturate-150">
-      <div className="mx-auto flex h-14 max-w-[1240px] items-center justify-between px-4 sm:px-8">
-        <Link href="/" className="flex items-center gap-2.5 rounded focus-visible:outline-2 focus-visible:outline-blue">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full border border-cyan-300/40 bg-gradient-to-br from-cyan-300/20 to-violet-400/20 font-mono text-[11px] font-bold text-cyan-200">
-            {person.handle}
+    <header className="sticky top-0 z-40 border-b border-ivory/10 bg-ink/90 backdrop-blur-sm">
+      <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between gap-4 px-5 sm:px-8">
+        <Link href="/" className="group flex min-w-0 items-baseline gap-3">
+          <span className="display text-[17px] font-medium leading-tight tracking-tight text-ivory sm:text-[19px]">
+            {person.name}
           </span>
-          <span className="font-display text-[16px] font-semibold tracking-tight">{person.name}</span>
         </Link>
-        <nav aria-label="Primary" className="flex items-center gap-1 text-[14px]">
-          {navLinks.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="hidden rounded px-2.5 py-1.5 text-text-2 hover:text-text md:inline-block"
-            >
+
+        <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
+          {nav.map((l) => (
+            <a key={l.href} href={l.href} className="rounded px-3 py-2 text-[14.5px] text-ivory-2 transition-colors hover:text-ivory">
               {l.label}
             </a>
           ))}
           <Link
-            href="/devan/"
-            className="ml-1 rounded-full border border-white/15 px-4 py-1.5 text-text-2 transition hover:border-cyan-300/60 hover:text-cyan-100"
+            href="/map/"
+            className="ml-3 inline-flex items-center gap-2 rounded-full border border-ivory/20 px-4 py-2 text-[14px] text-ivory-2 transition-colors hover:border-ochre hover:text-ivory"
           >
-            Explore DEVAN
+            <span aria-hidden className="text-ochre">◇</span> Explore the map
           </Link>
         </nav>
+
+        <MobileMenu items={nav} />
       </div>
     </header>
   );
@@ -43,104 +53,95 @@ export function SiteHeader() {
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-white/[0.07]">
-      <div className="mx-auto flex max-w-[1240px] flex-col gap-3 px-4 py-8 text-[13px] text-text-2 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+    <footer className="border-t border-ivory/10">
+      <div className="mx-auto flex max-w-[1200px] flex-col gap-4 px-5 py-10 text-[13.5px] text-ivory-3 sm:flex-row sm:items-center sm:justify-between sm:px-8">
         <p>
-          © {new Date().getFullYear()} {person.fullName} · Content updated {person.updated}
+          {person.name} · Content last reviewed {formatMonth(LAST_REVIEWED)}
         </p>
-        <div className="flex gap-4">
-          <a href={`mailto:${person.email}`} className="hover:text-text">Email</a>
-          <a href={person.linkedin} className="hover:text-text" rel="noopener noreferrer">LinkedIn</a>
-          <a href={person.github} className="hover:text-text" rel="noopener noreferrer">GitHub</a>
-          <Link href="/devan/" className="hover:text-text">DEVAN</Link>
+        <div className="flex flex-wrap gap-x-5 gap-y-2">
+          <a href={`mailto:${person.email}`} className="hover:text-ivory">Email</a>
+          <a href={person.linkedin} rel="noopener noreferrer" className="hover:text-ivory">LinkedIn</a>
+          <a href={person.github} rel="noopener noreferrer" className="hover:text-ivory">GitHub</a>
+          <Link href="/map/" className="hover:text-ivory">Map</Link>
+          <Link href="/devan/" className="hover:text-ivory">DEVAN</Link>
         </div>
       </div>
     </footer>
   );
 }
 
-const statusStyle: Record<Status, string> = {
-  Ongoing: "border-blue/40 text-blue",
-  "Early stage": "border-amber/40 text-amber",
-  Shipped: "border-green/40 text-green",
-  Completed: "border-green/40 text-green",
-  Submitted: "border-border text-text-2",
+const stampTone: Record<Status, string> = {
+  "In progress": "text-ochre-2",
+  "Draft under review": "text-ochre-2",
+  Submitted: "text-moss",
+  Completed: "text-moss",
+  "Early stage": "text-ivory-2",
+  "Ongoing role": "text-ivory-2",
+};
+const stampGlyph: Record<Status, string> = {
+  "In progress": "◐",
+  "Draft under review": "◐",
+  Submitted: "●",
+  Completed: "●",
+  "Early stage": "○",
+  "Ongoing role": "◐",
 };
 
-export function StatusPill({ status }: { status: Status }) {
+/** Status shown as a word and a glyph, so it reads without colour. */
+export function Stamp({ status }: { status: Status }) {
   return (
-    <span className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[12px] font-medium ${statusStyle[status]}`}>
+    <span className={`stamp ${stampTone[status]}`}>
+      <span aria-hidden>{stampGlyph[status]}</span>
       {status}
     </span>
   );
 }
 
-export function TextLink({ link }: { link: LinkRef }) {
-  const cls =
-    "inline-flex items-center gap-1 text-[14px] font-medium text-blue underline-offset-4 hover:underline";
-  if (link.external) {
-    return (
-      <a href={link.href} className={cls} rel="noopener noreferrer">
-        {link.label} <span aria-hidden>↗</span>
-      </a>
-    );
-  }
-  return (
-    <Link href={link.href} className={cls}>
-      {link.label} <span aria-hidden>→</span>
+export function ArtifactLink({ a }: { a: Artifact }) {
+  const meta = [a.type, a.date ? formatMonth(a.date) : null, a.note].filter(Boolean).join(" · ");
+  const inner = (
+    <>
+      <span className="block text-[15.5px] text-ivory group-hover:text-ochre-2">
+        {a.label}
+        {a.href && <span aria-hidden className="ml-1.5 text-ochre">{a.href.startsWith("http") ? "↗" : "→"}</span>}
+      </span>
+      <span className="note mt-0.5 block normal-case tracking-normal">{meta}</span>
+    </>
+  );
+  if (!a.href) return <div className="py-2.5">{inner}</div>;
+  const external = a.href.startsWith("http");
+  return external ? (
+    <a href={a.href} rel="noopener noreferrer" className="group block py-2.5">
+      {inner}
+    </a>
+  ) : (
+    <Link href={a.href} className="group block py-2.5">
+      {inner}
     </Link>
   );
 }
 
-export function Section({
-  id,
-  label,
-  title,
-  children,
-}: {
-  id: string;
-  label: string;
-  title?: string;
-  children: ReactNode;
-}) {
+export function SectionHead({ id, n, label, title, children }: { id: string; n: string; label: string; title: ReactNode; children?: ReactNode }) {
   return (
-    <section id={id} aria-labelledby={`${id}-label`} className="scroll-mt-20 border-t border-border py-14 sm:py-16">
-      <div className="grid gap-6 md:grid-cols-[200px_1fr] md:gap-10">
-        <div>
-          <h2 id={`${id}-label`} className="font-mono text-[12px] uppercase tracking-[0.12em] text-text-2">
-            {label}
-          </h2>
-          {title && <p className="mt-2 text-[15px] leading-snug text-text-2 md:max-w-[180px]">{title}</p>}
-        </div>
-        <div className="min-w-0">{children}</div>
+    <div className="grid gap-4 md:grid-cols-[180px_1fr] md:gap-10">
+      <p className="note pt-3" id={`${id}-label`}>
+        § {n} · {label}
+      </p>
+      <div>
+        <h2 className="display text-[clamp(34px,5vw,60px)] font-normal leading-[1.02]">{title}</h2>
+        {children && <div className="pretty mt-5 max-w-[640px] text-[17px] leading-relaxed text-ivory-2">{children}</div>}
       </div>
-    </section>
+    </div>
   );
 }
 
-export function ItemList({ items }: { items: ListItem[] }) {
+export function Figure({ n, caption, children, className = "" }: { n: string; caption: string; children: ReactNode; className?: string }) {
   return (
-    <ul className="divide-y divide-border">
-      {items.map((item) => (
-        <li key={item.title + item.context} className="py-5 first:pt-0 last:pb-0">
-          <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-            <h3 className="text-[17px] font-semibold tracking-tight">{item.title}</h3>
-            <div className="flex items-center gap-2 text-[13px] text-text-2">
-              {item.period && <span>{item.period}</span>}
-              {item.status && <StatusPill status={item.status} />}
-            </div>
-          </div>
-          <p className="mt-0.5 text-[14px] text-text-2">{item.context}</p>
-          <p className="mt-2 max-w-[640px] text-[15px] leading-relaxed text-text/90">{item.body}</p>
-          {item.links && item.links.length > 0 && (
-            <div className="mt-2.5 flex flex-wrap gap-x-5 gap-y-1">
-              {item.links.map((l) => (
-                <TextLink key={l.href} link={l} />
-              ))}
-            </div>
-          )}
-        </li>
-      ))}
-    </ul>
+    <figure className={`rounded-md border border-ivory/10 bg-ink-2/60 p-4 sm:p-5 ${className}`}>
+      {children}
+      <figcaption className="mt-3 border-t border-ivory/10 pt-3 text-[13px] leading-snug text-ivory-3">
+        <span className="font-mono text-[11.5px] uppercase tracking-[0.08em] text-ivory-2">Fig. {n}</span> · {caption}
+      </figcaption>
+    </figure>
   );
 }
