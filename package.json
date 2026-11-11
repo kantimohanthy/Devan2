@@ -8,11 +8,12 @@
     "start": "next start",
     "lint": "eslint",
     "sync:github": "node scripts/sync-github.mjs",
+    "generate:og": "node scripts/generate-og.mjs",
     "build:embeddings": "npx tsx scripts/build-embeddings.mjs",
     "seed": "npx tsx scripts/seed.ts",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prebuild": "npm run sync:github",
+    "prebuild": "npm run sync:github && npm run generate:og",
     "postinstall": "prisma generate"
   },
   "dependencies": {

@@ -36,14 +36,18 @@ jobs:
       - name: Generate Prisma Client
         run: npx prisma generate
 
-      - name: Run Test Suite
-        run: npm test
-
       - name: Clean build directories
         run: rm -rf .next out
 
       - name: Build Next.js Static Export
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
         run: npm run build
+
+      - name: Verify CNAME and static routes + Run Test Suite
+        run: npm test
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
