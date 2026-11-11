@@ -40,8 +40,8 @@ export function BottomDock() {
   return (
     <div className="border-t border-[#20252B] bg-[#0A0B0D]/95 font-mono text-xs shrink-0 select-none">
       {/* Dock Bar Header */}
-      <div className="flex items-center justify-between border-b border-[#20252B] px-4 py-1.5 h-8">
-        <div className="flex items-center gap-1">
+      <div className="flex items-center justify-between gap-2 border-b border-[#20252B] px-3 py-1.5 min-h-9 overflow-x-auto">
+        <div className="flex items-center gap-1 shrink-0">
           {tabs.map(({ id, icon: Icon }) => (
             <button
               key={id}

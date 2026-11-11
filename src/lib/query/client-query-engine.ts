@@ -48,6 +48,20 @@ const FALLBACK_EVIDENCE_LIST: EvidenceEntity[] = [
 
 export class ClientQueryEngine {
   private async safeFetchJson<T>(url: string, fallbackData: T): Promise<QueryResult<T>> {
+    // Skip browser API requests on static export (GitHub Pages) to avoid 404 console errors
+    if (typeof window !== "undefined" && process.env.NEXT_PUBLIC_RUNTIME_API !== "true") {
+      return {
+        data: fallbackData,
+        metadata: {
+          sourceEngines: ["StaticSnapshotFallback"],
+          executionTimeMs: 1,
+          evidenceCount: 1,
+          ontologyNodes: 5,
+          confidence: 100,
+          cacheStatus: "HIT",
+        },
+      };
+    }
     try {
       const res = await fetch(url);
       if (res.ok) {
@@ -91,7 +105,7 @@ export class ClientQueryEngine {
       id: id || "networking.dns",
       title: id === "networking.tcp" ? "TCP (Transmission Control Protocol)" : "DNS (Domain Name System)",
       summary: id === "networking.tcp"
-        ? "Reliable connection-oriented transport layer protocol (RFC 793) implementing 3-way handshake."
+        ? "Reliable connection-oriented transport layer protocol (RFC 9293) implementing 3-way handshake."
         : "Hierarchical distributed database system (RFC 1035) translating human domains to IP addresses via UDP/53.",
     });
   }
@@ -103,7 +117,7 @@ export class ClientQueryEngine {
       title: conceptId === "networking.tcp" ? "TCP (Transmission Control Protocol)" : "DNS (Domain Name System)",
       domain: "Networking",
       summary: conceptId === "networking.tcp"
-        ? "Reliable connection-oriented transport layer protocol (RFC 793) implementing 3-way handshake and congestion control."
+        ? "Reliable connection-oriented transport layer protocol (RFC 9293) implementing 3-way handshake and congestion control."
         : "Hierarchical distributed database system (RFC 1035) translating human domains to IP addresses via UDP/53.",
     };
 

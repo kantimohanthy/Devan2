@@ -49,9 +49,9 @@ export default function HomePage() {
   };
 
   return (
-    <div className="flex h-full gap-6">
+    <div className="flex flex-col lg:flex-row gap-6 min-w-0">
       {/* Main Control Center Workspace */}
-      <div className="flex-1 space-y-5">
+      <div className="flex-1 min-w-0 space-y-5">
         <KnowledgeBreadcrumbs
           items={[
             { label: "DEVAN" },
@@ -59,16 +59,16 @@ export default function HomePage() {
           ]}
         />
 
-        <div className="flex items-center justify-between">
-          <div>
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="min-w-0">
             <h1 className="text-2xl font-bold text-[#F5F5F5] font-mono flex items-center gap-2">
-              <Activity className="h-6 w-6 text-[#4F8CFF]" /> DEVAN overview
+              <Activity className="h-6 w-6 text-[#4F8CFF] shrink-0" /> DEVAN overview
             </h1>
             <p className="text-xs text-[#8A9098] font-mono">
               The concepts, experiments and evidence behind Ujwal&apos;s work. On static hosting these counts come from the seeded graph, not a live database.
             </p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
               onClick={() => window.dispatchEvent(new Event("devan:tour"))}
@@ -98,8 +98,8 @@ export default function HomePage() {
             <div className="text-xl font-bold text-amber-400">{systemMetrics.totalEvidenceArtifacts}</div>
           </div>
           <div className="rounded-xl border border-[#20252B] bg-[#0A0B0D] p-4 space-y-1">
-            <span className="text-[10px] text-[#8A9098] uppercase">Tests Passing</span>
-            <div className="text-xl font-bold text-emerald-400">{systemMetrics.testAssertionsPassing} assertions</div>
+            <span className="text-[10px] text-[#8A9098] uppercase">Devan2 Suite</span>
+            <div className="text-xl font-bold text-emerald-400">CI test-gated</div>
           </div>
         </div>
 
@@ -108,8 +108,8 @@ export default function HomePage() {
           <span className="font-semibold text-[#8A9098] uppercase tracking-wider text-[10px] flex items-center gap-1.5">
             <Target className="h-3.5 w-3.5 text-cyan-400" /> Current research
           </span>
-          <div className="flex items-center justify-between border-t border-[#20252B] pt-3">
-            <div>
+          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[#20252B] pt-3">
+            <div className="min-w-0">
               <h3 className="text-base font-bold text-[#F5F5F5]">{currentMission.title}</h3>
               <p className="text-[11px] text-[#8A9098]">{currentMission.objective}</p>
             </div>
@@ -131,7 +131,7 @@ export default function HomePage() {
               status: "TESTED",
               evidenceCount: 4,
               tags: ["Networking", "RFC 1035", "UDP/53"],
-              href: "/knowledge/networking.dns",
+              href: "/knowledge/dns/",
             }}
           />
           <UniversalObjectCard
@@ -142,8 +142,8 @@ export default function HomePage() {
               subtitle: "3-way handshake, congestion control, seq/ack windowing",
               status: "STUDIED",
               evidenceCount: 3,
-              tags: ["Networking", "RFC 793", "POSIX Sockets"],
-              href: "/knowledge/networking.tcp",
+              tags: ["Networking", "RFC 9293", "POSIX Sockets"],
+              href: "/knowledge/tcp/",
             }}
           />
         </div>

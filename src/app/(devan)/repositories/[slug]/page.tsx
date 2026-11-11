@@ -1,17 +1,9 @@
 import { notFound } from "next/navigation";
-import { getRepository } from "@/lib/data";
+import { getRepository, repositories } from "@/lib/data";
 import { IdStrip, ConnectedLabel, ChipRail, DeepRegion, Narrative, ProvFooter } from "@/components/EntityShell";
 
 export async function generateStaticParams() {
-  return [
-    { slug: "ujwal-portfolio" },
-    { slug: "orvyra" },
-    { slug: "cosmohub" },
-    { slug: "zidio-web-dev" },
-    { slug: "klesos" },
-    { slug: "gcore" },
-    { slug: "clineforge-pro" },
-  ];
+  return repositories.map((r) => ({ slug: r.slug }));
 }
 
 export default async function RepositoryPage({ params }: { params: Promise<{ slug: string }> }) {

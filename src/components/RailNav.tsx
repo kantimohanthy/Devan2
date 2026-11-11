@@ -20,24 +20,24 @@ import {
 } from "lucide-react";
 
 const mainItems = [
-  { href: "/devan", label: "Home", icon: Circle },
-  { href: "/knowledge", label: "Knowledge", icon: Diamond },
-  { href: "/visualization", label: "Map", icon: Waypoints },
-  { href: "/evidence", label: "Evidence", icon: FileStack },
-  { href: "/laboratory", label: "Lab", icon: SquareStack },
-  { href: "/reasoning", label: "Decisions", icon: Compass },
-  { href: "/projects", label: "Projects", icon: Boxes },
-  { href: "/repositories", label: "Repos", icon: Layers },
-  { href: "/timeline", label: "Timeline", icon: History },
-  { href: "/missions", label: "Research", icon: Target },
-  { href: "/identity", label: "About", icon: UserRound },
-  { href: "/cv", label: "CV", icon: FileText },
+  { href: "/devan/", label: "Home", icon: Circle },
+  { href: "/knowledge/", label: "Knowledge", icon: Diamond },
+  { href: "/visualization/", label: "Map", icon: Waypoints },
+  { href: "/evidence/", label: "Evidence", icon: FileStack },
+  { href: "/laboratory/", label: "Lab", icon: SquareStack },
+  { href: "/reasoning/", label: "Decisions", icon: Compass },
+  { href: "/projects/", label: "Projects", icon: Boxes },
+  { href: "/repositories/", label: "Repos", icon: Layers },
+  { href: "/timeline/", label: "Timeline", icon: History },
+  { href: "/missions/", label: "Research", icon: Target },
+  { href: "/identity/", label: "About", icon: UserRound },
+  { href: "/cv/", label: "CV", icon: FileText },
   { href: "mailto:hello@kantimohanthy.dev", label: "Contact", icon: Mail },
 ];
 
 const pinnedItems = [
-  { href: "/knowledge/networking.dns", label: "DNS Iterative Trace" },
-  { href: "/knowledge/networking.tcp", label: "TCP Three Way Handshake" },
+  { href: "/knowledge/dns/", label: "DNS Iterative Trace" },
+  { href: "/knowledge/tcp/", label: "TCP Three Way Handshake" },
 ];
 
 export function RailNav() {

@@ -36,14 +36,11 @@ const leafLabels: Record<string, string> = {
   "daser-net": "DASER-Net",
   cineforge: "CineForge AI Pro",
   "cineforge-ai-pro": "CineForge AI Pro",
-  cosmohub: "ORVYRA",
-  "cosmos-hub": "ORVYRA",
-  orvyra: "ORVYRA",
+  atlas: "DEVAN Atlas",
   devan: "DEVAN",
   "ujwal-portfolio": "Portfolio",
-  "zidio-web-dev": "Project LOOP",
-  klesos: "Klesos Intelligence",
-  gcore: "G-Core Behavioral Banking",
+  "zidio-web-dev": "LOOP",
+  "clineforge-pro": "CineForge AI Pro",
 };
 
 function formatSegment(segment: string): string {
@@ -78,13 +75,13 @@ function getBreadcrumbs(pathname: string): { path: string; label: string }[] {
   ].includes(segments[0]);
 
   const crumbs: { path: string; label: string }[] = [];
-  crumbs.push({ path: isDevanArea ? "/knowledge" : "/", label: isDevanArea ? "DEVAN" : "Home" });
+  crumbs.push({ path: isDevanArea ? "/knowledge/" : "/", label: isDevanArea ? "DEVAN" : "Home" });
 
   let cumulative = "";
   for (let i = 0; i < segments.length; i++) {
     cumulative += `/${segments[i]}`;
     crumbs.push({
-      path: cumulative,
+      path: `${cumulative}/`,
       label: formatSegment(segments[i]),
     });
   }
@@ -98,7 +95,7 @@ export function TopBar() {
   const crumbs = getBreadcrumbs(pathname || "/");
 
   return (
-    <header className="h-14 shrink-0 border-b border-border flex items-center justify-between relative px-6 bg-[#0A0B0D]">
+    <header className="h-14 shrink-0 border-b border-border flex items-center justify-between gap-2 relative px-3 sm:px-6 bg-[#0A0B0D]">
       <div className="flex items-center gap-1.5 text-xs text-text-3 font-mono truncate max-w-[50vw]">
         {crumbs.map((t, i) => {
           const isLast = i === crumbs.length - 1;

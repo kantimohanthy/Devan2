@@ -24,7 +24,7 @@ export function ContextInspector() {
 
   if (!context) {
     return (
-      <div className="w-80 border-l border-[#20252B] bg-[#0A0B0D]/60 p-4 font-mono text-xs text-[#8A9098]">
+      <div className="w-full lg:w-80 shrink-0 border-t lg:border-t-0 lg:border-l border-[#20252B] bg-[#0A0B0D]/60 p-4 font-mono text-xs text-[#8A9098]">
         Loading Context Inspector...
       </div>
     );
@@ -37,7 +37,7 @@ export function ContextInspector() {
   const careerImpact = context.careerImpact || [];
 
   return (
-    <aside className="w-80 border-l border-[#20252B] bg-[#0A0B0D]/80 p-4 font-mono text-xs space-y-5 overflow-y-auto">
+    <aside className="w-full lg:w-80 shrink-0 border-t lg:border-t-0 lg:border-l border-[#20252B] bg-[#0A0B0D]/80 p-4 font-mono text-xs space-y-5 overflow-y-auto">
       {/* Target Concept Summary */}
       <div className="space-y-1.5 border-b border-[#20252B] pb-3">
         <span className="text-[10px] uppercase text-[#8A9098] font-semibold flex items-center gap-1.5">

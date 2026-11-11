@@ -48,11 +48,11 @@ export function CommandPalette() {
     setIsOpen(false);
     workspaceStore.setState({ selectedConceptId: item.id });
     if (item.type === "CONCEPT") {
-      router.push(`/knowledge/${item.id}`);
+      router.push(`/knowledge/${item.id.replace(/^networking\./, "")}/`);
     } else if (item.type === "EXECUTION_STACK") {
-      router.push(`/reasoning`);
+      router.push(`/reasoning/`);
     } else {
-      router.push(`/evidence`);
+      router.push(`/evidence/`);
     }
   };
 

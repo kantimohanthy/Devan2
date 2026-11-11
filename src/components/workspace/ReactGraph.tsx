@@ -179,7 +179,7 @@ export function ReactGraph({ width = 800, height = 500, onNodeClick }: ReactGrap
               </p>
               <div className="mt-2 pt-2 border-t border-[#20252B] flex items-center justify-between">
                 <Link
-                  href={`/knowledge/${activeNode.id}`}
+                  href={`/knowledge/${activeNode.id.replace(/^networking\./, "")}/`}
                   className="text-[10px] text-[#4F8CFF] hover:underline flex items-center gap-1 font-semibold"
                 >
                   Inspect in Knowledge Workspace <ExternalLink className="h-2.5 w-2.5" />
@@ -207,7 +207,7 @@ export function ReactGraph({ width = 800, height = 500, onNodeClick }: ReactGrap
               <div className="flex items-center gap-3">
                 <span className="text-[10px] text-[#8A9098]">{node.evidenceCount} proofs</span>
                 <Link
-                  href={`/knowledge/${node.id}`}
+                  href={`/knowledge/${node.id.replace(/^networking\./, "")}/`}
                   className="rounded bg-[#20252B] px-2 py-0.5 text-[10px] text-[#4F8CFF] hover:bg-[#20252B]/80 font-semibold"
                 >
                   Inspect

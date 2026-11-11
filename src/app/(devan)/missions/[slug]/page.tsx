@@ -1,17 +1,9 @@
 import { notFound } from "next/navigation";
-import { getMission } from "@/lib/data";
+import { getMission, missions } from "@/lib/data";
 import { IdStrip, ConnectedLabel, ChipRail, DeepRegion, Narrative } from "@/components/EntityShell";
 
 export async function generateStaticParams() {
-  return [
-    { slug: "wireless-mesh-tvws" },
-    { slug: "reliable-software" },
-    { slug: "understand-networks" },
-    { slug: "validate-ai" },
-    { slug: "space-learning" },
-    { slug: "organize-communities" },
-    { slug: "kernel-bpf-tracer" },
-  ];
+  return missions.map((m) => ({ slug: m.slug }));
 }
 
 export default async function MissionPage({ params }: { params: Promise<{ slug: string }> }) {
