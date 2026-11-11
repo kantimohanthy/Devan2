@@ -40,9 +40,8 @@ export default function FieldMap() {
     const layout: Record<string, [number, number]> = {
       devan: [32, 18],
       "project-loop": [50, 44],
-      "wireless-mesh-tvws": [70, 4],
-      "daser-net": [88, 62],
-      cosmohub: [84, 96],
+      "wireless-mesh-tvws": [70, 12],
+      "daser-net": [84, 58],
     };
     const out: Record<string, { x: number; y: number }> = {};
     for (const [k, [x, y]] of Object.entries(layout)) out[k] = pos(x, y);
@@ -147,7 +146,7 @@ export default function FieldMap() {
               <li key={p.slug}>
                 <Link href={`/work/${p.slug}/`} className="group flex items-baseline justify-between gap-3 py-3">
                   <span className="text-[15.5px] text-ivory group-hover:text-ochre-2">{p.title}</span>
-                  <span className="font-mono text-[11.5px] uppercase tracking-wide text-ivory-3">{p.status}</span>
+                  <span className="font-mono text-[11.5px] uppercase tracking-wide text-ivory-3">{p.statusLabel}</span>
                 </Link>
               </li>
             ))}
@@ -162,7 +161,7 @@ export default function FieldMap() {
             <ul className="mt-2 space-y-2 text-[15px] text-ivory-2">
               {mDecisions.map((d) => (
                 <li key={d.id}>
-                  <Link href={`/work/${d.project}/`} className="ink-link">{d.title}</Link>
+                  <Link href={`/work/${d.projectSlug}/`} className="ink-link">{d.title}</Link>
                 </li>
               ))}
             </ul>

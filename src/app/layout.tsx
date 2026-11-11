@@ -6,9 +6,9 @@ import "@fontsource-variable/fraunces/opsz-italic.css";
 import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
 
-const title = "Ujwal Shyam Kantimohanthy · ICT engineering student";
+const title = "Ujwal Shyam Kantimohanthy — Engineering Portfolio";
 const description =
-  "ICT engineering student building reliable web systems, evidence grounded AI tools and network experiments.";
+  "Engineering student building reliable web systems, evidence-grounded AI tools and network experiments. Systems & infrastructure engineering direction.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kantimohanthy.dev"),
@@ -18,31 +18,37 @@ export const metadata: Metadata = {
   },
   description,
   keywords: [
-    "Ujwal Kantimohanthy",
+    "Ujwal Shyam Kantimohanthy",
     "Network engineering",
     "Wireless mesh networks",
     "TV White Space",
-    "Full stack development",
+    "Systems engineering",
     "University of Rome Tor Vergata",
   ],
   authors: [{ name: "Ujwal Shyam Kantimohanthy", url: "https://kantimohanthy.dev" }],
   creator: "Ujwal Shyam Kantimohanthy",
-  alternates: { canonical: "https://kantimohanthy.dev" },
+  alternates: { canonical: "https://kantimohanthy.dev/" },
   openGraph: {
     title,
     description,
-    url: "https://kantimohanthy.dev",
+    url: "https://kantimohanthy.dev/",
     siteName: "Ujwal Shyam Kantimohanthy",
     locale: "en_US",
     type: "website",
+    images: [{ url: "/og/home.svg", width: 1200, height: 630, alt: "kantimohanthy.dev — routed portfolio mesh" }],
   },
-  twitter: { card: "summary_large_image", title, description },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+    images: ["/og/home.svg"],
+  },
   robots: { index: true, follow: true },
   icons: { icon: "/favicon.ico" },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#12110f",
+  themeColor: "#11100E",
   colorScheme: "dark",
 };
 
