@@ -7,10 +7,15 @@ import { DensityToggle } from "@/components/workspace/DensityToggle";
 export async function generateStaticParams() {
   return [
     { slug: "networking.dns" },
+    { slug: "dns" },
     { slug: "networking.tcp" },
+    { slug: "tcp" },
     { slug: "linux.kernel" },
     { slug: "container.kubernetes" },
     { slug: "networking.tls" },
+    { slug: "tls" },
+    { slug: "rf-propagation-occluded-terrain" },
+    { slug: "http" },
   ];
 }
 

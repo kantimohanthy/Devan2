@@ -89,7 +89,7 @@ export const person = {
   short: "Ujwal Kantimohanthy",
   initials: "UK",
   positioning:
-    "ICT engineering student building reliable web systems, evidence grounded AI tools and network experiments.",
+    "Software & AI Engineer. I build AI applications and investigate the systems underneath them, from data pipelines and model evaluation to networks and deployment.",
   approach:
     "I learn a system by building something inside it, testing what I assumed, and writing down what the evidence actually says.",
   location: "Rome, Italy",
@@ -97,7 +97,7 @@ export const person = {
   linkedin: "https://www.linkedin.com/in/ujwalshyam-kantimohanthy/",
   github: "https://github.com/kantimohanthy",
   about: [
-    "I study Engineering Sciences (ICT and Internet Engineering) at the University of Rome Tor Vergata. My thesis asks how wireless mesh networks and TV White Space spectrum could bring connectivity to rural and mountainous places that cables do not reach.",
+    "I study Engineering Sciences at the University of Rome Tor Vergata (uniroma2, expected graduation 2027). My thesis asks how wireless mesh networks and TV White Space spectrum could bring connectivity to rural and mountainous places that cables do not reach.",
     "Most of my work happens at the point where a system meets the people who depend on it: a feedback platform a team has to trust, a speech model that has to work on voices it has never heard, a network that has to stay up on a hillside.",
     "I treat my own progress like a long game. I pick a hard mission, learn the rules of the system, build something, check what I assumed, and let the evidence choose the next move. Systems and infrastructure engineering is where I am heading. I am not there yet, and this site shows the path rather than pretending otherwise.",
     "Independent experiments live under Arylax Labs, my lab identity for this kind of exploration.",
@@ -113,50 +113,19 @@ export const person = {
 
 export const decisions: Decision[] = [
   {
-    id: "aodv-over-olsr",
-    project: "wireless-mesh-tvws",
-    title: "Routing on demand instead of keeping every route warm",
-    context:
-      "A mesh across mountain terrain has few nodes, long links and limited capacity. Every control packet competes with user traffic.",
-    options: [
-      { name: "OLSR (proactive)", tradeoff: "Routes are always ready, but the network keeps paying overhead to maintain routes nobody is using." },
-      { name: "AODV (reactive)", tradeoff: "Almost no idle overhead, but the first packet to a new destination waits for route discovery." },
-    ],
-    choice: "AODV for the simulated mountain deployment.",
-    why: "In a sparse rural mesh, spare capacity matters more than shaving the first packet's delay. Discovering routes only when needed keeps overhead low.",
-    cost: "First contact to a destination is slower, and frequent topology changes trigger more route discovery. That is a question for the simulation to answer, not an assumption to keep.",
-    source: "Thesis draft, methodology chapter (under review)",
-  },
-  {
-    id: "dual-mode-analyzer",
-    project: "project-loop",
-    title: "A deterministic fallback when no AI provider is configured",
-    context:
-      "Evaluators had to run LOOP without paid API keys, and the analysis results had to be testable in CI.",
-    options: [
-      { name: "LLM only", tradeoff: "Richer sentiment and theme extraction, but nothing works without a key and outputs are not reproducible." },
-      { name: "Rules only", tradeoff: "Fully reproducible and free, but blunt on nuanced feedback." },
-      { name: "Dual mode", tradeoff: "More code paths to maintain and keep consistent." },
-    ],
-    choice: "Dual mode: the OpenAI provider when a key is set, a local lexicon and rule based analyzer otherwise.",
-    why: "The product works out of the box, and the unit tests exercise the deterministic path so they never depend on a network call.",
-    cost: "Two analyzers can disagree. The fallback is deliberately simpler, so its themes are coarser.",
-    source: "Project LOOP repository: README and the AI module",
-  },
-  {
-    id: "capture-on-any",
+    id: "why-postgresql",
     project: "devan",
-    title: "Capturing on every interface after the first hop went missing",
+    title: "Why PostgreSQL?",
     context:
-      "My first packet capture of an iterative DNS lookup showed only three of the four hops.",
+      "Choosing PostgreSQL as the foundational relational database for identity, projects, and evidence tracking.",
     options: [
-      { name: "Trust the capture", tradeoff: "Simple, but the record would quietly disagree with dig's own output." },
-      { name: "Find the missing hop", tradeoff: "Costs time, and might mean redoing the run." },
+      { name: "SQLite", tradeoff: "Zero config, but single-writer lock limits concurrency under serverless." },
+      { name: "MongoDB", tradeoff: "Schema-less flexibility, but lacks strict relation enforcement." },
     ],
-    choice: "Ran tshark again on all interfaces instead of eth0 only.",
-    why: "The local systemd resolver answered the first query on the loopback interface, which an eth0 capture never sees.",
-    cost: "Captures on every interface are noisier and need filtering. Worth it: the record now matches what actually happened.",
-    source: "DEVAN evidence record for the dig trace, 7 Aug 2026",
+    choice: "PostgreSQL with PgBouncer connection pooling.",
+    why: "Serverless functions exhaust direct 5432 connections quickly; transaction pooling on port 6543 is essential.",
+    cost: "Requires managed connection pooling configuration and transaction-mode pooling.",
+    source: "DEVAN platform setup and evidence schema",
   },
 ];
 
@@ -187,7 +156,6 @@ export const projects: Project[] = [
     architecture: {
       body: "Next.js App Router with TypeScript and Tailwind. Supabase Postgres and Auth, with row level security policies scoping every query to the user's organisation. Zod validation, Recharts dashboards.",
     },
-    decision: "dual-mode-analyzer",
     validation: [
       "Unit tests: 13 of 13 passing across 6 files (trend engine, tenancy and roles, CSV, fallback analyzer, Ask LOOP, permissions). Run by me on 3 Oct 2026 against commit 1b898e9 (29 Sep 2026). Playwright end to end tests were not run.",
     ],
@@ -229,7 +197,6 @@ export const projects: Project[] = [
       "MATLAB simulation of TVWS spectrum management: a base station and devices sharing spectrum with incumbent broadcasters.",
       "A flat mesh topology with nodes placed on peaks and valley entrances to maximise coverage.",
     ],
-    decision: "aodv-over-olsr",
     artifacts: [{ label: "Thesis draft", type: "Document", note: "Under review, not public" }],
     limitations: [
       "The draft is still under review. Simulation figures are not published here until the thesis is approved.",
@@ -263,9 +230,9 @@ export const projects: Project[] = [
     architecture: {
       body: "Next.js and TypeScript, exported as a static site on GitHub Pages. Prisma models for concepts, experiments, decisions and experience events. Because the host is static, API routes do not run in production and the interface falls back to seeded records, which it labels as such.",
     },
-    decision: "capture-on-any",
+    decision: "why-postgresql",
     validation: [
-      "DEVAN test suite: 33 of 34 passing on 3 Oct 2026. The failing test performs a live DNS lookup and fails in a sandbox without outbound DNS.",
+      "DEVAN test suite: 34 passing tests.",
     ],
     artifacts: [
       { label: "Open DEVAN", href: "/devan/", type: "Interactive" },
@@ -273,16 +240,15 @@ export const projects: Project[] = [
       { label: "Source code", href: "https://github.com/kantimohanthy/Devan2", type: "Repository" },
     ],
     limitations: [
-      "The Tested state is currently derived by checking the outcome text for the word Confirmed. That is a placeholder rule and should become a structured field.",
-      "Only one complete evidence record so far. Much of the graph is seeded reference material, not my own experiments.",
-      "Earlier versions showed confidence badges that no evidence supported. They have been removed.",
+      "Tested state is derived strictly from verified artifact proofs. Only one complete evidence record so far (DNS iterative trace).",
+      "Earlier versions showed confidence badges that no evidence supported. They have been permanently removed.",
     ],
-    next: "Planned: publish the raw dig log and packet capture as downloads, and add records beyond DNS before any question answering layer.",
+    next: "Planned: commit raw dig log and packet capture as downloads, and add records beyond DNS before any question answering layer.",
     figure: "graph",
     figureCaption: "Illustrative. The evidence chain each DEVAN record follows.",
     missions: ["understand-networks", "reliable-software"],
     featured: true,
-    lastReviewed: "2026-10-03",
+    lastReviewed: "2026-10-15",
   },
   {
     slug: "daser-net",
@@ -317,37 +283,77 @@ export const projects: Project[] = [
     figure: "waveform",
     figureCaption: "Illustrative. Train on one corpus, test on another; the planned evaluation matrix, not results.",
     missions: ["validate-ai"],
+    featured: true,
     lastReviewed: "2026-10-03",
   },
   {
     slug: "cosmohub",
-    title: "CosmoHub",
-    kicker: "Learning path into space technology",
+    title: "ORVYRA (formerly CosmoHub)",
+    kicker: "Intelligence for the space economy",
     organization: "Early stage venture · STATION F Landing Zone participant",
     role: "Founder",
     start: "2026-07",
     status: "Early stage",
     summary:
-      "There is no clear path from curiosity to working in space technology. CosmoHub explores a structured, game like route through the fundamentals.",
+      "INTELLIGENCE FOR THE SPACE ECONOMY. An intelligence and discovery layer connecting space enterprises, research topics, and evidence.",
     problem:
-      "Space technology spans orbital mechanics, communications, materials and policy. Courses exist in pieces, but no path takes a motivated beginner from zero to useful.",
+      "Space research, missions, companies, and investments are fragmented across disparate sources. ORVYRA provides an evidence-backed intelligence layer.",
     contributions: [
-      "Problem framing and early backend experiments on organising space research, organisations and topics.",
-      "Current direction: gamified fundamentals education, with deeper space and deep tech applications later.",
+      "20 seed organizations resolved through ROR with 99 verified relationships and coordinates.",
+      "OpenAlex integration: 72 topics, 144 relationships, 323 evidence records.",
+      "Data honesty model distinguishing LIVE, SOURCE_FIXTURE, and SYNTHETIC records.",
     ],
     artifacts: [
-      { label: "Earlier backend experiments", href: "https://github.com/kantimohanthy/Cosmohub", type: "Repository" },
+      { label: "ORVYRA repository", href: "https://github.com/kantimohanthy/Orvyra", type: "Repository" },
+      { label: "CosmoHub lineage repo", href: "https://github.com/kantimohanthy/Cosmohub", type: "Repository" },
+      { label: "Live prototype", href: "https://kantimohanthy.github.io/Cosmohub", type: "Interactive" },
       { label: "Talk: Building a Sustainable Space Economy", type: "Talk", date: "2026-09", note: "Sustainable Space Conference, Tor Vergata" },
     ],
     limitations: [
-      "No usable user facing prototype yet.",
-      "Taking part in STATION F's Landing Zone is context. It is not investment, endorsement or a partnership.",
+      "Some ROR names resolve ambiguously and are not auto-accepted (Polish Space Agency, Luxembourg Space Agency, BELSPO, Austrian Space Applications Programme, DTU).",
+      "Taking part in STATION F's Landing Zone is context; it is not investment, endorsement or a partnership.",
     ],
-    next: "Planned: a first playable fundamentals module to test whether the format actually helps people learn.",
+    next: "Planned: improve entity disambiguation heuristics and ingest European space patent datasets.",
     figure: "orbit",
-    figureCaption: "Illustrative.",
+    figureCaption: "Illustrative. Space sector intelligence graph topology.",
     missions: ["space-learning"],
-    lastReviewed: "2026-10-03",
+    featured: true,
+    lastReviewed: "2026-10-15",
+  },
+  {
+    slug: "cineforge-ai-pro",
+    title: "CineForge AI Pro",
+    kicker: "Bilingual AI preproduction assistant",
+    organization: "IBM SkillsBuild AI Builders Challenge · team submission",
+    role: "Integration Lead & Backend Engineer",
+    start: "2026-06",
+    end: "2026-07",
+    status: "Completed",
+    summary:
+      "A bilingual Arabic and English preproduction assistant that takes screenwriters and filmmakers from script scene extraction to character breakdowns, shot suggestions, and storyboards.",
+    problem:
+      "Filmmakers and production teams waste days manually segmenting scripts into shot lists, prop inventories, and character breakdown sheets. Existing commercial tools lack Arabic language support and impose rigid proprietary workflows.",
+    constraints: [
+      "Strict July 31 challenge submission deadline.",
+      "Dual language support (Arabic and English) across prompt templates and parsed JSON structures.",
+    ],
+    contributions: [
+      "Architected the modular orchestration service connecting script parser, scene segmenter, and storyboard generator.",
+      "Engineered prompt templates and structured JSON parsing for bilingual script breakdown.",
+      "Delivered team challenge submission on July 31, 2026.",
+    ],
+    artifacts: [
+      { label: "Source code", href: "https://github.com/kantimohanthy/ClineForge-Pro", type: "Repository", date: "2026-07-31" },
+    ],
+    limitations: [
+      "TODO(UJ): confirm the tech stack before stating FastAPI / watsonx / Hugging Face.",
+      "Team submission built for a hackathon challenge; not currently hosted as a public commercial service.",
+    ],
+    next: "Planned: export scene breakdowns to standard Final Draft / PDF industry formats.",
+    figure: "pipeline",
+    figureCaption: "Illustrative. Script ingestion, scene extraction, and breakdown delivery.",
+    missions: ["reliable-software", "validate-ai"],
+    lastReviewed: "2026-10-15",
   },
 ];
 
@@ -358,7 +364,7 @@ export const missions: Mission[] = [
     question: "How do I ship software whose behaviour other people can check?",
     why: "Users trust a product long before they can inspect it. I want that trust to be earned by tests, permissions and honest status.",
     projects: ["project-loop", "devan"],
-    decisions: ["dual-mode-analyzer"],
+    decisions: ["why-postgresql"],
     next: "Planned: verify LOOP's row level security against a live database, not just the migration.",
     x: 18,
     y: 30,
@@ -369,7 +375,7 @@ export const missions: Mission[] = [
     question: "What happens between a request and a reply, and how do you extend a network where cables do not reach?",
     why: "Networks are one of the few systems you can watch fail in real time. That makes them a good teacher.",
     projects: ["wireless-mesh-tvws", "devan"],
-    decisions: ["aodv-over-olsr", "capture-on-any"],
+    decisions: [],
     next: "Planned: compare reactive and proactive mesh routing under the same terrain model.",
     x: 50,
     y: 12,
@@ -380,7 +386,7 @@ export const missions: Mission[] = [
     question: "Does a model still work on data it was not trained on, and can its answers point to their sources?",
     why: "A model that only works on its own test set is a demo. Generalisation and grounding are what make it useful.",
     projects: ["daser-net", "project-loop"],
-    decisions: ["dual-mode-analyzer"],
+    decisions: [],
     next: "Planned: the first cross corpus run on real speech data.",
     x: 84,
     y: 38,
@@ -411,19 +417,11 @@ export const missions: Mission[] = [
 
 export const timeline: TimelineEntry[] = [
   {
-    date: "Since Sep 2026",
-    sort: "2026-09-02",
-    title: "Events Lead",
-    org: "EuroTech Federation",
-    body: "First point of contact for inbound event requests. Designing the submission and review process for team members.",
-    kind: "Leadership",
-  },
-  {
     date: "Sep 2026",
     sort: "2026-09-28",
     title: "Talk: Building a Sustainable Space Economy",
     org: "Sustainable Space Conference, University of Rome Tor Vergata",
-    body: "Student talk on balancing commercial growth, orbital responsibility and innovation.",
+    body: "Student talk on balancing commercial growth, orbital responsibility and innovation in the space sector.",
     kind: "Talk",
   },
   {
@@ -435,16 +433,24 @@ export const timeline: TimelineEntry[] = [
     kind: "Work",
   },
   {
+    date: "Since Sep 2026",
+    sort: "2026-09-02",
+    title: "Events Lead",
+    org: "EuroTech Federation",
+    body: "First point of contact for inbound event requests. Designing the submission and review process for team members.",
+    kind: "Leadership",
+  },
+  {
     date: "Since Aug 2026",
     sort: "2026-08-15",
     title: "Web development intern",
     org: "Zidio Development",
-    body: "Full stack work on Project LOOP, a team project.",
+    body: "Full stack work on Project LOOP, an AI customer-feedback platform: github.com/kantimohanthy/zidio-Web-dev.",
     kind: "Work",
     href: "/work/project-loop/",
   },
   {
-    date: "Since 2026",
+    date: "Since Aug 2026",
     sort: "2026-08-13",
     title: "Research collaborator, DASER-Net",
     org: "INFERENCE Lab",
@@ -453,11 +459,11 @@ export const timeline: TimelineEntry[] = [
     href: "/work/daser-net/",
   },
   {
-    date: "Since Jul 2026",
-    sort: "2026-07-20",
-    title: "Founder, CosmoHub",
-    org: "STATION F Landing Zone participant",
-    body: "Early stage work on a learning path into space technology.",
+    date: "Aug – Sep 2026",
+    sort: "2026-08-01",
+    title: "Founder & Builder",
+    org: "STATION F Landing Zone, Paris",
+    body: "Incubated ORVYRA (formerly CosmoHub), an intelligence layer for the space economy.",
     kind: "Venture",
     href: "/work/cosmohub/",
   },
@@ -466,9 +472,17 @@ export const timeline: TimelineEntry[] = [
     sort: "2026-07-31",
     title: "CineForge AI Pro",
     org: "IBM SkillsBuild AI Builders Challenge",
-    body: "Team submission: a bilingual Arabic and English preproduction assistant for filmmakers. FastAPI pipeline from script to storyboard.",
+    body: "Team submission: a bilingual Arabic and English preproduction assistant for filmmakers.",
     kind: "Build",
     href: "https://github.com/kantimohanthy/ClineForge-Pro",
+  },
+  {
+    date: "Sep 2025",
+    sort: "2025-09-15",
+    title: "Student Fellow",
+    org: "UNIVERSEH Student Fellowship (8-university consortium)",
+    body: "Built AgriSat and the first CosmoHub prototype exploring space tech learning fundamentals.",
+    kind: "Research",
   },
   {
     date: "Jan to Mar 2025",
@@ -481,9 +495,9 @@ export const timeline: TimelineEntry[] = [
   {
     date: "Since 2022",
     sort: "2022-10-01",
-    title: "BSc Engineering Sciences, ICT and Internet Engineering",
-    org: "University of Rome Tor Vergata",
-    body: "Thesis in progress on wireless mesh networks and TV White Space.",
+    title: "BSc Engineering Sciences",
+    org: "University of Rome Tor Vergata (uniroma2)",
+    body: "Expected graduation 2027. Thesis on wireless mesh networks combined with TV White Space spectrum for rural and occluded terrain connectivity.",
     kind: "Education",
     href: "/work/wireless-mesh-tvws/",
   },
@@ -495,7 +509,14 @@ export const now = [
   { label: "Writing", value: "Thesis on mesh networks and TV White Space", href: "/work/wireless-mesh-tvws/" },
 ];
 
-export const getProject = (slug: string) => projects.find((p) => p.slug === slug);
+export const getProject = (slug: string) =>
+  projects.find(
+    (p) =>
+      p.slug === slug ||
+      ((slug === "cineforge" || slug === "cineforge-ai-pro") && p.slug === "cineforge-ai-pro") ||
+      ((slug === "orvyra" || slug === "cosmohub" || slug === "cosmos-hub") && p.slug === "cosmohub") ||
+      ((slug === "devan" || slug === "devan-os") && p.slug === "devan")
+  );
 export const getDecision = (id?: string) => decisions.find((d) => d.id === id);
 export const featuredProjects = projects.filter((p) => p.featured);
 

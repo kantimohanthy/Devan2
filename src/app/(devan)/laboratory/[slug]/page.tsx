@@ -6,8 +6,7 @@ import { LabTerminal } from "@/components/LabTerminal";
 
 export async function generateStaticParams() {
   return [
-    { slug: "lab-dns-resolver" },
-    { slug: "lab-tcp-congestion" },
+    { slug: "dns-iterative-resolution" },
   ];
 }
 

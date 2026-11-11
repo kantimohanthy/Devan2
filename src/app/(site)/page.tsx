@@ -21,8 +21,8 @@ import {
 } from "@/components/site/SiteChrome";
 import { FieldMapMini, ProjectFigure } from "@/components/site/Figures";
 
-const featuredDecision = getDecision("aodv-over-olsr")!;
-const otherDecisions = decisions.filter((d) => d.id !== featuredDecision.id);
+const featuredDecision = getDecision("why-postgresql") || decisions[0];
+const otherDecisions = decisions.filter((d) => d.id !== featuredDecision?.id);
 const researchSlugs = ["daser-net", "wireless-mesh-tvws", "cosmohub"];
 const cap = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
 
@@ -53,6 +53,9 @@ export default function HomePage() {
                 <a href="#work" className="inline-flex min-h-12 items-center gap-2 rounded-full bg-ivory px-6 text-[15px] font-medium text-ink transition-colors hover:bg-ochre-2">
                   View work <span aria-hidden>↓</span>
                 </a>
+                <Link href="/cv/" className="inline-flex min-h-12 items-center rounded-full border border-ivory/25 px-6 text-[15px] text-ivory transition-colors hover:border-ochre">
+                  View CV
+                </Link>
                 <a href="#contact" className="inline-flex min-h-12 items-center rounded-full border border-ivory/25 px-6 text-[15px] text-ivory transition-colors hover:border-ochre">
                   Contact
                 </a>
@@ -146,7 +149,7 @@ export default function HomePage() {
         <section id="thinking" aria-labelledby="thinking-label" className="scroll-mt-16 border-y border-ivory/10 bg-ink-2/50">
           <div className="mx-auto max-w-[1200px] px-5 py-20 sm:px-8 sm:py-28">
             <SectionHead id="thinking" n="2" label="How I think" title={<>A decision is a constraint, <em className="italic text-ivory-2">a tradeoff and a cost.</em></>}>
-              I keep a decision log. Here is one entry in full, from my thesis, and two shorter ones from other projects.
+              I keep a decision log. Here is one entry in full, from DEVAN platform architecture, and decisions from active projects.
             </SectionHead>
 
             <article aria-labelledby="dec-main" className="mt-14 grid gap-10 rounded-md border border-ivory/10 bg-ink p-6 sm:p-10 lg:grid-cols-[1fr_1.1fr]">

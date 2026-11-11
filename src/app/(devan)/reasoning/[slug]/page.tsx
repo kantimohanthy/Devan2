@@ -5,8 +5,7 @@ import { ReasoningReplay } from "@/components/ReasoningReplay";
 
 export async function generateStaticParams() {
   return [
-    { slug: "oracle-reasoner" },
-    { slug: "evidence-verifier" },
+    { slug: "why-postgresql" },
   ];
 }
 

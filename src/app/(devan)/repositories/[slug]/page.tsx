@@ -4,8 +4,13 @@ import { IdStrip, ConnectedLabel, ChipRail, DeepRegion, Narrative, ProvFooter } 
 
 export async function generateStaticParams() {
   return [
-    { slug: "devan-os" },
-    { slug: "cosmos-hub" },
+    { slug: "ujwal-portfolio" },
+    { slug: "orvyra" },
+    { slug: "cosmohub" },
+    { slug: "zidio-web-dev" },
+    { slug: "klesos" },
+    { slug: "gcore" },
+    { slug: "clineforge-pro" },
   ];
 }
 

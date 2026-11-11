@@ -18,8 +18,8 @@ export class ExperimentReasoner implements IReasoner {
 
     const insights = [
       `Laboratory Execution Ratio: ${executed} / ${totalExperiments} experiments fully executed and verified.`,
-      `Protocol Engine: Multispan socket tracer (DNS/TCP/TLS/TTFB) operational.`,
-      `Automated Test Suite: 13 / 13 Vitest assertions passing cleanly.`,
+      "Protocol walkthroughs: DNS iterative trace and TCP connection establishment.",
+      "Automated Test Suite: Passing Vitest assertions.",
     ];
 
     const recommendations = [
@@ -28,8 +28,8 @@ export class ExperimentReasoner implements IReasoner {
 
     return {
       reasonerName: this.name,
-      score: 88,
-      summary: "Experiment laboratory is active with multi-span socket telemetry and passing unit tests.",
+      score: 0,
+      summary: "Experiment laboratory tracks verified test assertions and protocol walkthroughs.",
       insights,
       evidenceRefs: [
         { type: "Experiment", title: "DNS Iterative Resolution Trace", href: "/laboratory/dns-iterative-resolution", state: "TESTED" },

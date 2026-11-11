@@ -6,6 +6,7 @@ import { person, LAST_REVIEWED, formatMonth, type Artifact, type Status } from "
 const nav = [
   { label: "Work", href: "/#work" },
   { label: "Research", href: "/#research" },
+  { label: "CV", href: "/cv/" },
   { label: "About", href: "/#about" },
   { label: "Contact", href: "/#contact" },
 ];
@@ -59,6 +60,7 @@ export function SiteFooter() {
           {person.name} · Content last reviewed {formatMonth(LAST_REVIEWED)}
         </p>
         <div className="flex flex-wrap gap-x-5 gap-y-2">
+          <Link href="/cv/" className="hover:text-ivory">CV</Link>
           <a href={`mailto:${person.email}`} className="hover:text-ivory">Email</a>
           <a href={person.linkedin} rel="noopener noreferrer" className="hover:text-ivory">LinkedIn</a>
           <a href={person.github} rel="noopener noreferrer" className="hover:text-ivory">GitHub</a>

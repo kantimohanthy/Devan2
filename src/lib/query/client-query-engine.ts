@@ -196,24 +196,12 @@ export class ClientQueryEngine {
       currentMission: {
         title: "Wireless Mesh + TV White Space propagation modeling",
         objective: "Thesis research extending mesh coverage into challenging terrain",
-        progressPercent: 75,
         objectives: [
           { label: "WMN Topologies", done: true },
           { label: "DNS (Domain Name System)", done: true },
           { label: "TCP / POSIX Sockets", done: false },
         ],
       },
-      currentSprint: {
-        focusTitle: "TV White Space Spectrum Allocation & Packet Tracing",
-        relocationCountdownDays: 42,
-        learningVelocityPercent: 88,
-      },
-      readinessDimensions: [
-        { domain: "Networking & Protocols", knowledge: 9, experience: 8, evidence: 9, confidence: 9 },
-        { domain: "Systems & Linux Kernel", knowledge: 8, experience: 7, evidence: 8, confidence: 8 },
-        { domain: "Distributed Systems & Cloud", knowledge: 7, experience: 6, evidence: 6, confidence: 7 },
-        { domain: "AI Systems & DSP", knowledge: 7, experience: 6, evidence: 7, confidence: 7 },
-      ],
       recentAchievements: [
         {
           id: "ach-1",

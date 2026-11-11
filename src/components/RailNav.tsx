@@ -15,20 +15,24 @@ import {
   FileStack,
   UserRound,
   Pin,
+  FileText,
+  Mail,
 } from "lucide-react";
 
 const mainItems = [
-  { href: "/devan", label: "Overview", icon: Circle },
-  { href: "/knowledge", label: "Knowledge Tree", icon: Diamond },
-  { href: "/visualization", label: "Atlas Graph", icon: Waypoints },
-  { href: "/evidence", label: "Evidence Proofs", icon: FileStack },
-  { href: "/laboratory", label: "Laboratory", icon: SquareStack },
-  { href: "/reasoning", label: "Oracle Reasoning", icon: Compass },
+  { href: "/devan", label: "Home", icon: Circle },
+  { href: "/knowledge", label: "Knowledge", icon: Diamond },
+  { href: "/visualization", label: "Map", icon: Waypoints },
+  { href: "/evidence", label: "Evidence", icon: FileStack },
+  { href: "/laboratory", label: "Lab", icon: SquareStack },
+  { href: "/reasoning", label: "Decisions", icon: Compass },
   { href: "/projects", label: "Projects", icon: Boxes },
-  { href: "/repositories", label: "Repositories", icon: Layers },
-  { href: "/timeline", label: "Timeline Ledger", icon: History },
-  { href: "/missions", label: "Active Missions", icon: Target },
-  { href: "/identity", label: "Identity Profile", icon: UserRound },
+  { href: "/repositories", label: "Repos", icon: Layers },
+  { href: "/timeline", label: "Timeline", icon: History },
+  { href: "/missions", label: "Research", icon: Target },
+  { href: "/identity", label: "About", icon: UserRound },
+  { href: "/cv", label: "CV", icon: FileText },
+  { href: "mailto:hello@kantimohanthy.dev", label: "Contact", icon: Mail },
 ];
 
 const pinnedItems = [
@@ -56,6 +60,8 @@ export function RailNav() {
           <Link
             key={href}
             href={href}
+            aria-label={label}
+            title={label}
             className={`flex items-center gap-3 px-5 py-2 text-[12px] font-mono whitespace-nowrap border-l-2 transition-colors ${
               active
                 ? "text-text border-blue bg-blue/[0.08]"
@@ -72,7 +78,7 @@ export function RailNav() {
 
       <div className="border-t border-[#20252B] my-2 pt-2 px-5 opacity-0 group-hover:opacity-100 transition-opacity">
         <span className="text-[9px] uppercase tracking-wider text-[#8A9098] font-mono font-semibold flex items-center gap-1">
-          <Pin className="h-3 w-3 text-amber-400" /> Pinned Intelligence
+          <Pin className="h-3 w-3 text-amber-400" /> Pinned
         </span>
         <div className="space-y-1 pt-1 font-mono text-[11px]">
           {pinnedItems.map((p) => (

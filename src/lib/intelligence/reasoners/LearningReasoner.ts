@@ -13,13 +13,11 @@ export class LearningReasoner implements IReasoner {
   readonly name = "LearningReasoner";
 
   async evaluate(context: ReasonerInputContext): Promise<ReasoningResult> {
-    const totalConcepts = context.concepts.length || 1;
-    const learningVelocity = Math.min(100, Math.round((context.competencies.length / totalConcepts) * 100) || 75);
+    const totalConcepts = context.concepts.length;
 
     const insights = [
-      `Currently tracking ${context.concepts.length} engineering concepts across 5 domains.`,
-      `Active Sprint Goal: TV White Space propagation modeling & STATION F Paris relocation preparation.`,
-      `Learning velocity indicator is operating at ${learningVelocity}% efficiency.`,
+      `Currently tracking ${totalConcepts} engineering concepts.`,
+      `Focus areas: RF propagation models and internet networking protocols.`,
     ];
 
     const recommendations = [
@@ -29,14 +27,14 @@ export class LearningReasoner implements IReasoner {
 
     return {
       reasonerName: this.name,
-      score: learningVelocity,
-      summary: "Learning velocity is high with active focus on RF propagation and computer networking protocols.",
+      score: 0,
+      summary: "Active focus on RF propagation and computer networking protocols.",
       insights,
       evidenceRefs: [
         { type: "Mission", title: "Wireless Mesh + TV White Space", href: "/missions/wireless-mesh-tvws" },
       ],
       recommendations,
-      metadata: { learningVelocity },
+      metadata: { totalConcepts },
     };
   }
 }

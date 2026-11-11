@@ -5,6 +5,11 @@ import { IdStrip, ConnectedLabel, ChipRail, DeepRegion, Narrative } from "@/comp
 export async function generateStaticParams() {
   return [
     { slug: "wireless-mesh-tvws" },
+    { slug: "reliable-software" },
+    { slug: "understand-networks" },
+    { slug: "validate-ai" },
+    { slug: "space-learning" },
+    { slug: "organize-communities" },
     { slug: "kernel-bpf-tracer" },
   ];
 }

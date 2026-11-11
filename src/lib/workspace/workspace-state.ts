@@ -27,7 +27,7 @@ export interface WorkspaceState {
 export const INITIAL_WORKSPACE_STATE: WorkspaceState = {
   currentDomain: "Networking",
   selectedConceptId: "networking.dns",
-  selectedExperimentId: "networking-protocol-pipeline",
+  selectedExperimentId: "dns-iterative-resolution",
   selectedEvidenceId: "ev-pcap-dns-trace",
   selectedExecutionStackId: "stack-http-lifecycle",
   openTabs: [
@@ -38,6 +38,6 @@ export const INITIAL_WORKSPACE_STATE: WorkspaceState = {
   activeTabId: "networking.dns",
   densityMode: "DENSE",
   commandPaletteOpen: false,
-  dockOpen: true,
-  dockActiveTab: "Oracle",
+  dockOpen: false,
+  dockActiveTab: "Terminal",
 };

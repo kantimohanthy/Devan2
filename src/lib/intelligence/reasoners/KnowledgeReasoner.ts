@@ -24,8 +24,8 @@ export class KnowledgeReasoner implements IReasoner {
 
     const insights = [
       `Topological domain distribution: ${domainList || "Networking: 5 nodes, AI: 4 nodes, Security: 3 nodes"}.`,
-      `Layer 1 Engineering Canon contains 18 Core ICT RFCs and standards.`,
-      `Strongest knowledge domain: Networking & Internet Engineering (9.0/10).`,
+      "Layer 1 Engineering Canon contains Core ICT RFCs and standards.",
+      "Focus domain: Networking & Internet Engineering.",
     ];
 
     const recommendations = [
@@ -35,8 +35,8 @@ export class KnowledgeReasoner implements IReasoner {
 
     return {
       reasonerName: this.name,
-      score: 85,
-      summary: "Knowledge topology shows deep mastery in networking protocols and internet engineering.",
+      score: 0,
+      summary: "Knowledge topology tracks key concepts in networking protocols and internet engineering.",
       insights,
       evidenceRefs: [
         { type: "Concept", title: "DNS Iterative Resolution", href: "/knowledge/dns", state: "TESTED" },

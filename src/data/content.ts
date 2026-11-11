@@ -18,10 +18,11 @@ export const identity = {
   mission:
     "Most of what I work on comes down to the same question: what's actually holding this up, and can I trust it? I studied internet engineering because networks are one of the few systems you can watch fail in real time. I still think in that shape: trace the problem down to the layer underneath, then build there.",
   currentFocus: [
-    "Project LOOP, full stack work during my web development internship at Zidio Development",
-    "Wireless Mesh + TV White Space thesis research, simulation phase",
-    "CosmoHub through STATION F's Landing Zone programme",
-    "Extending the networking evidence graph beyond the first DNS record",
+    "ORVYRA intelligence layer for the space economy (formerly CosmoHub)",
+    "Project LOOP, full stack development during internship at Zidio Development",
+    "DASER-Net evaluation and real-data validation with INFERENCE Lab",
+    "Undergraduate thesis on Wireless Mesh + TV White Space for rural connectivity",
+    "TODO(UJ): confirm current focus priorities",
   ],
   principles: [
     {
@@ -58,7 +59,7 @@ export const knowledgeNodes: KnowledgeNode[] = [
     label: "Networking",
     summary: "Internet engineering, protocols, rural connectivity",
     detail:
-      "Core discipline from my Internet Engineering degree at the University of Rome Tor Vergata. Thesis work on wireless mesh networks combined with TV white space for connectivity in challenging terrain.",
+      "Undergraduate studies in Engineering Sciences at the University of Rome Tor Vergata (uniroma2, expected graduation 2027). Thesis work on wireless mesh networks combined with TV White Space for connectivity in challenging terrain.",
     projects: ["Wireless Mesh + TV White Space thesis", "CosmoHub"],
     x: 400,
     y: 70,
@@ -197,7 +198,7 @@ export const projects: Project[] = [
   },
   {
     slug: "cosmohub",
-    title: "CosmoHub",
+    title: "ORVYRA (formerly CosmoHub)",
     tagline: "An intelligence and discovery layer for the space economy",
     status: "In build",
     problem:
@@ -232,29 +233,9 @@ export const projects: Project[] = [
     ],
     stack: ["Python", "Cellpose", "btrack", "zarr", "NetworkX"],
     lessons:
-      "Anisotropic voxel scaling turned out to matter far more than expected, treating z spacing the same as x/y silently breaks tracking quality. Deadline is late September 2026.",
+      "Anisotropic voxel scaling turned out to matter far more than expected, treating z spacing the same as x/y silently breaks tracking quality. Competition submission completed in September 2026.",
     domain: ["ai", "distributed-systems"],
     atmosphere: { tint: "#31C48D", label: "Biological" },
-  },
-  {
-    slug: "netlaunch",
-    title: "NetLaunch",
-    tagline: "A ₹999 networking bootcamp, built and shipped solo",
-    status: "Live",
-    problem:
-      "Networking fundamentals are usually taught either too academically or too certification focused, with no course positioned for someone starting from zero at an accessible price.",
-    solution:
-      "A course website with a real curriculum, transformation stories, and a working checkout flow, built to actually sell a ₹999 bootcamp, not just describe one.",
-    architecture: [
-      "Marketing site with curriculum display",
-      "Transformation story section",
-      "Checkout modal wired to a real payment flow",
-    ],
-    stack: ["Web frontend", "Payment integration"],
-    lessons:
-      "Shipping the checkout modal, not just the curriculum page, was the part that made this a real product instead of a landing page.",
-    domain: ["systems", "networking"],
-    atmosphere: { tint: "#B8B8B8", label: "Practical" },
   },
 ];
 
@@ -262,7 +243,7 @@ export const research: ResearchItem[] = [
   {
     type: "Thesis",
     title: "Wireless Mesh Networks + TV White Space for Rural Connectivity",
-    context: "Internet Engineering thesis, University of Rome Tor Vergata",
+    context: "Engineering Sciences thesis, University of Rome Tor Vergata",
     description:
       "Examines combining wireless mesh topologies with TV white space spectrum to extend connectivity into difficult terrain and underserved rural areas, where conventional infrastructure deployment is cost prohibitive.",
     tags: ["Wireless Mesh", "TV White Space", "Rural Connectivity", "Thesis"],
@@ -297,23 +278,20 @@ export const experiments: Experiment[] = [
   {
     title: "Evidence Integrity Validator",
     status: "In progress",
-    progress: 35,
     description:
       "A CI enforced validator, built before any real content goes into the underlying knowledge graph, Ajv/JSON Schema as the single structural authority, a separate graph validator for ID uniqueness, reference resolution, and derived evidence states. First checkpoint committed with 22 passing tests.",
     tags: ["TypeScript", "Ajv", "JSON Schema", "CI"],
   },
   {
     title: "3D Cell Tracking: Anisotropic Voxel Correction",
-    status: "In progress",
-    progress: 40,
+    status: "Complete",
     description:
-      "Refining the Cellpose → btrack → NetworkX pipeline for the Kaggle ChanZuckerberg Biohub competition ahead of the late September deadline.",
+      "Evaluated the Cellpose → btrack → NetworkX lineage tracking pipeline on Kaggle ChanZuckerberg Biohub benchmark datasets, correcting for depth anisotropy in 3D volumes.",
     tags: ["Computer Vision", "Cellpose", "3D Microscopy"],
   },
   {
     title: "CineForge: Agentic Handoff",
     status: "Paused",
-    progress: 60,
     description:
       "Phase 1 monorepo and both AI pipeline stages (scene reasoning, image generation) are merged to main. Next phase, frontend and further pipeline work, is being handed to an agentic coding tool for iteration.",
     tags: ["FastAPI", "Hugging Face", "Agentic coding"],
@@ -321,7 +299,6 @@ export const experiments: Experiment[] = [
   {
     title: "Computer Networking Vertical Slice",
     status: "In progress",
-    progress: 20,
     description:
       "Running one real topic, DNS or HTTP, from Kurose & Ross's Computer Networking, through the full evidence pipeline: source → concept → question → real experiment → outcome → artifact, before any frontend work begins on the knowledge map.",
     tags: ["Networking", "Evidence Graph"],
@@ -330,27 +307,17 @@ export const experiments: Experiment[] = [
 
 export const ventures: Venture[] = [
   {
-    name: "CosmoHub",
-    tagline: "The Bloomberg of space tech",
+    name: "ORVYRA (formerly CosmoHub)",
+    tagline: "Intelligence for the space economy",
     problem:
       "There is no clear path from curiosity about space technology to a career or research fellowship in it, information about missions, institutions, and opportunities is scattered across a hundred disconnected sources.",
     market:
       "Space enthusiasts, students, professionals, universities, and the research institutions and companies trying to reach them.",
-    stage: "Early build, ontology and strategy defined, pitching to potential collaborators",
+    stage: "Early build, ontology and strategy defined, incubated through STATION F Landing Zone",
     notes:
-      "Originated inside the Universeh Student Fellowship, an eight university consortium. Currently in conversation with INFERENCE Lab about overlap and collaboration.",
+      "Originated inside the Universeh Student Fellowship, an eight university consortium. Incubated through STATION F's Landing Zone in Paris.",
     vision:
-      "A 10-year build toward becoming the connective layer for the global space ecosystem, the news outlet and the venture capital layer that finance already has, but for space.",
-  },
-  {
-    name: "NetLaunch",
-    tagline: "A ₹999 networking bootcamp for absolute beginners",
-    problem:
-      "Networking education sits at two extremes, dense academic theory or narrow certification cram, with nothing accessible for someone starting from zero.",
-    market: "First time networking learners priced out of traditional bootcamps and certification tracks.",
-    stage: "Live, site, curriculum, and checkout shipped",
-    notes: "Built solo end to end, including the payment flow, not just the marketing page.",
-    vision: "A low cost, high clarity onramp into networking as a first technical discipline.",
+      "A long-term build toward becoming the connective layer for the global space ecosystem, the intelligence and venture discovery layer for space.",
   },
 ];
 

@@ -44,7 +44,7 @@ export const artifacts: Artifact[] = [
     diagrams: [],
     screenshots: [],
 
-    relatedConcepts: ["networking", "systems"],
+    relatedConcepts: ["networking.dns", "networking.tcp"],
     lessonsLearned: [],
 
     references: [

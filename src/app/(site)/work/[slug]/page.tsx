@@ -6,7 +6,14 @@ import { SiteHeader, SiteFooter, SkipLink, Stamp, ArtifactLink, Figure } from "@
 import { ProjectFigure } from "@/components/site/Figures";
 
 export function generateStaticParams() {
-  return projects.map((p) => ({ slug: p.slug }));
+  const base = projects.map((p) => ({ slug: p.slug }));
+  const aliases = [
+    { slug: "cineforge" },
+    { slug: "cosmos-hub" },
+    { slug: "orvyra" },
+    { slug: "devan-os" },
+  ];
+  return [...base, ...aliases];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {

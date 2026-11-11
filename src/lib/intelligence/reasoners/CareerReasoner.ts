@@ -21,9 +21,9 @@ export class CareerReasoner implements IReasoner {
     else if (promptLower.includes("ai") || promptLower.includes("ml")) targetRole = "AI Systems Engineer";
 
     const insights = [
-      `Target Role Comparison: Match against ${targetRole} benchmark matrix is 87%.`,
-      `Core Match: Internet Engineering, Socket Protocols, Relational DB Architecture, Rust/TypeScript.`,
-      `Development Gap: Container orchestration (Kubernetes) & distributed consensus (Raft/Paxos).`,
+      `Target Role Comparison: Aligning technical evidence with ${targetRole} requirements.`,
+      "Core Areas: Internet Engineering, Socket Protocols, Relational DB Architecture, TypeScript.",
+      "Development Gap: Container orchestration & distributed consensus (Raft/Paxos).",
     ];
 
     const recommendations = [
@@ -33,12 +33,12 @@ export class CareerReasoner implements IReasoner {
 
     return {
       reasonerName: this.name,
-      score: 87,
-      summary: `High readiness alignment for ${targetRole} role profile with clear, evidence backed proofs.`,
+      score: 0,
+      summary: `Alignment for ${targetRole} role profile with clear, evidence-backed proofs.`,
       insights,
       evidenceRefs: [
         { type: "Project", title: "CineForge AI Pro", href: "/projects/cineforge-ai-pro" },
-        { type: "Project", title: "CosmoHub", href: "/projects/cosmohub" },
+        { type: "Project", title: "ORVYRA", href: "/projects/orvyra" },
       ],
       recommendations,
       metadata: { targetRole },

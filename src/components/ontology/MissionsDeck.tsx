@@ -41,17 +41,12 @@ export function MissionsDeck() {
                 <span className="text-[10px] text-[#4F8CFF] uppercase font-bold">{mission.domain}</span>
                 <h4 className="text-xs font-bold text-[#F5F5F5]">{mission.title}</h4>
               </div>
-              <span className="text-xs font-bold text-[#31D07D]">{mission.progressPercent}%</span>
+              <span className="text-xs font-bold text-[#31D07D]">
+                {mission.subtasks.filter((st: { completed: boolean }) => st.completed).length} / {mission.subtasks.length} objectives
+              </span>
             </div>
 
             <p className="text-[11px] text-[#8A9098]">{mission.objective}</p>
-
-            <div className="h-1.5 w-full rounded-full bg-[#20252B] overflow-hidden">
-              <div
-                className="h-full bg-[#4F8CFF] transition-all duration-300"
-                style={{ width: `${mission.progressPercent}%` }}
-              />
-            </div>
 
             <div className="space-y-1 pt-1 text-[11px]">
               {mission.subtasks.map((st: { id: string; label: string; completed: boolean }) => (

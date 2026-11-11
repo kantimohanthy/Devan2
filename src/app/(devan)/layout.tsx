@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { RailNav } from "@/components/RailNav";
 import { TopBar } from "@/components/TopBar";
-import { CommandPalette } from "@/components/workspace/CommandPalette";
+import { CommandPalette } from "@/components/CommandPalette";
 import { WorkspaceTabs } from "@/components/workspace/WorkspaceTabs";
 import { BottomDock } from "@/components/workspace/BottomDock";
 import { OnboardingTour } from "@/components/workspace/OnboardingTour";
@@ -29,7 +29,7 @@ export default function DevanLayout({ children }: { children: ReactNode }) {
         <TopBar />
         <WorkspaceTabs />
         <main className="flex-1 overflow-y-auto">
-          <div className="w-[92vw] max-w-[1800px] mx-auto px-6 py-6 pb-20">{children}</div>
+          <div className="w-full max-w-[1800px] mx-auto px-4 sm:px-6 py-6 pb-20">{children}</div>
         </main>
         <BottomDock />
       </div>
