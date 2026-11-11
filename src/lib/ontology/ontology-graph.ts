@@ -90,7 +90,7 @@ export const CANONICAL_ENTITIES: OntologyEntity[] = [
         advancedBuild: "Implement an iterative DNS resolver executing root-to-authoritative referral hops with LRU cache.",
         productionScaleProject: "Construct a high-throughput multi-threaded DNS resolver supporting DNSSEC validation, eBPF packet filtering, and Prometheus metrics.",
       },
-      associatedProjects: ["devan-os", "cosmohub"],
+      associatedProjects: ["devan-os", "project-loop"],
       associatedExperiments: ["networking-protocol-pipeline"],
       associatedEvidence: ["ev-pcap-dns-trace", "ev-repo-devan2"],
       competency: { knowledge: 10, experience: 9, evidence: 10, confidence: 9 },

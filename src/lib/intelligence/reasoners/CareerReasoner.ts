@@ -27,18 +27,18 @@ export class CareerReasoner implements IReasoner {
     ];
 
     const recommendations = [
-      "Build a lightweight Raft consensus key-value store experiment to close distributed systems gap.",
-      "Ship STATION F Landing Zone Paris launch materials.",
+      "Complete cross-corpus baseline runs on DASER-Net and document evaluation scripts.",
+      "Finalize BSc Wireless Mesh + TVWS thesis manuscript under faculty review.",
     ];
 
     return {
       reasonerName: this.name,
       score: 0,
-      summary: `Alignment for ${targetRole} role profile with clear, evidence-backed proofs.`,
+      summary: `Alignment for ${targetRole} role profile with verified repository proofs.`,
       insights,
       evidenceRefs: [
-        { type: "Project", title: "CineForge AI Pro", href: "/projects/cineforge-ai-pro" },
-        { type: "Project", title: "ORVYRA", href: "/projects/orvyra" },
+        { type: "Project", title: "LOOP", href: "/work/project-loop/" },
+        { type: "Project", title: "DEVAN", href: "/work/devan/" },
       ],
       recommendations,
       metadata: { targetRole },

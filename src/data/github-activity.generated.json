@@ -1,74 +1,51 @@
-[
-  {
-    "name": "zidio-Web-dev",
-    "description": null,
-    "url": "https://github.com/kantimohanthy/zidio-Web-dev",
-    "pushedAt": "2026-09-29T14:25:05Z",
-    "language": "TypeScript",
-    "stars": 0
-  },
-  {
-    "name": "gcore-behavioral-banking",
-    "description": null,
-    "url": "https://github.com/kantimohanthy/gcore-behavioral-banking",
-    "pushedAt": "2026-09-14T21:53:04Z",
-    "language": "TypeScript",
-    "stars": 0
-  },
-  {
-    "name": "Team-Empty-Sarajevo-Hackathon",
-    "description": "behavioral banking loyalty infrastructure that rewards financial consistency, not spending. It turns contextual transaction behavior into personalized goals, rewards and status while keeping raw Banking data with the bank helping banks improve engagement and customers build healthier financial habits.",
-    "url": "https://github.com/kantimohanthy/Team-Empty-Sarajevo-Hackathon",
-    "pushedAt": "2026-09-14T21:20:53Z",
-    "language": "TypeScript",
-    "stars": 0
-  },
-  {
-    "name": "merit-jury-demo",
-    "description": null,
-    "url": "https://github.com/kantimohanthy/merit-jury-demo",
-    "pushedAt": "2026-09-13T06:45:34Z",
-    "language": "HTML",
-    "stars": 0
-  },
-  {
-    "name": "gcore-app--2-",
-    "description": null,
-    "url": "https://github.com/kantimohanthy/gcore-app--2-",
-    "pushedAt": "2026-09-13T06:00:35Z",
-    "language": "TypeScript",
-    "stars": 0
-  },
-  {
-    "name": "Finance-project-for-sarajevo-hackathon-project",
-    "description": null,
-    "url": "https://github.com/kantimohanthy/Finance-project-for-sarajevo-hackathon-project",
-    "pushedAt": "2026-09-12T21:21:20Z",
-    "language": null,
-    "stars": 0
-  },
-  {
-    "name": "FinalProjectBase--1-",
-    "description": null,
-    "url": "https://github.com/kantimohanthy/FinalProjectBase--1-",
-    "pushedAt": "2026-09-10T15:57:20Z",
-    "language": "C#",
-    "stars": 0
-  },
-  {
-    "name": "meaaow-website",
-    "description": "Official website for MEAAOW Global Growth Studios, a venture studio connecting founders across the Middle East and Africa with markets and capital all over the world.",
-    "url": "https://github.com/kantimohanthy/meaaow-website",
-    "pushedAt": "2026-09-06T18:16:47Z",
-    "language": "HTML",
-    "stars": 0
-  },
-  {
-    "name": "kelsos-inteliigence-with-orvyra",
-    "description": null,
-    "url": "https://github.com/kantimohanthy/kelsos-inteliigence-with-orvyra",
-    "pushedAt": "2026-09-06T16:44:09Z",
-    "language": "Python",
-    "stars": 0
-  }
-]
+{
+  "source": "partial-cache",
+  "syncedAt": "2026-11-11T11:13:30.230Z",
+  "repos": [
+    {
+      "projectSlug": "project-loop",
+      "name": "zidio-Web-dev",
+      "fullName": "kantimohanthy/zidio-Web-dev",
+      "description": null,
+      "url": "https://github.com/kantimohanthy/zidio-Web-dev",
+      "pushedAt": "2026-09-29T14:25:05Z",
+      "defaultBranch": "master",
+      "language": "TypeScript",
+      "stars": 0,
+      "recentCommitSha": null,
+      "recentCommitDate": null,
+      "latestRelease": null,
+      "staleFallback": true
+    },
+    {
+      "projectSlug": "devan",
+      "name": "Devan2",
+      "fullName": "kantimohanthy/Devan2",
+      "description": "DEVAN2 — The backend and frontend powering UJ.OS, a dynamic personal operating system and professional identity platform.",
+      "url": "https://github.com/kantimohanthy/Devan2",
+      "pushedAt": "2026-11-11T10:05:01Z",
+      "defaultBranch": "main",
+      "language": "TypeScript",
+      "stars": 0,
+      "recentCommitSha": null,
+      "recentCommitDate": null,
+      "latestRelease": null,
+      "staleFallback": true
+    },
+    {
+      "projectSlug": "cineforge-ai-pro",
+      "name": "ClineForge-Pro",
+      "fullName": "kantimohanthy/ClineForge-Pro",
+      "description": "Secure & Intelligent Script-to-Storyboard Copilot – IBM SkillsBuild AI Builders Challenge, July 2026",
+      "url": "https://github.com/kantimohanthy/ClineForge-Pro",
+      "pushedAt": "2026-07-24T23:21:47Z",
+      "defaultBranch": "main",
+      "language": "Python",
+      "stars": 0,
+      "recentCommitSha": null,
+      "recentCommitDate": null,
+      "latestRelease": null,
+      "staleFallback": true
+    }
+  ]
+}

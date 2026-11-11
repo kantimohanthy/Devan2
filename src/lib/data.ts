@@ -79,22 +79,8 @@ export const missions: Mission[] = [
       { label: "Cross-corpus generalization matrix evaluation", done: false },
     ],
     focus: [
-      { type: "Project", title: "DASER-Net", meta: "In progress", href: "/work/daser-net" },
-      { type: "Project", title: "Project LOOP", meta: "Grounded Q&A", href: "/work/project-loop" },
-    ],
-  },
-  {
-    slug: "space-learning",
-    name: "Explore structured fundamentals in space technology",
-    objective:
-      "Design a clear, structured learning roadmap from curious beginner to contributing engineer in space tech",
-    objectives: [
-      { label: "Organize space tech topics and research taxonomy", done: true },
-      { label: "STATION F Landing Zone incubation participation", done: true },
-      { label: "Develop first playable fundamentals module", done: false },
-    ],
-    focus: [
-      { type: "Project", title: "CosmoHub", meta: "Early stage", href: "/work/cosmohub" },
+      { type: "Project", title: "DASER-Net", meta: "Ongoing", href: "/work/daser-net" },
+      { type: "Project", title: "Project LOOP", meta: "Submitted", href: "/work/project-loop" },
     ],
   },
   {
@@ -357,77 +343,27 @@ export const repositories: Repository[] = [
     ],
   },
   {
-    slug: "orvyra",
-    name: "Orvyra",
-    description: "ORVYRA: Intelligence layer for the space economy (formerly CosmoHub). ROR and OpenAlex knowledge graph resolution.",
-    lastCommit: "October 2026",
-    ciStatus: "passing",
-    openIssues: 0,
-    architectureNote:
-      "Data honesty model: LIVE / SOURCE_FIXTURE / SYNTHETIC. Resolves space organizations and research topics.",
-    concepts: [],
-    decisions: [],
-    experiments: [],
-  },
-  {
-    slug: "cosmohub",
-    name: "Cosmohub",
-    description: "CosmoHub: Lineage prototype and early backend experiments for space sector entity indexing.",
-    lastCommit: "September 2026",
-    ciStatus: "passing",
-    openIssues: 0,
-    architectureNote:
-      "Original space tech taxonomy and learning roadmap prototypes.",
-    concepts: [],
-    decisions: [],
-    experiments: [],
-  },
-  {
     slug: "zidio-web-dev",
     name: "zidio-web-dev",
-    description: "Project LOOP: Multi-tenant customer feedback intelligence platform built during Zidio internship.",
+    description: "LOOP: Multi-tenant customer feedback intelligence platform built during Zidio Development internship.",
     lastCommit: "September 2026",
     ciStatus: "passing",
     openIssues: 0,
     architectureNote:
-      "Next.js App Router, Supabase Postgres with row-level security (RLS), and Zod validation.",
-    concepts: [],
-    decisions: [],
-    experiments: [],
-  },
-  {
-    slug: "klesos",
-    name: "kelsos-inteliigence-with-orvyra",
-    description: "Klesos intelligence layer: ORVYRA backend integration for cold-call analysis, deployed on Railway.",
-    lastCommit: "September 2026",
-    ciStatus: "passing",
-    openIssues: 0,
-    architectureNote: "Deployed backend microservice on Railway.",
-    concepts: [],
-    decisions: [],
-    experiments: [],
-  },
-  {
-    slug: "gcore",
-    name: "gcore-behavioral-banking",
-    description: "G-Core: Behavioral banking engine and hackathon prototype.",
-    lastCommit: "2026",
-    ciStatus: "passing",
-    openIssues: 0,
-    architectureNote: "Hackathon prototype engine.",
+      "Next.js App Router, Supabase Postgres with RLS in schema migrations, Zod validation, deterministic fallback analyzer.",
     concepts: [],
     decisions: [],
     experiments: [],
   },
   {
     slug: "clineforge-pro",
-    name: "clineforge-pro",
-    description: "CineForge AI Pro: Bilingual AI screenplay preproduction assistant built for IBM SkillsBuild Challenge.",
+    name: "ClineForge-Pro",
+    description: "CineForge AI Pro: Bilingual AI screenplay preproduction team submission (IBM SkillsBuild AI Builders Challenge).",
     lastCommit: "July 2026",
     ciStatus: "passing",
     openIssues: 0,
     architectureNote:
-      "FastAPI backend and validation schemas. TODO(UJ): confirm the tech stack before stating FastAPI / watsonx / Hugging Face.",
+      "Python orchestration pipeline delivering structured scene extraction and breakdowns (archived hackathon submission).",
     concepts: [],
     decisions: [],
     experiments: [],
@@ -437,9 +373,9 @@ export const repositories: Repository[] = [
 export const projects: Project[] = [
   {
     slug: "project-loop",
-    name: "Project LOOP",
+    name: "LOOP",
     description:
-      "Full stack product built during the Zidio Development internship: ingestion, role aware UX, analytics and grounded Q&A. Evaluator demo uses seeded data.",
+      "Full stack product built during Zidio Development internship: CSV/API ingestion, role-aware UX, analytics, and grounded Q&A. Evaluator demo runs on seeded sample data.",
     repositories: [
       { type: "Repository", title: "zidio-web-dev", meta: "GitHub", href: "/repositories/zidio-web-dev" },
     ],
@@ -473,43 +409,17 @@ export const projects: Project[] = [
     openQuestions: ["Run first cross-corpus training and ablation experiments on real speech data"],
   },
   {
-    slug: "orvyra",
-    name: "ORVYRA",
-    description:
-      "Intelligence layer for the space economy (formerly CosmoHub). Resolves seed organizations through ROR and OpenAlex evidence records.",
-    repositories: [
-      { type: "Repository", title: "Orvyra", meta: "GitHub", href: "/repositories/orvyra" },
-      { type: "Repository", title: "Cosmohub", meta: "GitHub", href: "/repositories/cosmohub" },
-    ],
-    concepts: [],
-    experiments: [],
-    decisions: [],
-    openQuestions: ["Refine ROR ambiguous name resolutions (Polish Space Agency, Luxembourg Space Agency, BELSPO)"],
-  },
-  {
-    slug: "cosmohub",
-    name: "CosmoHub",
-    description: "Alias for ORVYRA (formerly CosmoHub). Lineage prototype for space tech sector intelligence.",
-    repositories: [
-      { type: "Repository", title: "Cosmohub", meta: "GitHub", href: "/repositories/cosmohub" },
-    ],
-    concepts: [],
-    experiments: [],
-    decisions: [],
-    openQuestions: [],
-  },
-  {
     slug: "cineforge-ai-pro",
     name: "CineForge AI Pro",
     description:
-      "Bilingual AI preproduction assistant for filmmakers, built for the IBM SkillsBuild AI Builders Challenge. TODO(UJ): confirm the tech stack before stating FastAPI / watsonx / Hugging Face.",
+      "Bilingual Arabic/English script preproduction team submission for IBM SkillsBuild AI Builders Challenge.",
     repositories: [
-      { type: "Repository", title: "clineforge-pro", meta: "GitHub", href: "/repositories/clineforge-pro" },
+      { type: "Repository", title: "ClineForge-Pro", meta: "GitHub", href: "/repositories/clineforge-pro" },
     ],
     concepts: [],
     experiments: [],
     decisions: [],
-    openQuestions: ["Confirm exact tech stack details with team"],
+    openQuestions: ["Confirm exact stack details with team"],
   },
   {
     slug: "cineforge",
@@ -524,7 +434,7 @@ export const projects: Project[] = [
   {
     slug: "devan",
     name: "DEVAN",
-    description: "This engineering workspace and evidence graph.",
+    description: "Evidence ledger and engineering workspace backing kantimohanthy.dev.",
     repositories: [
       { type: "Repository", title: "ujwal-portfolio", meta: "CI passing", href: "/repositories/ujwal-portfolio" },
     ],
@@ -538,7 +448,7 @@ export const projects: Project[] = [
     decisions: [
       { type: "Decision", title: "Why PostgreSQL?", meta: "Database setup", href: "/reasoning/why-postgresql" },
     ],
-    openQuestions: ["Add structured outcome validation rules beyond substring matching"],
+    openQuestions: ["Commit downloadable dig/tshark capture artifacts into public/evidence/"],
   },
   {
     slug: "devan-os",
@@ -555,12 +465,11 @@ export const projects: Project[] = [
 export type IndexEntry = ChipRef;
 
 export const searchIndex: IndexEntry[] = [
-  { type: "Project", title: "Project LOOP", meta: "Customer feedback intelligence · Zidio", href: "/work/project-loop" },
+  { type: "Project", title: "LOOP", meta: "Customer feedback intelligence · Zidio", href: "/work/project-loop" },
   { type: "Project", title: "DASER-Net", meta: "Cross-corpus speech emotion recognition · INFERENCE Lab", href: "/work/daser-net" },
   { type: "Project", title: "Wireless Mesh + TVWS", meta: "Undergraduate thesis · Tor Vergata", href: "/work/wireless-mesh-tvws" },
-  { type: "Project", title: "ORVYRA", meta: "Intelligence for the space economy (formerly CosmoHub)", href: "/work/cosmohub" },
-  { type: "Project", title: "CineForge AI Pro", meta: "Bilingual AI preproduction · IBM Challenge", href: "/work/cineforge-ai-pro" },
-  { type: "Project", title: "DEVAN", meta: "Engineering workspace & evidence graph", href: "/work/devan" },
+  { type: "Project", title: "CineForge AI Pro", meta: "Bilingual AI preproduction · Team submission", href: "/work/cineforge-ai-pro" },
+  { type: "Project", title: "DEVAN", meta: "Evidence ledger & engineering workspace", href: "/work/devan" },
   { type: "Concept", title: "DNS (Domain Name System)", meta: "TESTED · RFC 1035", href: "/knowledge/networking.dns", state: "TESTED" },
   { type: "Concept", title: "TCP (Transmission Control Protocol)", meta: "STUDIED · RFC 9293", href: "/knowledge/networking.tcp", state: "STUDIED" },
   { type: "Concept", title: "TLS 1.3", meta: "STUDIED · RFC 8446", href: "/knowledge/networking.tls", state: "STUDIED" },
@@ -569,10 +478,8 @@ export const searchIndex: IndexEntry[] = [
   { type: "Experiment", title: "DNS iterative resolution trace", meta: "TESTED · dig + tshark", href: "/laboratory/dns-iterative-resolution", state: "TESTED" },
   { type: "Decision", title: "Why PostgreSQL?", meta: "Architecture · PgBouncer", href: "/reasoning/why-postgresql" },
   { type: "Repository", title: "ujwal-portfolio", meta: "Portfolio & DEVAN repository", href: "/repositories/ujwal-portfolio" },
-  { type: "Repository", title: "Orvyra", meta: "Space economy intelligence repository", href: "/repositories/orvyra" },
-  { type: "Repository", title: "Cosmohub", meta: "CosmoHub repository", href: "/repositories/cosmohub" },
   { type: "Repository", title: "zidio-web-dev", meta: "LOOP repository", href: "/repositories/zidio-web-dev" },
-  { type: "Repository", title: "clineforge-pro", meta: "CineForge repository", href: "/repositories/clineforge-pro" },
+  { type: "Repository", title: "ClineForge-Pro", meta: "CineForge repository", href: "/repositories/clineforge-pro" },
   { type: "Mission", title: "Wireless Mesh + TV White Space", meta: "3 / 8 objectives completed", href: "/missions/wireless-mesh-tvws" },
   { type: "Mission", title: "Build reliable software", meta: "Test assertions & RLS", href: "/missions/reliable-software" },
   { type: "Mission", title: "Understand networks", meta: "Protocols & packet traces", href: "/missions/understand-networks" },
@@ -589,7 +496,6 @@ function normalizeSlug(slug: string): string {
   if (s === "tcp") return "networking.tcp";
   if (s === "tls") return "networking.tls";
   if (s === "cineforge") return "cineforge-ai-pro";
-  if (s === "cosmos-hub") return "cosmohub";
   if (s === "devan-os") return "devan";
   if (s === "lab-dns-resolver") return "dns-iterative-resolution";
   return slug;
@@ -688,9 +594,6 @@ export async function getRepository(slug: string): Promise<Repository | undefine
   if (s === "devan" || s === "devan-os") {
     return repositories.find((r) => r.slug === "ujwal-portfolio");
   }
-  if (s === "cosmohub" || s === "cosmos-hub") {
-    return repositories.find((r) => r.slug === "cosmohub");
-  }
   if (s === "project-loop" || s === "zidio-web-dev") {
     return repositories.find((r) => r.slug === "zidio-web-dev");
   }
@@ -730,9 +633,6 @@ export async function getProject(slug: string): Promise<Project | undefined> {
 
   if (s === "cineforge" || s === "cineforge-ai-pro") {
     return projects.find((p) => p.slug === "cineforge-ai-pro");
-  }
-  if (s === "cosmohub" || s === "cosmos-hub") {
-    return projects.find((p) => p.slug === "cosmohub");
   }
   if (s === "devan" || s === "devan-os") {
     return projects.find((p) => p.slug === "devan");

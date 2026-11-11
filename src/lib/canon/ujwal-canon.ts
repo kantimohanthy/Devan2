@@ -111,16 +111,16 @@ export const UJWAL_CANON: UjwalCanonStructure = {
     {
       slug: "cineforge-ai-pro",
       title: "CineForge AI Pro",
-      description: "Bilingual AI preproduction video generation suite.",
+      description: "Bilingual AI preproduction assistant team submission (IBM SkillsBuild AI Builders Challenge).",
       conceptIds: ["vector-search-ann", "onnx-wasm-runtime"],
       repositoryUrl: "https://github.com/kantimohanthy/ClineForge-Pro",
     },
     {
-      slug: "cosmohub",
-      title: "CosmoHub",
-      description: "Learning platform for space technology, early stage, built through STATION F Landing Zone.",
-      conceptIds: ["raft-consensus", "tcp-protocol"],
-      repositoryUrl: "https://github.com/kantimohanthy/Cosmohub",
+      slug: "project-loop",
+      title: "LOOP",
+      description: "Multi-tenant customer feedback platform built during Zidio Development internship.",
+      conceptIds: ["repository-pattern"],
+      repositoryUrl: "https://github.com/kantimohanthy/zidio-Web-dev",
     },
   ],
   leadership: [
