@@ -8,6 +8,7 @@ import {
 } from "@/content";
 import { SiteHeader, SiteFooter, SkipLink, SectionHead } from "@/components/site/SiteChrome";
 import { PhotoScenes } from "@/components/site/PhotoScenes";
+import { BeyondControls } from "@/components/site/BeyondControls";
 import { HomeRoutedWorkspace, ContourDivider } from "@/components/routed/HomeRoutedWorkspace";
 import { ScrollRouteIndicator } from "@/components/routed/ScrollRouteIndicator";
 import { EvidenceMarker } from "@/components/routed/EvidenceModeProvider";
@@ -32,6 +33,7 @@ export default function HomePage() {
 
         {/* ── Hop 03: Research (DASER-Net & Wireless Mesh + TVWS Thesis) ── */}
         <section
+          data-panel="research"
           id="research"
           aria-labelledby="research-label"
           className="scroll-mt-20 border-y border-ivory/15 bg-[#181613]/50"
@@ -126,6 +128,7 @@ export default function HomePage() {
 
         {/* ── Hop 04: How I Think (Decision as Mini-Traceroute) ── */}
         <section
+          data-panel="research"
           id="thinking"
           aria-labelledby="thinking-label"
           className="scroll-mt-20 mx-auto max-w-[1200px] px-4 py-16 sm:px-8 sm:py-24"
@@ -156,7 +159,7 @@ export default function HomePage() {
                   <EvidenceMarker ids={featuredDecision.evidenceIds} />
                 </h3>
               </div>
-              <span className="font-mono text-[11.5px] text-ivory-3">
+              <span className="font-mono text-[12px] text-ivory-3">
                 Source: {featuredDecision.source}
               </span>
             </div>
@@ -164,13 +167,13 @@ export default function HomePage() {
             {/* 5-hop horizontal/vertical traceroute layout */}
             <ol className="mt-7 grid gap-4 md:grid-cols-5">
               <li className="rounded border border-ivory/10 bg-[#11100E] p-4">
-                <p className="font-mono text-[10.5px] uppercase tracking-wider text-[#F2A65A]">01 · Constraint</p>
+                <p className="font-mono text-[12px] uppercase tracking-wider text-[#F2A65A]">01 · Constraint</p>
                 <p className="mt-2 text-[14px] leading-relaxed text-ivory-2">{featuredDecision.constraint}</p>
               </li>
 
               <li className="rounded border border-ivory/10 bg-[#11100E] p-4">
-                <p className="font-mono text-[10.5px] uppercase tracking-wider text-ivory-3">02 · Alternatives</p>
-                <ul className="mt-2 space-y-2 text-[13.5px] leading-snug text-ivory-2">
+                <p className="font-mono text-[12px] uppercase tracking-wider text-ivory-3">02 · Alternatives</p>
+                <ul className="mt-2 space-y-2 text-[14px] leading-snug text-ivory-2">
                   {featuredDecision.alternatives.map((alt) => (
                     <li key={alt.name}>
                       <strong className="text-ivory">{alt.name}:</strong> {alt.tradeoff}
@@ -180,18 +183,18 @@ export default function HomePage() {
               </li>
 
               <li className="rounded border border-[#E8923A]/50 bg-[#211E1A] p-4">
-                <p className="font-mono text-[10.5px] uppercase tracking-wider text-[#F2A65A]">03 · Choice</p>
+                <p className="font-mono text-[12px] uppercase tracking-wider text-[#F2A65A]">03 · Choice</p>
                 <p className="mt-2 text-[14px] font-medium leading-relaxed text-ivory">{featuredDecision.choice}</p>
               </li>
 
               <li className="rounded border border-ivory/10 bg-[#11100E] p-4">
-                <p className="font-mono text-[10.5px] uppercase tracking-wider text-ivory-3">04 · Consequence</p>
+                <p className="font-mono text-[12px] uppercase tracking-wider text-ivory-3">04 · Consequence</p>
                 <p className="mt-2 text-[14px] leading-relaxed text-ivory-2">{featuredDecision.consequence}</p>
               </li>
 
               <li className="rounded border border-teal/35 bg-[#11100E] p-4 flex flex-col justify-between">
                 <div>
-                  <p className="font-mono text-[10.5px] uppercase tracking-wider text-teal">05 · Evidence</p>
+                  <p className="font-mono text-[12px] uppercase tracking-wider text-teal">05 · Evidence</p>
                   <p className="mt-2 text-[14px] leading-relaxed text-ivory-2">{featuredDecision.why}</p>
                 </div>
                 <Link href="/atlas/dec-static-export/" className="ink-link mt-3 inline-block font-mono text-[12px]">
@@ -205,7 +208,7 @@ export default function HomePage() {
         <ContourDivider />
 
         {/* ── Beyond the code: personal photo story, after the engineering work ── */}
-        <section id="beyond" aria-labelledby="beyond-title" className="scroll-mt-20 border-t border-ivory/15 bg-[#0c0b09]">
+        <section data-panel="beyond" id="beyond" aria-labelledby="beyond-title" className="scroll-mt-20 border-t border-ivory/15 bg-[#0c0b09]">
           <div className="mx-auto max-w-[1200px] px-5 pb-6 pt-16 sm:px-10 sm:pt-24">
             <h2 id="beyond-title" className="reveal-heading display text-[clamp(2.4rem,5vw,4.6rem)] font-light leading-none text-ivory">
               Beyond the code
@@ -215,12 +218,14 @@ export default function HomePage() {
             </p>
           </div>
           <PhotoScenes />
+          <BeyondControls />
         </section>
 
         <ContourDivider />
 
         {/* ── Hop 05: About, Arylax Labs & Selective Experience Timeline ── */}
         <section
+          data-panel="about"
           id="experience"
           aria-labelledby="about-label"
           className="scroll-mt-20 border-t border-ivory/15 bg-[#181613]/40"
@@ -253,7 +258,7 @@ export default function HomePage() {
                   {person.interests.map((item) => (
                     <li
                       key={item}
-                      className="rounded-full border border-ivory/20 bg-[#11100E] px-3.5 py-1.5 text-[13.5px] text-ivory-2"
+                      className="rounded-full border border-ivory/20 bg-[#11100E] px-3.5 py-1.5 text-[14px] text-ivory-2"
                     >
                       {item}
                     </li>
@@ -286,10 +291,10 @@ export default function HomePage() {
                             )}
                             <EvidenceMarker ids={[item.evidenceId]} />
                           </h3>
-                          <p className="text-[13.5px] text-ivory-3">{item.org}</p>
+                          <p className="text-[14px] text-ivory-3">{item.org}</p>
                           <p className="mt-1 text-[14.5px] leading-relaxed text-ivory-2">{item.body}</p>
                         </div>
-                        <p className="font-mono text-[11px] uppercase tracking-wider text-ivory-3 sm:text-right sm:pt-0.5">
+                        <p className="font-mono text-[12px] uppercase tracking-wider text-ivory-3 sm:text-right sm:pt-0.5">
                           {item.kind}
                         </p>
                       </li>
@@ -302,6 +307,7 @@ export default function HomePage() {
 
         {/* ── Hop 06: Direct Contact & Deep Exploration ── */}
         <section
+          data-panel="contact"
           id="contact"
           aria-labelledby="contact-label"
           className="scroll-mt-20 border-t border-ivory/15 bg-[#11100E]"
@@ -387,6 +393,11 @@ export default function HomePage() {
                 </Link>
               </div>
             </aside>
+
+            <div className="lg:col-span-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/photos/interests/signature.webp" alt="Ujwal, handwritten signature" width={340} height={320} loading="lazy" className="h-auto w-40 opacity-90 sm:w-52" />
+            </div>
           </div>
         </section>
       </main>

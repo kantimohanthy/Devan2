@@ -11,7 +11,7 @@ import { SectionHead } from "@/components/site/SiteChrome";
 
 export function ContourDivider() {
   return (
-    <div aria-hidden="true" className="mx-auto max-w-[1200px] px-4 sm:px-8 overflow-hidden select-none">
+    <div aria-hidden="true" className="view-divider mx-auto max-w-[1200px] px-4 sm:px-8 overflow-hidden select-none">
       <svg viewBox="0 0 1200 42" className="h-7 w-full" preserveAspectRatio="none">
         <path
           d="M 0,21 C 180,6 340,36 560,20 C 780,4 960,34 1200,19"
@@ -33,7 +33,7 @@ export function ContourDivider() {
 
 function BigStatement() {
   return (
-    <section aria-label="What I do" className="border-b border-ivory/15 bg-[#0c0b09]">
+    <section data-panel="about" aria-label="What I do" className="border-b border-ivory/15 bg-[#0c0b09]">
       <div className="mx-auto max-w-[1200px] px-5 py-20 sm:px-10 sm:py-28">
         <p className="reveal-heading display text-[clamp(1.9rem,4.8vw,4.2rem)] font-light leading-[1.08] text-ivory">
           I build web systems, test how networks behave, and work on making AI experiments{" "}
@@ -60,6 +60,7 @@ export function HomeRoutedWorkspace({
     <>
       {/* ── Hop 01: Terrain Hero ── */}
       <section
+        data-panel="home"
         id="hero"
         aria-labelledby="intro-title"
         className="paper-grid relative isolate scroll-mt-20 overflow-hidden border-b border-ivory/15"
@@ -151,6 +152,7 @@ export function HomeRoutedWorkspace({
 
       {/* ── Hop 02: Selected Work (3 Flagship Chapters + Signal Preview) ── */}
       <section
+        data-panel="work"
         id="work"
         aria-labelledby="work-label"
         className="scroll-mt-20 mx-auto max-w-[1200px] px-4 py-16 sm:px-8 sm:py-24"

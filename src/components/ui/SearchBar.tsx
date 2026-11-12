@@ -47,7 +47,7 @@ export function SearchBar() {
       >
         <Search className="h-3.5 w-3.5" />
         <span className="hidden sm:inline">Search DEVAN</span>
-        <kbd className="ml-1 hidden rounded border border-border px-1.5 py-0.5 font-sans text-[10px] sm:inline">
+        <kbd className="ml-1 hidden rounded border border-border px-1.5 py-0.5 font-sans text-[12px] sm:inline">
           ⌘K
         </kbd>
       </button>

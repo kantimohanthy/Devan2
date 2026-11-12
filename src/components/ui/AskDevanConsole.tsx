@@ -69,7 +69,7 @@ export function AskDevanConsole() {
               setPrompt(q);
               handleExecute(q);
             }}
-            className="rounded-full border border-[#20252B] bg-[#101317] px-3.5 py-1.5 font-mono text-[11px] text-[#8A9098] hover:border-[#4F8CFF]/50 hover:text-[#F5F5F5] transition-colors cursor-pointer"
+            className="rounded-full border border-[#20252B] bg-[#101317] px-3.5 py-1.5 font-mono text-[12px] text-[#8A9098] hover:border-[#4F8CFF]/50 hover:text-[#F5F5F5] transition-colors cursor-pointer"
           >
             {q}
           </button>
@@ -91,7 +91,7 @@ export function AskDevanConsole() {
 
           {response.insights.length > 0 && (
             <div className="space-y-1.5 text-xs text-[#8A9098]">
-              <p className="font-bold text-[#424750] uppercase tracking-wider text-[10px]">
+              <p className="font-bold text-[#424750] uppercase tracking-wider text-[12px]">
                 Reasoner Insights
               </p>
               {response.insights.map((ins, i) => (
@@ -105,7 +105,7 @@ export function AskDevanConsole() {
 
           {response.recommendations.length > 0 && (
             <div className="space-y-1.5 text-xs text-emerald-400">
-              <p className="font-bold text-[#424750] uppercase tracking-wider text-[10px]">
+              <p className="font-bold text-[#424750] uppercase tracking-wider text-[12px]">
                 Recommended Actions
               </p>
               {response.recommendations.map((rec, i) => (
@@ -118,7 +118,7 @@ export function AskDevanConsole() {
           )}
 
           {response.trace && response.trace.length > 0 && (
-            <details className="border-t border-[#20252B] pt-3 text-[10px] text-[#8A9098]">
+            <details className="border-t border-[#20252B] pt-3 text-[12px] text-[#8A9098]">
               <summary className="cursor-pointer font-bold uppercase tracking-wider text-[#424750] hover:text-[#8A9098] flex items-center gap-1">
                 <Terminal className="h-3 w-3" /> View Execution Trace ({response.trace.length} stages)
               </summary>

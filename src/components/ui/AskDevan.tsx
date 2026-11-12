@@ -65,7 +65,7 @@ export default function AskDevan() {
               className="block rounded-xl border border-[var(--hairline)] bg-[var(--surface)] p-3.5 transition-colors hover:border-white/20"
             >
               <div className="flex items-center justify-between">
-                <span className="inline-block rounded bg-[var(--signal-blue)]/15 px-2 py-0.5 text-[10px] font-mono font-semibold uppercase tracking-widest text-[var(--signal-blue)]">
+                <span className="inline-block rounded bg-[var(--signal-blue)]/15 px-2 py-0.5 text-[12px] font-mono font-semibold uppercase tracking-widest text-[var(--signal-blue)]">
                   {r.type}
                 </span>
               </div>

@@ -32,7 +32,7 @@ export function TracerouteCaseStudy({ project }: { project: ProjectRecord }) {
             Each hop isolates problem, constraints, architecture decisions, verification artifacts, and limits.
           </p>
         </div>
-        <div className="flex items-center gap-2 font-mono text-[11.5px]">
+        <div className="flex items-center gap-2 font-mono text-[12px]">
           <button
             type="button"
             onClick={() => setAll(true)}
@@ -92,7 +92,7 @@ export function TracerouteCaseStudy({ project }: { project: ProjectRecord }) {
                   <ul className="space-y-2.5 text-[15.5px] leading-relaxed text-ivory-2">
                     {hop.details.map((line) => (
                       <li key={line} className="relative pl-5">
-                        <span aria-hidden className="absolute left-0 top-[0.2em] text-[11px] text-[#7AC4CC]">
+                        <span aria-hidden className="absolute left-0 top-[0.2em] text-[12px] text-[#7AC4CC]">
                           ◆
                         </span>
                         <span>{line}</span>
@@ -107,7 +107,7 @@ export function TracerouteCaseStudy({ project }: { project: ProjectRecord }) {
 
                   {hop.commandSample && (
                     <div className="rounded-md border border-ivory/15 bg-[#11100E] p-3.5 font-mono text-[12.5px] text-ivory">
-                      <div className="mb-1.5 flex items-center gap-2 text-[10.5px] uppercase tracking-wider text-ivory-3">
+                      <div className="mb-1.5 flex items-center gap-2 text-[12px] uppercase tracking-wider text-ivory-3">
                         <Terminal className="h-3.5 w-3.5 text-[#F2A65A]" />
                         <span>Recorded verification command</span>
                       </div>

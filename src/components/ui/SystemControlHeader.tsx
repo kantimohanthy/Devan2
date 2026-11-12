@@ -21,7 +21,7 @@ export function SystemControlHeader() {
       <div className="flex items-center gap-3">
         <span className="flex items-center gap-1.5 font-bold text-white tracking-wider">
           <Cpu size={15} className="text-blue-400" />
-          DEVAN OS <span className="text-[10px] text-blue-400 font-normal">v2.4.0</span>
+          DEVAN OS <span className="text-[12px] text-blue-400 font-normal">v2.4.0</span>
         </span>
         <span className="h-3 w-px bg-white/20 hidden sm:inline-block" />
         <span className="hidden sm:flex items-center gap-1.5 text-emerald-400">
@@ -30,7 +30,7 @@ export function SystemControlHeader() {
         </span>
       </div>
 
-      <div className="flex items-center gap-4 text-[11px] text-white/50">
+      <div className="flex items-center gap-4 text-[12px] text-white/50">
         <span className="flex items-center gap-1">
           <Activity size={13} className="text-blue-400" />
           <span>RTT: 1.2ms</span>

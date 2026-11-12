@@ -29,11 +29,11 @@ export function IdStrip({
 }) {
   return (
     <div className="mb-7">
-      <div className="text-[11px] uppercase tracking-wide text-text-3 mb-2">{type}</div>
+      <div className="text-[12px] uppercase tracking-wide text-text-3 mb-2">{type}</div>
       <h1 className="text-[30px] font-semibold tracking-tight mb-2">{title}</h1>
       <p className="text-[14px] text-text-2 leading-relaxed max-w-[600px]">{description}</p>
       {state && (
-        <div className="inline-flex items-center gap-1.5 text-[11px] text-text-2 mt-2.5 border border-border rounded-full px-2.5 py-1">
+        <div className="inline-flex items-center gap-1.5 text-[12px] text-text-2 mt-2.5 border border-border rounded-full px-2.5 py-1">
           <StateDot state={state} /> {state}
         </div>
       )}
@@ -46,7 +46,7 @@ export function Narrative({ children }: { children: ReactNode }) {
 }
 
 export function ConnectedLabel({ children }: { children: ReactNode }) {
-  return <div className="text-[11px] uppercase tracking-wide text-text-3 mb-3">{children}</div>;
+  return <div className="text-[12px] uppercase tracking-wide text-text-3 mb-3">{children}</div>;
 }
 
 export function Chip({ chip }: { chip: ChipRef }) {
@@ -59,10 +59,10 @@ export function Chip({ chip }: { chip: ChipRef }) {
     >
       <div className="flex items-center gap-1.5 mb-1.5">
         <StateDot state={chip.state} />
-        <span className="text-[10px] uppercase tracking-wide text-text-3">{chip.type}</span>
+        <span className="text-[12px] uppercase tracking-wide text-text-3">{chip.type}</span>
       </div>
       <div className="text-[13px] font-medium text-text mb-1">{chip.title}</div>
-      {chip.meta && <div className="text-[11px] text-text-2">{chip.meta}</div>}
+      {chip.meta && <div className="text-[12px] text-text-2">{chip.meta}</div>}
     </Link>
   );
 }
@@ -86,7 +86,7 @@ export function DeepRegion({ children }: { children: ReactNode }) {
 
 export function ProvFooter({ items }: { items: string[] }) {
   return (
-    <div className="mt-12 pt-4 border-t border-border text-[11px] text-text-3 flex flex-wrap gap-4">
+    <div className="mt-12 pt-4 border-t border-border text-[12px] text-text-3 flex flex-wrap gap-4">
       {items.map((item) => (
         <span key={item}>{item}</span>
       ))}

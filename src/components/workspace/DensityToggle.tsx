@@ -19,7 +19,7 @@ export function DensityToggle() {
   };
 
   return (
-    <div className="flex items-center gap-1.5 rounded-lg border border-[#20252B] bg-[#0A0B0D] p-1 font-mono text-[10px]">
+    <div className="flex items-center gap-1.5 rounded-lg border border-[#20252B] bg-[#0A0B0D] p-1 font-mono text-[12px]">
       <Sliders className="h-3 w-3 text-[#8A9098] ml-1" />
       {(["COMFORTABLE", "DENSE", "ULTRA_DENSE"] as const).map((mode) => (
         <button

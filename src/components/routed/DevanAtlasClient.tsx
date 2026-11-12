@@ -17,7 +17,7 @@ export function DevanAtlasClient({ initialNodeId }: { initialNodeId?: string }) 
       {/* Curated Deterministic Graph + Inspector */}
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1.45fr_1fr] lg:items-start">
         <div className="min-w-0 rounded-lg border border-ivory/15 bg-[#181613] p-4">
-          <div className="mb-3 flex flex-wrap items-center justify-between gap-2 border-b border-ivory/10 pb-2.5 font-mono text-[11px] uppercase tracking-wider text-ivory-3">
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-2 border-b border-ivory/10 pb-2.5 font-mono text-[12px] uppercase tracking-wider text-ivory-3">
             <span>DEVAN Atlas Topology · {atlasNodes.length} nodes · {atlasEdges.length} typed edges</span>
             <span>Deterministic layout (not force simulation)</span>
           </div>
@@ -132,7 +132,7 @@ export function DevanAtlasClient({ initialNodeId }: { initialNodeId?: string }) 
               })}
             </svg>
           </div>
-          <p className="mt-2 font-mono text-[11px] text-ivory-3">
+          <p className="mt-2 font-mono text-[12px] text-ivory-3">
             Tip: On mobile or smaller screens, scroll horizontally inside the topology or use the synchronized structured index below.
           </p>
         </div>
@@ -144,7 +144,7 @@ export function DevanAtlasClient({ initialNodeId }: { initialNodeId?: string }) 
         >
           <div className="flex items-start justify-between gap-3 border-b border-ivory/10 pb-3">
             <div>
-              <p className="font-mono text-[11px] uppercase tracking-wider text-[#F2A65A]">
+              <p className="font-mono text-[12px] uppercase tracking-wider text-[#F2A65A]">
                 Selected {activeNode.kind} · {activeNode.id}
               </p>
               <h2 className="display mt-1 text-[26px] leading-tight text-ivory">
@@ -182,7 +182,7 @@ export function DevanAtlasClient({ initialNodeId }: { initialNodeId?: string }) 
                       key={`out-${e.to}`}
                       type="button"
                       onClick={() => setSelectedId(target.id)}
-                      className="rounded border border-teal/40 bg-teal/10 px-2.5 py-1.5 font-mono text-[11.5px] text-teal hover:bg-teal/20"
+                      className="rounded border border-teal/40 bg-teal/10 px-2.5 py-1.5 font-mono text-[12px] text-teal hover:bg-teal/20"
                     >
                       → {e.relation}: {target.title}
                     </button>
@@ -196,7 +196,7 @@ export function DevanAtlasClient({ initialNodeId }: { initialNodeId?: string }) 
                       key={`in-${e.from}`}
                       type="button"
                       onClick={() => setSelectedId(src.id)}
-                      className="rounded border border-ivory/20 px-2.5 py-1.5 font-mono text-[11.5px] text-ivory-2 hover:border-ivory"
+                      className="rounded border border-ivory/20 px-2.5 py-1.5 font-mono text-[12px] text-ivory-2 hover:border-ivory"
                     >
                       ← {src.title} ({e.relation})
                     </button>

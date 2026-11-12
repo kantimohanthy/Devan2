@@ -20,20 +20,20 @@ export function ActivityFeed() {
   return (
     <div className="space-y-3 rounded-2xl border border-[#20252B] bg-[#0A0B0D]/80 p-4 font-mono text-xs">
       <div className="flex items-center justify-between border-b border-[#20252B] pb-2">
-        <span className="font-semibold text-[#8A9098] uppercase tracking-wider text-[10px] flex items-center gap-1.5">
+        <span className="font-semibold text-[#8A9098] uppercase tracking-wider text-[12px] flex items-center gap-1.5">
           <Activity className="h-3.5 w-3.5 text-emerald-400" /> Recent activity
         </span>
-        <span className="text-[10px] text-[#8A9098]">Seeded sample</span>
+        <span className="text-[12px] text-[#8A9098]">Seeded sample</span>
       </div>
 
       <div className="space-y-2">
         {(events || []).map((ev) => (
           <div key={ev.id} className="rounded-xl border border-[#20252B]/60 bg-[#121418] p-2.5 space-y-1">
-            <div className="flex items-center justify-between text-[10px]">
+            <div className="flex items-center justify-between text-[12px]">
               <span className="font-semibold text-[#F5F5F5]">{ev.action}</span>
               <span className="text-[#8A9098]">{new Date(ev.timestamp).toLocaleTimeString()}</span>
             </div>
-            <p className="text-[10px] text-[#8A9098] line-clamp-1">{ev.reason}</p>
+            <p className="text-[12px] text-[#8A9098] line-clamp-1">{ev.reason}</p>
           </div>
         ))}
       </div>

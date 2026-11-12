@@ -38,7 +38,7 @@ function Node({ node, depth }: { node: TreeNode; depth: number }) {
       <StateDot state={node.state} />
       <span className={node.leaf ? "text-text-2" : "text-text"}>{node.name}</span>
       {node.unverified && <UnverifiedTag />}
-      {node.badge && <span className="ml-auto text-[11px] text-text-3">{node.badge}</span>}
+      {node.badge && <span className="ml-auto text-[12px] text-text-3">{node.badge}</span>}
     </div>
   );
 

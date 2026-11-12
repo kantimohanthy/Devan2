@@ -172,11 +172,11 @@ export function DomainWorkspace({ slug = "networking.dns" }: { slug?: string }) 
               <Network className="h-5 w-5 text-[#4F8CFF]" />
               <h1 className="text-lg font-bold text-[#F5F5F5]">{cockpitTitle}</h1>
               {isDns ? (
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 px-2.5 py-0.5 text-[10px] text-amber-400 border border-amber-500/20">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/10 px-2.5 py-0.5 text-[12px] text-amber-400 border border-amber-500/20">
                   <Activity className="h-3 w-3" /> Illustrative trace (not a recording)
                 </span>
               ) : (
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[10px] text-[#4F8CFF] border border-blue-500/20">
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 px-2.5 py-0.5 text-[12px] text-[#4F8CFF] border border-blue-500/20">
                   <Activity className="h-3 w-3" /> Protocol walkthrough
                 </span>
               )}
@@ -185,14 +185,14 @@ export function DomainWorkspace({ slug = "networking.dns" }: { slug?: string }) 
               {cockpitSubtitle}
             </p>
             {isDns && (
-              <div className="text-[11px] text-amber-400/90 font-mono mt-1">
+              <div className="text-[12px] text-amber-400/90 font-mono mt-1">
                 TODO(UJ): commit the capture file (pcap/trace text) from the 2026-08-07 experiment.
               </div>
             )}
           </div>
 
           <div className="flex items-center gap-2 shrink-0">
-            <span className="rounded-full border border-[#4F8CFF]/30 bg-[#121418] px-3 py-1 font-mono text-[10px] text-[#F5F5F5]">
+            <span className="rounded-full border border-[#4F8CFF]/30 bg-[#121418] px-3 py-1 font-mono text-[12px] text-[#F5F5F5]">
               Derived state: <span className="text-[#4F8CFF] font-bold">{isDns ? "TESTED" : "STUDIED"}</span>
             </span>
           </div>
@@ -205,7 +205,7 @@ export function DomainWorkspace({ slug = "networking.dns" }: { slug?: string }) 
               <button
                 key={v}
                 onClick={() => setViewMode(v)}
-                className={`rounded-lg px-2.5 py-1 text-[10px] font-bold transition-all ${
+                className={`rounded-lg px-2.5 py-1 text-[12px] font-bold transition-all ${
                   viewMode === v
                     ? "bg-[#20252B] text-emerald-400 border border-emerald-400/40 shadow"
                     : "text-[#8A9098] hover:text-[#F5F5F5]"
@@ -218,7 +218,7 @@ export function DomainWorkspace({ slug = "networking.dns" }: { slug?: string }) 
         </div>
 
         {/* Protocol Strip */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 rounded-xl border border-[#20252B] bg-[#07080A] p-3 text-[11px] font-mono">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 rounded-xl border border-[#20252B] bg-[#07080A] p-3 text-[12px] font-mono">
           <div>
             <span className="text-[9px] text-[#8A9098] uppercase block">{isTcp ? "Handshake RTT" : "Total RTT"}</span>
             <span className="text-emerald-400 font-bold">{isTcp ? "14.20 ms" : "11.05 ms"}</span>
@@ -290,7 +290,7 @@ export function DomainWorkspace({ slug = "networking.dns" }: { slug?: string }) 
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <span className="font-bold text-emerald-400 w-20 shrink-0 text-[10px]">{ev.ms}</span>
+                      <span className="font-bold text-emerald-400 w-20 shrink-0 text-[12px]">{ev.ms}</span>
                       <span className="rounded bg-[#20252B] px-2 py-0.5 text-[9px] text-[#4F8CFF] font-bold w-16 text-center">
                         {ev.layer}
                       </span>
@@ -323,12 +323,12 @@ export function DomainWorkspace({ slug = "networking.dns" }: { slug?: string }) 
                 : "Wireshark DNS Packet Inspector (RFC 1035 Datagram)"}
             </span>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[11px]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[12px]">
               <div className="rounded-xl border border-[#20252B] bg-[#07080A] p-3 space-y-1 overflow-x-auto">
-                <span className="text-[10px] text-[#8A9098] uppercase font-bold block mb-2">
+                <span className="text-[12px] text-[#8A9098] uppercase font-bold block mb-2">
                   {isTcp ? "Wireshark Segment Hex Dump (TCP SYN)" : "Wireshark Hex Dump (UDP 53)"}
                 </span>
-                <div className="text-emerald-400 leading-relaxed font-mono text-[10.5px]">
+                <div className="text-emerald-400 leading-relaxed font-mono text-[12px]">
                   {isTcp ? (
                     <>
                       <div>0000  00 15 5d 01 02 03 00 1c 42 11 22 33 08 00 45 00</div>
@@ -347,7 +347,7 @@ export function DomainWorkspace({ slug = "networking.dns" }: { slug?: string }) 
               </div>
 
               <div className="rounded-xl border border-[#20252B] bg-[#07080A] p-3 space-y-2">
-                <span className="text-[10px] text-[#8A9098] uppercase font-bold block">
+                <span className="text-[12px] text-[#8A9098] uppercase font-bold block">
                   Wire Spec Decoded Header
                 </span>
                 <div className="space-y-1.5 text-xs text-[#F5F5F5]">
@@ -421,7 +421,7 @@ export function DomainWorkspace({ slug = "networking.dns" }: { slug?: string }) 
                   }`}
                 >
                   <span className="font-bold text-xs block mb-1">{f.title}</span>
-                  <span className="text-[10px] text-amber-400 block">{f.symptom}</span>
+                  <span className="text-[12px] text-amber-400 block">{f.symptom}</span>
                 </div>
               ))}
             </div>
@@ -433,21 +433,21 @@ export function DomainWorkspace({ slug = "networking.dns" }: { slug?: string }) 
               {selectedFailure ? (
                 <div className="space-y-2.5 text-xs">
                   <div>
-                    <span className="text-[#8A9098] block text-[10px] uppercase">Root Cause:</span>
+                    <span className="text-[#8A9098] block text-[12px] uppercase">Root Cause:</span>
                     <p className="text-[#F5F5F5] mt-0.5">{failureScenarios.find((f) => f.title === selectedFailure)?.cause}</p>
                   </div>
                   <div>
-                    <span className="text-[#8A9098] block text-[10px] uppercase">Diagnostic Command:</span>
+                    <span className="text-[#8A9098] block text-[12px] uppercase">Diagnostic Command:</span>
                     <pre className="rounded bg-[#07080A] p-2 text-emerald-400 border border-[#20252B] mt-1 font-mono overflow-x-auto">
                       {failureScenarios.find((f) => f.title === selectedFailure)?.cmd}
                     </pre>
                   </div>
                   <div>
-                    <span className="text-[#8A9098] block text-[10px] uppercase">Expected Packet Symptom:</span>
+                    <span className="text-[#8A9098] block text-[12px] uppercase">Expected Packet Symptom:</span>
                     <span className="text-amber-400 font-bold block mt-0.5">{failureScenarios.find((f) => f.title === selectedFailure)?.expected}</span>
                   </div>
                   <div>
-                    <span className="text-[#8A9098] block text-[10px] uppercase">Remediation:</span>
+                    <span className="text-[#8A9098] block text-[12px] uppercase">Remediation:</span>
                     <p className="text-[#F5F5F5] mt-0.5">{failureScenarios.find((f) => f.title === selectedFailure)?.fix}</p>
                   </div>
                 </div>
@@ -468,7 +468,7 @@ export function DomainWorkspace({ slug = "networking.dns" }: { slug?: string }) 
                 ? "TCP Diagnostic Terminal (ss, tcpdump, nc, iperf3)"
                 : "DNS Diagnostic Terminal (dig, host, tshark, nslookup)"}
             </span>
-            <span className="text-[10px] text-emerald-400 font-mono">SANDBOX READY</span>
+            <span className="text-[12px] text-emerald-400 font-mono">SANDBOX READY</span>
           </div>
 
           <div className="rounded-xl border border-[#20252B] bg-[#07080A] p-4 h-64 overflow-y-auto space-y-1 text-xs">
