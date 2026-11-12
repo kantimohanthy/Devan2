@@ -51,16 +51,16 @@ export function HomeRoutedWorkspace({
         aria-labelledby="intro-title"
         className="paper-grid scroll-mt-20 border-b border-ivory/15"
       >
-        <div className="mx-auto max-w-[1200px] px-4 pb-12 pt-10 sm:px-8 sm:pt-16 lg:pb-16">
-          <p className="note mb-6">
+        <div className="mx-auto max-w-[1520px] px-4 pb-10 pt-8 sm:px-8 lg:px-10 lg:pt-12">
+          <p className="note mb-5">
             {person.location} · systems &amp; network field portfolio · reviewed {formatMonth(LAST_REVIEWED)}
           </p>
 
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-12">
+          <div className="grid grid-cols-1 gap-7 md:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] md:items-start xl:grid-cols-[minmax(0,1.12fr)_minmax(0,0.53fr)_minmax(0,1.05fr)] xl:items-center xl:gap-8">
             <div className="min-w-0">
               <h1
                 id="intro-title"
-                className="display surname-safe text-[clamp(2rem,5.8vw,4.35rem)] font-light leading-[0.98] text-ivory"
+                className="display surname-safe text-[clamp(2rem,4vw,4rem)] font-light leading-[0.98] text-ivory"
               >
                 {person.firstAndMiddle.split(" ")[0]}{" "}
                 <em className="font-normal italic text-[#F2A65A]">
@@ -83,7 +83,7 @@ export function HomeRoutedWorkspace({
                 <EvidenceMarker ids={["E06"]} />
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-6 flex flex-wrap gap-3">
                 <a
                   href="#work"
                   className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-[#F2EBDC] px-6 text-[15px] font-medium text-[#11100E] transition-colors hover:bg-[#F2A65A]"
@@ -105,14 +105,15 @@ export function HomeRoutedWorkspace({
               </div>
             </div>
 
-            <div className="grid gap-5 sm:grid-cols-[minmax(0,200px)_1fr] sm:items-end lg:grid-cols-1">
-              <Portrait className="max-w-[240px] sm:max-w-none lg:max-w-[300px]" />
+            <Portrait className="w-full max-w-[240px] md:justify-self-center xl:max-w-none" />
+
+            <div className="min-w-0 md:col-span-2 xl:col-span-1">
               <HeroTerrainMesh activeSlug={activeSlug} onSelectSlug={setActiveSlug} />
             </div>
           </div>
 
           {/* Quiet current-focus ledger row */}
-          <div className="mt-12">
+          <div className="mt-8">
             <ul
               className="grid divide-y divide-ivory/15 border-y border-ivory/15 sm:grid-cols-3 sm:divide-x sm:divide-y-0"
               aria-label="Current focus (reviewed November 2026)"
