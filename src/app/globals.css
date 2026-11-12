@@ -213,3 +213,74 @@ html {
     color: #111111 !important;
   }
 }
+
+
+/* ── Motion layer: progressive enhancement, content is visible without it ── */
+.trace-card { position: relative; }
+.trace-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, #F2A65A, #E8923A);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+.trace-card:hover::after,
+.trace-card:focus-within::after { transform: scaleX(1); }
+
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.page-in { animation: page-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@supports (animation-timeline: view()) {
+  @keyframes heading-in {
+    from { opacity: 0.15; transform: translateY(28px); clip-path: inset(0 0 100% 0); }
+    to { opacity: 1; transform: none; clip-path: inset(-25% -5% -25% -5%); }
+  }
+  .reveal-heading {
+    animation: heading-in linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 55%;
+  }
+  @keyframes line-draw {
+    from { transform: scaleY(0); }
+    to { transform: scaleY(1); }
+  }
+  .draw-line { position: relative; }
+  .draw-line::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(#F2A65A, #E8923A 60%, rgba(232, 146, 58, 0.15));
+    transform-origin: top;
+    animation: line-draw linear both;
+    animation-timeline: view();
+    animation-range: entry 10% entry 100%;
+  }
+  .draw-line > li { padding-left: 1.25rem; }
+  @keyframes item-light {
+    from { opacity: 0.45; }
+    to { opacity: 1; }
+  }
+  .draw-line > li { animation: item-light linear both; animation-timeline: view(); animation-range: entry 0% entry 70%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-heading, .draw-line::before, .draw-line > li, .page-in {
+    animation: none !important;
+    transform: none !important;
+    clip-path: none !important;
+    opacity: 1 !important;
+  }
+  .trace-card::after { transition: none; }
+}

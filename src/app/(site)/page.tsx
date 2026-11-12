@@ -213,7 +213,7 @@ export default function HomePage() {
             <div id="about" className="scroll-mt-20 grid gap-12 lg:grid-cols-[1.05fr_1.35fr] lg:gap-14">
               <div>
                 <p className="note text-[#F2A65A]" id="about-label">hop 05 · About &amp; lab identity</p>
-                <h2 className="display mt-3 text-[clamp(30px,4vw,44px)] font-normal leading-tight text-ivory">
+                <h2 className="reveal-heading display mt-3 text-[clamp(30px,4vw,44px)] font-normal leading-tight text-ivory">
                   Who is building this, <em className="italic text-ivory-2">and how.</em>
                 </h2>
 
@@ -253,7 +253,7 @@ export default function HomePage() {
                   </Link>
                 </div>
 
-                <ol className="divide-y divide-ivory/10">
+                <ol className="draw-line divide-y divide-ivory/10">
                   {[...timeline]
                     .sort((a, b) => b.sort.localeCompare(a.sort))
                     .map((item) => (
@@ -293,7 +293,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-[1200px] px-4 py-16 sm:px-8 sm:py-24 grid gap-10 lg:grid-cols-[1.2fr_1fr]">
             <div>
               <p className="note text-[#F2A65A]" id="contact-label">hop 06 · Contact &amp; next path</p>
-              <h2 className="display mt-4 text-[clamp(30px,4.2vw,48px)] leading-[1.06] text-ivory">
+              <h2 className="reveal-heading display mt-4 text-[clamp(30px,4.2vw,48px)] leading-[1.06] text-ivory">
                 Looking for an engineering intern or research collaborator?{" "}
                 <em className="italic text-[#F2A65A]">Reach out directly.</em>
               </h2>

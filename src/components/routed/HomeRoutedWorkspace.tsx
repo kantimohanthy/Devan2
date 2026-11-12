@@ -168,7 +168,7 @@ export function HomeRoutedWorkspace({
         />
 
         {supporting.length > 0 && (
-          <div className="mt-10 rounded-lg border border-ivory/15 bg-[#181613]/60 px-5 py-4 flex flex-wrap items-center justify-between gap-4">
+          <div className="trace-card mt-10 rounded-lg border border-ivory/15 bg-[#181613]/60 px-5 py-4 flex flex-wrap items-center justify-between gap-4">
             <div className="min-w-0">
               <p className="note">Supporting projects</p>
               <p className="mt-1 text-[14.5px] text-ivory-2">

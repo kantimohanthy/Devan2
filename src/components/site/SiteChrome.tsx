@@ -124,7 +124,7 @@ export function SectionHead({
         hop {n} · {label}
       </p>
       <div>
-        <h2 className="display text-[clamp(30px,4.6vw,52px)] font-normal leading-[1.04] text-ivory">
+        <h2 className="reveal-heading display text-[clamp(30px,4.6vw,52px)] font-normal leading-[1.04] text-ivory">
           {title}
         </h2>
         {children && (
