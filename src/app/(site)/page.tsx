@@ -7,6 +7,7 @@ import {
   timeline,
 } from "@/content";
 import { SiteHeader, SiteFooter, SkipLink, SectionHead } from "@/components/site/SiteChrome";
+import { PhotoScenes } from "@/components/site/PhotoScenes";
 import { HomeRoutedWorkspace, ContourDivider } from "@/components/routed/HomeRoutedWorkspace";
 import { ScrollRouteIndicator } from "@/components/routed/ScrollRouteIndicator";
 import { EvidenceMarker } from "@/components/routed/EvidenceModeProvider";
@@ -199,6 +200,21 @@ export default function HomePage() {
               </li>
             </ol>
           </article>
+        </section>
+
+        <ContourDivider />
+
+        {/* ── Beyond the code: personal photo story, after the engineering work ── */}
+        <section id="beyond" aria-labelledby="beyond-title" className="scroll-mt-20 border-t border-ivory/15 bg-[#0c0b09]">
+          <div className="mx-auto max-w-[1200px] px-5 pb-6 pt-16 sm:px-10 sm:pt-24">
+            <h2 id="beyond-title" className="reveal-heading display text-[clamp(2.4rem,5vw,4.6rem)] font-light leading-none text-ivory">
+              Beyond the code
+            </h2>
+            <p className="mt-4 max-w-[560px] text-[17px] leading-relaxed text-ivory-2">
+              The things I read, watch, build and walk through. They shape how I approach the work above.
+            </p>
+          </div>
+          <PhotoScenes />
         </section>
 
         <ContourDivider />

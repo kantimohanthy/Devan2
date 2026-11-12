@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { person, projects, LAST_REVIEWED, formatMonth } from "@/content";
 import { HeroTerrainMesh } from "@/components/site/HeroTerrainMesh";
-import { PhotoScenes } from "@/components/site/PhotoScenes";
+import { HeroBackdrop } from "@/components/site/HeroBackdrop";
 import { SelectedWorkChapters } from "./SelectedWorkChapters";
 import { EvidenceMarker } from "./EvidenceModeProvider";
 import { SectionHead } from "@/components/site/SiteChrome";
@@ -31,6 +31,19 @@ export function ContourDivider() {
   );
 }
 
+function BigStatement() {
+  return (
+    <section aria-label="What I do" className="border-b border-ivory/15 bg-[#0c0b09]">
+      <div className="mx-auto max-w-[1200px] px-5 py-20 sm:px-10 sm:py-28">
+        <p className="reveal-heading display text-[clamp(1.9rem,4.8vw,4.2rem)] font-light leading-[1.08] text-ivory">
+          I build web systems, test how networks behave, and work on making AI experiments{" "}
+          <em className="italic text-[#F2A65A]">reproducible</em>, with the evidence attached.
+        </p>
+      </div>
+    </section>
+  );
+}
+
 export function HomeRoutedWorkspace({
   featuredSlugs,
 }: {
@@ -51,10 +64,7 @@ export function HomeRoutedWorkspace({
         aria-labelledby="intro-title"
         className="paper-grid relative isolate scroll-mt-20 overflow-hidden border-b border-ivory/15"
       >
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10 bg-[url('/photos/personal/background.webp')] bg-[length:auto_100%] bg-right bg-no-repeat opacity-80 [mask-image:linear-gradient(to_right,transparent_28%,black_70%)]"
-        />
+        <HeroBackdrop />
         <div className="mx-auto flex min-h-[82svh] max-w-[1440px] flex-col justify-center px-5 py-16 sm:px-10">
           <p className="note mb-5">
             {person.location} · systems &amp; network field portfolio · reviewed {formatMonth(LAST_REVIEWED)}
@@ -135,7 +145,7 @@ export function HomeRoutedWorkspace({
         </div>
       </section>
 
-      <PhotoScenes />
+      <BigStatement />
 
       <ContourDivider />
 
