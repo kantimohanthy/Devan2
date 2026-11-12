@@ -284,3 +284,39 @@ html {
   }
   .trace-card::after { transition: none; }
 }
+
+/* ── Dock views: one section at a time. Without JS every section stays visible. ── */
+html[data-views] [data-panel] { display: none; }
+html[data-view="home"] [data-panel="home"],
+html[data-view="work"] [data-panel="work"],
+html[data-view="research"] [data-panel="research"],
+html[data-view="beyond"] [data-panel="beyond"],
+html[data-view="about"] [data-panel="about"],
+html[data-view="contact"] [data-panel="contact"] {
+  display: block;
+  animation: view-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes view-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.995); }
+  to { opacity: 1; transform: none; }
+}
+html[data-views] .view-divider { display: none; }
+html[data-views] main { padding-bottom: 6.5rem; }
+html[data-views] aside[aria-label^="Route position"] { display: none; }
+
+/* Photo story as a horizontal strip in dock mode */
+.beyond-controls { display: none; }
+html[data-views] .beyond-controls { display: flex; }
+html[data-views] .beyond-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+html[data-views] .beyond-track::-webkit-scrollbar { display: none; }
+html[data-views] .beyond-track > * { flex: 0 0 100%; scroll-snap-align: start; min-width: 0; }
+html[data-views] .beyond-track .reveal-heading { animation: none; opacity: 1; transform: none; clip-path: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-view] [data-panel] { animation: none !important; }
+}

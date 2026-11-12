@@ -8,6 +8,7 @@ import {
 } from "@/content";
 import { SiteHeader, SiteFooter, SkipLink, SectionHead } from "@/components/site/SiteChrome";
 import { PhotoScenes } from "@/components/site/PhotoScenes";
+import { BeyondControls } from "@/components/site/BeyondControls";
 import { HomeRoutedWorkspace, ContourDivider } from "@/components/routed/HomeRoutedWorkspace";
 import { ScrollRouteIndicator } from "@/components/routed/ScrollRouteIndicator";
 import { EvidenceMarker } from "@/components/routed/EvidenceModeProvider";
@@ -32,6 +33,7 @@ export default function HomePage() {
 
         {/* ── Hop 03: Research (DASER-Net & Wireless Mesh + TVWS Thesis) ── */}
         <section
+          data-panel="research"
           id="research"
           aria-labelledby="research-label"
           className="scroll-mt-20 border-y border-ivory/15 bg-[#181613]/50"
@@ -126,6 +128,7 @@ export default function HomePage() {
 
         {/* ── Hop 04: How I Think (Decision as Mini-Traceroute) ── */}
         <section
+          data-panel="research"
           id="thinking"
           aria-labelledby="thinking-label"
           className="scroll-mt-20 mx-auto max-w-[1200px] px-4 py-16 sm:px-8 sm:py-24"
@@ -205,7 +208,7 @@ export default function HomePage() {
         <ContourDivider />
 
         {/* ── Beyond the code: personal photo story, after the engineering work ── */}
-        <section id="beyond" aria-labelledby="beyond-title" className="scroll-mt-20 border-t border-ivory/15 bg-[#0c0b09]">
+        <section data-panel="beyond" id="beyond" aria-labelledby="beyond-title" className="scroll-mt-20 border-t border-ivory/15 bg-[#0c0b09]">
           <div className="mx-auto max-w-[1200px] px-5 pb-6 pt-16 sm:px-10 sm:pt-24">
             <h2 id="beyond-title" className="reveal-heading display text-[clamp(2.4rem,5vw,4.6rem)] font-light leading-none text-ivory">
               Beyond the code
@@ -215,12 +218,14 @@ export default function HomePage() {
             </p>
           </div>
           <PhotoScenes />
+          <BeyondControls />
         </section>
 
         <ContourDivider />
 
         {/* ── Hop 05: About, Arylax Labs & Selective Experience Timeline ── */}
         <section
+          data-panel="about"
           id="experience"
           aria-labelledby="about-label"
           className="scroll-mt-20 border-t border-ivory/15 bg-[#181613]/40"
@@ -302,6 +307,7 @@ export default function HomePage() {
 
         {/* ── Hop 06: Direct Contact & Deep Exploration ── */}
         <section
+          data-panel="contact"
           id="contact"
           aria-labelledby="contact-label"
           className="scroll-mt-20 border-t border-ivory/15 bg-[#11100E]"

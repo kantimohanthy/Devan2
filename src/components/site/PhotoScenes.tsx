@@ -199,7 +199,7 @@ function SpaceJourney() {
 export function PhotoScenes() {
   return (
     <ViewerProvider>
-    <div aria-label="Personal stories">
+    <div aria-label="Personal stories" className="beyond-track">
       {scenes.map(([image, title, story], index) => image === "space-journey" ? (
         <SpaceJourney key={image} />
       ) : image === "book-portrait" ? (
