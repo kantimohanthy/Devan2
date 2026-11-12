@@ -49,8 +49,12 @@ export function HomeRoutedWorkspace({
       <section
         id="hero"
         aria-labelledby="intro-title"
-        className="paper-grid scroll-mt-20 border-b border-ivory/15"
+        className="paper-grid relative isolate scroll-mt-20 overflow-hidden border-b border-ivory/15"
       >
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,#11100e_18%,transparent_90%),url('/photos/personal/background.webp')] bg-[length:100%_100%,auto_100%] bg-right bg-no-repeat opacity-20"
+        />
         <div className="mx-auto max-w-[1520px] px-4 pb-10 pt-8 sm:px-8 lg:px-10 lg:pt-12">
           <p className="note mb-5">
             {person.location} · systems &amp; network field portfolio · reviewed {formatMonth(LAST_REVIEWED)}
