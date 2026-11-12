@@ -22,6 +22,7 @@ export function PhotoScenes() {
             <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ivory-2">
               {story} When I saw my first satellite model, I wanted to know what each part did and how they worked together. I still approach new things that way.
             </p>
+            <video controls playsInline preload="none" poster="/photos/personal/satellite.webp" aria-label="Space exhibit video" className="mt-8 block max-h-[70svh] w-full max-w-3xl bg-black" src="/photos/personal/space-exhibit.mp4" />
           </div>
         </section>
       ) : image === "personal/legacy" ? (
