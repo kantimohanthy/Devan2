@@ -2,19 +2,19 @@ import { Parallax, Zoomable, ViewerProvider, AutoVideo } from "./PhotoMotion";
 
 const scenes = [
   ["portrait-1140", "Victory", "I like this version of me. Hoodie on, backpack ready, and still finding a reason to smile."],
-  ["personal/anime", "The worlds I get lost in", "Anime makes me curious about how a world works and why the people in it do what they do."],
   ["personal/solitude", "Quiet enough to think", "I’m happy in my own company. A walk with my headphones or a few hours working alone gives me room to think."],
   ["book-portrait", "Books and low light", "Some of my best thinking happens with a book and almost no light."],
   ["personal/transit", "A seat by the window", "Public transport is part of how I get to know a city. I put on my headphones and watch the streets change."],
-  ["stories", "Stories I keep coming back to", "Anime and film are where I find characters worth thinking about, and worlds I want to understand."],
+  ["stories", "Worlds I get lost in, stories I keep coming back to", "Anime and film make me curious about how a world works and why the people in it do what they do. Those are the characters worth thinking about, and the stories I keep coming back to."],
   ["machines", "Machines with a reason for every line", "A 911 GT3 RS is aerodynamics you can see. The Corvette redesign sheet is the same idea drawn as design thinking. I like things where form follows function."],
   ["space-journey", "Space Journey", ""],
   ["personal/legacy", "As long as I’m breathing, I can think.", "My cousin took me here during one of the hardest periods of my life. I stood with my arms wide and realized I could still choose what I did next. If I can think, I can find a way forward. This pose reminds me that the legacy I want comes from what I do next."],
 ];
 
-type Img = { name: string; w: number; alt: string };
+type Img = { name: string; w: number; alt: string; src?: string };
 const interestImages: Record<string, Img> = {
   "book-portrait": { name: "book-portrait", w: 1152, alt: "Ujwal in a dark room, face hidden behind an open book, lit by a thin shaft of light" },
+  "comics-shop": { name: "comics-shop", w: 706, src: "/photos/personal/anime.webp", alt: "Ujwal seated in a chair surrounded by shelves of colourful comic books and manga" },
   "anime-art": { name: "anime-art", w: 1152, alt: "Black and white ink illustration of an anime swordsman with three swords and Japanese calligraphy" },
   "film-still": { name: "film-still", w: 736, alt: "A still from a film: a young man with curly hair standing at a bathroom sink" },
   "porsche-911": { name: "porsche-911", w: 1152, alt: "Poster of a white, red and blue Porsche 911 GT3 RS race car on a wet track with a large yellow 911 behind it" },
@@ -25,12 +25,14 @@ const interestImages: Record<string, Img> = {
 function InterestImg({ id, className }: { id: string; className?: string }) {
   const i = interestImages[id];
   const base = `/photos/interests/${i.name}`;
+  const src = i.src ?? `${base}-${i.w}.webp`;
+  const srcSet = i.src ? undefined : `${base}-640.webp 640w, ${base}-${i.w}.webp ${i.w}w`;
   return (
-    <Zoomable src={`${base}-${i.w}.webp`} alt={i.alt}>
+    <Zoomable src={src} alt={i.alt}>
     {/* eslint-disable-next-line @next/next/no-img-element */}
     <img
-      src={`${base}-${i.w}.webp`}
-      srcSet={`${base}-640.webp 640w, ${base}-${i.w}.webp ${i.w}w`}
+      src={src}
+      srcSet={srcSet}
       sizes="(min-width: 1024px) 560px, 100vw"
       alt={i.alt}
       loading="lazy"
@@ -38,6 +40,37 @@ function InterestImg({ id, className }: { id: string; className?: string }) {
       className={className}
     />
     </Zoomable>
+  );
+}
+
+function StoriesScene({ title, story, id }: { title: string; story: string; id: string }) {
+  return (
+    <section aria-labelledby={id} className="relative isolate overflow-hidden border-b border-ivory/15 bg-[#11100e]">
+      <div aria-hidden="true" className="absolute inset-0 -z-10 scale-110 bg-cover bg-center opacity-20 blur-2xl" style={{ backgroundImage: "url('/photos/interests/anime-art-640.webp')" }} />
+      <div className="mx-auto grid max-w-[1360px] gap-10 px-6 py-14 sm:px-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.7fr)] lg:items-center lg:gap-14 lg:py-20">
+        <div>
+          <h2 id={id} className="reveal-heading display text-[clamp(2.1rem,4vw,4rem)] leading-[1.04] text-ivory">{title}</h2>
+          <p className="mt-5 max-w-[460px] text-lg leading-relaxed text-ivory-2">{story}</p>
+        </div>
+        <div className="grid grid-cols-2 items-center gap-3 sm:gap-5 lg:grid-cols-3">
+          <Parallax strength={14} className="col-span-2 lg:col-span-1 lg:-rotate-1">
+            <figure className="overflow-hidden rounded-md bg-black/40">
+              <InterestImg id="comics-shop" className="h-auto max-h-[70svh] w-full object-cover" />
+            </figure>
+          </Parallax>
+          <Parallax strength={26} className="lg:mt-10 lg:rotate-1">
+            <figure className="overflow-hidden rounded-md bg-black/40">
+              <InterestImg id="anime-art" className="h-auto max-h-[70svh] w-full object-contain" />
+            </figure>
+          </Parallax>
+          <Parallax strength={38} className="lg:-mt-4 lg:-rotate-1">
+            <figure className="overflow-hidden rounded-md bg-black/40">
+              <InterestImg id="film-still" className="h-auto max-h-[70svh] w-full object-contain" />
+            </figure>
+          </Parallax>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -143,7 +176,7 @@ export function PhotoScenes() {
       ) : image === "book-portrait" ? (
         <SingleScene key={image} id={`scene-${index}`} title={title} story={story} image={image} align="right" />
       ) : image === "stories" ? (
-        <PairScene key={image} id={`scene-${index}`} title={title} story={story} a="anime-art" b="film-still" />
+        <StoriesScene key={image} id={`scene-${index}`} title={title} story={story} />
       ) : image === "machines" ? (
         <PairScene key={image} id={`scene-${index}`} title={title} story={story} a="porsche-911" b="corvette-sheet" />
       ) : image === "personal/legacy" ? (
