@@ -13,6 +13,8 @@ import { TracerouteCaseStudy } from "@/components/routed/TracerouteCaseStudy";
 import { StatusPill } from "@/components/routed/SelectedWorkChapters";
 import { EvidenceMarker } from "@/components/routed/EvidenceModeProvider";
 
+import { TvwsPacketTrace } from "@/components/site/TvwsPacketTrace";
+
 export function generateStaticParams() {
   const seen = new Set<string>();
   const params: { slug: string }[] = [];
@@ -121,6 +123,8 @@ export default async function CaseStudyPage({
             </div>
           </dl>
         </header>
+
+        {p.slug === "wireless-mesh-tvws" && <TvwsPacketTrace />}
 
         {/* Traceroute hops */}
         <TracerouteCaseStudy project={p} />
