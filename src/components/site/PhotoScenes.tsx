@@ -9,7 +9,6 @@ const scenes = [
   ["stories", "Stories I keep coming back to", "Anime and film are where I find characters worth thinking about, and worlds I want to understand."],
   ["machines", "Machines with a reason for every line", "A 911 GT3 RS is aerodynamics you can see. The Corvette redesign sheet is the same idea drawn as design thinking. I like things where form follows function."],
   ["space-journey", "Space Journey", ""],
-  ["conference", "Esplorare Space", "After my talk at the Sustainable Space Conference at Tor Vergata, with fellow students in front of our slide."],
   ["personal/legacy", "As long as I’m breathing, I can think.", "My cousin took me here during one of the hardest periods of my life. I stood with my arms wide and realized I could still choose what I did next. If I can think, I can find a way forward. This pose reminds me that the legacy I want comes from what I do next."],
 ];
 
@@ -82,22 +81,6 @@ function SingleScene({ id, title, story, image, align }: { id: string; title: st
   );
 }
 
-function ConferenceScene({ id, title, story }: { id: string; title: string; story: string }) {
-  return (
-    <section aria-labelledby={id} className="relative isolate border-b border-ivory/15 bg-[#11100e]">
-      <div className="mx-auto max-w-[1360px] px-6 py-14 sm:px-12 lg:py-20">
-        <figure>
-          <InterestImg id="conference" className="h-auto max-h-[80svh] w-full rounded-md object-cover object-center" />
-          <figcaption className="mt-8 grid gap-4 lg:grid-cols-[1fr_1fr] lg:gap-16">
-            <h2 id={id} className="reveal-heading display text-[clamp(2.4rem,5vw,5rem)] leading-none text-ivory">{title}</h2>
-            <p className="max-w-[560px] text-lg leading-relaxed text-ivory-2">{story}</p>
-          </figcaption>
-        </figure>
-      </div>
-    </section>
-  );
-}
-
 const spaceJourney = [
   ["personal/space", "Ujwal beside a spacesuit exhibit"],
   ["personal/satellite", "A suspended satellite model on display"],
@@ -123,6 +106,15 @@ function SpaceJourney() {
             </Parallax>
           ))}
         </div>
+        <Parallax strength={16} className="mt-4 sm:mt-6">
+          <figure className="overflow-hidden rounded-md bg-black/40">
+            <InterestImg id="conference" className="h-auto max-h-[75svh] w-full object-cover object-center" />
+            <figcaption className="px-4 py-3 text-[14px] leading-snug text-ivory-3">
+              After my talk at the Sustainable Space Conference at Tor Vergata, with fellow students in front of our slide.
+            </figcaption>
+          </figure>
+        </Parallax>
+
         <div className="mt-10 grid items-center gap-8 lg:grid-cols-[minmax(0,320px)_1fr] lg:gap-16">
           <figure className="mx-auto w-full max-w-[320px]">
             <AutoVideo
@@ -154,8 +146,6 @@ export function PhotoScenes() {
         <PairScene key={image} id={`scene-${index}`} title={title} story={story} a="anime-art" b="film-still" />
       ) : image === "machines" ? (
         <PairScene key={image} id={`scene-${index}`} title={title} story={story} a="porsche-911" b="corvette-sheet" />
-      ) : image === "conference" ? (
-        <ConferenceScene key={image} id={`scene-${index}`} title={title} story={story} />
       ) : image === "personal/legacy" ? (
         <section key={image} aria-labelledby={`scene-${image === "personal/legacy" ? index + 1 : index}`} className="bg-black px-5 py-12 sm:px-8 lg:py-20">
           <div className="mx-auto grid max-w-[1520px] items-center gap-5 lg:grid-cols-[1fr_1.5fr_1fr] lg:gap-8">
