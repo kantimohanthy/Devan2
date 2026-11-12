@@ -148,8 +148,8 @@ export const evidenceLedger: EvidenceLedgerEntry[] = [
     date: "2026-11-12",
     verificationStatus: "reported",
     publishableWording: "University coursework project in C# / .NET 10. Test methods were counted in the repository; the suite was not re-run for this site.",
-    artifactUrl: "https://github.com/kantimohanthy/FinalProjectBase--1-",
-    artifactLabel: "GitHub: FinalProjectBase--1-",
+    artifactUrl: "/work/data-quality-platform/",
+    artifactLabel: "Case study",
   },
 ];
 
