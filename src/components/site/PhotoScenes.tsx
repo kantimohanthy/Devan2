@@ -11,7 +11,22 @@ const scenes = [
 export function PhotoScenes() {
   return (
     <div aria-label="Personal stories">
-      {scenes.map(([image, title, story], index) => (
+      {scenes.map(([image, title, story], index) => image === "personal/legacy" ? (
+        <section key={image} aria-labelledby={`scene-${index}`} className="bg-black px-5 py-12 sm:px-8 lg:py-20">
+          <div className="mx-auto grid max-w-[1520px] items-center gap-5 lg:grid-cols-[1fr_1.5fr_1fr] lg:gap-8">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/photos/personal/legacy-quote-left.webp" alt="All you need is a little delusion and audacity and you can seriously do anything in this life." loading="lazy" className="mx-auto w-full max-w-md" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/photos/personal/legacy.webp" alt="Ujwal standing with arms outstretched above a forested valley" width={706} height={779} loading="lazy" className="mx-auto w-full max-w-xl" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/photos/personal/legacy-quote-right.webp" alt="A hero? Please. Some of us were born to be greater. — Toni Oba" loading="lazy" className="mx-auto w-full max-w-md" />
+          </div>
+          <div className="mx-auto mt-10 max-w-3xl text-center">
+            <h2 id={`scene-${index}`} className="display text-[clamp(2.4rem,5vw,5rem)] leading-none text-ivory">{title}</h2>
+            <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-ivory-2">{story}</p>
+          </div>
+        </section>
+      ) : (
         <section key={image} aria-labelledby={`scene-${index}`} className="relative isolate flex min-h-[78svh] items-end overflow-hidden border-b border-ivory/15 bg-[#11100e]">
           <div aria-hidden="true" className="absolute inset-0 -z-10 scale-110 bg-cover bg-center opacity-30 blur-2xl" style={{ backgroundImage: `url('/photos/${image}.webp')` }} />
           <div aria-hidden="true" className="absolute inset-0 -z-10 bg-contain bg-top bg-no-repeat lg:bg-center" style={{ backgroundImage: `url('/photos/${image}.webp')` }} />
