@@ -3,16 +3,47 @@ const scenes = [
   ["personal/anime", "The worlds I get lost in", "Anime makes me curious about how a world works and why the people in it do what they do."],
   ["personal/solitude", "Quiet enough to think", "I’m happy in my own company. A walk with my headphones or a few hours working alone gives me room to think."],
   ["personal/transit", "A seat by the window", "Public transport is part of how I get to know a city. I put on my headphones and watch the streets change."],
-  ["personal/space", "What draws me to space", "Standing beside a spacesuit makes me think about all the people and engineering decisions that go into keeping one person alive out there."],
-  ["personal/satellite", "My first satellite model", "I wanted to know what each part did and how it all worked together. I still approach new things that way."],
+  ["space-journey", "Space Journey", ""],
   ["personal/legacy", "As long as I’m breathing, I can think.", "My cousin took me here during one of the hardest periods of my life. I stood with my arms wide and realized I could still choose what I did next. If I can think, I can find a way forward. This pose reminds me that the legacy I want comes from what I do next."],
 ];
+
+const spaceJourney = [
+  ["personal/space", "What draws me to space", "Standing beside a spacesuit makes me think about all the people and engineering decisions that go into keeping one person alive out there."],
+  ["personal/satellite", "My first encounter with a satellite model", "I wanted to know what each part did and how it all worked together. I still approach new things that way."],
+];
+
+function SpaceJourney() {
+  return (
+    <section aria-labelledby="space-journey" className="border-b border-ivory/15 bg-[#11100e]">
+      <div className="mx-auto max-w-[1360px] px-6 pb-8 pt-14 sm:px-12">
+        <h2 id="space-journey" className="display text-[clamp(2.4rem,5vw,5rem)] leading-none text-ivory">
+          Space Journey
+        </h2>
+      </div>
+      {spaceJourney.map(([image, title, story]) => (
+        <figure key={image} className="relative isolate flex min-h-[78svh] items-end overflow-hidden">
+          <div aria-hidden="true" className="absolute inset-0 -z-20 scale-110 bg-cover bg-center opacity-30 blur-2xl" style={{ backgroundImage: `url('/photos/${image}.webp')` }} />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={`/photos/${image}.webp`} alt={image === "personal/space" ? "Ujwal beside a spacesuit exhibit" : "A suspended satellite model on display"} loading="lazy" className="absolute inset-0 -z-10 size-full object-contain object-top lg:object-center" />
+          <figcaption className="w-full bg-gradient-to-t from-[#11100e] via-[#11100e]/90 to-transparent px-6 pb-10 pt-24 sm:px-12">
+            <div className="mx-auto max-w-[1360px]">
+              <h3 className="display text-[clamp(1.75rem,3vw,3rem)] leading-tight text-ivory">{title}</h3>
+              <p className="mt-4 max-w-[560px] text-lg leading-relaxed text-ivory-2">{story}</p>
+            </div>
+          </figcaption>
+        </figure>
+      ))}
+    </section>
+  );
+}
 
 export function PhotoScenes() {
   return (
     <div aria-label="Personal stories">
-      {scenes.map(([image, title, story], index) => image === "personal/legacy" ? (
-        <section key={image} aria-labelledby={`scene-${index}`} className="bg-black px-5 py-12 sm:px-8 lg:py-20">
+      {scenes.map(([image, title, story], index) => image === "space-journey" ? (
+        <SpaceJourney key={image} />
+      ) : image === "personal/legacy" ? (
+        <section key={image} aria-labelledby={`scene-${image === "personal/legacy" ? index + 1 : index}`} className="bg-black px-5 py-12 sm:px-8 lg:py-20">
           <div className="mx-auto grid max-w-[1520px] items-center gap-5 lg:grid-cols-[1fr_1.5fr_1fr] lg:gap-8">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/photos/personal/legacy-quote-left.webp" alt="All you need is a little delusion and audacity and you can seriously do anything in this life." loading="lazy" className="mx-auto w-full max-w-md" />
