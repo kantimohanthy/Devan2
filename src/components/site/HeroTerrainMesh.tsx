@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Pause, Play } from "lucide-react";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
-import { projects } from "@/content";
+import { projects, evidenceById } from "@/content";
 
 interface MeshNodeSpec {
   slug: string;
@@ -20,6 +20,7 @@ const MESH_NODES: MeshNodeSpec[] = [
   { slug: "devan", label: "DEVAN", tag: "in progress · evidence", x: 350, y: 120, elevation: "680m" },
   { slug: "wireless-mesh-tvws", label: "TVWS Thesis", tag: "ongoing · draft review", x: 390, y: 345, elevation: "520m" },
   { slug: "daser-net", label: "DASER-Net", tag: "ongoing · research", x: 550, y: 185, elevation: "740m" },
+  { slug: "cosmohub", label: "CosmoHub", tag: "in progress · early prototype", x: 590, y: 335, elevation: "300m" },
 ];
 
 const MESH_LINKS: { from: string; to: string; via: string }[] = [
@@ -27,7 +28,11 @@ const MESH_LINKS: { from: string; to: string; via: string }[] = [
   { from: "devan", to: "wireless-mesh-tvws", via: "network proof" },
   { from: "devan", to: "daser-net", via: "validation rules" },
   { from: "wireless-mesh-tvws", to: "daser-net", via: "signal robustness" },
+  { from: "devan", to: "cosmohub", via: "evidence ledger" },
 ];
+
+const HUB = "devan";
+const SIGNAL_ORDER = ["project-loop", "devan", "wireless-mesh-tvws", "daser-net", "cosmohub"];
 
 // Deterministic route sequence across all 4 nodes: LOOP -> DEVAN -> TVWS -> DASER-Net
 const ROUTE_ORDER = ["project-loop", "devan", "wireless-mesh-tvws", "daser-net"];
@@ -38,6 +43,8 @@ export function HeroTerrainMesh({ activeSlug, onSelectSlug }: { activeSlug?: str
   const [selected, setSelected] = useState<string>(activeSlug || "devan");
   const [hopIndex, setHopIndex] = useState(0);
   const [t, setT] = useState(0);
+  const [signal, setSignal] = useState<{ pts: { x: number; y: number }[]; head: { x: number; y: number } } | null>(null);
+  const signalRaf = useRef(0);
 
   const effectiveSelected = activeSlug ?? selected;
 
@@ -80,19 +87,72 @@ export function HeroTerrainMesh({ activeSlug, onSelectSlug }: { activeSlug?: str
 
   const currentProject = projects.find((p) => p.slug === effectiveSelected) ?? projects[0];
 
+  const fireSignal = (fromSlug: string, toSlug: string) => {
+    cancelAnimationFrame(signalRaf.current);
+    if (prefersReduced || fromSlug === toSlug) {
+      setSignal(null);
+      return;
+    }
+    const a = MESH_NODES.find((n) => n.slug === fromSlug);
+    const b = MESH_NODES.find((n) => n.slug === toSlug);
+    const hub = MESH_NODES.find((n) => n.slug === HUB);
+    if (!a || !b || !hub) return;
+    const direct = MESH_LINKS.some(
+      (l) => (l.from === fromSlug && l.to === toSlug) || (l.from === toSlug && l.to === fromSlug)
+    );
+    const pts = direct || fromSlug === HUB || toSlug === HUB ? [a, b] : [a, hub, b];
+    const seg = pts.slice(1).map((pt, i) => Math.hypot(pt.x - pts[i].x, pt.y - pts[i].y));
+    const total = seg.reduce((x, y) => x + y, 0);
+    const start = performance.now();
+    const dur = 1000;
+    const step = (now: number) => {
+      const k = Math.min(1, (now - start) / dur);
+      const e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+      let dist = e * total;
+      let i = 0;
+      while (i < seg.length - 1 && dist > seg[i]) {
+        dist -= seg[i];
+        i++;
+      }
+      const f = seg[i] === 0 ? 1 : Math.min(1, dist / seg[i]);
+      const head = { x: pts[i].x + (pts[i + 1].x - pts[i].x) * f, y: pts[i].y + (pts[i + 1].y - pts[i].y) * f };
+      setSignal({ pts: pts.slice(0, i + 1).map((q) => ({ x: q.x, y: q.y })), head });
+      if (k < 1) signalRaf.current = requestAnimationFrame(step);
+      else setTimeout(() => setSignal(null), 500);
+    };
+    signalRaf.current = requestAnimationFrame(step);
+  };
+
+  useEffect(() => () => cancelAnimationFrame(signalRaf.current), []);
+
   const handleSelect = (slug: string) => {
+    fireSignal(effectiveSelected, slug);
     setSelected(slug);
     onSelectSlug?.(slug);
   };
+
+  const traceNext = () => {
+    const i = SIGNAL_ORDER.indexOf(effectiveSelected);
+    handleSelect(SIGNAL_ORDER[(i + 1) % SIGNAL_ORDER.length]);
+  };
+
+  const evidence = evidenceById[currentProject.evidenceIds[0]];
 
   return (
     <div className="w-full max-w-full min-w-0 overflow-hidden rounded-lg border border-ivory/15 bg-ink-2/90 p-3 sm:p-4 shadow-[0_18px_50px_rgba(0,0,0,0.45)]">
       <div className="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-ivory/10">
         <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-ivory-3 min-w-0">
           <span className="inline-block h-2 w-2 shrink-0 rounded-full bg-[#E8923A]" aria-hidden />
-          <span className="truncate">route mesh · 4 nodes</span>
+          <span className="truncate">route mesh · 5 nodes</span>
         </div>
         <div className="flex items-center gap-2 shrink-0">
+          <button
+            type="button"
+            onClick={traceNext}
+            className="inline-flex min-h-9 items-center gap-1.5 whitespace-nowrap shrink-0 rounded border border-[#E8923A]/60 px-2.5 font-mono text-[11px] text-[#F2A65A] hover:bg-[#E8923A]/10 transition-colors"
+          >
+            Trace a signal
+          </button>
           <button
             type="button"
             onClick={() => setPaused((p) => !p)}
@@ -121,7 +181,7 @@ export function HeroTerrainMesh({ activeSlug, onSelectSlug }: { activeSlug?: str
         >
           <title>Routed topographic portfolio mesh</title>
           <desc>
-            Four project and research nodes placed across hand-tuned contour lines. Teal edges show authored relationships; an amber signal packet traces deterministic hops across them.
+            Five project and research nodes placed across hand-tuned contour lines. Teal edges show authored relationships; an amber signal packet traces deterministic hops across them.
           </desc>
 
           {/* Hand-tuned topographic elevation contours */}
@@ -183,6 +243,22 @@ export function HeroTerrainMesh({ activeSlug, onSelectSlug }: { activeSlug?: str
             </g>
           )}
 
+          {/* Visitor-triggered signal: amber trace and pulse to the selected node */}
+          {signal && (
+            <g aria-hidden>
+              <polyline
+                points={[...signal.pts, signal.head].map((q) => `${q.x},${q.y}`).join(" ")}
+                fill="none"
+                stroke="#E8923A"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <circle cx={signal.head.x} cy={signal.head.y} r="12" fill="#E8923A" fillOpacity="0.22" />
+              <circle cx={signal.head.x} cy={signal.head.y} r="5" fill="#F2A65A" />
+            </g>
+          )}
+
           {/* Project mesh nodes as focusable accessible buttons */}
           {MESH_NODES.map((node) => {
             const isSel = node.slug === effectiveSelected;
@@ -241,20 +317,38 @@ export function HeroTerrainMesh({ activeSlug, onSelectSlug }: { activeSlug?: str
         </svg>
       </div>
 
-      {/* Zero-shift preview footer synced to selected mesh node */}
-      <div className="mt-3 rounded border border-ivory/10 bg-[#11100E] px-3.5 py-2.5 flex flex-wrap items-center justify-between gap-2">
-        <div className="min-w-0">
-          <p className="font-mono text-[10.5px] uppercase tracking-wider text-ivory-3">
-            selected node · {currentProject.statusLabel}
-          </p>
-          <p className="text-[13.5px] font-medium text-ivory truncate">{currentProject.title} — {currentProject.role}</p>
+      {/* Preview synced to the selected node: question, my contribution, evidence link */}
+      <div className="mt-3 rounded border border-ivory/10 bg-[#11100E] px-3.5 py-3 sm:min-h-[168px]" aria-live="polite">
+        <p className="font-mono text-[10.5px] uppercase tracking-wider text-ivory-3">
+          selected node · {currentProject.statusLabel}
+        </p>
+        <p className="mt-1 text-[14px] font-medium text-ivory">
+          {currentProject.title}: {currentProject.role}
+        </p>
+        <p className="mt-2 text-[13px] leading-snug text-ivory-2">
+          <span className="text-ivory-3">Question. </span>
+          {currentProject.problem}
+        </p>
+        <p className="mt-1.5 text-[13px] leading-snug text-ivory-2">
+          <span className="text-ivory-3">My part. </span>
+          {currentProject.contributionOneLiner}
+        </p>
+        <div className="mt-2.5 flex flex-wrap items-center gap-x-5 gap-y-1">
+          <Link
+            href={`/work/${currentProject.slug}/`}
+            className="inline-flex min-h-9 items-center font-mono text-[12px] text-teal hover:underline"
+          >
+            Trace hops →
+          </Link>
+          {evidence && (
+            <Link
+              href={evidence.artifactUrl ?? `/work/${currentProject.slug}/`}
+              className="inline-flex min-h-9 items-center font-mono text-[12px] text-teal hover:underline"
+            >
+              Evidence {evidence.id} ({evidence.verificationStatus}) →
+            </Link>
+          )}
         </div>
-        <Link
-          href={`/work/${currentProject.slug}/`}
-          className="inline-flex min-h-9 items-center font-mono text-[12px] text-teal hover:underline shrink-0"
-        >
-          Trace hops →
-        </Link>
       </div>
     </div>
   );

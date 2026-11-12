@@ -11,6 +11,7 @@ import { HomeRoutedWorkspace, ContourDivider } from "@/components/routed/HomeRou
 import { ScrollRouteIndicator } from "@/components/routed/ScrollRouteIndicator";
 import { EvidenceMarker } from "@/components/routed/EvidenceModeProvider";
 import { StatusPill } from "@/components/routed/SelectedWorkChapters";
+import { AboutPhotos } from "@/components/site/AboutPhotos";
 
 const featuredDecision = decisions[0];
 
@@ -46,7 +47,7 @@ export default function HomePage() {
                 </>
               }
             >
-              Both programs below are active works in progress. Completed pipeline engineering is documented separately from unverified benchmarks and open limitations.
+              These programs are active works in progress. Completed pipeline engineering is documented separately from unverified benchmarks and open limitations.
             </SectionHead>
 
             <div className="mt-12 space-y-8">
@@ -222,6 +223,8 @@ export default function HomePage() {
                     <p key={para}>{para}</p>
                   ))}
                 </div>
+
+                <AboutPhotos />
 
                 <div className="mt-7 rounded-md border border-ivory/15 bg-[#11100E] p-4">
                   <p className="note text-teal">Lab umbrella · Arylax Labs</p>
