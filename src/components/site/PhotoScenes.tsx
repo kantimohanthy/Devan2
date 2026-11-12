@@ -1,8 +1,7 @@
 import { Parallax, Zoomable, ViewerProvider, AutoVideo } from "./PhotoMotion";
 
 const scenes = [
-  ["portrait-1140", "Victory", "I like this version of me. Hoodie on, backpack ready, and still finding a reason to smile."],
-  ["personal/solitude", "Quiet enough to think", "I’m happy in my own company. A walk with my headphones or a few hours working alone gives me room to think."],
+  ["quiet", "Quiet enough to think", "I’m happy in my own company. A walk with my headphones or a few hours working alone gives me room to think. So does a quiet corner at the Taj Mahal, or a puppy held close."],
   ["book-portrait", "Books and low light", "Some of my best thinking happens with a book and almost no light."],
   ["personal/transit", "A seat by the window", "Public transport is part of how I get to know a city. I put on my headphones and watch the streets change."],
   ["stories", "Worlds I get lost in, stories I keep coming back to", "Anime and film make me curious about how a world works and why the people in it do what they do. Those are the characters worth thinking about, and the stories I keep coming back to."],
@@ -14,6 +13,9 @@ const scenes = [
 type Img = { name: string; w: number; alt: string; src?: string };
 const interestImages: Record<string, Img> = {
   "book-portrait": { name: "book-portrait", w: 1152, alt: "Ujwal in a dark room, face hidden behind an open book, lit by a thin shaft of light" },
+  solitude: { name: "solitude", w: 706, src: "/photos/personal/solitude.webp", alt: "Ujwal smiling beside the Tiber at night in Rome, headphones around his neck, wearing a 'Melting under pressure' t-shirt" },
+  taj: { name: "taj", w: 1126, alt: "Ujwal in a red striped shirt leaning on a railing in front of the Taj Mahal, looking away from the camera in soft morning haze" },
+  pup: { name: "pup", w: 592, src: "/photos/interests/pup-592.webp", alt: "Ujwal in a grey jacket and striped beanie, looking down and holding a small cream-coloured puppy against his chest" },
   "comics-shop": { name: "comics-shop", w: 706, src: "/photos/personal/anime.webp", alt: "Ujwal seated in a chair surrounded by shelves of colourful comic books and manga" },
   "anime-art": { name: "anime-art", w: 1152, alt: "Black and white ink illustration of an anime swordsman with three swords and Japanese calligraphy" },
   "film-still": { name: "film-still", w: 736, alt: "A still from a film: a young man with curly hair standing at a bathroom sink" },
@@ -66,6 +68,37 @@ function StoriesScene({ title, story, id }: { title: string; story: string; id: 
           <Parallax strength={38} className="lg:-mt-4 lg:-rotate-1">
             <figure className="overflow-hidden rounded-md bg-black/40">
               <InterestImg id="film-still" className="h-auto max-h-[70svh] w-full object-contain" />
+            </figure>
+          </Parallax>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function QuietScene({ title, story, id }: { title: string; story: string; id: string }) {
+  return (
+    <section aria-labelledby={id} className="relative isolate overflow-hidden border-b border-ivory/15 bg-[#0c0b09]">
+      <div aria-hidden="true" className="absolute inset-0 -z-10 scale-110 bg-cover bg-center opacity-25 blur-2xl" style={{ backgroundImage: "url('/photos/interests/taj-640.webp')" }} />
+      <div className="mx-auto grid max-w-[1360px] gap-10 px-6 py-14 sm:px-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.7fr)] lg:items-center lg:gap-14 lg:py-20">
+        <div>
+          <h2 id={id} className="reveal-heading display text-[clamp(2.4rem,5vw,5rem)] leading-none text-ivory">{title}</h2>
+          <p className="mt-5 max-w-[460px] text-lg leading-relaxed text-ivory-2">{story}</p>
+        </div>
+        <div className="grid grid-cols-2 items-center gap-3 sm:gap-5 lg:grid-cols-3">
+          <Parallax strength={26} className="col-span-2 lg:col-span-1 lg:-rotate-1">
+            <figure className="overflow-hidden rounded-md bg-black/40">
+              <InterestImg id="solitude" className="h-auto max-h-[70svh] w-full object-cover" />
+            </figure>
+          </Parallax>
+          <Parallax strength={36} className="lg:mt-12 lg:rotate-1">
+            <figure className="overflow-hidden rounded-md bg-black/40">
+              <InterestImg id="taj" className="h-auto max-h-[70svh] w-full object-cover" />
+            </figure>
+          </Parallax>
+          <Parallax strength={18} className="lg:-mt-6 lg:-rotate-1">
+            <figure className="overflow-hidden rounded-md bg-black/40">
+              <InterestImg id="pup" className="h-auto max-h-[70svh] w-full object-cover" />
             </figure>
           </Parallax>
         </div>
@@ -172,6 +205,8 @@ export function PhotoScenes() {
         <SpaceJourney key={image} />
       ) : image === "book-portrait" ? (
         <SingleScene key={image} id={`scene-${index}`} title={title} story={story} image={image} align="right" />
+      ) : image === "quiet" ? (
+        <QuietScene key={image} id={`scene-${index}`} title={title} story={story} />
       ) : image === "stories" ? (
         <StoriesScene key={image} id={`scene-${index}`} title={title} story={story} />
       ) : image === "machines" ? (
