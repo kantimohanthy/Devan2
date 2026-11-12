@@ -65,7 +65,7 @@ export function HomeRoutedWorkspace({
         className="paper-grid relative isolate scroll-mt-20 overflow-hidden border-b border-ivory/15"
       >
         <HeroBackdrop />
-        <div className="mx-auto flex min-h-[82svh] max-w-[1440px] flex-col justify-center px-5 py-16 sm:px-10">
+        <div className="mx-auto flex min-h-[82svh] max-w-[1440px] flex-col justify-center px-5 py-16 max-lg:pt-[300px] sm:px-10">
           <p className="note mb-5">
             {person.location} · systems &amp; network field portfolio · reviewed {formatMonth(LAST_REVIEWED)}
           </p>
