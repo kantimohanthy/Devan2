@@ -142,9 +142,6 @@ function SpaceJourney() {
         <Parallax strength={16} className="mt-4 sm:mt-6">
           <figure className="overflow-hidden rounded-md bg-black/40">
             <InterestImg id="conference" className="h-auto max-h-[75svh] w-full object-cover object-center" />
-            <figcaption className="px-4 py-3 text-[14px] leading-snug text-ivory-3">
-              After my talk at the Sustainable Space Conference at Tor Vergata, with fellow students in front of our slide.
-            </figcaption>
           </figure>
         </Parallax>
 
