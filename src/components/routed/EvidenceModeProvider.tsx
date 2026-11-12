@@ -79,7 +79,7 @@ export function ShowEvidenceToggle({ compact = false }: { compact?: boolean }) {
         aria-hidden
       />
       <span>Show evidence</span>
-      <span className="text-[10.5px] uppercase tracking-wider opacity-85">{enabled ? "on" : "off"}</span>
+      <span className="text-[12px] uppercase tracking-wider opacity-85">{enabled ? "on" : "off"}</span>
     </button>
   );
 }
@@ -138,7 +138,7 @@ export function EvidenceMarker({ ids }: { ids: string[] }) {
         aria-haspopup="dialog"
         aria-label={`Inspect evidence ledger entry ${primaryId}`}
         onClick={() => setOpenId(isOpen ? null : instanceKey)}
-        className="inline-flex min-h-[26px] min-w-[26px] items-center justify-center rounded border border-[#E8923A]/70 bg-[#E8923A]/15 px-1.5 font-mono text-[10.5px] font-semibold text-[#F2A65A] hover:bg-[#E8923A]/25 focus-visible:outline-2 focus-visible:outline-[#F2A65A]"
+        className="inline-flex min-h-[26px] min-w-[26px] items-center justify-center rounded border border-[#E8923A]/70 bg-[#E8923A]/15 px-1.5 font-mono text-[12px] font-semibold text-[#F2A65A] hover:bg-[#E8923A]/25 focus-visible:outline-2 focus-visible:outline-[#F2A65A]"
       >
         [{ids.join(",")}]
       </button>
@@ -152,7 +152,7 @@ export function EvidenceMarker({ ids }: { ids: string[] }) {
           className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-[420px] rounded-lg border border-ivory/25 bg-[#211E1A] p-4 shadow-[0_24px_60px_rgba(0,0,0,0.75)] sm:absolute sm:bottom-auto sm:left-0 sm:right-auto sm:top-full sm:mt-2 sm:w-[360px]"
         >
           <div className="flex items-start justify-between gap-3 border-b border-ivory/15 pb-2.5">
-            <span className="font-mono text-[11px] uppercase tracking-wider text-[#F2A65A]">
+            <span className="font-mono text-[12px] uppercase tracking-wider text-[#F2A65A]">
               Evidence Ledger · {ids.join(" · ")}
             </span>
             <button
@@ -172,9 +172,9 @@ export function EvidenceMarker({ ids }: { ids: string[] }) {
             {entries.map((entry) => (
               <div key={entry.id} className="space-y-1.5 border-b border-ivory/10 pb-3 last:border-none last:pb-0">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="font-mono text-[11px] font-bold text-ivory">{entry.id}</span>
+                  <span className="font-mono text-[12px] font-bold text-ivory">{entry.id}</span>
                   <span
-                    className={`inline-flex items-center gap-1 rounded px-2 py-0.5 font-mono text-[10.5px] uppercase ${
+                    className={`inline-flex items-center gap-1 rounded px-2 py-0.5 font-mono text-[12px] uppercase ${
                       entry.verificationStatus === "verified"
                         ? "bg-[#7CC488]/15 text-[#7CC488]"
                         : "bg-[#E8923A]/15 text-[#F2A65A]"
@@ -189,7 +189,7 @@ export function EvidenceMarker({ ids }: { ids: string[] }) {
                   </span>
                 </div>
                 <p className="text-[13px] leading-snug text-ivory">{entry.publishableWording}</p>
-                <p className="font-mono text-[11px] text-ivory-3">
+                <p className="font-mono text-[12px] text-ivory-3">
                   Source: {entry.source} · Reviewed {entry.date}
                 </p>
                 {entry.artifactUrl && (

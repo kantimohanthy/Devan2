@@ -33,7 +33,7 @@ export function ContourDivider() {
 
 function BigStatement() {
   return (
-    <section data-panel="home" aria-label="What I do" className="border-b border-ivory/15 bg-[#0c0b09]">
+    <section data-panel="about" aria-label="What I do" className="border-b border-ivory/15 bg-[#0c0b09]">
       <div className="mx-auto max-w-[1200px] px-5 py-20 sm:px-10 sm:py-28">
         <p className="reveal-heading display text-[clamp(1.9rem,4.8vw,4.2rem)] font-light leading-[1.08] text-ivory">
           I build web systems, test how networks behave, and work on making AI experiments{" "}

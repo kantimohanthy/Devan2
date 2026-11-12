@@ -83,12 +83,12 @@ export function SiteFooter() {
   const syncDate = githubSnapshot.syncedAt ? githubSnapshot.syncedAt.slice(0, 10) : LAST_REVIEWED;
   return (
     <footer className="border-t border-ivory/15 bg-[#11100E] print:hidden">
-      <div className="mx-auto flex max-w-[1200px] flex-col gap-4 px-4 py-10 text-[13.5px] text-ivory-3 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+      <div className="mx-auto flex max-w-[1200px] flex-col gap-4 px-4 py-10 text-[14px] text-ivory-3 sm:flex-row sm:items-center sm:justify-between sm:px-8">
         <div>
           <p className="text-ivory-2">
             {person.name} · Reviewed {formatMonth(LAST_REVIEWED)}
           </p>
-          <p className="mt-1 font-mono text-[11.5px] text-ivory-3">
+          <p className="mt-1 font-mono text-[12px] text-ivory-3">
             GitHub build sync: {syncDate} ({githubSnapshot.source})
           </p>
         </div>

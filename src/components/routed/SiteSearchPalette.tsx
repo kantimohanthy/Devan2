@@ -61,7 +61,7 @@ export function SiteSearchButton({ onOpen }: { onOpen: () => void }) {
     >
       <Search className="h-3.5 w-3.5 text-teal" />
       <span>Search</span>
-      <kbd className="hidden sm:inline rounded border border-ivory/20 px-1.5 py-0.5 text-[10px] text-ivory-3">
+      <kbd className="hidden sm:inline rounded border border-ivory/20 px-1.5 py-0.5 text-[12px] text-ivory-3">
         ⌘K
       </kbd>
     </button>
@@ -149,7 +149,7 @@ export function SiteSearchModal({
               <p className="font-mono text-[13px] text-ivory-2">
                 No matching public records for &ldquo;{query.trim()}&rdquo;.
               </p>
-              <p className="mt-1 font-mono text-[11.5px] text-ivory-3">
+              <p className="mt-1 font-mono text-[12px] text-ivory-3">
                 Search covers published case studies, Atlas nodes, decisions, and evidence ledger entries only (no AI synthesis).
               </p>
             </div>
@@ -169,7 +169,7 @@ export function SiteSearchModal({
                       >
                         <div className="min-w-0">
                           <p className="text-[14px] font-medium text-ivory truncate">{item.title}</p>
-                          <p className="font-mono text-[11px] text-ivory-3">{item.kind} · {item.meta}</p>
+                          <p className="font-mono text-[12px] text-ivory-3">{item.kind} · {item.meta}</p>
                         </div>
                         <span className="font-mono text-[12px] text-teal shrink-0">↗</span>
                       </a>
@@ -181,7 +181,7 @@ export function SiteSearchModal({
                       >
                         <div className="min-w-0">
                           <p className="text-[14px] font-medium text-ivory truncate">{item.title}</p>
-                          <p className="font-mono text-[11px] text-ivory-3">{item.kind} · {item.meta}</p>
+                          <p className="font-mono text-[12px] text-ivory-3">{item.kind} · {item.meta}</p>
                         </div>
                         <span className="font-mono text-[12px] text-teal shrink-0">→</span>
                       </Link>
@@ -193,7 +193,7 @@ export function SiteSearchModal({
           )}
         </div>
 
-        <div className="border-t border-ivory/10 bg-[#11100E] px-4 py-2 font-mono text-[11px] text-ivory-3 flex justify-between">
+        <div className="border-t border-ivory/10 bg-[#11100E] px-4 py-2 font-mono text-[12px] text-ivory-3 flex justify-between">
           <span>Search index · public records only</span>
           <span>Esc to close</span>
         </div>

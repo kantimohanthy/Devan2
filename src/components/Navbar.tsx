@@ -89,7 +89,7 @@ export function Navbar() {
           <button
             onClick={() => goTo(HIDDEN_NAV_ITEM.id)}
             aria-label="A quieter page"
-            className="hidden px-1.5 text-[11px] font-medium tracking-wide text-text-tertiary/50 transition-colors duration-300 hover:text-accent sm:block"
+            className="hidden px-1.5 text-[12px] font-medium tracking-wide text-text-tertiary/50 transition-colors duration-300 hover:text-accent sm:block"
           >
             {HIDDEN_NAV_ITEM.label}
           </button>

@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState, type ComponentType } from "react";
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform, type MotionValue } from "framer-motion";
-import { Camera, FileText, FlaskConical, House, Layers, Mail, Orbit, User } from "lucide-react";
+import { Camera, FileText, FlaskConical, House, Layers, Mail, Orbit, Send, User } from "lucide-react";
+import { person } from "@/content";
 
 type View = "home" | "work" | "research" | "beyond" | "about" | "contact";
 
@@ -71,8 +72,28 @@ export function ViewDock() {
   const [active, setActive] = useState<View>("home");
   const mouseX = useMotionValue(Infinity);
   const onHome = pathname === "/";
+  const [hello, setHello] = useState(false);
+  const helloRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    if (!hello) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setHello(false);
+    const onDown = (e: MouseEvent) => {
+      if (helloRef.current && !helloRef.current.contains(e.target as Node)) setHello(false);
+    };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("mousedown", onDown);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("mousedown", onDown);
+    };
+  }, [hello]);
+
+  const prevView = useRef<View>("home");
   const apply = useCallback((v: View, scrollTop = true) => {
+    const order: View[] = ["home", "work", "research", "beyond", "about", "contact"];
+    document.documentElement.setAttribute("data-dir", order.indexOf(v) >= order.indexOf(prevView.current) ? "fwd" : "back");
+    prevView.current = v;
     document.documentElement.setAttribute("data-view", v);
     setActive(v);
     if (scrollTop) window.scrollTo({ top: 0, behavior: "auto" });
@@ -162,6 +183,37 @@ export function ViewDock() {
             </li>
           );
         })}
+        <li aria-hidden="true" className="mx-1 h-7 w-px self-center bg-ivory/15" />
+        <li ref={helloRef as unknown as React.Ref<HTMLLIElement>} className="relative">
+          <button
+            type="button"
+            onClick={() => setHello((v) => !v)}
+            aria-expanded={hello}
+            aria-controls="quick-connect"
+            className="flex h-11 items-center justify-center gap-2 rounded-xl bg-[#F2A65A] px-3 font-mono text-[13px] font-medium text-[#11100E] transition-colors hover:bg-[#F2EBDC] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F2EBDC] sm:h-12 sm:px-4"
+          >
+            <Send className="h-[18px] w-[18px]" strokeWidth={1.9} aria-hidden="true" />
+            <span className="hidden sm:inline">Say hello</span>
+            <span className="sr-only sm:hidden">Say hello</span>
+          </button>
+          {hello && (
+            <div
+              id="quick-connect"
+              role="group"
+              aria-label="Contact me"
+              className="absolute bottom-[calc(100%+0.75rem)] right-0 w-[min(20rem,calc(100vw-1.5rem))] rounded-2xl border border-ivory/15 bg-[#14120f]/95 p-4 shadow-[0_18px_50px_rgba(0,0,0,0.6)] backdrop-blur-xl"
+            >
+              <p className="display text-[20px] leading-snug text-ivory">Software, networks or applied AI?</p>
+              <p className="mt-1 text-[14px] text-ivory-2">I answer every message.</p>
+              <ul className="mt-3 divide-y divide-ivory/10 border-y border-ivory/10 text-[14.5px]">
+                <li><a href={`mailto:${person.email}`} className="flex min-h-[44px] items-center justify-between gap-3 text-ivory hover:text-[#F2A65A]"><span>Email</span><span className="font-mono text-[12.5px] text-ivory-3">{person.email}</span></a></li>
+                <li><a href={person.linkedin} target="_blank" rel="noopener noreferrer" className="flex min-h-[44px] items-center justify-between text-ivory hover:text-[#F2A65A]"><span>LinkedIn</span><span aria-hidden="true">↗</span></a></li>
+                <li><a href={person.github} target="_blank" rel="noopener noreferrer" className="flex min-h-[44px] items-center justify-between text-ivory hover:text-[#F2A65A]"><span>GitHub</span><span aria-hidden="true">↗</span></a></li>
+                <li><Link href="/cv/" className="flex min-h-[44px] items-center justify-between text-ivory hover:text-[#F2A65A]"><span>CV</span><span aria-hidden="true">→</span></Link></li>
+              </ul>
+            </div>
+          )}
+        </li>
       </motion.ul>
     </nav>
   );

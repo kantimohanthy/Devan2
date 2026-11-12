@@ -42,7 +42,7 @@ export function ScrollRouteIndicator() {
       className="fixed bottom-4 right-4 z-30 hidden lg:block rounded-full border border-ivory/20 bg-[#181613]/95 px-3.5 py-2 shadow-[0_12px_35px_rgba(0,0,0,0.5)] backdrop-blur-sm print:hidden"
     >
       <div className="flex items-center gap-3">
-        <span className="font-mono text-[11px] uppercase tracking-wider text-ivory-2">
+        <span className="font-mono text-[12px] uppercase tracking-wider text-ivory-2">
           hop {current.hop} / {routeSections.length} · <strong className="text-[#F2A65A] font-medium">{current.label}</strong>
         </span>
         <nav aria-label="Jump to section hop" className="flex items-center gap-1.5 border-l border-ivory/15 pl-3">

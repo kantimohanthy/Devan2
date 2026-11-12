@@ -143,7 +143,7 @@ export function InteractiveTerminal() {
             key={cmd}
             type="button"
             onClick={() => setActiveCmd(cmd)}
-            className={`rounded-lg px-2.5 py-1.5 text-[11px] transition-all cursor-pointer border ${
+            className={`rounded-lg px-2.5 py-1.5 text-[12px] transition-all cursor-pointer border ${
               activeCmd === cmd
                 ? "border-blue-400 bg-blue-500/20 text-white font-semibold"
                 : "border-white/10 bg-white/5 text-white/60 hover:border-white/30 hover:text-white"

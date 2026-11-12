@@ -4,13 +4,27 @@ import type { TracerouteHop } from "@/content";
 export function InlineSchematic({
   kind,
   caption,
+  compact = false,
 }: {
   kind: NonNullable<TracerouteHop["diagramKind"]>;
   caption?: string;
+  compact?: boolean;
 }) {
+  if (compact) {
+    return (
+      <figure aria-label="Illustrative structural schematic, not measured data" className="overflow-hidden">
+        {kind === "loop-pipeline" && <LoopSchematic />}
+        {kind === "daser-split" && <DaserSchematic />}
+        {kind === "devan-evidence" && <DevanSchematic />}
+        {kind === "tvws-topology" && <TvwsSchematic />}
+        {kind === "cineforge-pipeline" && <CineforgeSchematic />}
+        <figcaption className="mt-1.5 text-center font-mono text-[12px] text-ivory-3">Structural schematic · illustrative</figcaption>
+      </figure>
+    );
+  }
   return (
     <figure className="mt-4 rounded-md border border-ivory/15 bg-[#11100E] p-3.5 sm:p-4">
-      <div className="mb-2 flex items-center justify-between gap-2 font-mono text-[10.5px] uppercase tracking-wider text-ivory-3">
+      <div className="mb-2 flex items-center justify-between gap-2 font-mono text-[12px] uppercase tracking-wider text-ivory-3">
         <span>Structural schematic · Illustrative (not measured telemetry)</span>
       </div>
       <div className="overflow-hidden">
@@ -21,7 +35,7 @@ export function InlineSchematic({
         {kind === "cineforge-pipeline" && <CineforgeSchematic />}
       </div>
       {caption && (
-        <figcaption className="mt-2.5 border-t border-ivory/10 pt-2 font-mono text-[11px] leading-relaxed text-ivory-3">
+        <figcaption className="mt-2.5 border-t border-ivory/10 pt-2 font-mono text-[12px] leading-relaxed text-ivory-3">
           {caption}
         </figcaption>
       )}
