@@ -8,31 +8,30 @@ const scenes = [
 ];
 
 const spaceJourney = [
-  ["personal/space", "What draws me to space", "Standing beside a spacesuit makes me think about all the people and engineering decisions that go into keeping one person alive out there."],
-  ["personal/satellite", "My first encounter with a satellite model", "I wanted to know what each part did and how it all worked together. I still approach new things that way."],
+  ["personal/space", "Ujwal beside a spacesuit exhibit"],
+  ["personal/satellite", "A suspended satellite model on display"],
 ];
 
 function SpaceJourney() {
   return (
-    <section aria-labelledby="space-journey" className="border-b border-ivory/15 bg-[#11100e]">
-      <div className="mx-auto max-w-[1360px] px-6 pb-8 pt-14 sm:px-12">
+    <section aria-labelledby="space-journey" className="relative isolate overflow-hidden border-b border-ivory/15 bg-[#11100e]">
+      <div aria-hidden="true" className="absolute inset-0 -z-10 scale-110 bg-cover bg-center opacity-20 blur-2xl" style={{ backgroundImage: "url('/photos/personal/satellite.webp')" }} />
+      <div className="mx-auto max-w-[1360px] px-6 py-14 sm:px-12 lg:py-20">
         <h2 id="space-journey" className="display text-[clamp(2.4rem,5vw,5rem)] leading-none text-ivory">
-          Space Journey
+          What draws me to space
         </h2>
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 sm:gap-6">
+          {spaceJourney.map(([image, alt]) => (
+            <figure key={image} className="overflow-hidden rounded-md bg-black/40">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={`/photos/${image}.webp`} alt={alt} loading="lazy" className="h-[60svh] max-h-[720px] w-full object-contain object-center sm:h-[70svh]" />
+            </figure>
+          ))}
+        </div>
+        <p className="mt-8 max-w-[640px] text-lg leading-relaxed text-ivory-2">
+          Standing beside a spacesuit makes me think about all the people and engineering decisions that go into keeping one person alive out there. The satellite model next to it was my first look at how a machine like that comes together. I wanted to know what each part did and how it all worked together, and I still approach new things that way.
+        </p>
       </div>
-      {spaceJourney.map(([image, title, story]) => (
-        <figure key={image} className="relative isolate flex min-h-[78svh] items-end overflow-hidden">
-          <div aria-hidden="true" className="absolute inset-0 -z-20 scale-110 bg-cover bg-center opacity-30 blur-2xl" style={{ backgroundImage: `url('/photos/${image}.webp')` }} />
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={`/photos/${image}.webp`} alt={image === "personal/space" ? "Ujwal beside a spacesuit exhibit" : "A suspended satellite model on display"} loading="lazy" className="absolute inset-0 -z-10 size-full object-contain object-top lg:object-center" />
-          <figcaption className="w-full bg-gradient-to-t from-[#11100e] via-[#11100e]/90 to-transparent px-6 pb-10 pt-24 sm:px-12">
-            <div className="mx-auto max-w-[1360px]">
-              <h3 className="display text-[clamp(1.75rem,3vw,3rem)] leading-tight text-ivory">{title}</h3>
-              <p className="mt-4 max-w-[560px] text-lg leading-relaxed text-ivory-2">{story}</p>
-            </div>
-          </figcaption>
-        </figure>
-      ))}
     </section>
   );
 }
