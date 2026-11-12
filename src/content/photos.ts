@@ -53,16 +53,5 @@ export const photos: {
       focal: "30% 50%",
       caption: "Between sessions at Adria Hack.",
     },
-    {
-      src: "/photos/about-meetup-1200.webp",
-      srcSet:
-        "/photos/about-meetup-640.webp 640w, /photos/about-meetup-1200.webp 1200w, /photos/about-meetup-1600.webp 1600w",
-      sizes: "(min-width: 1024px) 520px, 100vw",
-      alt: "Ujwal talking with another attendee while seated in a crowded hall at a hardware meetup in Paris",
-      width: 1200,
-      height: 800,
-      focal: "32% 50%",
-      caption: "At a hardware meetup in Paris.",
-    },
   ],
 };
