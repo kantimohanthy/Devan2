@@ -853,10 +853,8 @@ export const projects: ProjectRecord[] = [
       "Customer files arrive with missing columns, duplicates and invalid values, and a team needs to see what is wrong before they trust the data.",
     contributionOneLiner:
       "I wrote the application in C# with Entity Framework Core and SQLite, using MVC, observers, factories and snapshot-based undo, plus 34 unit test methods.",
-    repoUrl: "https://github.com/kantimohanthy/FinalProjectBase--1-",
-    repoSlug: "FinalProjectBase--1-",
-    primaryArtifactLabel: "Source code",
-    primaryArtifactHref: "https://github.com/kantimohanthy/FinalProjectBase--1-",
+    primaryArtifactLabel: "Case study",
+    primaryArtifactHref: "/work/data-quality-platform/",
     evidenceIds: ["E15"],
     missions: [],
     lastReviewed: "2026-11-12",
@@ -892,9 +890,6 @@ export const projects: ProjectRecord[] = [
         summary: "Public repository with about 2,700 lines of C#, class and use-case diagrams, and 12 test files.",
         details: [
           "I counted 34 test methods in the repository. I did not re-run them for this site.",
-        ],
-        externalLinks: [
-          { label: "GitHub: FinalProjectBase--1-", href: "https://github.com/kantimohanthy/FinalProjectBase--1-" },
         ],
         evidenceIds: ["E15"],
       },
