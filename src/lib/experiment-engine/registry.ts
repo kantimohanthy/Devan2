@@ -19,10 +19,10 @@ const DRIVER_REGISTRY: Record<string, ExperimentDriver> = {
     return {
       telemetry: trace.spans,
       benchmarks: [
-        { metric: "Total RTT Span", value: `${trace.totalDurationMs} ms`, context: "Hop-by-hop multi-layer span" },
+        { metric: "Total RTT Span", value: `${trace.totalDurationMs} ms`, context: "Hop-by-hop multilayer span" },
         { metric: "DoH DNS Lookup", value: `${trace.dnsMs} ms`, context: "Cloudflare 1.1.1.1 DoH endpoint" },
         { metric: "TLS 1.3 Handshake", value: `${trace.tlsMs} ms`, context: `CA: ${trace.tlsIssuer ?? "GTS CA"}` },
-        { metric: "HTTP First-Byte (TTFB)", value: `${trace.ttfbMs} ms`, context: "HTTP HEAD request" },
+        { metric: "HTTP First Byte (TTFB)", value: `${trace.ttfbMs} ms`, context: "HTTP HEAD request" },
       ],
     };
   },

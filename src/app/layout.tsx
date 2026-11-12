@@ -1,77 +1,61 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import "@fontsource-variable/inter";
+import "@fontsource-variable/fraunces/opsz.css";
+import "@fontsource-variable/fraunces/opsz-italic.css";
+import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
-import { RailNav } from "@/components/RailNav";
-import { TopBar } from "@/components/TopBar";
-import { CommandPalette } from "@/components/workspace/CommandPalette";
-import { WorkspaceTabs } from "@/components/workspace/WorkspaceTabs";
-import { BottomDock } from "@/components/workspace/BottomDock";
-import { OnboardingTour } from "@/components/workspace/OnboardingTour";
+
+const title = "Ujwal Shyam Kantimohanthy — Engineering Portfolio";
+const description =
+  "Engineering student building reliable web systems, evidence-grounded AI tools and network experiments. Systems & infrastructure engineering direction.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://kantimohanthy.dev"),
   title: {
-    default: "DEVAN — Cognitive Operating System for Engineering Intelligence",
-    template: "%s | DEVAN OS",
+    default: title,
+    template: "%s · Ujwal Shyam Kantimohanthy",
   },
-  description: "A living, queryable cognitive workspace backing protocol engineering, systems knowledge, kernel internals, and ground proof evidence.",
-  keywords: ["Engineering Intelligence", "Protocol Engineering", "Linux Kernel", "DNS", "TCP/IP", "Kubernetes", "Systems Architecture"],
-  authors: [{ name: "Kanti Mohanthy", url: "https://kantimohanthy.dev" }],
-  creator: "Kanti Mohanthy",
-  publisher: "DEVAN Intelligence Platform",
-  alternates: {
-    canonical: "https://kantimohanthy.dev",
-  },
+  description,
+  keywords: [
+    "Ujwal Shyam Kantimohanthy",
+    "Network engineering",
+    "Wireless mesh networks",
+    "TV White Space",
+    "Systems engineering",
+    "University of Rome Tor Vergata",
+  ],
+  authors: [{ name: "Ujwal Shyam Kantimohanthy", url: "https://kantimohanthy.dev" }],
+  creator: "Ujwal Shyam Kantimohanthy",
+  alternates: { canonical: "https://kantimohanthy.dev/" },
   openGraph: {
-    title: "DEVAN — Cognitive Operating System for Engineering Intelligence",
-    description: "A living, queryable cognitive workspace backing protocol engineering, systems knowledge, and ground proof evidence.",
-    url: "https://kantimohanthy.dev",
-    siteName: "DEVAN OS",
+    title,
+    description,
+    url: "https://kantimohanthy.dev/",
+    siteName: "Ujwal Shyam Kantimohanthy",
     locale: "en_US",
     type: "website",
+    images: [{ url: "/og/home.svg", width: 1200, height: 630, alt: "kantimohanthy.dev — routed portfolio mesh" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "DEVAN — Cognitive Operating System for Engineering Intelligence",
-    description: "A living, queryable cognitive workspace backing protocol engineering, systems knowledge, and ground proof evidence.",
-    creator: "@kantimohanthy",
+    title,
+    description,
+    images: ["/og/home.svg"],
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  icons: {
-    icon: "/favicon.ico",
-  },
+  robots: { index: true, follow: true },
+  icons: { icon: "/favicon.ico" },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: ReactNode;
-}) {
+export const viewport: Viewport = {
+  themeColor: "#11100E",
+  colorScheme: "dark",
+};
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="h-full antialiased">
-      <body className="min-h-full h-full flex bg-bg text-text font-sans text-[14px]">
-        <OnboardingTour />
-        <RailNav />
-        <div className="flex-1 flex flex-col min-w-0 h-screen overflow-hidden">
-          <TopBar />
-          <WorkspaceTabs />
-          <main className="flex-1 overflow-y-auto">
-            <div className="w-[92vw] max-w-[1800px] mx-auto px-6 py-6 pb-20">{children}</div>
-          </main>
-          <BottomDock />
-        </div>
-        <CommandPalette />
-      </body>
+    <html lang="en" className="antialiased">
+      <body className="min-h-screen bg-bg text-text font-sans">{children}</body>
     </html>
   );
 }

@@ -23,7 +23,7 @@ describe("OracleOrchestrator (Phase XII Cognitive Layer)", () => {
   });
 
   it("orchestrates architecture comparison queries via ArchitectureReasoner", async () => {
-    const res = await oracleOrchestrator.processQuery("Compare TCP and UDP performance trade-offs", "networking.tcp");
+    const res = await oracleOrchestrator.processQuery("Compare TCP and UDP performance tradeoffs", "networking.tcp");
 
     expect(res.trace.intent).toBe("COMPARE");
     expect(res.trace.reasonersInvoked).toContain("ArchitectureReasoner");

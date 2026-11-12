@@ -19,7 +19,7 @@ const COMMAND_OUTPUTS: Record<CommandKey, string[]> = {
     "--------------------------------------------------",
     "KERNEL      : UJ.OS v2.4.0 (x86_64-linux-edge)",
     "API MATRIX  : Module 1 (Foundation), Module 2 (Auth/RBAC)",
-    "MONITORING  : Module 3 (Telemetry), Module 5 (Net-Intel + Cymru ASN)",
+    "MONITORING  : Module 3 (Telemetry), Module 5 (Net Intel + Cymru ASN)",
     "STATUS      : 100% Operational (PostgreSQL + JWT + DoH + RDAP + Vitest)",
   ],
   "protocol-trace": [
@@ -117,7 +117,7 @@ export function InteractiveTerminal() {
       <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-3">
         <div className="flex items-center gap-2 text-white/70">
           <TerminalIcon size={14} className="text-blue-400" />
-          <span className="font-semibold text-white">Interactive Engineering CLI (Telemetry & Net-Intel)</span>
+          <span className="font-semibold text-white">Interactive Engineering CLI (Telemetry & Net Intel)</span>
         </div>
         <div className="flex gap-1.5">
           <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />

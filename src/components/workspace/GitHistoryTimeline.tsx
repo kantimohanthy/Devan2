@@ -43,7 +43,7 @@ export function GitHistoryTimeline() {
               <div className="flex items-center justify-between border-t border-[#20252B] pt-1.5 text-[10px] text-[#8A9098]">
                 <span>Entity: {ev.entityId}</span>
                 <span className="text-emerald-400 flex items-center gap-1">
-                  <ShieldCheck className="h-3 w-3" /> Verified (Score: {ev.confidence})
+                  <ShieldCheck className="h-3 w-3" /> Verified
                 </span>
               </div>
             </div>

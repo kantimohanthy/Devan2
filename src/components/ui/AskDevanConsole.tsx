@@ -36,7 +36,7 @@ export function AskDevanConsole() {
       <div className="flex items-center gap-2 mb-4">
         <Sparkles className="h-4 w-4 text-[#4F8CFF]" />
         <h3 className="font-mono text-xs font-semibold uppercase tracking-wider text-[#F5F5F5]">
-          Ask DEVAN · Multi-Reasoner Pipeline
+          Ask DEVAN · Multi Reasoner Pipeline
         </h3>
       </div>
 

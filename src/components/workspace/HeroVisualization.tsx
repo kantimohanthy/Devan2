@@ -2,17 +2,19 @@
 
 import React, { useState } from "react";
 import { Play, Pause, RotateCcw, Activity, Terminal, ArrowRight } from "lucide-react";
-import { ExecutionPulseBadge, EvidenceSealedBadge } from "./UJOSMotifs";
+import { ExecutionPulseBadge } from "./UJOSMotifs";
+import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
 export function HeroVisualization() {
+  const prefersReduced = usePrefersReducedMotion();
   const [activeTab, setActiveTab] = useState<"PACKET_FLOW" | "KERNEL_TRANSITION">("PACKET_FLOW");
   const [isPlaying, setIsPlaying] = useState(true);
   const [step, setStep] = useState(0);
 
   const packetFlowSteps = [
-    { title: "1. Browser / App Layer", desc: "Constructs HTTP GET request & resolves DNS hostname", concept: "networking.http", rfc: "RFC 7230", tool: "curl -v", qa: "What is the HTTP request line format?" },
+    { title: "1. Browser / App Layer", desc: "Constructs HTTP GET request & resolves DNS hostname", concept: "networking.http", rfc: "RFC 9112", tool: "curl -v", qa: "What is the HTTP request line format?" },
     { title: "2. POSIX Socket Layer", desc: "Invokes connect() and write() syscalls into Linux VFS", concept: "posix.sockets", rfc: "POSIX.1-2008", tool: "strace -e connect", qa: "What is non-blocking socket I/O?" },
-    { title: "3. TCP Transport Layer", desc: "Appends TCP header (Src Port: 54321, Dst Port: 443, SEQ: 1000)", concept: "networking.tcp", rfc: "RFC 793", tool: "ss -tani", qa: "How does TCP 3-way handshake work?" },
+    { title: "3. TCP Transport Layer", desc: "Appends TCP header (Src Port: 54321, Dst Port: 443, SEQ: 1000)", concept: "networking.tcp", rfc: "RFC 9293", tool: "ss -tani", qa: "How does TCP 3-way handshake work?" },
     { title: "4. IPv4 Network Layer", desc: "Wraps packet with IP header (Src IP: 192.168.1.100, Dst IP: 1.1.1.1)", concept: "networking.ipv4", rfc: "RFC 791", tool: "ip route get 1.1.1.1", qa: "What is IP packet fragmentation?" },
     { title: "5. Ethernet NIC Buffer", desc: "Places Frame into Driver TX Ring Buffer & emits PHY signal", concept: "linux.nic-driver", rfc: "IEEE 802.3", tool: "ethtool -S eth0", qa: "What is Ring Buffer overflow?" },
   ];
@@ -26,26 +28,26 @@ export function HeroVisualization() {
   ];
 
   React.useEffect(() => {
-    if (!isPlaying) return;
+    if (!isPlaying || prefersReduced) return;
     const interval = setInterval(() => {
       setStep((prev) => (prev + 1) % 5);
     }, 2500);
     return () => clearInterval(interval);
-  }, [isPlaying]);
+  }, [isPlaying, prefersReduced]);
 
   const currentSteps = activeTab === "PACKET_FLOW" ? packetFlowSteps : kernelSteps;
   const currentItem = currentSteps[step];
 
   return (
-    <div className="rounded-2xl border border-[#20252B] bg-[#0A0B0D] p-5 font-mono text-xs space-y-4 shadow-2xl">
-      <div className="flex items-center justify-between border-b border-[#20252B] pb-3">
-        <div className="flex items-center gap-2">
-          <Activity className="h-4 w-4 text-[#4F8CFF]" />
-          <span className="font-bold text-[#F5F5F5] uppercase tracking-wider text-xs">Execution Explorer (Interactive Path)</span>
+    <div className="min-w-0 overflow-hidden rounded-2xl border border-[#20252B] bg-[#0A0B0D] p-4 sm:p-5 font-mono text-xs space-y-4 shadow-2xl">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#20252B] pb-3">
+        <div className="flex flex-wrap items-center gap-2">
+          <Activity className="h-4 w-4 text-[#4F8CFF] shrink-0" />
+          <span className="font-bold text-[#F5F5F5] uppercase tracking-wider text-xs">Execution Explorer (Illustrative)</span>
           <ExecutionPulseBadge />
         </div>
 
-        <div className="flex items-center gap-1 rounded-lg border border-[#20252B] bg-[#121418] p-1">
+        <div className="flex flex-wrap items-center gap-1 rounded-lg border border-[#20252B] bg-[#121418] p-1">
           <button
             onClick={() => { setActiveTab("PACKET_FLOW"); setStep(0); }}
             className={`rounded px-2.5 py-1 text-[10px] transition-colors ${activeTab === "PACKET_FLOW" ? "bg-[#20252B] text-[#4F8CFF] font-semibold" : "text-[#8A9098]"}`}
@@ -62,22 +64,30 @@ export function HeroVisualization() {
       </div>
 
       {/* Interactive Progression */}
-      <div className="relative rounded-xl border border-[#20252B] bg-[#07080A] p-5 space-y-4">
-        <div className="flex items-center justify-between">
-          <span className="text-[10px] text-[#8A9098] uppercase tracking-wider">
-            Step {step + 1} of 5 — Click any node to inspect deep execution telemetry
+      <div className="relative rounded-xl border border-[#20252B] bg-[#07080A] p-3.5 sm:p-5 space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <span className="text-[10px] text-[#8A9098] uppercase tracking-wider min-w-0">
+            Step {step + 1} of 5 · Click any node to inspect protocol trace
           </span>
-          <div className="flex items-center gap-2">
-            <button onClick={() => setIsPlaying(!isPlaying)} className="rounded bg-[#20252B] p-1.5 text-[#F5F5F5] hover:text-[#4F8CFF]">
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              onClick={() => setIsPlaying(!isPlaying)}
+              aria-label={isPlaying ? "Pause execution animation" : "Play execution animation"}
+              className="rounded bg-[#20252B] p-1.5 text-[#F5F5F5] hover:text-[#4F8CFF]"
+            >
               {isPlaying ? <Pause className="h-3.5 w-3.5" /> : <Play className="h-3.5 w-3.5" />}
             </button>
-            <button onClick={() => setStep(0)} className="rounded bg-[#20252B] p-1.5 text-[#8A9098] hover:text-[#F5F5F5]">
+            <button
+              onClick={() => setStep(0)}
+              aria-label="Reset execution animation"
+              className="rounded bg-[#20252B] p-1.5 text-[#8A9098] hover:text-[#F5F5F5]"
+            >
               <RotateCcw className="h-3.5 w-3.5" />
             </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-5 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-2">
           {currentSteps.map((s, idx) => {
             const isActive = idx === step;
             return (
@@ -86,7 +96,7 @@ export function HeroVisualization() {
                 onClick={() => setStep(idx)}
                 className={`rounded-xl border p-3 cursor-pointer transition-all duration-300 ${
                   isActive
-                    ? "border-[#4F8CFF] bg-[#121418] shadow-lg shadow-[#4F8CFF]/10 scale-105"
+                    ? "border-[#4F8CFF] bg-[#121418] shadow-lg shadow-[#4F8CFF]/10 sm:scale-[1.02]"
                     : "border-[#20252B] bg-[#0A0B0D]/50 text-[#8A9098]"
                 }`}
               >
@@ -98,16 +108,18 @@ export function HeroVisualization() {
         </div>
 
         {/* Deep Inspection Panel */}
-        <div className="rounded-xl border border-[#20252B] bg-[#0A0B0D] p-4 font-mono text-xs space-y-3">
-          <div className="flex items-center justify-between border-b border-[#20252B] pb-2">
+        <div className="rounded-xl border border-[#20252B] bg-[#0A0B0D] p-3.5 sm:p-4 font-mono text-xs space-y-3">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#20252B] pb-2">
             <div className="flex items-center gap-2">
               <Terminal className="h-4 w-4 text-[#4F8CFF]" />
               <span className="font-bold text-[#F5F5F5]">{currentItem.title}</span>
             </div>
-            <EvidenceSealedBadge confidence={99} />
+            <span className="inline-flex items-center gap-1 rounded-md bg-purple-500/10 px-2 py-0.5 font-mono text-[10px] text-purple-400 border border-purple-500/20">
+              SPEC VERIFIED
+            </span>
           </div>
 
-          <div className="grid grid-cols-3 gap-3 text-[11px]">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[11px]">
             <div>
               <span className="text-[10px] text-[#8A9098] uppercase font-semibold block">Ontology Concept</span>
               <span className="text-[#4F8CFF] font-semibold">{currentItem.concept}</span>

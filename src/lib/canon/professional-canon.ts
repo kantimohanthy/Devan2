@@ -1,7 +1,7 @@
 /**
  * @file Professional Canon (Engineering Reference Standards)
  * @purpose Reference mappings for world-class engineering organizations. Does NOT duplicate ontology concepts.
- * @structure Organization -> Engineering Culture -> Architecture Style -> Open Source -> Infrastructure -> Research -> Engineering Principles -> Production Lessons.
+ * @structure Organization → Engineering Culture → Architecture Style → Open Source → Infrastructure → Research → Engineering Principles → Production Lessons.
  */
 
 export interface OrganizationReference {

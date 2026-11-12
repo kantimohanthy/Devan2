@@ -7,38 +7,42 @@ export function OnboardingTour() {
   const [isOpen, setIsOpen] = useState(false);
   const [step, setStep] = useState(0);
 
+  // The tour never opens on its own. It is offered from the DEVAN overview
+  // ("Take the tour") and can be dismissed at any step.
   useEffect(() => {
-    const seen = localStorage.getItem("devan_onboarding_seen");
-    if (!seen) {
+    const open = () => {
+      setStep(0);
       setIsOpen(true);
-    }
+    };
+    window.addEventListener("devan:tour", open);
+    return () => window.removeEventListener("devan:tour", open);
   }, []);
 
   if (!isOpen) return null;
 
   const tourSteps = [
     {
-      title: "Welcome to DEVAN OS 2.1",
-      subtitle: "A Cognitive Operating System for Engineering Intelligence.",
-      desc: "DEVAN is not a static portfolio or documentation site. It is a live, queryable engineering intelligence system backing protocol engineering, kernel internals, and ground proof evidence.",
+      title: "Welcome to DEVAN",
+      subtitle: "Ujwal's engineering workspace.",
+      desc: "DEVAN is the deeper layer behind kantimohanthy.dev: the concepts Ujwal has studied, the experiments he has run, and the evidence behind them, linked as a graph. Some views use seeded sample data while the graph grows; those are labelled.",
       icon: Sparkles,
     },
     {
-      title: "1. Mission Control & Operational Readiness",
-      subtitle: "Situational awareness at a glance.",
-      desc: "Track active missions, readiness radar scores, verified git commits, and real-time execution metrics.",
+      title: "1. Overview & missions",
+      subtitle: "What's being worked on.",
+      desc: "Active work such as the Wireless Mesh + TV White Space thesis, with progress stated as objectives done and not done, not percentages.",
       icon: Target,
     },
     {
-      title: "2. The Knowledge & Atlas Graph",
-      subtitle: "Topological graph navigation.",
-      desc: "Explore concepts, wire specs, RFCs, and failure modes through an interactive 60 FPS graph engine.",
+      title: "2. Knowledge & Atlas graph",
+      subtitle: "Navigate by connection.",
+      desc: "Explore concepts, RFCs and how they relate. Each concept shows the evidence state derived from attached records.",
       icon: Network,
     },
     {
-      title: "3. Ground Proof Evidence & Oracle Reasoning",
-      subtitle: "Immutable verification ledger.",
-      desc: "Every concept is backed by Wireshark PCAPs, synthetic traces, and deterministic Oracle reasoning context.",
+      title: "3. Evidence",
+      subtitle: "Where claims point.",
+      desc: "Evidence records link a source, a question, the experiment that was run and its raw outcome, starting with an iterative DNS resolution traced with dig and tshark.",
       icon: ShieldCheck,
     },
   ];
@@ -47,7 +51,7 @@ export function OnboardingTour() {
     if (step < tourSteps.length - 1) {
       setStep((prev) => prev + 1);
     } else {
-      localStorage.setItem("devan_onboarding_seen", "true");
+      try { localStorage.setItem("devan_onboarding_seen", "true"); } catch {}
       setIsOpen(false);
     }
   };
@@ -65,7 +69,7 @@ export function OnboardingTour() {
           </div>
           <button
             onClick={() => {
-              localStorage.setItem("devan_onboarding_seen", "true");
+              try { localStorage.setItem("devan_onboarding_seen", "true"); } catch {}
               setIsOpen(false);
             }}
             className="rounded p-1 text-[#8A9098] hover:text-[#F5F5F5]"

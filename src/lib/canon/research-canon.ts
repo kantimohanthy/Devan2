@@ -1,7 +1,7 @@
 /**
  * @file Research Canon Scaffolding
  * @purpose Reference structure for academic research papers, standards, and conference proceedings.
- * @structure Venue -> Paper -> Concepts -> Evidence -> Impact -> Future Work.
+ * @structure Venue → Paper → Concepts → Evidence → Impact → Future Work.
  */
 
 export interface ResearchPaperReference {

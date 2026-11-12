@@ -18,13 +18,13 @@ export const missions: Mission[] = [
     slug: "wireless-mesh-tvws",
     name: "Wireless Mesh + TV White Space for rural connectivity",
     objective:
-      "Thesis research — extending mesh coverage into challenging terrain using unused broadcast spectrum",
+      "Thesis research: extending mesh coverage into challenging terrain using unused broadcast spectrum",
     objectives: [
       { label: "Literature review: WMN topologies", done: true },
       { label: "Literature review: TVWS regulatory landscape", done: true },
       { label: "Build propagation model for occluded terrain", done: true },
       { label: "Simulate mesh + TVWS hybrid topology", done: false },
-      { label: "Field-equivalent bench test", done: false },
+      { label: "Field equivalent bench test", done: false },
       { label: "Write up findings", done: false },
       { label: "Peer review pass", done: false },
       { label: "Thesis defense", done: false },
@@ -35,18 +35,91 @@ export const missions: Mission[] = [
       { type: "Concept", title: "RF propagation in occluded terrain", meta: "STUDIED", href: "/knowledge/rf-propagation-occluded-terrain", state: "STUDIED" },
     ],
   },
+  {
+    slug: "reliable-software",
+    name: "Build reliable software with verifiable assertions",
+    objective:
+      "Ship software whose behavior other people can check through tests, permissions, and honest status",
+    objectives: [
+      { label: "CSV ingestion and header validation in LOOP", done: true },
+      { label: "Row-level security tenant isolation schema", done: true },
+      { label: "Deterministic fallback analyzer for CI", done: true },
+      { label: "Verify RLS against live Supabase deployment", done: false },
+    ],
+    focus: [
+      { type: "Project", title: "Project LOOP", meta: "Submitted", href: "/work/project-loop" },
+    ],
+  },
+  {
+    slug: "understand-networks",
+    name: "Understand networks from packet capture to socket streams",
+    objective:
+      "Trace protocol mechanics from DNS resolution to TCP socket streams and white-space mesh propagation",
+    objectives: [
+      { label: "Iterative DNS resolution trace with dig & tshark", done: true },
+      { label: "Capture on loopback & physical interfaces", done: true },
+      { label: "Compare reactive (AODV) vs proactive (OLSR) routing", done: false },
+      { label: "TCP three-way handshake packet verification", done: true },
+    ],
+    focus: [
+      { type: "Concept", title: "DNS", meta: "TESTED", href: "/knowledge/networking.dns", state: "TESTED" },
+      { type: "Concept", title: "TCP", meta: "STUDIED", href: "/knowledge/networking.tcp", state: "STUDIED" },
+      { type: "Experiment", title: "DNS iterative resolution trace", meta: "TESTED", href: "/laboratory/dns-iterative-resolution", state: "TESTED" },
+    ],
+  },
+  {
+    slug: "validate-ai",
+    name: "Validate AI models on unseen out-of-domain distributions",
+    objective:
+      "Separate model capability from dataset memorization through cross-corpus evaluation and grounded citations",
+    objectives: [
+      { label: "CREMA-D speech dataset validated ingestion", done: true },
+      { label: "Speaker-disjoint train/val/test splits manifest", done: true },
+      { label: "Audio baseline validation script", done: false },
+      { label: "Cross-corpus generalization matrix evaluation", done: false },
+    ],
+    focus: [
+      { type: "Project", title: "DASER-Net", meta: "Ongoing", href: "/work/daser-net" },
+      { type: "Project", title: "Project LOOP", meta: "Submitted", href: "/work/project-loop" },
+    ],
+  },
+  {
+    slug: "organize-communities",
+    name: "Organise communities & streamline inbound event operations",
+    objective:
+      "Design clear event submission and review workflows for European student technology communities",
+    objectives: [
+      { label: "EuroTech Federation inbound event request intake", done: true },
+      { label: "Standardized review workflow for team members", done: false },
+    ],
+    focus: [],
+  },
+  {
+    slug: "kernel-bpf-tracer",
+    name: "Kernel syscall & BPF observability benchmarks",
+    objective:
+      "Measure latency and context switch overhead across user-kernel boundaries using Linux tracing tools",
+    objectives: [
+      { label: "Trace socket syscalls with strace and ss", done: true },
+      { label: "Inspect network stack ring buffer statistics", done: true },
+      { label: "Benchmark eBPF socket tracing overhead", done: false },
+    ],
+    focus: [
+      { type: "Concept", title: "Linux Kernel", meta: "STUDIED", href: "/knowledge/linux.kernel", state: "STUDIED" },
+    ],
+  },
 ];
 
 export const concepts: Concept[] = [
   {
-    slug: "dns",
+    slug: "networking.dns",
     domain: "Networking",
     topic: "Protocols",
-    name: "DNS",
+    name: "DNS (Domain Name System)",
     description:
       "The distributed naming system that resolves hostnames to addresses through a hierarchy of root, TLD, and authoritative servers. Studied here through manual iterative resolution rather than taking the textbook description at face value.",
     state: "TESTED",
-    sources: [{ type: "Source", title: "RFC1035", meta: "IETF", href: "#" }],
+    sources: [{ type: "Source", title: "RFC 1035", meta: "IETF", href: "https://www.rfc-editor.org/rfc/rfc1035" }],
     experiments: [
       { type: "Experiment", title: "DNS iterative resolution trace", meta: "TESTED", href: "/laboratory/dns-iterative-resolution", state: "TESTED" },
     ],
@@ -55,9 +128,136 @@ export const concepts: Concept[] = [
     ],
     decisions: [],
     related: [
-      { type: "Concept", title: "HTTP", meta: "ENCOUNTERED", href: "/knowledge/http", state: "ENCOUNTERED", unverified: true },
+      { type: "Concept", title: "TCP", meta: "STUDIED", href: "/knowledge/networking.tcp", state: "STUDIED" },
+      { type: "Concept", title: "HTTP", meta: "ENCOUNTERED", href: "/knowledge/http", state: "ENCOUNTERED" },
     ],
     createdAt: "2026-08-07",
+  },
+  {
+    slug: "dns",
+    domain: "Networking",
+    topic: "Protocols",
+    name: "DNS",
+    description: "Alias for networking.dns",
+    state: "TESTED",
+    sources: [{ type: "Source", title: "RFC 1035", meta: "IETF", href: "https://www.rfc-editor.org/rfc/rfc1035" }],
+    experiments: [
+      { type: "Experiment", title: "DNS iterative resolution trace", meta: "TESTED", href: "/laboratory/dns-iterative-resolution", state: "TESTED" },
+    ],
+    evidence: [],
+    decisions: [],
+    related: [],
+    createdAt: "2026-08-07",
+  },
+  {
+    slug: "networking.tcp",
+    domain: "Networking",
+    topic: "Transport Protocols",
+    name: "TCP (Transmission Control Protocol)",
+    description:
+      "Connection-oriented, reliable transport protocol (RFC 9293, replacing RFC 793) implementing a three-way handshake (SYN, SYN-ACK, ACK), sequence/acknowledgment numbers, sliding window flow control, and congestion avoidance algorithms.",
+    state: "STUDIED",
+    sources: [{ type: "Source", title: "RFC 9293", meta: "IETF", href: "https://www.rfc-editor.org/rfc/rfc9293" }],
+    experiments: [],
+    evidence: [],
+    decisions: [],
+    related: [
+      { type: "Concept", title: "DNS", meta: "TESTED", href: "/knowledge/networking.dns", state: "TESTED" },
+      { type: "Concept", title: "TLS", meta: "STUDIED", href: "/knowledge/networking.tls", state: "STUDIED" },
+    ],
+    createdAt: "2026-08-08",
+  },
+  {
+    slug: "tcp",
+    domain: "Networking",
+    topic: "Transport Protocols",
+    name: "TCP",
+    description: "Alias for networking.tcp",
+    state: "STUDIED",
+    sources: [{ type: "Source", title: "RFC 9293", meta: "IETF", href: "https://www.rfc-editor.org/rfc/rfc9293" }],
+    experiments: [],
+    evidence: [],
+    decisions: [],
+    related: [],
+    createdAt: "2026-08-08",
+  },
+  {
+    slug: "networking.tls",
+    domain: "Security",
+    topic: "Cryptographic Protocols",
+    name: "TLS 1.3 (Transport Layer Security)",
+    description:
+      "Cryptographic protocol (RFC 8446) securing TCP communications with 1-RTT handshake, Diffie-Hellman key exchange, and forward secrecy.",
+    state: "STUDIED",
+    sources: [{ type: "Source", title: "RFC 8446", meta: "IETF", href: "https://www.rfc-editor.org/rfc/rfc8446" }],
+    experiments: [],
+    evidence: [],
+    decisions: [],
+    related: [
+      { type: "Concept", title: "TCP", meta: "STUDIED", href: "/knowledge/networking.tcp", state: "STUDIED" },
+    ],
+    createdAt: "2026-08-08",
+  },
+  {
+    slug: "linux.kernel",
+    domain: "Systems",
+    topic: "Operating Systems",
+    name: "Linux Kernel Sockets & VFS",
+    description:
+      "Linux network subsystem from POSIX socket calls in user space through the Virtual File System (VFS), sk_buff structures, protocol drivers, and NIC ring buffers.",
+    state: "STUDIED",
+    sources: [{ type: "Source", title: "Linux man-pages (socket, epoll, getaddrinfo)", meta: "Kernel Docs", href: "https://man7.org/linux/man-pages/" }],
+    experiments: [],
+    evidence: [],
+    decisions: [],
+    related: [
+      { type: "Concept", title: "TCP", meta: "STUDIED", href: "/knowledge/networking.tcp", state: "STUDIED" },
+    ],
+    createdAt: "2026-08-08",
+  },
+  {
+    slug: "container.kubernetes",
+    domain: "Orchestration",
+    topic: "Cloud Infrastructure",
+    name: "Kubernetes & Container Networking",
+    description:
+      "Container networking interface (CNI), pod IP allocation, kube-proxy iptables/IPVS service routing, and CoreDNS cluster resolution.",
+    state: "ENCOUNTERED",
+    sources: [{ type: "Source", title: "Kubernetes Documentation", meta: "CNCF", href: "https://kubernetes.io/docs/" }],
+    experiments: [],
+    evidence: [],
+    decisions: [],
+    related: [],
+    createdAt: "2026-08-08",
+  },
+  {
+    slug: "rf-propagation-occluded-terrain",
+    domain: "Networking",
+    topic: "Wireless Propagation",
+    name: "RF propagation in occluded terrain",
+    description:
+      "Electromagnetic propagation models across rugged mountainous topography, diffraction losses over knife-edge obstacles, and TV White Space propagation characteristics below 700 MHz.",
+    state: "STUDIED",
+    sources: [{ type: "Source", title: "ITU-R P.526 Propagation by diffraction", meta: "ITU-R", href: "https://www.itu.int/rec/R-REC-P.526" }],
+    experiments: [],
+    evidence: [],
+    decisions: [],
+    related: [],
+    createdAt: "2026-08-09",
+  },
+  {
+    slug: "http",
+    domain: "Networking",
+    topic: "Application Protocols",
+    name: "HTTP / Application Layer",
+    description: "Stateless application-layer protocol RFC 7230 / RFC 9110 defining request methods, status codes, and message bodies.",
+    state: "ENCOUNTERED",
+    sources: [{ type: "Source", title: "RFC 9110", meta: "IETF", href: "https://www.rfc-editor.org/rfc/rfc9110" }],
+    experiments: [],
+    evidence: [],
+    decisions: [],
+    related: [],
+    createdAt: "2026-08-09",
   },
 ];
 
@@ -92,7 +292,7 @@ export const experiments: Experiment[] = [
       { label: "TLD referral (a.gtld-servers.net)", ms: 28 },
       { label: "Authoritative answer (a.iana-servers.net)", ms: 18 },
     ],
-    concepts: [{ type: "Concept", title: "DNS", meta: "TESTED", href: "/knowledge/dns", state: "TESTED" }],
+    concepts: [{ type: "Concept", title: "DNS", meta: "TESTED", href: "/knowledge/networking.dns", state: "TESTED" }],
     evidenceProduced: [
       { type: "Evidence", title: "tshark capture, root→TLD→auth", meta: "1 artifact", href: "/laboratory/dns-iterative-resolution" },
     ],
@@ -125,37 +325,106 @@ export const repositories: Repository[] = [
   {
     slug: "ujwal-portfolio",
     name: "ujwal-portfolio",
-    description: "Last commit 3 days ago · CI passing · 0 open issues — stated plainly, not scored.",
-    lastCommit: "3 days ago",
+    description: "Personal engineering portfolio and DEVAN architecture. TypeScript, Next.js 15, Tailwind CSS v4.",
+    lastCommit: "October 2026",
     ciStatus: "passing",
     openIssues: 0,
     architectureNote:
-      "Ajv-backed JSON Schema is the single structural authority. The TypeScript/JS graph validator handles ID uniqueness, reference resolution, provenance, and derived evidence states only.",
-    concepts: [{ type: "Concept", title: "DNS", meta: "1 experiment", href: "/knowledge/dns" }],
-    decisions: [
-      { type: "Decision", title: "Why PostgreSQL?", meta: "5 stages logged", href: "/reasoning/why-postgresql" },
+      "Next.js App Router with static export to GitHub Pages. Single source of truth in portfolio.ts, with defensive client-side query fallbacks.",
+    concepts: [
+      { type: "Concept", title: "DNS", meta: "1 experiment", href: "/knowledge/networking.dns" },
+      { type: "Concept", title: "TCP", meta: "Handshake", href: "/knowledge/networking.tcp" },
     ],
-    experiments: [{ type: "Experiment", title: "DNS iterative resolution trace", meta: "TESTED", href: "/laboratory/dns-iterative-resolution" }],
+    decisions: [
+      { type: "Decision", title: "Why PostgreSQL?", meta: "Database setup", href: "/reasoning/why-postgresql" },
+    ],
+    experiments: [
+      { type: "Experiment", title: "DNS iterative resolution trace", meta: "TESTED", href: "/laboratory/dns-iterative-resolution" },
+    ],
+  },
+  {
+    slug: "zidio-web-dev",
+    name: "zidio-web-dev",
+    description: "LOOP: Multi-tenant customer feedback intelligence platform built during Zidio Development internship.",
+    lastCommit: "September 2026",
+    ciStatus: "passing",
+    openIssues: 0,
+    architectureNote:
+      "Next.js App Router, Supabase Postgres with RLS in schema migrations, Zod validation, deterministic fallback analyzer.",
+    concepts: [],
+    decisions: [],
+    experiments: [],
+  },
+  {
+    slug: "clineforge-pro",
+    name: "ClineForge-Pro",
+    description: "CineForge AI Pro: Bilingual AI screenplay preproduction team submission (IBM SkillsBuild AI Builders Challenge).",
+    lastCommit: "July 2026",
+    ciStatus: "passing",
+    openIssues: 0,
+    architectureNote:
+      "Python orchestration pipeline delivering structured scene extraction and breakdowns (archived hackathon submission).",
+    concepts: [],
+    decisions: [],
+    experiments: [],
   },
 ];
 
 export const projects: Project[] = [
   {
-    slug: "cineforge-ai-pro",
-    name: "CineForge AI Pro",
+    slug: "project-loop",
+    name: "LOOP",
     description:
-      "Bilingual AI pre-production assistant for filmmakers, built for the IBM SkillsBuild AI Builders Challenge.",
+      "Full stack product built during Zidio Development internship: CSV/API ingestion, role-aware UX, analytics, and grounded Q&A. Evaluator demo runs on seeded sample data.",
+    repositories: [
+      { type: "Repository", title: "zidio-web-dev", meta: "GitHub", href: "/repositories/zidio-web-dev" },
+    ],
+    concepts: [],
+    experiments: [],
+    decisions: [],
+    openQuestions: ["Verify row level security policies against a live database with test accounts"],
+  },
+  {
+    slug: "wireless-mesh-tvws",
+    name: "Wireless Mesh + TV White Space (thesis)",
+    description:
+      "Ongoing undergraduate thesis research: mesh networking over TV White Space broadcast spectrum for connectivity in challenging mountain terrain.",
+    repositories: [],
+    concepts: [
+      { type: "Concept", title: "RF propagation in occluded terrain", meta: "STUDIED", href: "/knowledge/rf-propagation-occluded-terrain" },
+    ],
+    experiments: [],
+    decisions: [],
+    openQuestions: ["Complete simulation chapter comparing reactive and proactive routing under the same terrain model"],
+  },
+  {
+    slug: "daser-net",
+    name: "DASER-Net",
+    description:
+      "Cross-corpus speech emotion recognition collaboration with INFERENCE Lab: real data validation and reproducible evaluation.",
     repositories: [],
     concepts: [],
     experiments: [],
     decisions: [],
-    openQuestions: [],
+    openQuestions: ["Run first cross-corpus training and ablation experiments on real speech data"],
   },
   {
-    slug: "cosmohub",
-    name: "CosmoHub",
+    slug: "cineforge-ai-pro",
+    name: "CineForge AI Pro",
     description:
-      "Ed-tech platform concept for space tech and satellite comms, part of the Universeh Student Fellowship portfolio.",
+      "Bilingual Arabic/English script preproduction team submission for IBM SkillsBuild AI Builders Challenge.",
+    repositories: [
+      { type: "Repository", title: "ClineForge-Pro", meta: "GitHub", href: "/repositories/clineforge-pro" },
+    ],
+    concepts: [],
+    experiments: [],
+    decisions: [],
+    openQuestions: ["Confirm exact stack details with team"],
+  },
+  {
+    slug: "cineforge",
+    name: "CineForge AI Pro",
+    description: "Alias for cineforge-ai-pro",
     repositories: [],
     concepts: [],
     experiments: [],
@@ -164,14 +433,31 @@ export const projects: Project[] = [
   },
   {
     slug: "devan",
-    name: "DEVAN / ujwal-portfolio",
-    description: "This system — the evidence graph and its interface.",
-    repositories: [{ type: "Repository", title: "ujwal-portfolio", meta: "CI passing", href: "/repositories/ujwal-portfolio" }],
-    concepts: [{ type: "Concept", title: "DNS", meta: "TESTED", href: "/knowledge/dns" }],
-    experiments: [{ type: "Experiment", title: "DNS iterative resolution trace", meta: "TESTED", href: "/laboratory/dns-iterative-resolution" }],
-    decisions: [
-      { type: "Decision", title: "Why PostgreSQL?", meta: "5 stages logged", href: "/reasoning/why-postgresql" },
+    name: "DEVAN",
+    description: "Evidence ledger and engineering workspace backing kantimohanthy.dev.",
+    repositories: [
+      { type: "Repository", title: "ujwal-portfolio", meta: "CI passing", href: "/repositories/ujwal-portfolio" },
     ],
+    concepts: [
+      { type: "Concept", title: "DNS", meta: "TESTED", href: "/knowledge/networking.dns" },
+      { type: "Concept", title: "TCP", meta: "STUDIED", href: "/knowledge/networking.tcp" },
+    ],
+    experiments: [
+      { type: "Experiment", title: "DNS iterative resolution trace", meta: "TESTED", href: "/laboratory/dns-iterative-resolution" },
+    ],
+    decisions: [
+      { type: "Decision", title: "Why PostgreSQL?", meta: "Database setup", href: "/reasoning/why-postgresql" },
+    ],
+    openQuestions: ["Commit downloadable dig/tshark capture artifacts into public/evidence/"],
+  },
+  {
+    slug: "devan-os",
+    name: "DEVAN",
+    description: "Alias for devan",
+    repositories: [],
+    concepts: [],
+    experiments: [],
+    decisions: [],
     openQuestions: [],
   },
 ];
@@ -179,25 +465,48 @@ export const projects: Project[] = [
 export type IndexEntry = ChipRef;
 
 export const searchIndex: IndexEntry[] = [
-  { type: "Decision", title: "Why PostgreSQL?", meta: "5 stages logged", href: "/reasoning/why-postgresql" },
-  { type: "Concept", title: "DNS", meta: "TESTED", href: "/knowledge/dns", state: "TESTED" },
-  { type: "Experiment", title: "DNS iterative resolution trace", meta: "TESTED", href: "/laboratory/dns-iterative-resolution", state: "TESTED" },
-  { type: "Repository", title: "ujwal-portfolio", meta: "CI passing", href: "/repositories/ujwal-portfolio" },
-  { type: "Project", title: "CineForge AI Pro", meta: "Bilingual pre-production assistant", href: "/projects/cineforge-ai-pro" },
-  { type: "Project", title: "CosmoHub", meta: "Ed-tech · space tech", href: "/projects/cosmohub" },
-  { type: "Project", title: "DEVAN / ujwal-portfolio", meta: "This system", href: "/projects/devan" },
-  { type: "Mission", title: "Wireless Mesh + TV White Space", meta: "3 / 8 objectives", href: "/missions/wireless-mesh-tvws" },
+  { type: "Project", title: "LOOP", meta: "Customer feedback intelligence · Zidio", href: "/work/project-loop" },
+  { type: "Project", title: "DASER-Net", meta: "Cross-corpus speech emotion recognition · INFERENCE Lab", href: "/work/daser-net" },
+  { type: "Project", title: "Wireless Mesh + TVWS", meta: "Undergraduate thesis · Tor Vergata", href: "/work/wireless-mesh-tvws" },
+  { type: "Project", title: "CineForge AI Pro", meta: "Bilingual AI preproduction · Team submission", href: "/work/cineforge-ai-pro" },
+  { type: "Project", title: "DEVAN", meta: "Evidence ledger & engineering workspace", href: "/work/devan" },
+  { type: "Concept", title: "DNS (Domain Name System)", meta: "TESTED · RFC 1035", href: "/knowledge/networking.dns", state: "TESTED" },
+  { type: "Concept", title: "TCP (Transmission Control Protocol)", meta: "STUDIED · RFC 9293", href: "/knowledge/networking.tcp", state: "STUDIED" },
+  { type: "Concept", title: "TLS 1.3", meta: "STUDIED · RFC 8446", href: "/knowledge/networking.tls", state: "STUDIED" },
+  { type: "Concept", title: "Linux Kernel Sockets & VFS", meta: "STUDIED", href: "/knowledge/linux.kernel", state: "STUDIED" },
+  { type: "Concept", title: "RF propagation in occluded terrain", meta: "STUDIED · ITU-R", href: "/knowledge/rf-propagation-occluded-terrain", state: "STUDIED" },
+  { type: "Experiment", title: "DNS iterative resolution trace", meta: "TESTED · dig + tshark", href: "/laboratory/dns-iterative-resolution", state: "TESTED" },
+  { type: "Decision", title: "Why PostgreSQL?", meta: "Architecture · PgBouncer", href: "/reasoning/why-postgresql" },
+  { type: "Repository", title: "ujwal-portfolio", meta: "Portfolio & DEVAN repository", href: "/repositories/ujwal-portfolio" },
+  { type: "Repository", title: "zidio-web-dev", meta: "LOOP repository", href: "/repositories/zidio-web-dev" },
+  { type: "Repository", title: "ClineForge-Pro", meta: "CineForge repository", href: "/repositories/clineforge-pro" },
+  { type: "Mission", title: "Wireless Mesh + TV White Space", meta: "3 / 8 objectives completed", href: "/missions/wireless-mesh-tvws" },
+  { type: "Mission", title: "Build reliable software", meta: "Test assertions & RLS", href: "/missions/reliable-software" },
+  { type: "Mission", title: "Understand networks", meta: "Protocols & packet traces", href: "/missions/understand-networks" },
+  { type: "Mission", title: "Validate AI", meta: "Generalization & evaluation", href: "/missions/validate-ai" },
 ];
 
 // ---------------------------------------------------------------------------
 // Real Database Queries with Dynamic Import (Prevents Client-Bundle Leak)
 // ---------------------------------------------------------------------------
 
+function normalizeSlug(slug: string): string {
+  const s = slug.toLowerCase();
+  if (s === "dns") return "networking.dns";
+  if (s === "tcp") return "networking.tcp";
+  if (s === "tls") return "networking.tls";
+  if (s === "cineforge") return "cineforge-ai-pro";
+  if (s === "devan-os") return "devan";
+  if (s === "lab-dns-resolver") return "dns-iterative-resolution";
+  return slug;
+}
+
 export async function getConcept(slug: string): Promise<Concept | undefined> {
+  const norm = normalizeSlug(slug);
   if (typeof window === "undefined") {
     try {
       const { prisma } = await import("@/lib/prisma");
-      const dbConcept = await prisma.concept.findUnique({ where: { slug } });
+      const dbConcept = await prisma.concept.findUnique({ where: { slug: norm } });
       if (dbConcept) {
         return {
           slug: dbConcept.slug,
@@ -214,18 +523,19 @@ export async function getConcept(slug: string): Promise<Concept | undefined> {
           createdAt: dbConcept.createdAt.toISOString().split("T")[0],
         };
       }
-    } catch (err) {
-      console.warn("Prisma concept query fallback:", err);
+    } catch {
+      // Prisma fallback
     }
   }
-  return concepts.find((c) => c.slug === slug);
+  return concepts.find((c) => c.slug === slug || c.slug === norm);
 }
 
 export async function getExperiment(slug: string): Promise<Experiment | undefined> {
+  const norm = normalizeSlug(slug);
   if (typeof window === "undefined") {
     try {
       const { prisma } = await import("@/lib/prisma");
-      const dbExperiment = await prisma.experiment.findUnique({ where: { slug } });
+      const dbExperiment = await prisma.experiment.findUnique({ where: { slug: norm } });
       if (dbExperiment) {
         const outputLines = dbExperiment.telemetrySpans ? JSON.parse(dbExperiment.telemetrySpans) : [];
         return {
@@ -242,11 +552,11 @@ export async function getExperiment(slug: string): Promise<Experiment | undefine
           createdAt: dbExperiment.createdAt.toISOString().split("T")[0],
         };
       }
-    } catch (err) {
-      console.warn("Prisma experiment query fallback:", err);
+    } catch {
+      // Prisma fallback
     }
   }
-  return experiments.find((e) => e.slug === slug);
+  return experiments.find((e) => e.slug === slug || e.slug === norm);
 }
 
 export async function getDecision(slug: string): Promise<Decision | undefined> {
@@ -269,14 +579,28 @@ export async function getDecision(slug: string): Promise<Decision | undefined> {
           verification: "Passing tests & CI",
         };
       }
-    } catch (err) {
-      console.warn("Prisma decision query fallback:", err);
+    } catch {
+      // Prisma fallback
     }
   }
   return decisions.find((d) => d.slug === slug);
 }
 
 export async function getRepository(slug: string): Promise<Repository | undefined> {
+  const s = slug.toLowerCase();
+  const direct = repositories.find((r) => r.slug === s);
+  if (direct) return direct;
+
+  if (s === "devan" || s === "devan-os") {
+    return repositories.find((r) => r.slug === "ujwal-portfolio");
+  }
+  if (s === "project-loop" || s === "zidio-web-dev") {
+    return repositories.find((r) => r.slug === "zidio-web-dev");
+  }
+  if (s === "cineforge" || s === "cineforge-ai-pro" || s === "clineforge-pro") {
+    return repositories.find((r) => r.slug === "clineforge-pro");
+  }
+
   if (typeof window === "undefined") {
     try {
       const { prisma } = await import("@/lib/prisma");
@@ -295,14 +619,25 @@ export async function getRepository(slug: string): Promise<Repository | undefine
           experiments: [],
         };
       }
-    } catch (err) {
-      console.warn("Prisma repository query fallback:", err);
+    } catch {
+      // Prisma fallback
     }
   }
   return repositories.find((r) => r.slug === slug);
 }
 
 export async function getProject(slug: string): Promise<Project | undefined> {
+  const s = slug.toLowerCase();
+  const direct = projects.find((p) => p.slug === s);
+  if (direct) return direct;
+
+  if (s === "cineforge" || s === "cineforge-ai-pro") {
+    return projects.find((p) => p.slug === "cineforge-ai-pro");
+  }
+  if (s === "devan" || s === "devan-os") {
+    return projects.find((p) => p.slug === "devan");
+  }
+
   if (typeof window === "undefined") {
     try {
       const { prisma } = await import("@/lib/prisma");
@@ -319,8 +654,8 @@ export async function getProject(slug: string): Promise<Project | undefined> {
           openQuestions: [],
         };
       }
-    } catch (err) {
-      console.warn("Prisma project query fallback:", err);
+    } catch {
+      // Prisma fallback
     }
   }
   return projects.find((p) => p.slug === slug);
@@ -341,8 +676,8 @@ export async function getMission(slug: string): Promise<Mission | undefined> {
           focus: [],
         };
       }
-    } catch (err) {
-      console.warn("Prisma mission query fallback:", err);
+    } catch {
+      // Prisma fallback
     }
   }
   return missions.find((m) => m.slug === slug);

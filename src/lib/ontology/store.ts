@@ -30,7 +30,7 @@ export const ONTOLOGY_ENTITIES: OntologyEntity[] = [
     description: "Hierarchical distributed database resolving hostnames to IP addresses.",
     firstUsed: "2024",
     experimentsCount: 23,
-    relatedEntityIds: ["rfc1035", "dig", "tshark", "cosmohub"],
+    relatedEntityIds: ["rfc1035", "dig", "tshark"],
   },
   {
     id: "dig",
@@ -63,22 +63,10 @@ export const ONTOLOGY_ENTITIES: OntologyEntity[] = [
     domain: "AI",
     status: "VERIFIED",
     confidence: 94,
-    description: "Bilingual AI pre-production assistant built on Hugging Face & watsonx.",
+    description: "Bilingual AI preproduction team submission.",
     firstUsed: "2026",
     experimentsCount: 12,
-    relatedEntityIds: ["sentinel"],
-  },
-  {
-    id: "cosmohub",
-    name: "CosmoHub",
-    type: "project",
-    domain: "Space",
-    status: "IN_TESTING",
-    confidence: 85,
-    description: "Ontology-driven intelligence layer for the global space economy.",
-    firstUsed: "2026",
-    experimentsCount: 8,
-    relatedEntityIds: ["dns"],
+    relatedEntityIds: [],
   },
 ];
 
@@ -131,7 +119,7 @@ export const EVIDENCE_LEDGER: EvidenceLedgerEntry[] = [
     id: "ev-0043",
     code: "Evidence #0043",
     question: "What is the DoH TLS handshake duration on Cloudflare endpoint?",
-    method: "Multi-span telemetry profiler",
+    method: "Multispan telemetry profiler",
     artifacts: ["protocol-trace.json"],
     result: "24 ms TLS 1.3 handshake duration",
     confidence: 98,
@@ -171,7 +159,7 @@ export const ONTOLOGY_MISSIONS: OntologyMission[] = [
   },
   {
     id: "mission-vector-search",
-    title: "In-Browser Semantic Search",
+    title: "In Browser Semantic Search",
     objective: "Build a zero-backend WASM ONNX vector similarity engine.",
     progressPercent: 85,
     domain: "AI",
@@ -189,8 +177,6 @@ export const SEMANTIC_RELATIONSHIPS: SemanticRelationship[] = [
   { fromId: "dig", toId: "dns", type: "USES" },
   { fromId: "tshark", toId: "dns", type: "VALIDATES" },
   { fromId: "dns", toId: "rfc1035", type: "IMPLEMENTS" },
-  { fromId: "cosmohub", toId: "dns", type: "DEPENDS_ON" },
-  { fromId: "cineforge", toId: "sentinel", type: "INSPIRED_BY" },
 ];
 
 export const REASONING_REPLAY_TRACES: Record<string, ReasoningReplayTrace> = {
@@ -202,14 +188,11 @@ export const REASONING_REPLAY_TRACES: Record<string, ReasoningReplayTrace> = {
       { stage: "Question", detail: "How many hops does dig +trace example.com actually show for a real domain?", timestamp: "08:05:00", status: "info" },
       { stage: "Hypothesis", detail: "dig +trace will execute 4 hops: Root -> TLD -> Authoritative -> Final Answer with RD=0.", timestamp: "08:10:00", status: "info" },
       { stage: "Sources", detail: "RFC 1035 section 3.3.11 & Kurose & Ross Chapter 2.", timestamp: "08:15:00", status: "info", artifactRef: "src-rfc1035" },
-      { stage: "Experiment", detail: "dig +trace example.com captured alongside tshark -i eth0 -f 'port 53' -w dns-trace.pcap.", timestamp: "08:30:00", status: "info", artifactRef: "exp-dig-trace-001" },
-      { stage: "Terminal Recording", detail: "Captured 4 hop responses: a.root-servers.net -> a.gtld-servers.net -> a.iana-servers.net.", timestamp: "08:45:00", status: "pass", artifactRef: "/evidence/dns/dig-trace-001.log" },
-      { stage: "Packet Capture", detail: "Recorded dns-trace.pcap containing 8 UDP port 53 datagrams.", timestamp: "09:00:00", status: "pass", artifactRef: "/evidence/dns/dns-trace-001.pcap" },
+      { stage: "Experiment", detail: "dig +trace example.com recorded alongside tshark capture filter.", timestamp: "08:30:00", status: "info", artifactRef: "exp-dig-trace-001" },
       { stage: "Observations", detail: "Header RD (Recursion Desired) bit was 0 on all iterative referral queries.", timestamp: "09:05:00", status: "pass" },
       { stage: "Mistakes", detail: "systemd-resolved loopback cache masked Hop 1 initially; resolved via -i any interface flag.", timestamp: "09:10:00", status: "warn" },
-      { stage: "Conclusion", detail: "Hypothesis confirmed with 100% wire-level fidelity.", timestamp: "09:12:00", status: "pass" },
-      { stage: "Confidence", detail: "Upgraded claim confidence score to 97%.", timestamp: "09:15:00", status: "pass" },
-      { stage: "Knowledge Graph Updated", detail: "Derived state promoted from IMPLEMENTED to TESTED & DEFENDED.", timestamp: "09:31:00", status: "pass" },
+      { stage: "Conclusion", detail: "Hypothesis confirmed against recorded RFC 1035 sequence.", timestamp: "09:12:00", status: "pass" },
+      { stage: "Knowledge Graph Updated", detail: "Derived evidence state promoted cleanly to TESTED.", timestamp: "09:31:00", status: "pass" },
     ],
   },
 };

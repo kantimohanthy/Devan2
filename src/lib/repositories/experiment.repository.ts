@@ -7,7 +7,7 @@ const FALLBACK_EXPERIMENTS: ExperimentRecord[] = [
   {
     id: "exp_1",
     slug: "networking-protocol-pipeline",
-    title: "Hop-by-Hop Multi-Layer Telemetry Profiler",
+    title: "Hop by Hop Multilayer Telemetry Profiler",
     category: "networking",
     identityDimension: "BUILD",
     objective: "Profile multi-span latency breakdown from DoH resolution to TLS 1.3 handshake and HTTP TTFB.",
@@ -24,10 +24,10 @@ const FALLBACK_EXPERIMENTS: ExperimentRecord[] = [
       { name: "DNS Resolution (DoH)", category: "dns", durationMs: 12, status: "ok" },
       { name: "TCP Handshake (SYN-ACK)", category: "tcp", durationMs: 18, status: "ok" },
       { name: "TLS 1.3 Handshake", category: "tls", durationMs: 24, status: "ok" },
-      { name: "HTTP First-Byte (TTFB)", category: "http", durationMs: 52, status: "ok" },
+      { name: "HTTP First Byte (TTFB)", category: "http", durationMs: 52, status: "ok" },
     ],
     benchmarks: [
-      { metric: "Total RTT Span", value: "106 ms", context: "Hop-by-hop multi-layer span" },
+      { metric: "Total RTT Span", value: "106 ms", context: "Hop-by-hop multilayer span" },
       { metric: "DoH DNS Lookup", value: "12 ms", context: "Cloudflare 1.1.1.1 DoH endpoint" },
     ],
     tradeoffs: [
@@ -44,11 +44,11 @@ const FALLBACK_EXPERIMENTS: ExperimentRecord[] = [
   {
     id: "exp_2",
     slug: "vector-search-benchmark",
-    title: "In-Browser Vector Cosine Similarity Benchmarking",
+    title: "In Browser Vector Cosine Similarity Benchmarking",
     category: "ai",
     identityDimension: "EXPLORE",
     objective: "Benchmark 384-dimensional ONNX vector extraction and normalized dot product loop latency.",
-    problem: "Executing client-side RAG search requires high precision without blocking main looper threads.",
+    problem: "Executing client side RAG search requires high precision without blocking main looper threads.",
     motivation: "Proving browser-based semantic search can achieve sub-20ms precision without backend dependencies.",
     status: "completed",
     evidenceScore: 90,
@@ -64,7 +64,7 @@ const FALLBACK_EXPERIMENTS: ExperimentRecord[] = [
       { metric: "Inference Loop Latency", value: "14.5 ms", context: "1000 iterations over 384-dim vectors" },
     ],
     tradeoffs: [
-      "In-browser embedding download (~24MB) is cached locally via LRU to prevent repetitive network fetches.",
+      "In browser embedding download (~24MB) is cached locally via LRU to prevent repetitive network fetches.",
     ],
     lessonsLearned: [
       "Hybrid search blending keyword scoring (0.3) with semantic vector similarity (0.7) eliminates false positives.",

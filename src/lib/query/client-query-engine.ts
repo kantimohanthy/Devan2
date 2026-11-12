@@ -48,6 +48,20 @@ const FALLBACK_EVIDENCE_LIST: EvidenceEntity[] = [
 
 export class ClientQueryEngine {
   private async safeFetchJson<T>(url: string, fallbackData: T): Promise<QueryResult<T>> {
+    // Skip browser API requests on static export (GitHub Pages) to avoid 404 console errors
+    if (typeof window !== "undefined" && process.env.NEXT_PUBLIC_RUNTIME_API !== "true") {
+      return {
+        data: fallbackData,
+        metadata: {
+          sourceEngines: ["StaticSnapshotFallback"],
+          executionTimeMs: 1,
+          evidenceCount: 1,
+          ontologyNodes: 5,
+          confidence: 100,
+          cacheStatus: "HIT",
+        },
+      };
+    }
     try {
       const res = await fetch(url);
       if (res.ok) {
@@ -91,7 +105,7 @@ export class ClientQueryEngine {
       id: id || "networking.dns",
       title: id === "networking.tcp" ? "TCP (Transmission Control Protocol)" : "DNS (Domain Name System)",
       summary: id === "networking.tcp"
-        ? "Reliable connection-oriented transport layer protocol (RFC 793) implementing 3-way handshake."
+        ? "Reliable connection-oriented transport layer protocol (RFC 9293) implementing 3-way handshake."
         : "Hierarchical distributed database system (RFC 1035) translating human domains to IP addresses via UDP/53.",
     });
   }
@@ -103,7 +117,7 @@ export class ClientQueryEngine {
       title: conceptId === "networking.tcp" ? "TCP (Transmission Control Protocol)" : "DNS (Domain Name System)",
       domain: "Networking",
       summary: conceptId === "networking.tcp"
-        ? "Reliable connection-oriented transport layer protocol (RFC 793) implementing 3-way handshake and congestion control."
+        ? "Reliable connection-oriented transport layer protocol (RFC 9293) implementing 3-way handshake and congestion control."
         : "Hierarchical distributed database system (RFC 1035) translating human domains to IP addresses via UDP/53.",
     };
 
@@ -196,24 +210,12 @@ export class ClientQueryEngine {
       currentMission: {
         title: "Wireless Mesh + TV White Space propagation modeling",
         objective: "Thesis research extending mesh coverage into challenging terrain",
-        progressPercent: 75,
         objectives: [
           { label: "WMN Topologies", done: true },
           { label: "DNS (Domain Name System)", done: true },
           { label: "TCP / POSIX Sockets", done: false },
         ],
       },
-      currentSprint: {
-        focusTitle: "TV White Space Spectrum Allocation & Packet Tracing",
-        relocationCountdownDays: 42,
-        learningVelocityPercent: 88,
-      },
-      readinessDimensions: [
-        { domain: "Networking & Protocols", knowledge: 9, experience: 8, evidence: 9, confidence: 9 },
-        { domain: "Systems & Linux Kernel", knowledge: 8, experience: 7, evidence: 8, confidence: 8 },
-        { domain: "Distributed Systems & Cloud", knowledge: 7, experience: 6, evidence: 6, confidence: 7 },
-        { domain: "AI Systems & DSP", knowledge: 7, experience: 6, evidence: 7, confidence: 7 },
-      ],
       recentAchievements: [
         {
           id: "ach-1",

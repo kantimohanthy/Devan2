@@ -1,5 +1,6 @@
 "use client";
 
+import { formatDate } from "@/lib/utils";
 import { useState, useRef } from "react";
 import type { Experiment } from "@/lib/types";
 
@@ -16,7 +17,7 @@ export function LabTerminal({ experiment }: { experiment: Experiment }) {
     return (
       <div>
         <div className="inline-block text-[12px] text-text-3 border border-dashed border-border rounded-lg px-3.5 py-2.5">
-          Not yet executable — no run backend wired for this experiment.
+          Not yet executable, no run backend wired for this experiment.
         </div>
       </div>
     );
@@ -48,7 +49,7 @@ export function LabTerminal({ experiment }: { experiment: Experiment }) {
         >
           {running ? "Running…" : "Run " + experiment.name.split(" ").slice(0, 2).join(" ")}
         </button>
-        <span className="text-[12px] text-text-3">last run {lastRun}</span>
+        <span className="text-[12px] text-text-3">last run {formatDate(lastRun)}</span>
       </div>
       <div
         ref={termRef}

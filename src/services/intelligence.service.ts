@@ -116,7 +116,7 @@ export class IntelligenceService {
       `Expanded ontology neighborhood for [${targetEntityId}] (${neighborhood.connectedEntities.length} connections); Mission completion: ${missionEval.completionPercentage}%`
     );
 
-    // Stage 6: Multi-Reasoner Execution
+    // Stage 6: Multi Reasoner Execution
     const t6 = Date.now();
     const context: ReasonerInputContext = {
       prompt: q,
@@ -135,7 +135,7 @@ export class IntelligenceService {
       experimentReasoner.evaluate(context),
       careerReasoner.evaluate(context),
     ]);
-    logStage("Stage 6: Multi-Reasoner Execution", Date.now() - t6, `Executed 5 specialized reasoners concurrently`);
+    logStage("Stage 6: Multi Reasoner Execution", Date.now() - t6, `Executed 5 specialized reasoners concurrently`);
 
     // Stage 7: Response Synthesis & Recommendation
     const t7 = Date.now();
@@ -144,11 +144,11 @@ export class IntelligenceService {
     const allRecs = results.flatMap((r) => r.recommendations);
     const avgScore = Math.round(results.reduce((acc, r) => acc + r.score, 0) / results.length);
 
-    let summary = `Reasoning complete for "${q}". Overall engineering readiness score is ${avgScore}/100.`;
+    let summary = `Reasoning complete for "${q}" across verified ontology entries.`;
     if (intent === "weakness_analysis") {
-      summary = `Weakness Analysis: Main area for growth is container orchestration (Kubernetes) and distributed consensus (Raft/Paxos). Networking and socket protocols are at 90%+ readiness.`;
+      summary = `Scope Analysis: Primary focus areas are kernel internals and cross-corpus speech evaluation; DNS iterative resolution is the currently verified trace.`;
     } else if (intent === "career_comparison") {
-      summary = `Career Comparison: 87% benchmark match against target Systems Engineer role. Key proof points are anchored in CineForge AI Pro and CosmoHub repositories.`;
+      summary = `Role Alignment: Anchored in verified repositories including LOOP (zidio-Web-dev), DEVAN (Devan2), and CineForge AI Pro.`;
     }
 
     logStage("Stage 7: Response Synthesis", Date.now() - t7, `Synthesized final response in ${Date.now() - startTime}ms total`);

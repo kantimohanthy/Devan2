@@ -58,7 +58,7 @@ export class MissionEngine {
     const completionPercentage = Math.round((satisfiedCount / totalReqs) * 100);
 
     const suggestedBuilds = [
-      "Field-equivalent bench test for wireless mesh hybrid topology",
+      "Field equivalent bench test for wireless mesh hybrid topology",
       "HTTP waterfall latency telemetry experiment against edge node",
     ];
 

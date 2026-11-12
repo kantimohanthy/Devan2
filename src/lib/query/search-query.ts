@@ -1,6 +1,6 @@
 /**
  * @file SearchQuery (Specialized Pipeline Search Query Module)
- * @purpose Pipeline: Normalization -> Alias Resolution -> Exact Match -> Ontology Match -> Execution Stack Match -> Evidence Match -> Career Match -> Ranking -> Response.
+ * @purpose Pipeline: Normalization → Alias Resolution → Exact Match → Ontology Match → Execution Stack Match → Evidence Match → Career Match → Ranking → Response.
  */
 
 import { ontologyEngine } from "@/lib/ontology";

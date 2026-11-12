@@ -12,6 +12,6 @@ export const NAV_ITEMS = [
   { id: "vision", label: "Vision" },
 ] as const;
 
-// Deliberately not part of NAV_ITEMS or the command palette — a quieter,
+// Deliberately not part of NAV_ITEMS or the command palette, a quieter,
 // slightly hidden entry point to the personal notebook layer.
 export const HIDDEN_NAV_ITEM = { id: "uj", label: "UJ" } as const;

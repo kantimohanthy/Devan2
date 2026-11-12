@@ -12,14 +12,6 @@ import { ontologyEngine } from "@/lib/ontology";
 import { experienceEngine } from "@/lib/experience";
 import { missionEngine } from "@/lib/mission";
 
-export interface ReadinessDimensionScore {
-  domain: string;
-  knowledge: number;  // 0 - 10
-  experience: number; // 0 - 10
-  evidence: number;   // 0 - 10
-  confidence: number; // 0 - 10
-}
-
 export type AchievementCategory =
   | "QUESTION"
   | "PROJECT"
@@ -43,15 +35,8 @@ export interface IntelligenceSnapshotViewModel {
   currentMission: {
     title: string;
     objective: string;
-    progressPercent: number;
     objectives: Array<{ label: string; done: boolean }>;
   };
-  currentSprint: {
-    focusTitle: string;
-    relocationCountdownDays: number;
-    learningVelocityPercent: number;
-  };
-  readinessDimensions: ReadinessDimensionScore[];
   recentAchievements: AchievementViewModel[];
   currentWeaknesses: Array<{ domain: string; gap: string; recommendedAction: string }>;
   recommendedNextAction: string;
@@ -147,30 +132,18 @@ export class IntelligenceSnapshotService {
         currentMission: {
           title: missionEval.title,
           objective: missionEval.objective,
-          progressPercent: missionEval.completionPercentage,
           objectives: missionEval.requirements.map((r) => ({
             label: r.ontologyEntity.title || r.ontologyEntity.id,
             done: r.satisfied,
           })),
         },
-        currentSprint: {
-          focusTitle: "TV White Space Spectrum Allocation & Packet Tracing",
-          relocationCountdownDays: 42,
-          learningVelocityPercent: 88,
-        },
-        readinessDimensions: [
-          { domain: "Networking & Protocols", knowledge: 9, experience: 8, evidence: 9, confidence: 9 },
-          { domain: "Systems & Linux Kernel", knowledge: 8, experience: 7, evidence: 8, confidence: 8 },
-          { domain: "Distributed Systems & Cloud", knowledge: 7, experience: 6, evidence: 6, confidence: 7 },
-          { domain: "AI Systems & DSP", knowledge: 7, experience: 6, evidence: 7, confidence: 7 },
-        ],
         recentAchievements,
         currentWeaknesses: missionEval.remainingGaps.map((g) => ({
           domain: g.missingDomain,
           gap: g.title,
           recommendedAction: g.recommendedAction,
         })),
-        recommendedNextAction: missionEval.suggestedBuilds[0] || "Run live HTTP waterfall experiment against edge node.",
+        recommendedNextAction: missionEval.suggestedBuilds[0] || "Inspect DNS iterative trace on /laboratory/dns-iterative-resolution.",
         systemMetrics: {
           totalConceptsTracked,
           totalEvidenceArtifacts,
@@ -184,17 +157,8 @@ export class IntelligenceSnapshotService {
         currentMission: {
           title: "Wireless Mesh + TV White Space propagation modeling",
           objective: "Thesis research extending mesh coverage into challenging terrain",
-          progressPercent: 75,
           objectives: [{ label: "WMN Topologies", done: true }],
         },
-        currentSprint: {
-          focusTitle: "TV White Space Spectrum Allocation",
-          relocationCountdownDays: 42,
-          learningVelocityPercent: 85,
-        },
-        readinessDimensions: [
-          { domain: "Networking", knowledge: 9, experience: 8, evidence: 9, confidence: 9 },
-        ],
         recentAchievements: [],
         currentWeaknesses: [],
         recommendedNextAction: "Continue research",

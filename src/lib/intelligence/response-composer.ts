@@ -54,7 +54,7 @@ export class ResponseComposer {
     const executionTimeMs = Date.now() - params.startTimeMs;
 
     const tradeOffs = params.architectureAnalysis?.keyTradeOffs || [
-      "Trade-off between latency and consistency",
+      "Tradeoff between latency and consistency",
     ];
 
     const failureModes = params.failureAnalysis?.cascadingImpact || [

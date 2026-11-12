@@ -27,17 +27,17 @@ export interface WorkspaceState {
 export const INITIAL_WORKSPACE_STATE: WorkspaceState = {
   currentDomain: "Networking",
   selectedConceptId: "networking.dns",
-  selectedExperimentId: "networking-protocol-pipeline",
+  selectedExperimentId: "dns-iterative-resolution",
   selectedEvidenceId: "ev-pcap-dns-trace",
   selectedExecutionStackId: "stack-http-lifecycle",
   openTabs: [
-    { id: "networking.dns", title: "DNS (Domain Name System)", type: "CONCEPT", href: "/knowledge/networking.dns" },
-    { id: "networking.tcp", title: "TCP (Transmission Control)", type: "CONCEPT", href: "/knowledge/networking.tcp" },
-    { id: "stack-http-lifecycle", title: "HTTP Request Lifecycle", type: "EXECUTION_STACK", href: "/reasoning" },
+    { id: "networking.dns", title: "DNS (Domain Name System)", type: "CONCEPT", href: "/knowledge/dns/" },
+    { id: "networking.tcp", title: "TCP (Transmission Control)", type: "CONCEPT", href: "/knowledge/tcp/" },
+    { id: "stack-http-lifecycle", title: "HTTP Request Lifecycle", type: "EXECUTION_STACK", href: "/reasoning/" },
   ],
   activeTabId: "networking.dns",
   densityMode: "DENSE",
   commandPaletteOpen: false,
-  dockOpen: true,
-  dockActiveTab: "Oracle",
+  dockOpen: false,
+  dockActiveTab: "Terminal",
 };

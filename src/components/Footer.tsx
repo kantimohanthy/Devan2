@@ -10,7 +10,7 @@ export function Footer() {
             DEVAN<span className="text-accent">.</span>
           </p>
           <p className="mt-1 text-xs text-text-tertiary">
-            The Eye of UJ — built and maintained by Ujwal Shyam Kantimohanthy.
+            The Eye of UJ, built and maintained by Ujwal Shyam Kantimohanthy.
           </p>
         </div>
         <div className="flex items-center gap-4">

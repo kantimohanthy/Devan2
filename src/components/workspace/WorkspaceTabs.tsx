@@ -66,6 +66,7 @@ export function WorkspaceTabs() {
             <span className="truncate max-w-[140px] text-[11px]">{tab.title}</span>
             <button
               onClick={(e) => handleCloseTab(e, tab.id)}
+              aria-label={`Close ${tab.title} tab`}
               className="rounded p-0.5 opacity-0 group-hover:opacity-100 hover:bg-[#20252B] transition-opacity"
             >
               <X className="h-3 w-3 text-[#8A9098]" />

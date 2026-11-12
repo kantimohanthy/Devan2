@@ -13,29 +13,29 @@ export class EvidenceReasoner implements IReasoner {
   readonly name = "EvidenceReasoner";
 
   async evaluate(context: ReasonerInputContext): Promise<ReasoningResult> {
-    const verifiedRepos = context.repositories.filter((r) => r.ciStatus === "passing").length;
+    const totalRepos = context.repositories.length;
 
     const insights = [
-      `Evidence Integrity: 100% of claims are anchored to verified raw artifacts or CI passing builds.`,
-      `Verified Repositories: ${verifiedRepos} / ${context.repositories.length || 1} repositories with passing CI.`,
-      `Raw Evidence Files: Wireshark UDP 53 PCAP capture & RFC 1035 Dig trace logged.`,
+      "Evidence Integrity: Claims are anchored to verified artifacts or code repositories.",
+      `Logged Repositories: ${totalRepos} repositories tracked.`,
+      "Evidence Status: DNS iterative resolution trace logged (derived state: TESTED).",
     ];
 
     const recommendations = [
-      "Zero unverified claims detected. Maintain strict evidence-over-percentages discipline.",
+      "Maintain strict evidence-over-percentages discipline.",
     ];
 
     return {
       reasonerName: this.name,
-      score: 92,
-      summary: "Evidence integrity is fully verified with passing CI assertions and dated raw artifacts.",
+      score: 0,
+      summary: "Evidence records track verified experiments and technical decisions without fabricated claims.",
       insights,
       evidenceRefs: [
-        { type: "Evidence", title: "Wireshark PCAP & Dig Trace", href: "/evidence" },
+        { type: "Evidence", title: "DNS Iterative Resolution Trace", href: "/evidence" },
         { type: "Repository", title: "ujwal-portfolio", href: "/repositories/ujwal-portfolio" },
       ],
       recommendations,
-      metadata: { verifiedRepos },
+      metadata: { totalRepos },
     };
   }
 }

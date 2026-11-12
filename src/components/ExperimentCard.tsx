@@ -17,18 +17,14 @@ export function ExperimentCard({ experiment }: { experiment: Experiment }) {
         <Tag tone={statusTone[experiment.status]}>{experiment.status}</Tag>
       </div>
       <p className="mb-4 text-sm leading-relaxed text-text-secondary">{experiment.description}</p>
-      <div className="mb-4">
-        <div className="mb-1.5 flex items-center justify-between text-xs text-text-tertiary">
-          <span>Progress</span>
-          <span>{experiment.progress}%</span>
+      {experiment.progress !== undefined && (
+        <div className="mb-4">
+          <div className="mb-1.5 flex items-center justify-between text-xs text-text-tertiary">
+            <span>Status</span>
+            <span>{experiment.status}</span>
+          </div>
         </div>
-        <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/5">
-          <div
-            className="h-full rounded-full bg-accent transition-all duration-500"
-            style={{ width: `${experiment.progress}%` }}
-          />
-        </div>
-      </div>
+      )}
       <div className="flex flex-wrap gap-1.5">
         {experiment.tags.map((tag) => (
           <Tag key={tag}>{tag}</Tag>

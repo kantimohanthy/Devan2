@@ -104,13 +104,13 @@ export async function executeProtocolTrace(targetHost: string): Promise<Protocol
     });
   }
 
-  // Step 3: HTTP First-Byte Latency (TTFB)
+  // Step 3: HTTP First Byte Latency (TTFB)
   const httpStart = performance.now();
   try {
     await fetch(`https://${host}`, { method: "HEAD", cache: "no-store" });
     ttfbMs = Math.round(performance.now() - httpStart);
     spans.push({
-      name: "HTTP First-Byte Latency (TTFB)",
+      name: "HTTP First Byte Latency (TTFB)",
       category: "http",
       durationMs: ttfbMs,
       status: "ok",
@@ -119,7 +119,7 @@ export async function executeProtocolTrace(targetHost: string): Promise<Protocol
   } catch {
     ttfbMs = Math.round(performance.now() - httpStart);
     spans.push({
-      name: "HTTP First-Byte Latency (TTFB)",
+      name: "HTTP First Byte Latency (TTFB)",
       category: "http",
       durationMs: ttfbMs,
       status: "warning",

@@ -54,7 +54,7 @@ export interface ResearchItem {
 export interface Experiment {
   title: string;
   status: "In progress" | "Blocked" | "Complete" | "Paused";
-  progress: number;
+  progress?: number;
   description: string;
   tags: string[];
 }

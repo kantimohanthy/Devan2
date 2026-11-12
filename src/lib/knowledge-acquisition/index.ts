@@ -1,7 +1,7 @@
 /**
  * @file Knowledge Acquisition Engine (Universal Ingestion Compiler)
  * @purpose Automated ingestion engine compiling engineering documents (PDFs, RFCs, Papers) into canonical ontology entities and commits.
- * @workflow PDF -> Chunking -> Concept Detection -> Relationship Detection -> Evidence Detection -> Ontology Merge -> Human Review -> Commit.
+ * @workflow PDF → Chunking → Concept Detection → Relationship Detection → Evidence Detection → Ontology Merge → Human Review → Commit.
  */
 
 import { ontologyEngine } from "@/lib/ontology";
@@ -81,7 +81,7 @@ export class KnowledgeAcquisitionEngine {
           fromId: id,
           toId: "networking.dns.iterative-resolution",
           type: "RELATED_TO",
-          note: "Auto-detected reference link",
+          note: "Automatically detected reference link",
         });
       }
     }

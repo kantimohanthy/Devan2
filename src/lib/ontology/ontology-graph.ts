@@ -1,5 +1,5 @@
 /**
- * @file Universal Scalable ICT Engineering Canon Topology — UJ.OS v2.1
+ * @file Universal Scalable ICT Engineering Canon Topology, UJ.OS v2.1
  * @purpose Namespaced concept identifiers (networking.dns.iterative-resolution, networking.tcp, cloud.kubernetes), automatic expansion fields, truth sources, difficulty tiers, time estimates, and objective mastery requirements.
  * @principle Scalable to 30,000+ canonical concepts via namespaced IDs and compiler pipeline ingestion.
  */
@@ -53,9 +53,9 @@ export const CANONICAL_ENTITIES: OntologyEntity[] = [
       packetFlow: [
         "1. Client stub resolver checks local OS cache / hosts file.",
         "2. Client sends UDP query to Recursive Resolver with RD=1.",
-        "3. Recursive Resolver queries Root Server (.) with RD=0 -> receives TLD referral (NS record).",
-        "4. Recursive Resolver queries TLD Server (.com) with RD=0 -> receives Authoritative referral.",
-        "5. Recursive Resolver queries Authoritative Server -> receives A/AAAA answer.",
+        "3. Recursive Resolver queries Root Server (.) with RD=0 → receives TLD referral (NS record).",
+        "4. Recursive Resolver queries TLD Server (.com) with RD=0 → receives Authoritative referral.",
+        "5. Recursive Resolver queries Authoritative Server → receives A/AAAA answer.",
         "6. Recursive Resolver caches answer according to TTL and returns A record to Client.",
       ],
       headerStructure: [
@@ -69,13 +69,13 @@ export const CANONICAL_ENTITIES: OntologyEntity[] = [
       futureEvolution: "Transitioning toward encrypted DNS-over-HTTPS (DoH RFC 8484) and DNS-over-QUIC (DoQ RFC 9250).",
       comparisonTargets: ["networking.mdns"],
       reasoningChains: [
-        "If UDP query payload exceeds 512 bytes -> Server sets TC (Truncated) bit = 1 -> Client re-establishes query over TCP port 53.",
+        "If UDP query payload exceeds 512 bytes → Server sets TC (Truncated) bit = 1 → Client re-establishes query over TCP port 53.",
       ],
       decisionRecord: {
         engineeringProblem: "How to resolve human-memorable names to dynamic 32-bit/128-bit IP addresses at planetary scale.",
         whyProtocolExists: "Replaced centralized static HOSTS.TXT file which unscalable when ARPANET expanded.",
         designDecisions: [
-          "Hierarchical tree delegation (Root -> TLD -> Authoritative)",
+          "Hierarchical tree delegation (Root → TLD → Authoritative)",
           "UDP transport for low RTT overhead with fallback to TCP",
           "Distributed TTL caching at every hop",
         ],
@@ -90,7 +90,7 @@ export const CANONICAL_ENTITIES: OntologyEntity[] = [
         advancedBuild: "Implement an iterative DNS resolver executing root-to-authoritative referral hops with LRU cache.",
         productionScaleProject: "Construct a high-throughput multi-threaded DNS resolver supporting DNSSEC validation, eBPF packet filtering, and Prometheus metrics.",
       },
-      associatedProjects: ["devan-os", "cosmohub"],
+      associatedProjects: ["devan-os", "project-loop"],
       associatedExperiments: ["networking-protocol-pipeline"],
       associatedEvidence: ["ev-pcap-dns-trace", "ev-repo-devan2"],
       competency: { knowledge: 10, experience: 9, evidence: 10, confidence: 9 },
@@ -137,9 +137,9 @@ export const CANONICAL_ENTITIES: OntologyEntity[] = [
       packetFlow: [
         "1. SYN: Client sends SYN (Seq=X) to Server.",
         "2. SYN-ACK: Server responds with SYN-ACK (Seq=Y, Ack=X+1).",
-        "3. ACK: Client sends ACK (Ack=Y+1) -> ESTABLISHED state.",
+        "3. ACK: Client sends ACK (Ack=Y+1) → ESTABLISHED state.",
         "4. Data Transfer: Sliding window controls byte offset ACKs.",
-        "5. Teardown: FIN -> ACK -> FIN -> ACK -> TIME_WAIT (2*MSL).",
+        "5. Teardown: FIN → ACK → FIN → ACK → TIME_WAIT (2*MSL).",
       ],
       headerStructure: [
         "Source Port (16b) | Destination Port (16b)",
@@ -291,7 +291,7 @@ export const CANONICAL_ENTITIES: OntologyEntity[] = [
     learningStatus: "VERIFIED",
     summary: "Automated container deployment, scaling, networking (CNI), storage (CSI), and declarative cluster state reconciliation.",
     details: {
-      definition: "Production-grade open-source container orchestration system managing containerized workloads and services.",
+      definition: "Production-grade open source container orchestration system managing containerized workloads and services.",
       engineeringPurpose: "Provides declarative zero-downtime application deployment, scaling, and self-healing.",
       parents: ["linux.namespaces", "linux.cgroups", "networking.dns.iterative-resolution"],
       children: ["cloud.knative"],
@@ -366,7 +366,7 @@ export const CANONICAL_ENTITIES: OntologyEntity[] = [
     type: "paper",
     title: "Wireless Mesh Networks + TV White Space for Rural Connectivity",
     domain: "Networking",
-    summary: "Thesis Research — Combining sub-1GHz spectrum propagation with reactive/proactive mesh routing for challenging terrain.",
+    summary: "Thesis Research, Combining sub-1GHz spectrum propagation with reactive/proactive mesh routing for challenging terrain.",
   },
   {
     id: "repo-devan2",
@@ -408,7 +408,7 @@ export const CANONICAL_COMPARISONS: ConceptComparison[] = [
       { dimension: "Header Overhead", conceptAValue: "20 - 60 Bytes", conceptBValue: "Fixed 8 Bytes" },
     ],
     whenToUseA: "When data completeness and ordering are mandatory (Web APIs, File Transfer, DB Queries).",
-    whenToUseB: "When sub-10ms low latency supersedes packet loss (DNS Queries, VoIP, Real-Time Gaming, QUIC).",
+    whenToUseB: "When sub-10ms low latency supersedes packet loss (DNS Queries, VoIP, Real Time Gaming, QUIC).",
     tradeOffSummary: "TCP guarantees zero data loss at the expense of handshake latency; UDP provides maximum raw transmission speed.",
     history: "TCP and UDP split from monolithic IP in 1978 to support distinct transport requirements.",
     architecture: "TCP maintains heavy in-kernel TCB socket state; UDP maintains zero connection state.",
@@ -421,16 +421,16 @@ export const CANONICAL_COMPARISONS: ConceptComparison[] = [
 export const CANONICAL_DECISION_GRAPHS: EngineeringDecisionGraph[] = [
   {
     id: "decision-dns-transport-selection",
-    engineeringProblem: "How to handle DNS payload size expansion beyond historical 512-byte UDP limit.",
+    engineeringProblem: "How to handle DNS payload size expansion beyond historical 512 byte UDP limit.",
     context: "EDNS0 allows buffer sizes up to 1232 bytes, but large DNSSEC payloads exceed limits.",
-    constraints: ["Sub-20ms query latency", "Middlebox fragmentation filtering"],
+    constraints: ["Under 20 ms query latency", "Middlebox fragmentation filtering"],
     candidateSolutions: ["UDP with TCP fallback (RFC 1035)", "Strict TCP-only DNS"],
     decisionCriteria: ["Latency impact", "Payload size handling"],
     tradeOffs: ["UDP fallback adds 2 RTTs on truncation, but keeps 99% of queries at 1 RTT."],
     finalRecommendation: "Advertise 1232-byte EDNS0 buffer over UDP. Fallback to TCP port 53 when TC=1.",
     whyAlternativesRejected: ["Strict TCP adds unacceptable latency overhead for lightweight 64-byte A record lookups."],
     realWorldImplementations: ["Cloudflare 1.1.1.1", "Google 8.8.8.8", "CoreDNS"],
-    failurePropagation: ["Firewall blocks TCP port 53 -> Truncated DNS responses throw SERVFAIL."],
+    failurePropagation: ["Firewall blocks TCP port 53 → Truncated DNS responses throw SERVFAIL."],
     operationalChecklist: ["Verify UDP 53 and TCP 53 open on firewalls", "Set EDNS0 buffer to 1232B"],
     buildRecommendations: ["Build a C CLI resolver retrying over TCP port 53 upon receiving TC=1 flag."],
   },
@@ -442,9 +442,9 @@ export const CANONICAL_FAILURE_CHAINS: FailurePropagationChain[] = [
     trigger: "Authoritative DNS Name Servers suffer BGP route flap or DDoS outage",
     propagationSteps: [
       "1. Authoritative DNS servers fail to respond to UDP port 53 queries.",
-      "2. Recursive DNS resolvers hit query timeout and retry 3 times -> Query queue overflows.",
+      "2. Recursive DNS resolvers hit query timeout and retry 3 times → Query queue overflows.",
       "3. Local DNS cache TTL expires across edge microservices.",
-      "4. Microservices fail domain resolution -> Throw EAI_AGAIN / ECONNREFUSED.",
+      "4. Microservices fail domain resolution → Throw EAI_AGAIN / ECONNREFUSED.",
       "5. API Gateways return 502 Bad Gateway to end users.",
     ],
     ultimateImpact: "Complete outage of web application traffic despite healthy backend application servers.",

@@ -30,7 +30,7 @@ export function ReasoningReplay({ decision }: { decision: Decision }) {
         <div className="text-[11px] uppercase tracking-wide text-text-3 mb-2 mt-4">Implementation</div>
         <p className="text-[14px] leading-[1.7] max-w-[620px] mb-3">{decision.implementation}</p>
         <p className="text-[12px] text-text-3 italic mt-2">
-          Alternatives weren&rsquo;t recorded for this decision — showing the flat record rather than a fabricated replay.
+          Alternatives weren&rsquo;t recorded for this decision, showing the flat record rather than a fabricated replay.
         </p>
       </div>
     );

@@ -21,24 +21,24 @@ export class CareerReasoner implements IReasoner {
     else if (promptLower.includes("ai") || promptLower.includes("ml")) targetRole = "AI Systems Engineer";
 
     const insights = [
-      `Target Role Comparison: Match against ${targetRole} benchmark matrix is 87%.`,
-      `Core Match: Internet Engineering, Socket Protocols, Relational DB Architecture, Rust/TypeScript.`,
-      `Development Gap: Container orchestration (Kubernetes) & distributed consensus (Raft/Paxos).`,
+      `Target Role Comparison: Aligning technical evidence with ${targetRole} requirements.`,
+      "Core Areas: Internet Engineering, Socket Protocols, Relational DB Architecture, TypeScript.",
+      "Development Gap: Container orchestration & distributed consensus (Raft/Paxos).",
     ];
 
     const recommendations = [
-      "Build a lightweight Raft consensus key-value store experiment to close distributed systems gap.",
-      "Ship STATION F Landing Zone Paris launch materials.",
+      "Complete cross-corpus baseline runs on DASER-Net and document evaluation scripts.",
+      "Finalize BSc Wireless Mesh + TVWS thesis manuscript under faculty review.",
     ];
 
     return {
       reasonerName: this.name,
-      score: 87,
-      summary: `High readiness alignment for ${targetRole} role profile with clear, evidence-backed proofs.`,
+      score: 0,
+      summary: `Alignment for ${targetRole} role profile with verified repository proofs.`,
       insights,
       evidenceRefs: [
-        { type: "Project", title: "CineForge AI Pro", href: "/projects/cineforge-ai-pro" },
-        { type: "Project", title: "CosmoHub", href: "/projects/cosmohub" },
+        { type: "Project", title: "LOOP", href: "/work/project-loop/" },
+        { type: "Project", title: "DEVAN", href: "/work/devan/" },
       ],
       recommendations,
       metadata: { targetRole },

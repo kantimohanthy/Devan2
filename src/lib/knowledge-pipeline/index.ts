@@ -1,7 +1,7 @@
 /**
  * @file Knowledge Governance System & Acquisition Compiler (UJ.OS v2.1)
  * @purpose Governed engineering knowledge ingestion workflow. Produces auditable, versioned Git-like OntologyCommits with full traceability and conflict resolution.
- * @workflow Document -> Normalization -> Entity Extraction -> Relationship Extraction -> Prerequisite Detection -> Evidence Detection -> Conflict Detection -> Review Package -> Validation -> Ontology Commit -> Knowledge Version.
+ * @workflow Document → Normalization → Entity Extraction → Relationship Extraction → Prerequisite Detection → Evidence Detection → Conflict Detection → Review Package → Validation → Ontology Commit → Knowledge Version.
  */
 
 import {
@@ -154,7 +154,7 @@ export class KnowledgeGovernanceSystem {
         fromId: newConcepts[0].id,
         toId: "networking.dns.iterative-resolution",
         type: "RELATED_TO",
-        note: "Auto-detected reference link",
+        note: "Automatically detected reference link",
       },
     ];
 
@@ -194,7 +194,7 @@ export class KnowledgeGovernanceSystem {
       suggestedMerges: [],
       estimatedImpact: `Ingesting 1 new concept and 1 relationship from ${sourceTitle}`,
       affectedConcepts: [newConcepts[0].id],
-      affectedRelationships: [`${newConcepts[0].id} -> networking.dns.iterative-resolution`],
+      affectedRelationships: [`${newConcepts[0].id} → networking.dns.iterative-resolution`],
       breakingChanges: [],
       warnings: [],
       reviewNotes: [],
@@ -245,7 +245,7 @@ export class KnowledgeGovernanceSystem {
   }
 
   /**
-   * Stage 10: Commit Review Package -> Auditable Ontology Commit & Version Increment.
+   * Stage 10: Commit Review Package → Auditable Ontology Commit & Version Increment.
    */
   async commitReviewPackage(
     packageId: string,
@@ -297,10 +297,10 @@ export class KnowledgeGovernanceSystem {
         note: r.note,
       };
       ontologyEngine.addRelationship(rel);
-      addedRelationships.push(`${r.fromId} -> ${r.toId}`);
+      addedRelationships.push(`${r.fromId} → ${r.toId}`);
     }
 
-    // Increment Ontology Version (v2.1.0 -> v2.2.0)
+    // Increment Ontology Version (v2.1.0 → v2.2.0)
     const versionParts = this.currentOntologyVersion.replace("v", "").split(".");
     const nextMinor = parseInt(versionParts[1] || "1", 10) + 1;
     this.currentOntologyVersion = `v${versionParts[0]}.${nextMinor}.0`;

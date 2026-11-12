@@ -3,71 +3,127 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const USERNAME = "kantimohanthy";
-const TOKEN = process.env.GITHUB_TOKEN;
+const OUT_PATH = path.join(__dirname, "../src/data/github-activity.generated.json");
 
-const headers = TOKEN ? { Authorization: `Bearer ${TOKEN}` } : {};
+// Only confirmed public repositories permitted in the portfolio bundle.
+const FEATURED_REPOS = [
+  { owner: "kantimohanthy", repo: "zidio-Web-dev", projectSlug: "project-loop" },
+  { owner: "kantimohanthy", repo: "Devan2", projectSlug: "devan" },
+  { owner: "kantimohanthy", repo: "ClineForge-Pro", projectSlug: "cineforge-ai-pro" },
+];
+
+const TOKEN = process.env.GITHUB_TOKEN;
+const headers = {
+  Accept: "application/vnd.github+json",
+  "User-Agent": "kantimohanthy-dev-build-sync",
+  ...(TOKEN ? { Authorization: `Bearer ${TOKEN}` } : {}),
+};
+
+async function fetchRepoSummary({ owner, repo, projectSlug }) {
+  const repoRes = await fetch(`https://api.github.com/repos/${owner}/${repo}`, { headers });
+  if (!repoRes.ok) {
+    throw new Error(`HTTP ${repoRes.status} for ${owner}/${repo}`);
+  }
+  const data = await repoRes.json();
+
+  let latestRelease = null;
+  try {
+    const relRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/releases/latest`, { headers });
+    if (relRes.ok) {
+      const rel = await relRes.json();
+      latestRelease = {
+        tagName: rel.tag_name,
+        publishedAt: rel.published_at,
+        url: rel.html_url,
+      };
+    }
+  } catch {
+    // No release is normal and not an error
+  }
+
+  let recentCommitSha = null;
+  let recentCommitDate = null;
+  try {
+    const commitsRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`, { headers });
+    if (commitsRes.ok) {
+      const commits = await commitsRes.json();
+      if (Array.isArray(commits) && commits[0]) {
+        recentCommitSha = String(commits[0].sha || "").slice(0, 7);
+        recentCommitDate = commits[0].commit?.committer?.date || commits[0].commit?.author?.date || null;
+      }
+    }
+  } catch {
+    // Ignore commit lookup failures cleanly
+  }
+
+  return {
+    projectSlug,
+    name: data.name,
+    fullName: data.full_name,
+    description: data.description,
+    url: data.html_url,
+    pushedAt: data.pushed_at,
+    defaultBranch: data.default_branch,
+    language: data.language,
+    stars: data.stargazers_count,
+    recentCommitSha,
+    recentCommitDate,
+    latestRelease,
+  };
+}
 
 async function main() {
+  const existing = readExistingCache();
+  const syncedAt = new Date().toISOString();
+
   try {
-    const reposRes = await fetch(
-      `https://api.github.com/users/${USERNAME}/repos?sort=pushed&per_page=10`,
-      { headers }
-    );
-    if (!reposRes.ok) {
-      console.warn(`GitHub API returned status ${reposRes.status}, fallback to mock array.`);
-      writeFallback();
+    const settled = await Promise.allSettled(FEATURED_REPOS.map(fetchRepoSummary));
+    const fetched = [];
+    let anyFailed = false;
+
+    FEATURED_REPOS.forEach((spec, idx) => {
+      const res = settled[idx];
+      if (res.status === "fulfilled") {
+        fetched.push(res.value);
+      } else {
+        anyFailed = true;
+        console.warn(`GitHub sync warning for ${spec.owner}/${spec.repo}: ${res.reason?.message}`);
+        const cachedItem = existing.repos?.find((r) => r.name === spec.repo);
+        if (cachedItem) {
+          fetched.push({ ...cachedItem, staleFallback: true });
+        }
+      }
+    });
+
+    if (fetched.length === 0) {
+      console.warn("All live GitHub requests failed; keeping last committed cache unchanged.");
       return;
     }
 
-    const repos = await reposRes.json();
-    if (!Array.isArray(repos)) {
-      writeFallback();
-      return;
-    }
+    const payload = {
+      source: anyFailed ? "partial-cache" : "github-api",
+      syncedAt,
+      repos: fetched,
+    };
 
-    const entries = repos
-      .filter((r) => !r.fork)
-      .map((r) => ({
-        name: r.name,
-        description: r.description,
-        url: r.html_url,
-        pushedAt: r.pushed_at,
-        language: r.language,
-        stars: r.stargazers_count,
-      }));
-
-    const outPath = path.join(__dirname, "../src/data/github-activity.generated.json");
-    fs.writeFileSync(outPath, JSON.stringify(entries, null, 2));
-    console.log(`Wrote ${entries.length} repo entries to ${outPath}`);
+    fs.writeFileSync(OUT_PATH, JSON.stringify(payload, null, 2) + "\n");
+    console.log(`Wrote ${fetched.length} verified repo entries to ${OUT_PATH} (${payload.source})`);
   } catch (err) {
-    console.error("GitHub sync failed, writing fallback:", err.message);
-    writeFallback();
+    console.warn("GitHub sync exception; preserving committed cache:", err.message);
   }
 }
 
-function writeFallback() {
-  const outPath = path.join(__dirname, "../src/data/github-activity.generated.json");
-  const fallback = [
-    {
-      name: "cineforge-ai",
-      description: "Autonomous production engine & pipeline",
-      url: "https://github.com/kantimohanthy",
-      pushedAt: new Date().toISOString(),
-      language: "TypeScript",
-      stars: 12,
-    },
-    {
-      name: "sentinel-ai",
-      description: "Distributed security telemetry platform",
-      url: "https://github.com/kantimohanthy",
-      pushedAt: new Date().toISOString(),
-      language: "Python",
-      stars: 8,
+function readExistingCache() {
+  try {
+    if (!fs.existsSync(OUT_PATH)) return { source: "none", syncedAt: null, repos: [] };
+    const raw = JSON.parse(fs.readFileSync(OUT_PATH, "utf8"));
+    if (Array.isArray(raw)) {
+      return { source: "legacy-array", syncedAt: null, repos: raw };
     }
-  ];
-  fs.writeFileSync(outPath, JSON.stringify(fallback, null, 2));
-  console.log(`Wrote fallback data to ${outPath}`);
+    return raw;
+  } catch {
+    return { source: "corrupt", syncedAt: null, repos: [] };
+  }
 }
 
 main().catch(() => process.exit(0));

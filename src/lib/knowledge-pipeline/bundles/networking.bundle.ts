@@ -29,9 +29,9 @@ export const NETWORKING_CONCEPTS: OntologyEntity[] = [
       typicalPorts: ["UDP/53 (Queries)", "TCP/53 (AXFR & Large Payloads)"],
       packetFlow: [
         "1. Stub Resolver sends query to Recursive Resolver (RD=1).",
-        "2. Recursive Resolver queries Root (.) with RD=0 -> NS referral.",
-        "3. Recursive Resolver queries TLD (.com) -> Authoritative NS referral.",
-        "4. Recursive Resolver queries Authoritative NS -> Receives A/AAAA answer.",
+        "2. Recursive Resolver queries Root (.) with RD=0 → NS referral.",
+        "3. Recursive Resolver queries TLD (.com) → Authoritative NS referral.",
+        "4. Recursive Resolver queries Authoritative NS → Receives A/AAAA answer.",
       ],
       headerStructure: [
         "Transaction ID (16b) | Flags: QR Opcode AA TC RD RA Z RCODE (16b)",
@@ -45,7 +45,7 @@ export const NETWORKING_CONCEPTS: OntologyEntity[] = [
       scalabilityConsiderations: ["Anycast IP steering for Root & TLD servers", "Multi-layer local caching"],
       industryUseCases: ["Cloudflare 1.1.1.1", "CoreDNS in Kubernetes", "BIND9 Authoritative Server"],
       companiesUsingIt: ["Cloudflare", "Google", "AWS Route 53", "Akamai"],
-      interviewQuestions: ["What happens step-by-step when you type google.com in a browser?", "Why does DNS fallback to TCP port 53?"],
+      interviewQuestions: ["What happens step by step when you type google.com in a browser?", "Why does DNS fallback to TCP port 53?"],
       associatedEvidence: ["ev-pcap-dns-trace"],
       associatedProjects: ["devan-os"],
       learningMetadata: {
@@ -82,8 +82,8 @@ export const NETWORKING_CONCEPTS: OntologyEntity[] = [
       rfcs: ["RFC 793", "RFC 5681", "RFC 7323"],
       typicalPorts: ["All L4 Dynamic Ports"],
       packetFlow: [
-        "1. SYN (Seq=X) -> 2. SYN-ACK (Seq=Y, Ack=X+1) -> 3. ACK (Ack=Y+1).",
-        "4. In-order byte data transfer -> 5. FIN/ACK connection teardown.",
+        "1. SYN (Seq=X) → 2. SYN-ACK (Seq=Y, Ack=X+1) → 3. ACK (Ack=Y+1).",
+        "4. In-order byte data transfer → 5. FIN/ACK connection teardown.",
       ],
       headerStructure: [
         "Source Port (16b) | Dest Port (16b)",
@@ -239,7 +239,7 @@ export const NETWORKING_CONCEPTS: OntologyEntity[] = [
     domain: "Networking",
     importance: "CORE",
     maturity: "INDUSTRY",
-    summary: "RFC 8446 cryptographic security protocol providing end-to-end encryption, perfect forward secrecy (ECDHE), and 1-RTT handshakes.",
+    summary: "RFC 8446 cryptographic security protocol providing end to end encryption, perfect forward secrecy (ECDHE), and 1-RTT handshakes.",
     details: {
       definition: "Cryptographic protocol securing network communications over TCP through certificate authentication and symmetric encryption.",
       rfcs: ["RFC 8446"],
