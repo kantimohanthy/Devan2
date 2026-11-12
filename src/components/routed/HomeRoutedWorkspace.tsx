@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { person, projects, LAST_REVIEWED, formatMonth } from "@/content";
 import { HeroTerrainMesh } from "@/components/site/HeroTerrainMesh";
+import { Portrait } from "@/components/site/Portrait";
 import { SelectedWorkChapters } from "./SelectedWorkChapters";
 import { EvidenceMarker } from "./EvidenceModeProvider";
 import { SectionHead } from "@/components/site/SiteChrome";
@@ -104,7 +105,10 @@ export function HomeRoutedWorkspace({
               </div>
             </div>
 
-            <HeroTerrainMesh activeSlug={activeSlug} onSelectSlug={setActiveSlug} />
+            <div className="grid gap-5 sm:grid-cols-[minmax(0,200px)_1fr] sm:items-end lg:grid-cols-1">
+              <Portrait className="max-w-[240px] sm:max-w-none lg:max-w-[300px]" />
+              <HeroTerrainMesh activeSlug={activeSlug} onSelectSlug={setActiveSlug} />
+            </div>
           </div>
 
           {/* Quiet current-focus ledger row */}
@@ -162,7 +166,7 @@ export function HomeRoutedWorkspace({
         {supporting.length > 0 && (
           <div className="mt-10 rounded-lg border border-ivory/15 bg-[#181613]/60 px-5 py-4 flex flex-wrap items-center justify-between gap-4">
             <div className="min-w-0">
-              <p className="note">Supporting challenge archive</p>
+              <p className="note">Supporting projects</p>
               <p className="mt-1 text-[14.5px] text-ivory-2">
                 {supporting.map((s) => `${s.title} (${s.statusLabel})`).join(" · ")}
               </p>

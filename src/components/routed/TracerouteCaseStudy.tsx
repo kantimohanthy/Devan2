@@ -115,6 +115,28 @@ export function TracerouteCaseStudy({ project }: { project: ProjectRecord }) {
                     </div>
                   )}
 
+                  {hop.media && hop.media.length > 0 && (
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {hop.media.map((m) => (
+                        <figure key={m.src} className="overflow-hidden rounded-md border border-ivory/15 bg-[#181613]">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={m.src}
+                            srcSet={m.srcSet}
+                            sizes="(min-width: 1024px) 420px, 100vw"
+                            alt={m.alt}
+                            width={m.width}
+                            height={m.height}
+                            loading="lazy"
+                            decoding="async"
+                            className="h-auto w-full"
+                          />
+                          <figcaption className="px-3 py-2 text-[12.5px] leading-snug text-ivory-3">{m.caption}</figcaption>
+                        </figure>
+                      ))}
+                    </div>
+                  )}
+
                   {hop.mediaStatus && !hop.mediaStatus.available && (
                     <div className="rounded-md border border-dashed border-ivory/25 bg-[#181613] px-4 py-3 font-mono text-[12px] text-ivory-3">
                       Asset status ({hop.mediaStatus.kind}): {hop.mediaStatus.note}

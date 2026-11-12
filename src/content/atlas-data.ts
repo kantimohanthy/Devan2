@@ -222,6 +222,62 @@ export const atlasNodes: AtlasNode[] = [
     externalHref: "/work/wireless-mesh-tvws/",
     externalLabel: "View Thesis Case Study",
   },
+  {
+    id: "cosmohub",
+    kind: "project",
+    title: "CosmoHub",
+    subtitle: "In progress · Space education (STATION F Landing Zone)",
+    status: "In progress · Early prototype",
+    summary: "Space-education platform with a game-like learning path and a source-grounded retrieval prototype. Early stage; no public usage figures.",
+    url: "/atlas/cosmohub/",
+    x: 330,
+    y: 150,
+    evidenceIds: ["E13"],
+    relatedIds: ["devan"],
+    details: [
+      "Founder-led; built during STATION F's Landing Zone programme (reported; public proof link pending).",
+      "Retrieval prototype includes a space-funding query slice. No latency, accuracy or user numbers are published.",
+    ],
+    externalHref: "/work/cosmohub/",
+    externalLabel: "Open CosmoHub case study",
+  },
+  {
+    id: "g-core",
+    kind: "project",
+    title: "G-Core",
+    subtitle: "Completed · Hackathon prototype",
+    status: "Completed · Hackathon prototype",
+    summary: "Behavioral banking loyalty prototype from Adria Hack Sarajevo 2026 with explainable scoring and simulated data.",
+    url: "/atlas/g-core/",
+    x: 330,
+    y: 290,
+    evidenceIds: ["E14"],
+    relatedIds: ["devan"],
+    details: [
+      "Team EMPTY, 24-hour hackathon. Deterministic rules instead of machine learning, by design.",
+      "Customer data, bank analytics and network scale are simulated; stated in the repository.",
+    ],
+    externalHref: "/work/g-core/",
+    externalLabel: "Open G-Core case study",
+  },
+  {
+    id: "data-quality-platform",
+    kind: "project",
+    title: "Data Quality Platform",
+    subtitle: "Completed · Coursework (C# / .NET)",
+    status: "Completed · Coursework",
+    summary: "Console application that validates, scores and cleans customer CSV data with SQLite history.",
+    url: "/atlas/data-quality-platform/",
+    x: 330,
+    y: 430,
+    evidenceIds: ["E15"],
+    relatedIds: ["devan"],
+    details: [
+      "MVC, observers, factories and snapshot-based undo; 34 test methods counted in the repository.",
+    ],
+    externalHref: "/work/data-quality-platform/",
+    externalLabel: "Open Data Quality Platform case study",
+  },
 ];
 
 export const atlasEdges: AtlasEdge[] = [
@@ -237,6 +293,9 @@ export const atlasEdges: AtlasEdge[] = [
   // Cross-layer network links connecting the portfolio mesh:
   { from: "devan", to: "project-loop", relation: "tracks evidence" },
   { from: "devan", to: "daser-net", relation: "tracks research" },
+  { from: "devan", to: "cosmohub", relation: "tracks evidence" },
+  { from: "devan", to: "g-core", relation: "tracks evidence" },
+  { from: "devan", to: "data-quality-platform", relation: "tracks evidence" },
   { from: "devan", to: "wireless-mesh-tvws", relation: "extends theme" },
 ];
 

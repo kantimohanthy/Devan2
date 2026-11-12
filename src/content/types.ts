@@ -35,6 +35,8 @@ export interface TracerouteHop {
     note: string;
   };
   externalLinks?: { label: string; href: string }[];
+  /** Real screenshots or photos that document this hop. */
+  media?: { src: string; srcSet?: string; alt: string; caption: string; width: number; height: number }[];
 }
 
 export interface ProjectRecord {

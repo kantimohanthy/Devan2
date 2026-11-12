@@ -125,7 +125,6 @@ describe("Routed Portfolio Behavioral & Static Export Guardrails", () => {
       { rule: "Split surname (Kanti Mohanthy)", regex: /Kanti\s+Mohanthy/i },
       { rule: "Excluded org (Satata)", regex: /\bSatata\b/i },
       { rule: "Excluded org (TalentBattle)", regex: /\bTalentBattle\b/i },
-      { rule: "Unconfirmed venture (CosmoHub)", regex: /\bCosmoHub\b/i },
       { rule: "Unconfirmed venture (ORVYRA)", regex: /\bORVYRA\b/i },
       { rule: "Unconfirmed project (Sentinel AI)", regex: /\bSentinel\s+AI\b/i },
       { rule: "Private DOB format 1", regex: /03\/07\/2002/ },

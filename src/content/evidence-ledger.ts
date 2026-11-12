@@ -121,6 +121,36 @@ export const evidenceLedger: EvidenceLedgerEntry[] = [
     artifactUrl: "/knowledge/networking.tcp/",
     artifactLabel: "TCP Knowledge Node",
   },
+  {
+    id: "E13",
+    claim: "Founder of CosmoHub, an early-stage space-education platform, building within STATION F's Landing Zone programme in 2026.",
+    source: "Author statement; STATION F Landing Zone selection (public proof link pending)",
+    date: "2026-11-12",
+    verificationStatus: "reported",
+    publishableWording: "Founder of CosmoHub, an early-stage space-education platform, built during STATION F's Landing Zone programme (2026). Public repository and demo links are pending; no usage or performance figures are published.",
+    artifactUrl: "/work/cosmohub/",
+    artifactLabel: "CosmoHub case study",
+  },
+  {
+    id: "E14",
+    claim: "G-Core: behavioral banking loyalty prototype built by Team EMPTY at Adria Hack Sarajevo 2026; repository kantimohanthy/Team-Empty-Sarajevo-Hackathon.",
+    source: "GitHub repo kantimohanthy/Team-Empty-Sarajevo-Hackathon (README, file tree, screenshots; latest commit 7b90e32, 2026-09-14), read 2026-11-12",
+    date: "2026-11-12",
+    verificationStatus: "reported",
+    publishableWording: "Team EMPTY's 24-hour Adria Hack Sarajevo 2026 prototype. The repository documents which parts are implemented and which are simulated; the code was read but not re-run for this site.",
+    artifactUrl: "https://github.com/kantimohanthy/Team-Empty-Sarajevo-Hackathon",
+    artifactLabel: "GitHub: Team-Empty-Sarajevo-Hackathon",
+  },
+  {
+    id: "E15",
+    claim: "Data Quality Platform: C# / .NET 10 console application with EF Core and SQLite, 34 unit test methods in 12 test files; repository kantimohanthy/FinalProjectBase--1-.",
+    source: "GitHub repo kantimohanthy/FinalProjectBase--1- (README, src and tests counted; commit 5bd337d, 2026-09-10), read 2026-11-12",
+    date: "2026-11-12",
+    verificationStatus: "reported",
+    publishableWording: "University coursework project in C# / .NET 10. Test methods were counted in the repository; the suite was not re-run for this site.",
+    artifactUrl: "https://github.com/kantimohanthy/FinalProjectBase--1-",
+    artifactLabel: "GitHub: FinalProjectBase--1-",
+  },
 ];
 
 export const evidenceById: Record<string, EvidenceLedgerEntry> = Object.fromEntries(
