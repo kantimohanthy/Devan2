@@ -3,7 +3,6 @@ import { Parallax, Zoomable, ViewerProvider, AutoVideo } from "./PhotoMotion";
 const scenes = [
   ["quiet", "Quiet enough to think", "I’m happy in my own company. A walk with my headphones or a few hours working alone gives me room to think. So does a quiet corner at the Taj Mahal, or a puppy held close."],
   ["book-portrait", "Books and low light", "Some of my best thinking happens with a book and almost no light."],
-  ["personal/transit", "A seat by the window", "Public transport is part of how I get to know a city. I put on my headphones and watch the streets change."],
   ["stories", "Worlds I get lost in, stories I keep coming back to", "Anime and film make me curious about how a world works and why the people in it do what they do. Those are the characters worth thinking about, and the stories I keep coming back to."],
   ["machines", "Machines with a reason for every line", "A 911 GT3 RS is aerodynamics you can see. The Corvette redesign sheet is the same idea drawn as design thinking. I like things where form follows function."],
   ["space-journey", "Space Journey", ""],
