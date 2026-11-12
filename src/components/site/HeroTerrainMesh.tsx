@@ -249,12 +249,25 @@ export function HeroTerrainMesh({ activeSlug, onSelectSlug }: { activeSlug?: str
               <polyline
                 points={[...signal.pts, signal.head].map((q) => `${q.x},${q.y}`).join(" ")}
                 fill="none"
+                stroke="#F2A65A"
+                strokeOpacity="0.22"
+                strokeWidth="10"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+              <polyline
+                points={[...signal.pts, signal.head].map((q) => `${q.x},${q.y}`).join(" ")}
+                fill="none"
                 stroke="#E8923A"
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
               <circle cx={signal.head.x} cy={signal.head.y} r="12" fill="#E8923A" fillOpacity="0.22" />
+              <circle cx={signal.head.x} cy={signal.head.y} r="10" fill="none" stroke="#F2A65A" strokeWidth="1.5">
+                <animate attributeName="r" values="10;30" dur="0.8s" repeatCount="indefinite" />
+                <animate attributeName="stroke-opacity" values="0.7;0" dur="0.8s" repeatCount="indefinite" />
+              </circle>
               <circle cx={signal.head.x} cy={signal.head.y} r="5" fill="#F2A65A" />
             </g>
           )}

@@ -1,3 +1,5 @@
+import { Parallax, Zoomable, ViewerProvider, AutoVideo } from "./PhotoMotion";
+
 const scenes = [
   ["portrait-1140", "Victory", "I like this version of me. Hoodie on, backpack ready, and still finding a reason to smile."],
   ["personal/anime", "The worlds I get lost in", "Anime makes me curious about how a world works and why the people in it do what they do."],
@@ -25,7 +27,8 @@ function InterestImg({ id, className }: { id: string; className?: string }) {
   const i = interestImages[id];
   const base = `/photos/interests/${i.name}`;
   return (
-    // eslint-disable-next-line @next/next/no-img-element
+    <Zoomable src={`${base}-${i.w}.webp`} alt={i.alt}>
+    {/* eslint-disable-next-line @next/next/no-img-element */}
     <img
       src={`${base}-${i.w}.webp`}
       srcSet={`${base}-640.webp 640w, ${base}-${i.w}.webp ${i.w}w`}
@@ -35,6 +38,7 @@ function InterestImg({ id, className }: { id: string; className?: string }) {
       decoding="async"
       className={className}
     />
+    </Zoomable>
   );
 }
 
@@ -48,12 +52,12 @@ function PairScene({ title, story, a, b, id }: { title: string; story: string; a
           <p className="mt-5 max-w-[460px] text-lg leading-relaxed text-ivory-2">{story}</p>
         </div>
         <div className="grid grid-cols-2 items-center gap-3 sm:gap-6">
-          <figure className="overflow-hidden rounded-md bg-black/40 lg:-rotate-1">
+          <Parallax strength={18} className="lg:-rotate-1"><figure className="overflow-hidden rounded-md bg-black/40">
             <InterestImg id={a} className="h-auto max-h-[70svh] w-full object-contain" />
-          </figure>
-          <figure className="overflow-hidden rounded-md bg-black/40 lg:mt-12 lg:rotate-1">
+          </figure></Parallax>
+          <Parallax strength={34} className="lg:mt-12 lg:rotate-1"><figure className="overflow-hidden rounded-md bg-black/40">
             <InterestImg id={b} className="h-auto max-h-[70svh] w-full object-contain" />
-          </figure>
+          </figure></Parallax>
         </div>
       </div>
     </section>
@@ -68,9 +72,11 @@ function SingleScene({ id, title, story, image, align }: { id: string; title: st
           <h2 id={id} className="display text-[clamp(2.4rem,5vw,5rem)] leading-none text-ivory">{title}</h2>
           <p className="mt-5 max-w-[480px] text-lg leading-relaxed text-ivory-2">{story}</p>
         </div>
-        <figure className="mx-auto w-full max-w-[460px] overflow-hidden rounded-md lg:max-w-[520px]">
-          <InterestImg id={image} className="h-auto max-h-[80svh] w-full object-contain" />
-        </figure>
+        <Parallax strength={24} className="mx-auto w-full max-w-[460px] lg:max-w-[520px]">
+          <figure className="overflow-hidden rounded-md">
+            <InterestImg id={image} className="h-auto max-h-[80svh] w-full object-contain" />
+          </figure>
+        </Parallax>
       </div>
     </section>
   );
@@ -107,27 +113,25 @@ function SpaceJourney() {
         </h2>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 sm:gap-6">
           {spaceJourney.map(([image, alt]) => (
-            <figure key={image} className="overflow-hidden rounded-md bg-black/40">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`/photos/${image}.webp`} alt={alt} loading="lazy" className="h-[60svh] max-h-[720px] w-full object-contain object-center sm:h-[70svh]" />
-            </figure>
+            <Parallax key={image} strength={20}>
+              <figure className="overflow-hidden rounded-md bg-black/40">
+                <Zoomable src={`/photos/${image}.webp`} alt={alt}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={`/photos/${image}.webp`} alt={alt} loading="lazy" className="h-[60svh] max-h-[720px] w-full object-contain object-center sm:h-[70svh]" />
+                </Zoomable>
+              </figure>
+            </Parallax>
           ))}
         </div>
         <div className="mt-10 grid items-center gap-8 lg:grid-cols-[minmax(0,320px)_1fr] lg:gap-16">
           <figure className="mx-auto w-full max-w-[320px]">
-            <video
-              controls
-              muted
-              loop
-              playsInline
-              preload="none"
+            <AutoVideo
+              src="/video/space-hall.mp4"
               poster="/video/space-hall-poster.webp"
-              aria-label="Walking through a space museum hall with satellite and rocket models in low evening light"
+              label="Walking through a space museum hall with satellite and rocket models in low evening light"
               className="aspect-[9/16] w-full rounded-md bg-black object-cover"
-            >
-              <source src="/video/space-hall.mp4" type="video/mp4" />
-            </video>
-            <figcaption className="mt-2 text-[13px] text-ivory-3">Walking the exhibit hall. Press play; it has no sound.</figcaption>
+            />
+            <figcaption className="mt-2 text-[13px] text-ivory-3">Walking the exhibit hall. It plays silently while on screen; use the controls to pause.</figcaption>
           </figure>
           <p className="max-w-[640px] text-lg leading-relaxed text-ivory-2">
             Standing beside a spacesuit makes me think about all the people and engineering decisions that go into keeping one person alive out there. The satellite model next to it was my first look at how a machine like that comes together. I wanted to know what each part did and how it all worked together, and I still approach new things that way.
@@ -140,6 +144,7 @@ function SpaceJourney() {
 
 export function PhotoScenes() {
   return (
+    <ViewerProvider>
     <div aria-label="Personal stories">
       {scenes.map(([image, title, story], index) => image === "space-journey" ? (
         <SpaceJourney key={image} />
@@ -179,5 +184,6 @@ export function PhotoScenes() {
         </section>
       ))}
     </div>
+    </ViewerProvider>
   );
 }
