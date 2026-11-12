@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { person, projects, LAST_REVIEWED, formatMonth } from "@/content";
 import { HeroTerrainMesh } from "@/components/site/HeroTerrainMesh";
-import { Portrait } from "@/components/site/Portrait";
+import { PhotoScenes } from "@/components/site/PhotoScenes";
 import { SelectedWorkChapters } from "./SelectedWorkChapters";
 import { EvidenceMarker } from "./EvidenceModeProvider";
 import { SectionHead } from "@/components/site/SiteChrome";
@@ -53,14 +53,14 @@ export function HomeRoutedWorkspace({
       >
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(90deg,#11100e_18%,transparent_90%),url('/photos/personal/background.webp')] bg-[length:100%_100%,auto_100%] bg-right bg-no-repeat opacity-20"
+          className="pointer-events-none absolute inset-0 -z-10 bg-[url('/photos/personal/background.webp')] bg-[length:auto_100%] bg-right bg-no-repeat opacity-80 [mask-image:linear-gradient(to_right,transparent_28%,black_70%)]"
         />
-        <div className="mx-auto max-w-[1520px] px-4 pb-10 pt-8 sm:px-8 lg:px-10 lg:pt-12">
+        <div className="mx-auto flex min-h-[82svh] max-w-[1440px] flex-col justify-center px-5 py-16 sm:px-10">
           <p className="note mb-5">
             {person.location} · systems &amp; network field portfolio · reviewed {formatMonth(LAST_REVIEWED)}
           </p>
 
-          <div className="grid grid-cols-1 gap-7 md:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] md:items-start xl:grid-cols-[minmax(0,1.12fr)_minmax(0,0.53fr)_minmax(0,1.05fr)] xl:items-center xl:gap-8">
+          <div className="max-w-[620px] rounded-xl bg-[#11100e]/85 p-5 sm:p-8">
             <div className="min-w-0">
               <h1
                 id="intro-title"
@@ -109,11 +109,6 @@ export function HomeRoutedWorkspace({
               </div>
             </div>
 
-            <Portrait className="w-full max-w-[240px] md:justify-self-center xl:max-w-none" />
-
-            <div className="min-w-0 md:col-span-2 xl:col-span-1">
-              <HeroTerrainMesh activeSlug={activeSlug} onSelectSlug={setActiveSlug} />
-            </div>
           </div>
 
           {/* Quiet current-focus ledger row */}
@@ -140,6 +135,8 @@ export function HomeRoutedWorkspace({
         </div>
       </section>
 
+      <PhotoScenes />
+
       <ContourDivider />
 
       {/* ── Hop 02: Selected Work (3 Flagship Chapters + Signal Preview) ── */}
@@ -161,6 +158,8 @@ export function HomeRoutedWorkspace({
         >
           Select a chapter to inspect its route preview, source status, and explicit limitations — or trace every hop into the full engineering log.
         </SectionHead>
+
+        <div className="mb-10"><HeroTerrainMesh activeSlug={activeSlug} onSelectSlug={setActiveSlug} /></div>
 
         <SelectedWorkChapters
           chapters={chapters}

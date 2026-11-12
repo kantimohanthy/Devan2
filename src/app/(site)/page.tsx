@@ -11,7 +11,6 @@ import { HomeRoutedWorkspace, ContourDivider } from "@/components/routed/HomeRou
 import { ScrollRouteIndicator } from "@/components/routed/ScrollRouteIndicator";
 import { EvidenceMarker } from "@/components/routed/EvidenceModeProvider";
 import { StatusPill } from "@/components/routed/SelectedWorkChapters";
-import { AboutPhotos } from "@/components/site/AboutPhotos";
 
 const featuredDecision = decisions[0];
 
@@ -224,7 +223,6 @@ export default function HomePage() {
                   ))}
                 </div>
 
-                <AboutPhotos />
 
                 <div className="mt-7 rounded-md border border-ivory/15 bg-[#11100E] p-4">
                   <p className="note text-teal">Lab umbrella · Arylax Labs</p>
