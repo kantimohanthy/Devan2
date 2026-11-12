@@ -33,6 +33,8 @@ export function Zoomable({ src, alt, children }: Item & { children: React.ReactN
   return (
     <button
       type="button"
+      data-viewer-src={src}
+      data-viewer-alt={alt}
       onClick={() => open({ src, alt })}
       aria-label={`View larger: ${alt}`}
       className="group relative block w-full cursor-zoom-in text-left focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F2A65A]"
@@ -47,6 +49,17 @@ export function Zoomable({ src, alt, children }: Item & { children: React.ReactN
 
 export function ViewerProvider({ children }: { children: React.ReactNode }) {
   const [item, setItem] = useState<Item | null>(null);
+  const touchX = useRef<number | null>(null);
+
+  const step = useCallback((dir: 1 | -1) => {
+    const all = Array.from(document.querySelectorAll<HTMLElement>("[data-viewer-src]"));
+    setItem((cur) => {
+      if (!cur || all.length < 2) return cur;
+      const i = all.findIndex((el) => el.dataset.viewerSrc === cur.src);
+      const next = all[(i + dir + all.length) % all.length];
+      return { src: next.dataset.viewerSrc ?? cur.src, alt: next.dataset.viewerAlt ?? "" };
+    });
+  }, []);
   const closeRef = useRef<HTMLButtonElement>(null);
   const lastFocus = useRef<HTMLElement | null>(null);
 
@@ -66,6 +79,8 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
     document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") close();
+      if (e.key === "ArrowRight") step(1);
+      if (e.key === "ArrowLeft") step(-1);
       if (e.key === "Tab") {
         e.preventDefault();
         closeRef.current?.focus();
@@ -76,7 +91,7 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = prev;
     };
-  }, [item, close]);
+  }, [item, close, step]);
 
   return (
     <ViewerContext.Provider value={{ open }}>
@@ -88,7 +103,30 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
           aria-label={item.alt}
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 sm:p-10"
           onClick={close}
+          onTouchStart={(e) => { touchX.current = e.touches[0].clientX; }}
+          onTouchEnd={(e) => {
+            if (touchX.current == null) return;
+            const dx = e.changedTouches[0].clientX - touchX.current;
+            touchX.current = null;
+            if (Math.abs(dx) > 50) step(dx < 0 ? 1 : -1);
+          }}
         >
+          <button
+            type="button"
+            aria-label="Previous photo"
+            onClick={(e) => { e.stopPropagation(); step(-1); }}
+            className="absolute left-3 top-1/2 inline-flex min-h-[44px] min-w-[44px] -translate-y-1/2 items-center justify-center rounded-full border border-ivory/30 bg-black/60 text-ivory hover:border-[#F2A65A] focus-visible:outline-2 focus-visible:outline-[#F2A65A]"
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            aria-label="Next photo"
+            onClick={(e) => { e.stopPropagation(); step(1); }}
+            className="absolute right-3 top-1/2 inline-flex min-h-[44px] min-w-[44px] -translate-y-1/2 items-center justify-center rounded-full border border-ivory/30 bg-black/60 text-ivory hover:border-[#F2A65A] focus-visible:outline-2 focus-visible:outline-[#F2A65A]"
+          >
+            ›
+          </button>
           <button
             ref={closeRef}
             type="button"

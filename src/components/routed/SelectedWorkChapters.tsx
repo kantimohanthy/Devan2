@@ -54,7 +54,7 @@ export function SelectedWorkChapters({
             <article
               key={p.slug}
               aria-labelledby={`chapter-${p.slug}`}
-              className={`py-7 px-3 sm:px-4 transition-colors ${
+              className={`trace-card py-7 px-3 sm:px-4 transition-colors ${
                 isSelected ? "bg-[#181613]/90 border-l-2 border-l-[#E8923A]" : "hover:bg-[#181613]/40 border-l-2 border-l-transparent"
               }`}
             >

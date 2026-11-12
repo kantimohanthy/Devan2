@@ -48,7 +48,7 @@ function PairScene({ title, story, a, b, id }: { title: string; story: string; a
       <div aria-hidden="true" className="absolute inset-0 -z-10 scale-110 bg-cover bg-center opacity-20 blur-2xl" style={{ backgroundImage: `url('/photos/interests/${interestImages[a].name}-640.webp')` }} />
       <div className="mx-auto grid max-w-[1360px] gap-10 px-6 py-14 sm:px-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] lg:items-center lg:gap-16 lg:py-20">
         <div>
-          <h2 id={id} className="display text-[clamp(2.2rem,4.4vw,4.4rem)] leading-[1.02] text-ivory">{title}</h2>
+          <h2 id={id} className="reveal-heading display text-[clamp(2.2rem,4.4vw,4.4rem)] leading-[1.02] text-ivory">{title}</h2>
           <p className="mt-5 max-w-[460px] text-lg leading-relaxed text-ivory-2">{story}</p>
         </div>
         <div className="grid grid-cols-2 items-center gap-3 sm:gap-6">
@@ -69,7 +69,7 @@ function SingleScene({ id, title, story, image, align }: { id: string; title: st
     <section aria-labelledby={id} className="relative isolate overflow-hidden border-b border-ivory/15 bg-[#0c0b09]">
       <div className={`mx-auto grid max-w-[1360px] items-center gap-8 px-6 py-14 sm:px-12 lg:grid-cols-2 lg:gap-16 lg:py-20 ${align === "right" ? "" : "lg:[&>*:first-child]:order-2"}`}>
         <div>
-          <h2 id={id} className="display text-[clamp(2.4rem,5vw,5rem)] leading-none text-ivory">{title}</h2>
+          <h2 id={id} className="reveal-heading display text-[clamp(2.4rem,5vw,5rem)] leading-none text-ivory">{title}</h2>
           <p className="mt-5 max-w-[480px] text-lg leading-relaxed text-ivory-2">{story}</p>
         </div>
         <Parallax strength={24} className="mx-auto w-full max-w-[460px] lg:max-w-[520px]">
@@ -89,7 +89,7 @@ function ConferenceScene({ id, title, story }: { id: string; title: string; stor
         <figure>
           <InterestImg id="conference" className="h-auto max-h-[80svh] w-full rounded-md object-cover object-center" />
           <figcaption className="mt-8 grid gap-4 lg:grid-cols-[1fr_1fr] lg:gap-16">
-            <h2 id={id} className="display text-[clamp(2.4rem,5vw,5rem)] leading-none text-ivory">{title}</h2>
+            <h2 id={id} className="reveal-heading display text-[clamp(2.4rem,5vw,5rem)] leading-none text-ivory">{title}</h2>
             <p className="max-w-[560px] text-lg leading-relaxed text-ivory-2">{story}</p>
           </figcaption>
         </figure>
@@ -108,7 +108,7 @@ function SpaceJourney() {
     <section aria-labelledby="space-journey" className="relative isolate overflow-hidden border-b border-ivory/15 bg-[#11100e]">
       <div aria-hidden="true" className="absolute inset-0 -z-10 scale-110 bg-cover bg-center opacity-20 blur-2xl" style={{ backgroundImage: "url('/photos/personal/satellite.webp')" }} />
       <div className="mx-auto max-w-[1360px] px-6 py-14 sm:px-12 lg:py-20">
-        <h2 id="space-journey" className="display text-[clamp(2.4rem,5vw,5rem)] leading-none text-ivory">
+        <h2 id="space-journey" className="reveal-heading display text-[clamp(2.4rem,5vw,5rem)] leading-none text-ivory">
           What draws me to space
         </h2>
         <div className="mt-10 grid gap-4 sm:grid-cols-2 sm:gap-6">
@@ -167,7 +167,7 @@ export function PhotoScenes() {
             <img src="/photos/personal/legacy-quote-right.webp" alt="A hero? Please. Some of us were born to be greater. — Toni Oba" loading="lazy" className="mx-auto w-full max-w-md" />
           </div>
           <div className="mx-auto mt-10 max-w-3xl text-center">
-            <h2 id={`scene-${index}`} className="display text-[clamp(2.4rem,5vw,5rem)] leading-none text-ivory">{title}</h2>
+            <h2 id={`scene-${index}`} className="reveal-heading display text-[clamp(2.4rem,5vw,5rem)] leading-none text-ivory">{title}</h2>
             <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-ivory-2">{story}</p>
           </div>
         </section>
@@ -177,7 +177,7 @@ export function PhotoScenes() {
           <div aria-hidden="true" className="absolute inset-0 -z-10 bg-contain bg-top bg-no-repeat lg:bg-center" style={{ backgroundImage: `url('/photos/${image}.webp')` }} />
           <div className="w-full bg-gradient-to-t from-[#11100e] via-[#11100e]/90 to-transparent px-6 pb-10 pt-24 sm:px-12">
             <div className="mx-auto max-w-[1360px]">
-              <h2 id={`scene-${index}`} className="display max-w-[760px] text-[clamp(2.4rem,5vw,5rem)] leading-none text-ivory">{title}</h2>
+              <h2 id={`scene-${index}`} className="reveal-heading display max-w-[760px] text-[clamp(2.4rem,5vw,5rem)] leading-none text-ivory">{title}</h2>
               <p className="mt-4 max-w-[560px] text-lg leading-relaxed text-ivory-2">{story}</p>
             </div>
           </div>
