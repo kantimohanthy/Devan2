@@ -55,3 +55,10 @@ export const photos: {
     },
   ],
 };
+
+/**
+ * Optional looping hero background (silent, muted, decorative).
+ * Leave null until a file exists in /public/video/. The hero then keeps its still-photo backdrop.
+ * If the clip is an AI-generated illustration of Ujwal, keep it labelled as an illustration, not a photograph.
+ */
+export const heroVideo: { src: string; poster: string } | null = null;
