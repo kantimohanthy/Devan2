@@ -99,6 +99,7 @@ export function SiteFooter() {
           <a href={person.github} rel="noopener noreferrer" target="_blank" className="ink-link inline-flex min-h-[36px] items-center">GitHub ↗</a>
           <Link href="/atlas/" className="ink-link inline-flex min-h-[36px] items-center">DEVAN Atlas</Link>
           <Link href="/evidence/" className="ink-link inline-flex min-h-[36px] items-center">Ledger</Link>
+          <Link href="/opportunities/" className="ink-link inline-flex min-h-[36px] items-center">Opportunities</Link>
         </div>
       </div>
     </footer>
