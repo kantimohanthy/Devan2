@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...atlasNodes.map((n) => n.url),
     ...projects.map((p) => `/work/${p.slug}/`),
     "/map/",
+    "/opportunities/",
     "/devan/",
     "/evidence/",
     "/knowledge/",
