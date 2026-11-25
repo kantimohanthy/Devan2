@@ -126,6 +126,29 @@ export default async function CaseStudyPage({
 
         {p.slug === "wireless-mesh-tvws" && <TvwsPacketTrace />}
 
+        {p.slug === "cosmohub" && (
+          <section id="retrieval-example" aria-labelledby="retrieval-title" className="mt-8 scroll-mt-24 rounded-lg border border-ivory/15 p-5 sm:p-8">
+            <p className="note text-teal">Retrieval benchmark · September 2026</p>
+            <h2 id="retrieval-title" className="display mt-3 text-3xl text-ivory">
+              Which passage supports the claim that PLD Space receives ESA Boost! support?
+            </h2>
+            <p className="mt-4 text-ivory-2">
+              I started with a question small enough to grade by hand. The test assigns an expected document to the claim, then checks where the search engine ranks it.
+            </p>
+            <figure className="my-5 border-l-2 border-teal pl-4">
+              <blockquote className="text-ivory">“European Space Agency (ESA) provides Boost! contract support to PLD Space for reusability subsystem testing of the MIURA 5 first stage.”</blockquote>
+              <figcaption className="mt-2 text-sm text-ivory-3">Passage from the controlled test corpus. The benchmark uses this wording as its reference answer.</figcaption>
+            </figure>
+            <p className="text-ivory-2">
+              The expected document ranked third. Returning only the first result would have missed it. Across the 15 positive test cases, the expected document appeared first in seven and in the top three in all fifteen. That gives me a reason to inspect several passages before choosing a citation. Accuracy on new user questions is still open.
+            </p>
+            <div className="mt-5 flex flex-wrap gap-5">
+              <a className="ink-link" href="https://github.com/kantimohanthy/cosmohu/blob/1c5e1b6aa4600d6f8dd501475c9164b36003da25/tests/stage3_13_ranking_optimization_audit.py#L67-L74">Read the test passage</a>
+              <a className="ink-link" href="https://github.com/kantimohanthy/cosmohu/blob/1c5e1b6aa4600d6f8dd501475c9164b36003da25/stage3_13_ranking_benchmark.json">Inspect the recorded rankings</a>
+            </div>
+          </section>
+        )}
+
         {/* Traceroute hops */}
         <TracerouteCaseStudy project={p} />
 
