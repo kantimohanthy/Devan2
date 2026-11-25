@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { person, projects, LAST_REVIEWED, formatMonth } from "@/content";
+import { person, projects } from "@/content";
 import { HeroTerrainMesh } from "@/components/site/HeroTerrainMesh";
 import { HeroBackdrop } from "@/components/site/HeroBackdrop";
 import { SelectedWorkChapters } from "./SelectedWorkChapters";
@@ -68,7 +68,7 @@ export function HomeRoutedWorkspace({
         <HeroBackdrop />
         <div className="mx-auto flex min-h-[82svh] max-w-[1440px] flex-col justify-center px-5 py-16 max-lg:pt-[300px] sm:px-10">
           <p className="note mb-5">
-            {person.location} · systems &amp; network field portfolio · reviewed {formatMonth(LAST_REVIEWED)}
+            {person.location} · University of Rome Tor Vergata · Expected graduation May 2027
           </p>
 
           <div className="max-w-[620px] rounded-xl bg-[#11100e]/85 p-5 sm:p-8">
@@ -85,37 +85,37 @@ export function HomeRoutedWorkspace({
               </h1>
 
               <p className="pretty mt-6 max-w-[560px] text-[clamp(18px,2vw,21.5px)] leading-snug text-ivory">
-                {person.positioning}
-                <EvidenceMarker ids={["E01", "E02"]} />
+                I build tools that help people find and check technical information.
+
               </p>
 
               <p className="mt-3 font-mono text-[12px] tracking-wide text-ivory-3">
-                {person.subline}
+                Open to paid internships and junior roles in software, applied AI and technical Founder’s Office teams.
               </p>
 
               <p className="display pretty mt-5 max-w-[540px] border-l-2 border-[#E8923A] pl-4 text-[17px] italic leading-relaxed text-ivory-2">
-                {person.approach}
-                <EvidenceMarker ids={["E06"]} />
+                In CosmoHub, I test whether a space sector question retrieves the passage needed to answer it.
+
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
                 <a
-                  href="#work"
+                  href="/work/cosmohub/#retrieval-example"
                   className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-[#F2EBDC] px-6 text-[15px] font-medium text-[#11100E] transition-colors hover:bg-[#F2A65A]"
                 >
-                  View selected work <span aria-hidden>↓</span>
+                  See a CosmoHub retrieval test
                 </a>
                 <a
-                  href="#contact"
+                  href={`mailto:${person.email}`}
                   className="inline-flex min-h-[48px] items-center rounded-full border border-ivory/25 px-6 text-[15px] text-ivory transition-colors hover:border-teal"
                 >
-                  Contact
+                  Email Ujwal
                 </a>
                 <Link
                   href="/cv/"
                   className="inline-flex min-h-[48px] items-center rounded-full border border-ivory/25 px-6 text-[15px] text-ivory-2 transition-colors hover:border-teal hover:text-ivory"
                 >
-                  CV
+                  View or save CV
                 </Link>
               </div>
             </div>
