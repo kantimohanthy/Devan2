@@ -700,9 +700,9 @@ export const projects: ProjectRecord[] = [
         id: "limitation",
         hopNumber: 3,
         label: "limitation",
-        summary: "Early prototype: no public repository, live demo, or usage figures yet.",
+        summary: "The published benchmark covers a small controlled corpus. Evaluation with learners is still pending.",
         details: [
-          "No latency, accuracy, or user numbers are published because none are independently documented.",
+          "The benchmark measures document ranking. User adoption and answer accuracy on unseen questions remain open.",
           "STATION F participation is reported by me; a public proof link is pending.",
         ],
         evidenceIds: ["E13"],
@@ -711,7 +711,7 @@ export const projects: ProjectRecord[] = [
         id: "next-hop",
         hopNumber: 4,
         label: "next hop",
-        summary: "Publish a small, reproducible funding-query example with its sources, then test the learning path with real learners.",
+        summary: "Test whether learners can find the supporting passage and explain what it establishes.",
         details: [
           "Document the data sources and retrieval steps so another person can rerun the slice.",
         ],
