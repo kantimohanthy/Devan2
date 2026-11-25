@@ -99,12 +99,12 @@ export function HomeRoutedWorkspace({
               </p>
 
               <div className="mt-6 flex flex-wrap gap-3">
-                <a
+                <Link
                   href="/work/cosmohub/#retrieval-example"
                   className="inline-flex min-h-[48px] items-center gap-2 rounded-full bg-[#F2EBDC] px-6 text-[15px] font-medium text-[#11100E] transition-colors hover:bg-[#F2A65A]"
                 >
                   See a CosmoHub retrieval test
-                </a>
+                </Link>
                 <a
                   href={`mailto:${person.email}`}
                   className="inline-flex min-h-[48px] items-center rounded-full border border-ivory/25 px-6 text-[15px] text-ivory transition-colors hover:border-teal"
